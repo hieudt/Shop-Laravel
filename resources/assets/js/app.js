@@ -6,8 +6,8 @@
  */
 
 require('./bootstrap');
-import TrungHieu from './components/TrungHieu.vue';
-import ComboHieu from './components/ComboHieu.vue';
+import HomeAdmin from './components/HomeAdmin.vue';
+
 window.Vue = require('vue');
 
 /**
@@ -17,12 +17,11 @@ window.Vue = require('vue');
  */
 
 Vue.component('example-component', require('./components/ExampleComponent.vue'));
-Vue.component('trunghieu', require('./components/TrungHieu.vue').default);
-Vue.component('combohieu', require('./components/ComboHieu.vue').default);
+Vue.component('homeadmin', require('./components/HomeAdmin.vue').default);
+
 const app = new Vue({
     el: '#app',
     components: {
-        'trunghieu':TrungHieu,
-        'combohieu':ComboHieu,
+        'homeadmin':HomeAdmin,
     }
 });

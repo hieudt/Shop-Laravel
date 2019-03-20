@@ -26,6 +26,7 @@
           </ul>
         </div>
       </li>
+      
       <li class="nav-item nav-doc">
         <a class="nav-link" href="../../pages/documentation.html">
           <i class="mdi mdi-file-document-box menu-icon"></i>
