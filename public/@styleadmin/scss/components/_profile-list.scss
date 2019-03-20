@@ -1,0 +1,46 @@
+.profile-list{
+  padding: 10px 0;
+}
+.profile-list-item{
+  border-bottom: 1px solid $border-color;
+  padding: 10px 20px;
+  display:block;
+  &:last-child {
+    border-bottom: 0;
+  }
+  a{
+    text-decoration:none;
+    @extend .d-flex;
+    .pro-pic{
+      display:inline-block;
+      padding:0;
+      width:20%;
+      max-width:40px;
+      img{
+        max-width:100%;
+        width:100%;
+        @include border-radius(100%);
+      }
+    }
+    .user{
+      width: 80%;
+      @extend .d-flex;
+      @extend .flex-column;
+      padding:5px 10px 0px 15px;
+      .u-name{
+        margin:0;
+        font-family: 'roboto-regular', sans-serif;
+        font-size: 1.063rem;
+        line-height: 18px;
+        @extend %ellipsor;
+        color: color(black);
+      }
+      .u-designation{
+        font-size: .875rem;
+        @extend %ellipsor;
+        @extend .text-muted;
+        margin-bottom: 0;
+      }
+    }
+  }
+}

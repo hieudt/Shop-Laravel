@@ -1,0 +1,10 @@
+@mixin no-ui-slider($color) {
+  .noUi-base{
+    .noUi-connect{
+      background: $color;
+    }
+    .noUi-origin{
+      background: $color;
+    }
+  }
+}

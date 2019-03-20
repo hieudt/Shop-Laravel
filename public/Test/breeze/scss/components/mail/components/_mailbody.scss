@@ -1,0 +1,70 @@
+.email-wrapper{
+	.mail-body{
+		border-left: 1px solid $border-color;
+		height: 100%;
+		@media (max-width: 767px){
+			margin-left: 0;
+		}
+		@include media-breakpoint-down(sm){
+			padding: 0 0 0 60px;
+		}
+		a{
+			text-decoration: none;
+		}
+		.mail-list{
+			border-bottom: 1px solid rgba(128, 128, 128, 0.14);
+			display: flex;
+    	flex-direction: row;
+			padding: 15px 0 8px 15px;
+			.content{
+				@extend .col-xl-10;
+				@extend .col-lg-10;
+				@extend .col-md-10;
+				@extend .col-sm-8;
+				@extend .col-8;
+				.sender-name{
+					margin-bottom: 0;
+					font-size:15px;
+				}
+				.message_text{
+					margin: 0;
+					max-width: 90%;
+					overflow: hidden;
+					text-overflow: ellipsis;
+					white-space: nowrap;
+					@extend .text-muted;
+				}
+			}
+			.details{
+				@extend .col-xl-1;
+				@extend .col-lg-1;
+				@extend .col-md-1;
+				@extend .col-sm-3;
+				@extend .col-3;
+				@extend .d-flex;
+				@extend .justify-content-end;
+				.date{
+					text-align: right;
+					margin: auto 15px auto 0px;
+					white-space: nowrap;
+					@extend .text-muted;
+				}
+				i{
+					margin: auto 0px auto 0;
+					color:#ddd;
+					&.favorite {
+						color: theme-color(warning);
+					}
+				}
+			}
+		}
+		.mail-list.new_mail{
+			background: color(gray-lightest);
+			.details{
+				.date{
+					color: color(black);
+				}
+			}
+		}
+	}
+}

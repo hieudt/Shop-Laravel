@@ -1,0 +1,94 @@
+.pricing-table{
+  .intro-text{
+    font-size: 14px;
+    line-height: 1.5;
+    text-align: center;
+    color: theme-color(dark);
+    margin-bottom: 27px;
+  }
+  .card-deck{
+    .card{
+      border-radius: 5px;
+      background-color: #ffffff;
+      box-shadow: none;
+      margin-left: 4px;
+      margin-right: 4px;
+      border: 1px solid $border-color;
+      &.card-outline-primary{
+        border: 1px solid theme-color(primary);
+      }
+      .intro-text{
+        margin-bottom: 30px;
+        font-size: 14px;
+        line-height: 1.5;
+        text-align: center;
+        color: theme-color(dark);
+      }
+      .price{
+        font-size: 37.3px;
+        line-height: 0.47;
+        text-align: left;
+        color: $black;
+        margin-bottom: 15px;
+      }
+      .licensing{
+        margin-bottom: 0;
+        font-size: 17px;
+      }
+      hr{
+        opacity: 0.1;
+        background-color: $black;
+        width: 100%;
+        margin-top: 30px;
+        margin-bottom: 0;
+      }
+      ul{
+        list-style: none;
+        padding-left: 0;
+        margin-top: 30px;
+        margin-bottom: 60px;
+        height: 215px;
+        li{
+          display: block;
+          margin-bottom: 20px;
+          &:before{
+            font: normal normal normal 14px/1 Material Design Icons;
+    				font-size: inherit;
+    				text-rendering: auto;
+    				content: "\F12C";
+    				display: inline-block;
+            color: theme-color(primary);
+            margin-right: 12px;
+            height: 100%;
+          }
+          &:last-child{
+            margin-bottom: 0;
+          }
+        }
+      }
+      a{
+        margin-left: auto;
+        margin-right: auto;
+        text-align: center;
+        margin-top: 0;
+        margin-bottom: 0;
+        &.read-license{
+          font-size: 14.7px;
+          line-height: 1.35;
+          text-decoration: underline;
+          color: #000;
+          margin-bottom: 28px;
+        }
+        &.select-plan{
+          font-size: 13.9px;
+          line-height: 1.44;
+          color: #000000;
+          border: solid 1px #cad1e3;
+          &:hover{
+            background: inherit;
+          }
+        }
+      }
+    }
+  }
+}

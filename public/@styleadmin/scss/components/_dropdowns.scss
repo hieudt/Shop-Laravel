@@ -1,0 +1,21 @@
+.dropdown,
+.dropup {
+  .dropdown-toggle {
+    &:after {
+      border-top: 0;
+      border-right: 0;
+      border-left: 0;
+      border-bottom: 0;
+      width: auto;
+      height: auto;
+      font: normal normal normal 14px/1 Material Design Icons;
+      content: '\F140';
+      vertical-align: middle;
+    }
+  }
+  .dropdown-item {
+    &:active {
+      background: initial;
+    }
+  }
+}

@@ -1,0 +1,18 @@
+.bootstrap-table {
+  .fixed-table-container {
+    border-top: 0;
+    border-bottom: 0;
+  }
+  .table {
+    border-bottom: 1px solid $border-color;
+    thead {
+      > tr {
+        > th {
+          border-bottom-color: $border-color;
+          border-top-color: $border-color;
+          border-left-color: $border-color;
+        }
+      }
+    }
+  }
+}

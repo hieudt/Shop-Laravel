@@ -1,0 +1,36 @@
+// Accordion Inverse variations
+@mixin accordion-variant($color) {
+  .card {
+    background: $color;
+	color: $white;
+	border: $accordion-border-width solid $color;
+    .card-header {
+      a {
+        color: $white;
+        &:before,
+        &:after {
+          color: $white;
+        }
+      }
+    }
+  }
+}
+// Accordion outline variations
+@mixin accordion-outline-variant($color) {
+	.card {
+	  color: $color;
+	  border: $accordion-border-width solid $color;
+	  .card-header {
+			a {
+				color: $color;
+				&:before,
+				&:after {
+				color: $color;
+				}
+			}
+		}
+		.card-body {
+			color: $black;
+		}
+	}
+}

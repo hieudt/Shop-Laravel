@@ -1,0 +1,49 @@
+/* Breadcrumbs */
+
+.breadcrumb {
+  border: $breadcrumb-border-width solid $border-color;
+  border-radius: 50px;
+
+  .breadcrumb-item {
+    font-size: $breadcrumb-font-size;
+    a {
+      color: $text-muted;
+    }
+    &.active {
+      color: theme-color(primary);
+    }
+    + .breadcrumb-item {
+      &:before {
+        display: inline-block;
+        font: normal normal normal 24px/1 "Material Design Icons";
+        font-size: 1rem;
+        text-rendering: auto;
+        line-height: 1;
+        vertical-align: middle;
+        -webkit-font-smoothing: antialiased;
+        content: "\F142";
+      }
+    }
+  }
+
+  &.bg-success,&.bg-dark,&.bg-danger,&.bg-warning,&.bg-primary,&.bg-info{
+    border: none;
+    .breadcrumb-item{
+      color: $white;
+      &:before{
+        color: inherit;
+      }
+      a,span{
+        color: inherit;
+      }
+    }
+  }
+}
+
+
+/* inverse breadcrumb */
+@each $color, $value in $theme-colors {
+  .bg-inverse-#{$color} {
+    @include breadcrumb-inverse-variant($value);
+  }
+}

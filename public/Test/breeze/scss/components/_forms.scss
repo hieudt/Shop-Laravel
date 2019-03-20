@@ -1,0 +1,67 @@
+/* Forms */
+
+.input-group {
+  .input-group-append,
+  .input-group-prepend {
+    background: color(white);
+    color: $input-placeholder-color;
+    width: auto;
+    border: none;
+    .input-group-text {
+      background: transparent;
+      border-color: $input-border-color;
+    }
+  }
+  .rtl & {
+    .input-group-text {
+      border-top-left-radius: $input-border-radius;
+      border-bottom-left-radius: $input-border-radius;
+      border-top-right-radius: 0;
+      border-bottom-right-radius: 0;
+    }
+    .form-control {
+      border-top-right-radius: $input-border-radius;
+      border-bottom-right-radius: $input-border-radius;
+      border-top-left-radius: 0;
+      border-bottom-left-radius: 0;
+    }
+  }
+}
+
+.form-control {
+  font-family: $type1-regular;
+  font-size: $input-font-size;
+  padding: $input-padding-y $input-padding-x;
+  line-height: 14px;
+  &.form-control-lg {
+    padding: $input-padding-y-lg $input-padding-x-lg;
+  }
+  &.form-control-sm {
+    padding: $input-padding-y-sm $input-padding-x-sm;
+  }
+}
+
+select {
+  &.form-control {
+    padding: .4375rem .75rem;
+  }
+}
+.form-group {
+  label {
+    font-size: $default-font-size;
+    line-height: 1;
+    vertical-align: top;
+  }
+  &.has-danger {
+    .form-control {
+      border-color: theme-color(danger);
+    }
+  }
+  .file-upload-default {
+    visibility: hidden;
+    position: absolute;
+  }
+  .file-upload-info {
+    background: transparent;
+  }
+}

@@ -1,0 +1,45 @@
+.body-header{
+	border-bottom: 1px solid rgba(128, 128, 128, .14);
+	padding: 40px 0 15px;
+	.header-top{
+		display: flex;
+		display: -webkit-flex;
+		-webkit-justify-content: space-between;
+		justify-content: space-between;
+		@include media-breakpoint-down(sm){
+			-webkit-justify-content: center;
+  			justify-content: center;
+  			-webkit-flex-direction: column-reverse;
+  			flex-direction: column-reverse;
+  			-webkit-align-items: center;
+  			align-items: center;
+		}
+		.search-wrapper{
+			border: 1px solid rgba(128, 128, 128, 0.2);
+			padding: 0;
+			overflow: hidden;
+			min-width:85%;
+			@include border-radius(25px);
+			@include media-breakpoint-down(sm){
+				min-width:100%;
+			}
+			input.mail-search{
+				border-radius:0;
+				border:none;
+				padding:0 20px;
+				min-width: 0;
+			}
+			input[type="submit"]{
+				border-radius: 0;
+				padding: 7px 30px;
+				font-size: 15px;
+				font-weight: 600;
+				letter-spacing: 0.5px;
+				line-height: 23px;
+				@include media-breakpoint-down(sm){
+					padding: 4px 22px;
+				}
+			}
+		}
+	}
+}
