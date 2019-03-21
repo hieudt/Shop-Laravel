@@ -6,5 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class SubCategory extends Model
 {
-    //
+    protected $table = "SubCategory";
+
+    
 }
