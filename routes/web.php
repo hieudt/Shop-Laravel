@@ -16,7 +16,11 @@ Route::get('/', function () {
 });
 
 
+Route::get('check',function(){
+    return bcrypt('123456');
+});
+
 
 Route::group(['prefix' => 'admin'], function () {
-    Route::get('/', 'AdminPages@index');
+    Voyager::routes();
 });

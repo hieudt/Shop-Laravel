@@ -168,6 +168,7 @@ return [
          * Package Service Providers...
          */
         'Barryvdh\Debugbar\ServiceProvider',
+        TCG\Voyager\VoyagerServiceProvider::class,
         /*
          * Application Service Providers...
          */
