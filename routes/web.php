@@ -17,7 +17,7 @@ Route::get('/', function () {
 
 
 Route::get('check',function(){
-    return bcrypt('123456');
+    return route('voyager.roles.index');
 });
 
 
