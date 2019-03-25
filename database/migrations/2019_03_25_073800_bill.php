@@ -23,6 +23,8 @@ class Bill extends Migration
             $table->foreign('id_coupon')->references('id')->on('coupons');
             $table->integer('id_infoship')->unsigned();
             $table->foreign('id_infoship')->references('id')->on('InfoShip');
+            $table->integer('id_shipper')->unsigned();
+            $table->foreign('id_shipper')->references('id')->on('Shipper');
             $table->integer('TotalMoney');
             
             $table->timestamps();
