@@ -24,6 +24,8 @@ class Product extends Migration
             $table->string('content');
             $table->string('description');
             $table->integer('discount');
+            $table->text('images');
+            $table->text('thumbnail');
             $table->timestamps();
         });
     }

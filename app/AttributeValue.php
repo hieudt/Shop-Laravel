@@ -9,7 +9,7 @@ class AttributeValue extends Model
     protected $table = "AttributeValue";
 
     public function Product(){
-        return $this->belongsToMany('App\Product','AttributeProduct','id_attr_value','id_product');
+        return $this->belongsToMany('App\Product','AttributeProduct','attribute_value_id','product_id');
     }
 
     public function Attribute(){
@@ -17,6 +17,6 @@ class AttributeValue extends Model
     }
 
     public function AttributeProduct(){
-        return $this->hasMany('App\AttributeProduct','id_attr_value','id');
+        return $this->hasMany('App\AttributeProduct','attribute_value_id','id');
     }
 }

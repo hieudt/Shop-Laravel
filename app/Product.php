@@ -9,7 +9,7 @@ class Product extends Model
     protected $table = "Product";
 
     public function AttributeValue(){
-        return $this->belongsToMany('App\AttributeValue','AttributeProduct','id_product','id_attr_value');
+        return $this->belongsToMany('App\AttributeValue','AttributeProduct','product_id','attribute_value_idImage');
     }
 
     public function Images(){
