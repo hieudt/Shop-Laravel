@@ -16,7 +16,7 @@
                         <input type="text" name="SearchCategory" id="SearchCategory" placeholder="Tìm kiếm danh mục" class="form-control">
                     </div>
                     <div class="col-md-6">
-                        <button type="button" class="btn btn-success btn-fw" data-toggle="modal" data-target="#CategoryModal" data-whatever="@getbootstrap"><i class="mdi mdi-check"></i>Thêm mới</button>
+                        <button type="button" id="OpenModal" class="btn btn-success btn-fw" data-toggle="modal" data-target="#CategoryModal" data-whatever="@getbootstrap"><i class="mdi mdi-check"></i>Thêm mới</button>
                         
                     </div>
                 </div><br/>
@@ -63,107 +63,48 @@
                     
                 </form>
             </div>
-            <div class="modal-footer">
-                <button type="button" id="addCategory" class="btn btn-success">Lưu</button>
-                <button type="button" id="addCategory2" class="btn btn-success">Lưu & Đóng</button>
-                <button type="button" class="btn btn-light" data-dismiss="modal">Close</button>
+            <div class="modal-footer" id="modalFooter">
             </div>
         </div>
     </div>
 </div>
 
 {{-- END MODAL--}}
+<div class="card">
+        <div class="card-body">
+            <h4 class="card-title">Danh mục con</h4>
+            <div class="row">
+                <div class="col-12">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <input type="text" name="SearchSubCategory" id="SearchSubCategory" placeholder="Tìm kiếm danh mục con" class="form-control">
+                        </div>
+                        <div class="col-md-6">
+                            <button type="button" id="OpenSubModal" class="btn btn-success btn-fw" data-toggle="modal" data-target="#SubcategoryModal" data-whatever="@getbootstrap"><i class="mdi mdi-check"></i>Thêm mới</button>
+                            
+                        </div>
+                    </div><br/>
+                    <table id="category_table" class="table" cellspacing="0">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Tên danh mục</th>
+                                <th>Danh mục cha</th>
+                                <th>Tên không dấu</th>
+                                <th>Hành động</th>
+                            </tr>
+                        </thead>
+                        <tbody id="category_table_body">
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
 @endsection
  
 @section('javascript')
-<script>
-    function fetch_category(query = '')
-    {
-            $.ajax({
-            headers: {
-                'X-CSRF-TOKEN':  $('meta[name="csrf-token"]').attr('content')
-            },
-                method: 'GET',
-                url: '{{route('category.search')}}',
-                data:{query:query},
-                dataType: 'json',
-                success: function(data) {
-                    $('#category_table_body').html(data.table_data);
-                },
-                error: function(html, status) {
-                    console.log(html.responseText);
-                }
-            });
-    }
-
-
-    //Func Addcategory
-    function addCategory()
-    {
-        var category = $('#nameCategory').val();
-        var slug = $('#slug').val();
-        var dataString = "title="+category+"&slug="+slug;
-        $.ajax({
-            headers: {
-                'X-CSRF-TOKEN':  $('meta[name="csrf-token"]').attr('content')
-            },
-                method: 'POST',
-                url: '{{route('category.store')}}',
-                data:dataString,
-                success: function(data) {
-                    ToastSuccess(data.success);
-                    fetch_category();
-                },
-                error: function(request, status) {
-                    $.each(request.responseJSON.errors,function(key,val){
-                        ToastError(val);
-                    });
-                }
-        });
-    }
-    $(document).ready(function(){
-        
-        fetch_category(); // Làm mới table dữ liệu
-
-        // Lưu
-        $('#addCategory').click(function(){
-            addCategory();
-        });
-
-        // Lưu và đóng
-        $('#addCategory2').click(function(){
-            addCategory();
-            $('#nameCategory').val('');
-            $('#slug').val('');
-            $('#CategoryModal').modal('hide');
-        });
-        
-        // Nút Delete
-        $(document).on('click','.delete',function(){
-            var id = $(this).attr("id");
-            $.ajax({
-                headers: {
-                'X-CSRF-TOKEN':  $('meta[name="csrf-token"]').attr('content')
-            },
-                method: 'GET',
-                url: '{{url('admin/category/delete')}}/'+id,
-                success: function(data) {
-                    ToastSuccess(data.success);
-                    fetch_category();
-                },
-                error: function(request, status) {
-                    ToastError(request.responseText);
-                }
-            })
-        });
-    });
-    // Tìm kiếm
-    $(document).on('keyup', '#SearchCategory', function(){
-        var query = $(this).val();
-        fetch_category(query);
-    });
-
-</script>
+@include('admin.category.js')
 <script src="{{asset('@styleadmin/node_modules/datatables.net/js/jquery.dataTables.js')}}"></script>
 <script src="{{asset('@styleadmin/node_modules/datatables.net-bs4/js/dataTables.bootstrap4.js')}}"></script>
 @endsection

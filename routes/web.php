@@ -29,6 +29,7 @@ Route::group(['prefix' => 'admin'], function () {
     Route::get('category/Search','CategoryController@Search')->name('category.search');
     Route::post('category','CategoryController@Store')->name('category.store');
     Route::get('category/delete/{id}','CategoryController@destroy')->name('category.destroy');
+    Route::post('category/update','CategoryController@update')->name('category.update');
 });
 
 
