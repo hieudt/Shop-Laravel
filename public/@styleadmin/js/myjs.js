@@ -1,7 +1,7 @@
 function ToastSuccess(string = ''){
     resetToastPosition();
     $.toast({
-        heading: 'Success',
+        heading: 'Thông báo',
         text: string,
         showHideTransition: 'slide',
         icon: 'success',
@@ -13,7 +13,7 @@ function ToastSuccess(string = ''){
 function ToastError(string = ''){
     resetToastPosition();
     $.toast({
-        heading: 'Danger',
+        heading: 'Thông báo',
         text: string,
         showHideTransition: 'slide',
         icon: 'error',
@@ -21,3 +21,4 @@ function ToastError(string = ''){
         position: 'top-right'
     })
 }
+

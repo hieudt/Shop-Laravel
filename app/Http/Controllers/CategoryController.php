@@ -13,6 +13,21 @@ class CategoryController extends Controller
         $Category = Category::all();
         return view('admin.category.list', compact('Category'));
     }
+    
+    public function destroy($id)
+    {
+        $Category = Category::find($id);
+        if($Category){
+            $Category->delete();
+            return response()->json(['success' => 'Xóa thành công']);
+        } else {
+            $data = array(
+                'errors'=>'Thất bại'
+            );
+            $data = json_encode($data);
+            return response('Thất bại',422);
+        }
+    }
 
     public function store(Request $request)
     {
@@ -22,21 +37,27 @@ class CategoryController extends Controller
                 $request,
                 [
                     'title' => 'required|min:3|max:150', /* không trùng tiêu đề khác */
-                    'slug' => 'required',
+                    'slug' => 'unique:categories,slug',
                 ],
                 [
                     'title.required' => 'Bạn chưa nhập tiêu đề',
                     'title.min'=>'Tiêu đề tối thiểu 3 ký tự',
                     'title.max'=>'Tiêu đề tối đa 150 ký tự',
-                    'slug.required'=>'Bạn chưa nhập đường dẫn tắt'
+                    'slug.unique'=>'Đường dẫn tắt bị trùng'
                 ]
             );
 
+           
             $Category = new Category;
             $Category->title = $request->title;
-            $Category->slug = $request->slug;
+            if($request->slug == '')
+            {
+                $Category->slug = changeTitle($request->title);
+            }else {
+                $Category->slug = $request->slug;
+            }
             $Category->save();
-            return response()->json(['success' => 'OK']);
+            return response()->json(['success' => 'Thêm mới thành công']);
         }
     }
 
@@ -65,7 +86,9 @@ class CategoryController extends Controller
                      <td>' . $row->title . '</td>
                      <td>' . $row->slug . '</td>
                      <td><label class="badge badge-info badge-pill">Enable</label></td>
-                     <td><button class="btn btn-outline-primary">View</button></td>
+                     <td><button class="btn btn-outline-primary">Sửa</button>
+                     <button type="button" class="btn btn-outline-danger delete" id="'.$row->id.'">Xóa</button>
+                     </td>
                      </tr>
                     ';
                     }

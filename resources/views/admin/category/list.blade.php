@@ -5,26 +5,19 @@
 @endsection
  
 @section('content')
+
 <div class="card">
     <div class="card-body">
-        @if(count($errors) > 0)
-        <div class="alert alert-danger">
-            @foreach($errors->all() as $err)
-                {{$err}}
-            @endforeach
-        </div>
-        @endif
-        
         <h4 class="card-title">Danh mục</h4>
         <div class="row">
             <div class="col-12">
                 <div class="row">
                     <div class="col-md-6">
-                        <input type="text" name="Search" id="Search" placeholder="Tìm kiếm danh mục" class="form-control">
+                        <input type="text" name="SearchCategory" id="SearchCategory" placeholder="Tìm kiếm danh mục" class="form-control">
                     </div>
                     <div class="col-md-6">
-                        <button type="button" class="btn btn-success btn-fw" data-toggle="modal" data-target="#exampleModal-4" data-whatever="@getbootstrap"><i class="mdi mdi-check"></i>Thêm mới</button>
-                        <button type="button" class="btn btn-success btn-fw" onclick="showToast();"><i class="mdi mdi-check"></i>Test</button>
+                        <button type="button" class="btn btn-success btn-fw" data-toggle="modal" data-target="#CategoryModal" data-whatever="@getbootstrap"><i class="mdi mdi-check"></i>Thêm mới</button>
+                        
                     </div>
                 </div><br/>
                 <table id="category_table" class="table" cellspacing="0">
@@ -45,11 +38,11 @@
     </div>
 </div>
 {{-- Modal --}}
-<div class="modal fade" id="exampleModal-4" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="CategoryModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">New message</h5>
+                <h5 class="modal-title" id="exampleModalLabel">Thêm mới danh mục</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
               </button>
@@ -57,28 +50,33 @@
             <div class="modal-body">
                 <form>
                     <div class="form-group">
-                        <label for="recipient-name" class="col-form-label">Recipient:</label>
+                        <label for="recipient-name" class="col-form-label">Tên : </label>
                         <input type="text" class="form-control" id="nameCategory">
                     </div>
                     <div class="form-group">
-                        <label for="message-text" class="col-form-label">Message:</label>
-                        <textarea class="form-control" id="slug"></textarea>
+                        
+                        <label for="message-text" class="col-form-label">Đường dẫn : </label><br/>
+                        
+                        <textarea class="form-control" id="slug"></textarea><br/>
+                        Nếu để trống sẽ tự động tạo ra.
                     </div>
+                    
                 </form>
             </div>
             <div class="modal-footer">
-                <button type="button" id="addCategory" class="btn btn-success">Send message</button>
+                <button type="button" id="addCategory" class="btn btn-success">Lưu</button>
+                <button type="button" id="addCategory2" class="btn btn-success">Lưu & Đóng</button>
                 <button type="button" class="btn btn-light" data-dismiss="modal">Close</button>
             </div>
         </div>
     </div>
 </div>
+
+{{-- END MODAL--}}
 @endsection
  
 @section('javascript')
 <script>
-    
-
     function fetch_category(query = '')
     {
             $.ajax({
@@ -98,6 +96,8 @@
             });
     }
 
+
+    //Func Addcategory
     function addCategory()
     {
         var category = $('#nameCategory').val();
@@ -122,13 +122,43 @@
         });
     }
     $(document).ready(function(){
-        fetch_category();
+        
+        fetch_category(); // Làm mới table dữ liệu
+
+        // Lưu
         $('#addCategory').click(function(){
             addCategory();
         });
+
+        // Lưu và đóng
+        $('#addCategory2').click(function(){
+            addCategory();
+            $('#nameCategory').val('');
+            $('#slug').val('');
+            $('#CategoryModal').modal('hide');
+        });
         
+        // Nút Delete
+        $(document).on('click','.delete',function(){
+            var id = $(this).attr("id");
+            $.ajax({
+                headers: {
+                'X-CSRF-TOKEN':  $('meta[name="csrf-token"]').attr('content')
+            },
+                method: 'GET',
+                url: '{{url('admin/category/delete')}}/'+id,
+                success: function(data) {
+                    ToastSuccess(data.success);
+                    fetch_category();
+                },
+                error: function(request, status) {
+                    ToastError(request.responseText);
+                }
+            })
+        });
     });
-    $(document).on('keyup', '#Search', function(){
+    // Tìm kiếm
+    $(document).on('keyup', '#SearchCategory', function(){
         var query = $(this).val();
         fetch_category(query);
     });
