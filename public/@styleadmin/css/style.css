@@ -15731,7 +15731,7 @@ address p {
   color: #000000;
   margin-bottom: 1.125rem;
   text-transform: capitalize;
-  font-family: "poppins-semibold", sans-serif; }
+  font-family: "poppins-regular", sans-serif; }
   .rtl .card-title {
     text-align: right; }
 
@@ -19712,7 +19712,7 @@ dl {
   .table thead th, .jsgrid .jsgrid-table thead th {
     border-top: 0;
     border-bottom-width: 1px;
-    font-family: "poppins-semibold", sans-serif;
+    font-family: "poppins-regular", sans-serif;
     font-weight: initial; }
     .table thead th i, .jsgrid .jsgrid-table thead th i {
       margin-left: 0.325rem; }
@@ -21532,7 +21532,7 @@ body.avgrund-active {
 
 .jsgrid .jsgrid-table th {
   font-weight: initial;
-  font-family: "poppins-semibold", sans-serif; }
+  font-family: "poppins-regular", sans-serif; }
 
 .jsgrid .jsgrid-table .jsgrid-filter-row input[type=number] {
   padding: .56rem 0; }

@@ -22,5 +22,12 @@ Route::get('check',function(){
 
 
 Route::group(['prefix' => 'admin'], function () {
-    Voyager::routes();
+    //Voyager::routes();
+    Route::get('/','AdminPages@index');
+
+    Route::get('category','CategoryController@index')->name('category.list');
+    Route::get('category/Search','CategoryController@Search')->name('category.search');
+    Route::post('category','CategoryController@Store')->name('category.store');
 });
+
+

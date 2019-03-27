@@ -7,9 +7,9 @@
         </a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="../../pages/widgets.html">
+      <a class="nav-link" href="{{url('admin/category')}}">
           <i class="mdi mdi-puzzle menu-icon"></i>
-          <span class="menu-title">Widgets</span>
+          <span class="menu-title">Danh mục</span>
         </a>
       </li>
       <li class="nav-item">
