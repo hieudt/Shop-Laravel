@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 use DB;
 use App\Category;
 use App\SubCategory;
@@ -21,14 +22,15 @@ class CategoryController extends Controller
                 $this->validate(
                     $request,
                     [
-                        'title' => 'required|min:3|max:150', /* không trùng tiêu đề khác */
+                        'title' => 'required|min:3|max:150|unique:categories,title,'.$request->id, /* không trùng tiêu đề khác */
                         'slug' => 'unique:categories,slug,'.$request->id
                     ],
                     [
                         'title.required' => 'Bạn chưa nhập tiêu đề',
                         'title.min' => 'Tiêu đề tối thiểu 3 ký tự',
                         'title.max' => 'Tiêu đề tối đa 150 ký tự',
-                        'slug.unique' => 'Đường dẫn tắt sbị trùng'
+                        'slug.unique' => 'Đường dẫn tắt sbị trùng',
+                        'title.unique' => 'Tên danh mục bị trùng'
                     ]
                 );
 
@@ -71,14 +73,15 @@ class CategoryController extends Controller
             $this->validate(
                 $request,
                 [
-                    'title' => 'required|min:3|max:150', /* không trùng tiêu đề khác */
+                    'title' => 'required|min:3|max:150|unique:categories,title', /* không trùng tiêu đề khác */
                     'slug' => 'unique:categories,slug',
                 ],
                 [
                     'title.required' => 'Bạn chưa nhập tiêu đề',
                     'title.min' => 'Tiêu đề tối thiểu 3 ký tự',
                     'title.max' => 'Tiêu đề tối đa 150 ký tự',
-                    'slug.unique' => 'Đường dẫn tắt bị trùng'
+                    'slug.unique' => 'Đường dẫn tắt bị trùng',
+                    'title.unique' => 'Tên danh mục bị trùng'
                 ]
             );
 
@@ -86,7 +89,9 @@ class CategoryController extends Controller
             $Category = new Category;
             $Category->title = $request->title;
             if ($request->slug == '') {
-                    $Category->slug = changeTitle($request->title);
+                    $slug = changeTitle($request->title);
+                    $Category->slug = $slug;
+
                 } else {
                 $Category->slug = $request->slug;
             }
@@ -110,7 +115,8 @@ class CategoryController extends Controller
                     ->orderBy('id', 'asc')
                     ->get();
             }
-            $total_row = $data->count();
+            $total_row = count($data);
+            $select_data = '';
             $output = '';
             if ($total_row > 0) {
                 foreach ($data as $row) {
@@ -125,6 +131,8 @@ class CategoryController extends Controller
                      </td>
                      </tr>
                     ';
+
+                    $select_data .= '<option value="'.$row->id.'">'.$row->title.'</option>';
                 }
             } else {
                 $output .= '<tr><td colspan="5" align="center">
@@ -134,7 +142,7 @@ class CategoryController extends Controller
 
             $data = array(
                 'table_data' => $output,
-                'total_data' => $total_row
+                'select_data' => $select_data
             );
 
             echo json_encode($data);

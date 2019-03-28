@@ -30,6 +30,11 @@ Route::group(['prefix' => 'admin'], function () {
     Route::post('category','CategoryController@Store')->name('category.store');
     Route::get('category/delete/{id}','CategoryController@destroy')->name('category.destroy');
     Route::post('category/update','CategoryController@update')->name('category.update');
+
+    Route::get('subcategory/Search','SubCategoryController@Search')->name('subcategory.search');
+    Route::post('subcategory/Store','SubCategoryController@store')->name('subcategory.store');
+    Route::post('subcategory/update','SubCategoryController@update')->name('subcategory.update');
+    Route::get('subcategory/delete/{id}','SubCategoryController@destroy')->name('subcategory.destroy');
 });
 
 
