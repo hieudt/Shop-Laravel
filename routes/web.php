@@ -12,11 +12,31 @@
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('index');
 });
 
+
+Route::get('check',function(){
+    return route('voyager.roles.index');
+});
 
 
 Route::group(['prefix' => 'admin'], function () {
-    Route::get('/', 'AdminPages@index');
+    //Voyager::routes();
+    Route::get('/index','AdminPages@index')->name('admin.index');
+
+    Route::get('category','CategoryController@index')->name('category.list');
+    Route::get('category/Search','CategoryController@Search')->name('category.search');
+    Route::post('category','CategoryController@Store')->name('category.store');
+    Route::get('category/delete/{id}','CategoryController@destroy')->name('category.destroy');
+    Route::post('category/update','CategoryController@update')->name('category.update');
+
+    Route::get('subcategory/Search','SubCategoryController@Search')->name('subcategory.search');
+    Route::post('subcategory/Store','SubCategoryController@store')->name('subcategory.store');
+    Route::post('subcategory/update','SubCategoryController@update')->name('subcategory.update');
+    Route::get('subcategory/delete/{id}','SubCategoryController@destroy')->name('subcategory.destroy');
+
+    Route::get('product','ProductController@index')->name('product.list');
 });
+
+

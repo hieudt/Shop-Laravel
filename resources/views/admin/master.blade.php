@@ -5,12 +5,14 @@
   <!-- Required meta tags -->
   <meta charset="utf-8">
   <meta name="csrf-token" content="{{ csrf_token() }}">
+  
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <title>@yield('title')</title>
   <!-- plugins:css -->
   <link rel="stylesheet" href="{{asset('@styleadmin/node_modules/mdi/css/materialdesignicons.min.css')}}">
   <link rel="stylesheet" href="{{asset('@styleadmin/node_modules/flag-icon-css/css/flag-icon.min.css')}}">
   <link rel="stylesheet" href="{{asset('@styleadmin/node_modules/perfect-scrollbar/css/perfect-scrollbar.css')}}">
+  <link rel="stylesheet" href="{{asset('@styleadmin/node_modules/jquery-toast-plugin/dist/jquery.toast.min.css')}}">
   <!-- endinject -->
   <!-- plugin css for this page -->
   @yield('css')
@@ -52,14 +54,18 @@
   </div>
   <!-- container-scroller -->
   <!-- plugins:js -->
-  @yield('javascript')
+  
 
   <script src="{{asset('@styleadmin/node_modules/jquery/dist/jquery.min.js')}}"></script>
   <script src="{{asset('@styleadmin/node_modules/popper.js/dist/umd/popper.min.js')}}"></script>
   <script src="{{asset('@styleadmin/node_modules/bootstrap/dist/js/bootstrap.min.js')}}"></script>
+  <script src="{{asset('@styleadmin/node_modules/jquery-toast-plugin/dist/jquery.toast.min.js')}}"></script>
+  <script src="{{asset('@styleadmin/js/toastDemo.js')}}"></script>
+  <script src="{{asset('@styleadmin/js/myjs.js')}}"></script>
   <script src="{{asset('@styleadmin/node_modules/perfect-scrollbar/dist/perfect-scrollbar.min.js')}}"></script>
   <!-- endinject -->
   <!-- Plugin js for this page-->
+  
   <!-- End plugin js for this page-->
   <!-- inject:js -->
   <script src="{{asset('@styleadmin/js/off-canvas.js')}}"></script>
@@ -69,6 +75,7 @@
   <script src="{{asset('@styleadmin/js/todolist.js')}}"></script>
   <!-- endinject -->
   <!-- Custom js for this page-->
+  @yield('javascript')
   <!-- End custom js for this page-->
 </body>
 
