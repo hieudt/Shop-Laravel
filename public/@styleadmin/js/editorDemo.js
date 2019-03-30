@@ -51,9 +51,9 @@
     }
 
     /*Summernote editor*/
-    if ($("#summernoteExample").length) {
-        $('#summernoteExample').summernote({
-            height: 300,
+    if ($("#summernote").length) {
+        $('#summernote').summernote({
+            height: 500,
             tabsize: 2
         });
     }

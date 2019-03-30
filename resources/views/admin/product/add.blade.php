@@ -1,14 +1,17 @@
 @extends('admin.master') 
 @section('title','Trang chủ admin') 
 @section('css')
+
+<link rel="stylesheet" href="{{asset('@styleadmin/node_modules/dropify/dist/css/dropify.min.css')}}">
 <link rel="stylesheet" href="{{asset('@styleadmin/node_modules/select2/dist/css/select2.min.css')}}">
 <link rel="stylesheet" href="{{asset('@styleadmin/node_modules/select2-bootstrap-theme/dist/select2-bootstrap.min.css')}}">
+<link rel="stylesheet" href="{{asset('@styleadmin/node_modules/summernote/dist/summernote-bs4.css')}}">
 @endsection
  
 @section('content')
 <div class="row">
     <div class="col-md-8">
-        <div class="col-12">
+        <div class="col-12 ">
             <div class="card">
                 <div class="card-body">
                     <h4 class="card-title">Thêm mới sản phẩm</h4>
@@ -17,54 +20,114 @@
                     </p>
                     <form class="forms-sample">
                         <div class="form-group">
-                            <label for="exampleInputEmail1">Email address</label>
-                            <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Enter email">
+                            <label for="Name Product">Tên sản phẩm</label>
+                            <input type="text" class="form-control" id="nameProduct" placeholder="Nhập tên sản phẩm">
                         </div>
                         <div class="form-group">
-                            <label for="exampleInputPassword1">Password</label>
-                            <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+                            <label for="exampleInputPassword1">Mô tả</label>
+                            <textarea id="summernote" name="editordata"></textarea>
                         </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="col-12">
+            <div class="card">
+                <div class="card-body">
+                    <h4 class="card-title">Chi tiết sản phẩm</h4>
+                    <p class="card-description">
+                        Cấu hình thuộc tính cho sản phẩm
+                    </p>
+                    <form class="form-inline repeater">
+                        <div data-repeater-list="group-a">
+                            <div data-repeater-item class="d-flex mb-2">
+                                <div class="input-group mr-sm-2 mb-sm-0">
+                                    <table>
+                                        <tr>
+                                            <td><input type="text" class="form-control" id="inlineFormInputGroup1" placeholder="SKU">
+                                            </td>
+                                            <td><input type="text" class="form-control" id="inlineFormInputGroup1" placeholder="SKU"></td>
+                                            <td><input type="text" class="form-control" id="inlineFormInputGroup1" placeholder="SKU"></td>
+                                            <td><input type="text" class="form-control" id="inlineFormInputGroup1" placeholder="SKU"></td>
+                                        </tr>
+                                    </table>
+                                    
+                                </div>
+                                <button data-repeater-delete type="button" class="btn btn-danger icon-btn">
+                                <i class="mdi mdi-delete"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <button data-repeater-create type="button" class="btn btn-info btn-sm">+</button>
+                        <button type="submit" class="btn btn-success btn-sm">Submit</button>
                     </form>
                 </div>
             </div>
         </div>
     </div>
     <div class="col-md-4">
-        <div class="col-12">
-            <div class="card">
-                <div class="card-body">
-                    <h4 class="card-title">Phân loại</h4>
-                    <p class="card-description">
-                        Chọn danh mục cho sản phẩm 
-                    </p>
-                    <form class="forms-sample">
-                        <div class="form-group">
-                            <label>Danh mục cha</label>
-                            <select class="js-example-basic-single" id="SelCat" style="width:80%">    
-                            </select>
-                            <button type="button" id="OpenModal" class="btn btn-success" data-toggle="modal"
-                                data-target="#CategoryModal" data-whatever="@getbootstrap">+</button>
-                        </div>
-                        <div class="form-group">
-                            <label>Danh mục con</label>
-                            <select class="js-example-basic-single" id="SelSubCat" style="width:80%">    
-                            </select>
-                            <button type="button" id="OpenSubModal" class="btn btn-success" data-toggle="modal" data-target="#SubcategoryModal"
-                            data-whatever="@getbootstrap">+</button>
-                        </div>
-                        <div class="form-group">
-                            <label>Chất Liệu SP</label>
-                            <select class="js-example-basic-single" id="SelChatLieu" style="width:80%">    
-                            </select>
-                            <button type="button" id="OpenChatLieuModal" class="btn btn-success" data-toggle="modal" data-target="#ChatLieuModal"
-                            data-whatever="@getbootstrap">+</button>
-                        </div>
-                    </form>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-body">
+                        <h4 class="card-title">Phân loại</h4>
+                        <p class="card-description">
+                            Chọn danh mục cho sản phẩm
+                        </p>
+                        <form class="forms-sample">
+                            <div class="form-group">
+                                <label>Danh mục cha</label>
+                                <select class="js-example-basic-single" id="SelCat" style="width:80%">    
+                                </select>
+                                <button type="button" id="OpenModal" class="btn btn-success" data-toggle="modal" data-target="#CategoryModal" data-whatever="@getbootstrap">+</button>
+                            </div>
+                            <div class="form-group">
+                                <label>Danh mục con</label>
+                                <select class="js-example-basic-single" id="SelSubCat" style="width:80%">    
+                                </select>
+                                <button type="button" id="OpenSubModal" class="btn btn-success" data-toggle="modal" data-target="#SubcategoryModal" data-whatever="@getbootstrap">+</button>
+                            </div>
+                            <div class="form-group">
+                                <label>Chất Liệu SP</label>
+                                <select class="js-example-basic-single" id="SelChatLieu" style="width:80%">    
+                                </select>
+                                <button type="button" id="OpenChatLieuModal" class="btn btn-success" data-toggle="modal" data-target="#ChatLieuModal" data-whatever="@getbootstrap">+</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-body">
+                        <h4 class="card-title">Hình ảnh</h4>
+                        <p class="card-description">
+                            Chọn hình ảnh cho sản phẩm
+                        </p>
+                        <form class="forms-sample">
+                            <div class="form-group">
+                                <input type="file" id="Image1" class="dropify">
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <input type="file" id="Image2" class="subDropify">
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <input type="file" id="Image3" class="subDropify">
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
+
 
 {{--Modal Category--}}
 <div class="modal fade" id="CategoryModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -94,64 +157,61 @@
         </div>
     </div>
 </div>
-{{--EndModal category--}}
-
-{{-- Modal --}}
+{{--EndModal category--}} {{-- Modal --}}
 <div class="modal fade" id="SubcategoryModal" tabindex="-1" role="dialog" aria-labelledby="SubCategoryLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="SubCategoryLabel">Thêm mới danh mục con</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="SubCategoryLabel">Thêm mới danh mục con</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                       </button>
-                </div>
-                <div class="modal-body">
-                    <form>
-                        <div class="form-group">
-                            <label for="recipient-name" class="col-form-label">Tên : </label>
-                            <input type="text" class="form-control" id="nameSubCategory">
-                        </div>
-                        <div class="form-group">
-                            <label for="message-text" class="col-form-label">Đường dẫn : </label><br/>
-                            <textarea class="form-control" id="slugSub"></textarea><br/> Nếu để trống sẽ tự động tạo ra.
-                        </div>
-    
-                    </form>
-                </div>
-                <div class="modal-footer" id="submodalFooter">
-                </div>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="form-group">
+                        <label for="recipient-name" class="col-form-label">Tên : </label>
+                        <input type="text" class="form-control" id="nameSubCategory">
+                    </div>
+                    <div class="form-group">
+                        <label for="message-text" class="col-form-label">Đường dẫn : </label><br/>
+                        <textarea class="form-control" id="slugSub"></textarea><br/> Nếu để trống sẽ tự động tạo ra.
+                    </div>
+
+                </form>
+            </div>
+            <div class="modal-footer" id="submodalFooter">
             </div>
         </div>
+    </div>
 </div>
-{{--Endmodal}}
-{{--Modal Chat Lieu--}}
+{{--Endmodal}} {{--Modal Chat Lieu--}}
 <div class="modal fade" id="ChatLieuModal" tabindex="-1" role="dialog" aria-labelledby="ChatLieuLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="ChatLieuLabel">Thêm mới Chất liệu</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="ChatLieuLabel">Thêm mới Chất liệu</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                       </button>
-                </div>
-                <div class="modal-body">
-                    <form>
-                        <div class="form-group">
-                            <label for="recipient-name" class="col-form-label">Tên : </label>
-                            <input type="text" class="form-control" id="nameChatLieu">
-                        </div>
-                        <div class="form-group">
-                            <label for="message-text" class="col-form-label">Đường dẫn : </label><br/>
-                            <textarea class="form-control" id="slugCL"></textarea><br/> Nếu để trống sẽ tự động tạo ra.
-                        </div>
-    
-                    </form>
-                </div>
-                <div class="modal-footer" id="chatlieumodalFooter">
-                </div>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="form-group">
+                        <label for="recipient-name" class="col-form-label">Tên : </label>
+                        <input type="text" class="form-control" id="nameChatLieu">
+                    </div>
+                    <div class="form-group">
+                        <label for="message-text" class="col-form-label">Đường dẫn : </label><br/>
+                        <textarea class="form-control" id="slugCL"></textarea><br/> Nếu để trống sẽ tự động tạo ra.
+                    </div>
+
+                </form>
+            </div>
+            <div class="modal-footer" id="chatlieumodalFooter">
             </div>
         </div>
+    </div>
 </div>
 {{--EndModal--}}
 @endsection
@@ -344,9 +404,35 @@
             var idCat = $(this).val();
             fetch_subcategory(idCat);
         });
+        $('#summernote').summernote({
+            height: 500,
+        });
+
+        $('.dropify').dropify({
+            messages:{
+                'default':'Ảnh chính sản phẩm',
+                'replace':'Kéo và thả hoặc click để thay đổi',
+                'remove':'Xóa',
+                'error':'Xin lỗi dung lượng file quá lớn'
+            },
+        });
+        $('.subDropify').dropify({
+            messages:{
+                'default':'Ảnh phụ sản phẩm',
+                'replace':'Kéo và thả hoặc click để thay đổi',
+                'remove':'Xóa',
+                'error':'Xin lỗi dung lượng file quá lớn'
+            },
+        });
+
     });
 
 </script>
+<script src="{{asset('@styleadmin/node_modules/dropify/dist/js/dropify.min.js')}}"></script>
+<script src="{{asset('@styleadmin/node_modules/summernote/dist/summernote-bs4.min.js')}}"></script>
 <script src="{{asset('@styleadmin/node_modules/select2/dist/js/select2.min.js')}}"></script>
 <script src="{{asset('@styleadmin/js/select2.js')}}"></script>
+<script src="{{asset('@styleadmin/js/editorDemo.js')}}"></script>
+<script src="{{asset('@styleadmin/js/form-repeater.js')}}"></script>
+<script src="{{asset('@styleadmin/node_modules/jquery.repeater/jquery.repeater.min.js')}}"></script>
 @endsection
