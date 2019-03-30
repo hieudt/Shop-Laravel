@@ -42,6 +42,10 @@ Route::group(['prefix' => 'admin'], function () {
     Route::get('product/add','ProductController@create')->name('product.create');
     Route::get('product','ProductController@index')->name('product.list');
 
+    Route::get('color/Search','ColorController@search')->name('color.search');
+    
+    Route::get('size/Search','SizeController@search')->name('size.search');
+
     Route::get('getapi/minmax/{min}/{max}','ApiController@minmax')->name('getapi.minmax');
     Route::get('getapi/service/{msg}','ApiController@service')->name('getapi.service');
 });

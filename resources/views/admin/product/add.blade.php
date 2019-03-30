@@ -38,24 +38,37 @@
                     <p class="card-description">
                         Cấu hình thuộc tính cho sản phẩm
                     </p>
-                    <form class="form-inline repeater">
+                    <form class="repeater">
                         <div data-repeater-list="group-a">
                             <div data-repeater-item class="d-flex mb-2">
                                 <div class="input-group mr-sm-2 mb-sm-0">
-                                    <table>
-                                        <tr>
-                                            <td><input type="text" class="form-control" id="inlineFormInputGroup1" placeholder="SKU">
-                                            </td>
-                                            <td><input type="text" class="form-control" id="inlineFormInputGroup1" placeholder="SKU"></td>
-                                            <td><input type="text" class="form-control" id="inlineFormInputGroup1" placeholder="SKU"></td>
-                                            <td><input type="text" class="form-control" id="inlineFormInputGroup1" placeholder="SKU"></td>
-                                        </tr>
-                                    </table>
-                                    
+                                    <div class="form-group row">
+                                        <div class="col-3">
+                                            <input type="text" class="form-control" id="inlineFormInputGroup1" placeholder="SKU">
+                                        </div>
+                                        <div class="col-3">
+                                                <select class="form-control" id="selColor">
+                                                        <option disabled selected> Màu Sắc </option>
+                                                </select>
+                                        </div>
+                                        <div class="col-3">
+                                                <select class="form-control" id="selSize">
+                                                        <option disabled selected> Kích cỡ </option>
+                                                </select>
+                                        </div>
+                                        <div class="col-3">
+                                            <input type="number" class="form-control" id="inlineFormInputGroup1" placeholder="Số lượng">
+                                        </div>
+                                        <div class="col-3">
+                                            <br/>
+                                            <button data-repeater-delete type="button" class="btn btn-danger icon-btn">
+                                                        <i class="mdi mdi-delete"></i>
+                                                        </button>
+                                        </div>
+                                    </div>
+
                                 </div>
-                                <button data-repeater-delete type="button" class="btn btn-danger icon-btn">
-                                <i class="mdi mdi-delete"></i>
-                                </button>
+
                             </div>
                         </div>
                         <button data-repeater-create type="button" class="btn btn-info btn-sm">+</button>
@@ -221,6 +234,7 @@
     fetch_category();
     fetch_subcategory(1);
     fetch_chatlieu();
+    fetch_color();
     //Open modal SubCategory
     $('#OpenSubModal').click(function(){
             $('#SubCategoryLabel').html('Thêm danh mục con');
@@ -379,7 +393,44 @@
                 }
             });
     }
-    
+    // Load Color
+    function fetch_color(query = '')
+    {
+        $.ajax({
+        headers: {
+            'X-CSRF-TOKEN':  $('meta[name="csrf-token"]').attr('content')
+        },
+        method: 'GET',
+        url: '{{route('color.search')}}',
+        data:{query:query},
+        dataType: 'json',
+            success: function(data) {
+                $('#selColor').html(data.select_data);
+            },
+            error: function(html, status) {
+                console.log(html.responseText);
+            }
+        });
+    }
+    // Load Size
+    function fetch_size(query = '')
+    {
+        $.ajax({
+        headers: {
+            'X-CSRF-TOKEN':  $('meta[name="csrf-token"]').attr('content')
+        },
+        method: 'GET',
+        url: '{{route('size.search')}}',
+        data:{query:query},
+        dataType: 'json',
+            success: function(data) {
+                $('#selSize').html(data.select_data);
+            },
+            error: function(html, status) {
+                console.log(html.responseText);
+            }
+        });
+    }
     // Load Chat Lieu func
     function fetch_chatlieu(query = '')
     {
