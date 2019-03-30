@@ -17,8 +17,8 @@ class DetailsBill extends Migration
             $table->increments('id');
             $table->integer('id_bill')->unsigned();
             $table->foreign('id_bill')->references('id')->on('Bill');
-            $table->integer('id_products_attribute')->unsigned();
-            $table->foreign('id_products_attribute')->references('id')->on('AttributeProduct');
+            $table->integer('id_products_details')->unsigned();
+            $table->foreign('id_products_details')->references('id')->on('product_details');
             $table->integer('Number');
             $table->timestamps();
         });
