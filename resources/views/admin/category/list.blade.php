@@ -19,7 +19,6 @@
                     </div>
                     <div class="col-md-6">
                         <button type="button" id="OpenModal" class="btn btn-success btn-fw" data-toggle="modal" data-target="#CategoryModal" data-whatever="@getbootstrap"><i class="mdi mdi-check"></i>Thêm mới</button>
-
                     </div>
                 </div><br/>
                 <table id="category_table" class="table" cellspacing="0">
