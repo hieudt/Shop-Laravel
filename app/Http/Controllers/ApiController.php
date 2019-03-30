@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-uss DB;
+use DB;
 use Illuminate\Http\Request;
 use juno_okyo\Chatfuel;
 use App\Category;
@@ -31,7 +31,12 @@ class ApiController extends Controller
         if ($msg == "category") {
                 $data = DB::table('categories')->select(DB::raw('title'))->orderBy('id', 'desc')->get();
                 $text = '';
-                echo $text;
+                foreach($data as $_data)
+                {
+                    foreach ($_data as $key => $value) {
+                        $text .= $value."\n";
+                    }
+                }
                 $A = new Chatfuel;
                 $A->sendText($text);
         } else {
