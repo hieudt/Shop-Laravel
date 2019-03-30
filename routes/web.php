@@ -38,7 +38,7 @@ Route::group(['prefix' => 'admin'], function () {
 
     Route::get('product','ProductController@index')->name('product.list');
 
-    Route::get('getapi/{msg}','ApiController@index')->name('getapi.index');
+    Route::get('getapi/minmax/{min}/{max}','ApiController@minmax')->name('getapi.minmax');
 });
 
 

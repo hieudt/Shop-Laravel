@@ -11,4 +11,15 @@ class ApiController extends Controller
         $A = new Chatfuel();
         $A->sendText($msg);
     }
+
+    public function minmax($min,$max)
+    {
+        $A = new Chatfuel();
+        if($min>$max)
+        {
+            $A->sendText('Lỗi : giá trị min phải nhỏ hơn max');
+        }
+
+        $A->sendText("Số ngẫu nhiên là : ".rand($min,$max)." nhé =)) ");
+    }
 }
