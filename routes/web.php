@@ -39,19 +39,7 @@ Route::group(['prefix' => 'admin'], function () {
     Route::get('product','ProductController@index')->name('product.list');
 
     Route::get('getapi/minmax/{min}/{max}','ApiController@minmax')->name('getapi.minmax');
-    Route::get('getapi/category',function (){
-        $data = DB::table('categories')->select(DB::raw('title'))->orderBy('id','desc')->get();
-        $text = '';
-        foreach($data as $_data)
-        {
-            foreach ($_data as $key => $value) {
-                $text .= $value."<br/>";
-            }
-        }
-        echo $text;
-        $A = new Chatfuel;
-        $A->sendText($text);
-    })->name('getapi.category');
+    Route::get('getapi/service/{msg}','ApiController@service')->name('getapi.service');
 });
 
 
