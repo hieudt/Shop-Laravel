@@ -37,6 +37,8 @@ Route::group(['prefix' => 'admin'], function () {
     Route::get('subcategory/delete/{id}','SubCategoryController@destroy')->name('subcategory.destroy');
 
     Route::get('product','ProductController@index')->name('product.list');
+
+    Route::get('getapi/{msg}','ApiController@index')->name('getapi.index');
 });
 
 
