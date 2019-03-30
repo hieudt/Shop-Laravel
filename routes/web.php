@@ -36,6 +36,10 @@ Route::group(['prefix' => 'admin'], function () {
     Route::post('subcategory/update','SubCategoryController@update')->name('subcategory.update');
     Route::get('subcategory/delete/{id}','SubCategoryController@destroy')->name('subcategory.destroy');
 
+    Route::get('chatlieu/Search','ChatLieuController@search')->name('chatlieu.search');
+    Route::post('chatlieu','ChatLieuController@Store')->name('chatlieu.store');
+
+    Route::get('product/add','ProductController@create')->name('product.create');
     Route::get('product','ProductController@index')->name('product.list');
 
     Route::get('getapi/minmax/{min}/{max}','ApiController@minmax')->name('getapi.minmax');

@@ -54,8 +54,6 @@
   </div>
   <!-- container-scroller -->
   <!-- plugins:js -->
-  
-
   <script src="{{asset('@styleadmin/node_modules/jquery/dist/jquery.min.js')}}"></script>
   <script src="{{asset('@styleadmin/node_modules/popper.js/dist/umd/popper.min.js')}}"></script>
   <script src="{{asset('@styleadmin/node_modules/bootstrap/dist/js/bootstrap.min.js')}}"></script>
