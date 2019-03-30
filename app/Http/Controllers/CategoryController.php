@@ -134,6 +134,7 @@ class CategoryController extends Controller
 
                     $select_data .= '<option value="'.$row->id.'">'.$row->title.'</option>';
                 }
+               
             } else {
                 $output .= '<tr><td colspan="5" align="center">
                     Không tìm thấy kết quả

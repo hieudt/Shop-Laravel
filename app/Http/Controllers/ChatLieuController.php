@@ -35,7 +35,35 @@ class ChatLieuController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        if ($request->ajax()) {
+            $this->validate(
+                $request,
+                [
+                    'name' => 'required|min:3|max:150|unique:ChatLieu,name', /* không trùng tiêu đề khác */
+                    'slug' => 'unique:ChatLieu,slug',
+                ],
+                [
+                    'name.required' => 'Bạn chưa nhập tiêu đề',
+                    'name.min' => 'Tiêu đề tối thiểu 3 ký tự',
+                    'name.max' => 'Tiêu đề tối đa 150 ký tự',
+                    'slug.unique' => 'Đường dẫn tắt bị trùng',
+                    'name.unique' => 'Tên chất liệu bị trùng'
+                ]
+            );
+
+
+            $ChatLieu = new ChatLieu;
+            $ChatLieu->name = $request->name;
+            if ($request->slug == '') {
+                    $slug = changeTitle($request->name);
+                    $ChatLieu->slug = $slug;
+
+                } else {
+                $ChatLieu->slug = $request->slug;
+            }
+            $ChatLieu->save();
+            return response()->json(['success' => 'Thêm mới thành công']);
+        }
     }
 
     /**
@@ -81,5 +109,43 @@ class ChatLieuController extends Controller
     public function destroy(ChatLieu $chatLieu)
     {
         //
+    }
+
+    public function search(Request $request)
+    {
+        if ($request->ajax()) {
+            $query = $request->get('query');
+            if ($query != '') {
+                $data = ChatLieu::where('name','like','%'.$query.'%')
+                        ->orWhere('slug','like','%'.$query.'%')
+                        ->orderBy('id','asc')
+                        ->get();
+            } else {
+                $data = ChatLieu::orderBy('id','asc')->get();
+
+            }
+            $total_row = $data->count();
+            $select_data = '';
+            $output = '';
+            if ($total_row > 0) {
+                foreach ($data as $row) {
+                    $output .= '
+                    ';
+
+                    $select_data .= '<option value="'.$row->id.'">'.$row->name.'</option>';
+                }
+            } else {
+                $output .= '<tr><td colspan="5" align="center">
+                    Không tìm thấy kết quả
+                </td></tr>';
+            }
+
+            $data = array(
+                'table_data' => $output,
+                'select_data' => $select_data,
+            );
+
+            echo json_encode($data);
+        }
     }
 }

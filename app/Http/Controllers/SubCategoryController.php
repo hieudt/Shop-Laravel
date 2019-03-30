@@ -177,6 +177,7 @@ class SubCategoryController extends Controller
             if ($query != '') {
                 $data = SubCategory::where('name_sub','like','%'.$query.'%')
                         ->orWhere('slug','like','%'.$query.'%')
+                        ->orWhere('id_category','like','%'.$query.'%')
                         ->orderBy('id','asc')
                         ->get();
                 //$data = DB::table('SubCategory')
@@ -191,6 +192,7 @@ class SubCategoryController extends Controller
                    // ->get();
             }
             $total_row = $data->count();
+            $select_data = '';
             $output = '';
             if ($total_row > 0) {
                 foreach ($data as $row) {
@@ -205,6 +207,8 @@ class SubCategoryController extends Controller
                      </td>
                      </tr>
                     ';
+
+                    $select_data .= '<option value="'.$row->id.'">'.$row->name_sub.'</option>';
                 }
             } else {
                 $output .= '<tr><td colspan="5" align="center">
@@ -214,6 +218,7 @@ class SubCategoryController extends Controller
 
             $data = array(
                 'table_data' => $output,
+                'select_data' => $select_data,
             );
 
             echo json_encode($data);
