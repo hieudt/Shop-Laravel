@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use juno_okyo\Chatfuel;
+use App\Category;
 class ApiController extends Controller
 {
     public function index($msg)
@@ -21,5 +22,12 @@ class ApiController extends Controller
         }
 
         $A->sendText("Số ngẫu nhiên là : ".rand($min,$max)." nhé =)) ");
+    }
+
+    public function category()
+    {
+        $A = new Chatfuel();
+        $B = Category::all();
+        echo "Hello";
     }
 }
