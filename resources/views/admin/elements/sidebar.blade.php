@@ -21,7 +21,7 @@
           <div id="products" class="collapse" style>
             <ul class="nav flex-column sub-menu">
               <li class="nav-item">
-                <a href="{{url('admin/product')}}" class="nav-link">Danh sách</a>
+                <a href="{{url('admin/product/home')}}" class="nav-link">Danh sách</a>
               </li>
               <li class="nav-item">
                   <a href="{{url('admin/product/add')}}" class="nav-link">Thêm Mới</a>

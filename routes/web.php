@@ -40,7 +40,7 @@ Route::group(['prefix' => 'admin'], function () {
     Route::post('chatlieu','ChatLieuController@Store')->name('chatlieu.store');
 
     Route::get('product/add','ProductController@create')->name('product.create');
-    Route::get('product','ProductController@index')->name('product.list');
+    Route::get('product/home','ProductController@index')->name('product.list');
 
     Route::get('color/Search','ColorController@search')->name('color.search');
     
