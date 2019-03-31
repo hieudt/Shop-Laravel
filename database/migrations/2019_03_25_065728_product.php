@@ -21,11 +21,9 @@ class Product extends Migration
             $table->foreign('id_chatlieu')->references('id')->on('ChatLieu');
             $table->string('slug');
             $table->string('title');
-            $table->string('content');
             $table->string('description');
             $table->integer('discount');
             $table->integer('cost');
-            $table->text('images');
             $table->text('thumbnail');
             $table->timestamps();
         });

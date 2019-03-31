@@ -9,6 +9,7 @@
 @endsection
  
 @section('content')
+<form id="addProduct" method="POST" enctype="multipart/form-data">
 <div class="row">
     <div class="col-md-8">
         <div class="col-12 ">
@@ -18,10 +19,9 @@
                     <p class="card-description">
                         Thông tin sản phẩm
                     </p>
-                    <form class="forms-sample">
                         <div class="form-group">
                             <label for="Name Product">Tên sản phẩm</label>
-                            <input type="text" class="form-control" id="nameProduct" placeholder="Nhập tên sản phẩm">
+                            <input type="text" class="form-control" id="nameProduct" name="txtNameProduct" placeholder="Nhập tên sản phẩm">
                         </div>
                         <div class="form-group">
                             <label for="Name Product">Đường dẫn sản phẩm</label>
@@ -29,14 +29,13 @@
                                 <div class="input-group-prepend">
                                     <span class="input-group-text">{{url('san-pham/')}}/</span>
                                 </div>
-                                <input type="text" class="form-control form-control-sm" id="inlineFormInputGroup1" placeholder="Để trống sẽ tự tạo theo tiêu đề sp">
+                                <input type="text" class="form-control form-control-sm" id="inlineFormInputGroup1" name="txtSlugProduct" placeholder="Để trống sẽ tự tạo theo tiêu đề sp">
                             </div>
                         </div>
                         <div class="form-group">
                             <label for="exampleInputPassword1">Mô tả</label>
                             <textarea id="summernote" name="editordata"></textarea>
                         </div>
-                    </form>
                 </div>
             </div>
         </div>
@@ -47,7 +46,6 @@
                     <p class="card-description">
                         Cấu hình thuộc tính cho sản phẩm
                     </p>
-                    <form id="addname">
                         <div class="input-group mr-sm-2 mb-sm-0" id="dynamic">
                             <div class="form-group row" id="listRow">
                                 <div class="col-3">
@@ -67,8 +65,7 @@
                             </div>
                         </div>
                         <button type="button" id="btnAddList" class="btn btn-info btn-sm">+</button>
-                        <button type="button" name="submit" id="btnList" class="btn btn-success btn-sm">Submit</button>
-                    </form>
+                        <button type="submit" name="submit" id="btnList" class="btn btn-success btn-sm">Submit</button>
                 </div>
             </div>
         </div>
@@ -82,26 +79,24 @@
                         <p class="card-description">
                             Chọn danh mục cho sản phẩm
                         </p>
-                        <form class="forms-sample">
                             <div class="form-group">
                                 <label>Danh mục cha</label>
-                                <select class="js-example-basic-single" id="SelCat" style="width:80%">    
+                                <select class="js-example-basic-single" id="SelCat" name="SelCat" style="width:80%">    
                                 </select>
                                 <button type="button" id="OpenModal" class="btn btn-success" data-toggle="modal" data-target="#CategoryModal" data-whatever="@getbootstrap">+</button>
                             </div>
                             <div class="form-group">
                                 <label>Danh mục con</label>
-                                <select class="js-example-basic-single" id="SelSubCat" style="width:80%">    
+                                <select class="js-example-basic-single" id="SelSubCat" name="SelSubCat" style="width:80%">    
                                 </select>
                                 <button type="button" id="OpenSubModal" class="btn btn-success" data-toggle="modal" data-target="#SubcategoryModal" data-whatever="@getbootstrap">+</button>
                             </div>
                             <div class="form-group">
                                 <label>Chất Liệu SP</label>
-                                <select class="js-example-basic-single" id="SelChatLieu" style="width:80%">    
+                                <select class="js-example-basic-single" id="SelChatLieu" name="SelChatLieu" style="width:80%">    
                                 </select>
                                 <button type="button" id="OpenChatLieuModal" class="btn btn-success" data-toggle="modal" data-target="#ChatLieuModal" data-whatever="@getbootstrap">+</button>
                             </div>
-                        </form>
                     </div>
                 </div>
             </div>
@@ -112,23 +107,21 @@
                         <p class="card-description">
                             Chọn hình ảnh cho sản phẩm
                         </p>
-                        <form class="forms-sample">
                             <div class="form-group">
-                                <input type="file" id="Image1" class="dropify">
+                                <input type="file" id="Image1" name="Image1" class="dropify">
                             </div>
                             <div class="row">
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <input type="file" id="Image2" class="subDropify">
+                                        <input type="file" id="Image2" name="Image2" class="subDropify">
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <input type="file" id="Image3" class="subDropify">
+                                        <input type="file" id="Image3" name="Image3" class="subDropify">
                                     </div>
                                 </div>
                             </div>
-                        </form>
                     </div>
                 </div>
             </div>
@@ -142,11 +135,11 @@
                         <div class="row">
                             <div class="col-md-6">
                                 <label for="Name Product">Giá tiền</label>
-                                <input type="text" class="form-control" placeholder="Giá tiền" id="txtMoney">
+                                <input type="text" class="form-control" placeholder="Giá tiền" name="txtMoney" id="txtMoney">
                             </div>
                             <div class="col-md-6">
                                 <label for="Name Product">% Khuyến Mãi</label>
-                                <input type="number" class="form-control" placeholder="% Khuyến mãi" id="txtMoney">
+                                <input type="number" class="form-control" placeholder="% Khuyến mãi" name="txtDiscount" id="txtMoney">
                             </div>
                         </div>
                     </div>
@@ -155,7 +148,7 @@
         </div>
     </div>
 </div>
-
+</form>
 
 {{--Modal Category--}}
 <div class="modal fade" id="CategoryModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -347,35 +340,37 @@
     }
 
     //Func test
-    
-    function testProduct()
-    {
+    $('#addProduct').on('submit',function(event){
+    event.preventDefault();
         $.ajax({
-                headers: {
-                    'X-CSRF-TOKEN':  $('meta[name="csrf-token"]').attr('content')
-                },
-                method: 'POST',
-                url: '{{route('productdetails.test')}}',
-                data:$('#addname').serialize(),
-                success: function(data) {
-                    ToastSuccess('Ok');
-                },
-                error: function(request, status) {
-                    if(request.responseText == 1)
-                    {
-                        ToastError('Có trường bị trùng');
-                    } else {
-                        $.each(request.responseJSON.errors,function(key,val){
-                        ToastError(val);
-                        });
-                    }
+            headers: {
+                'X-CSRF-TOKEN':  $('meta[name="csrf-token"]').attr('content')
+            },
+            method: 'POST',
+            url: '{{route('productdetails.test')}}',
+            data:new FormData(this),
+            dataType:'JSON',
+            contentType:false,
+            cache:false,
+            processData:false,
+            success: function(data) {
+                ToastSuccess(data);
+            },
+            error: function(request, status) {
+                if(request.responseText == 1)
+                {
+                    ToastError('Có trường bị trùng');
+                } else {
+                    $.each(request.responseJSON.errors,function(key,val){
+                    ToastError(val);
+                    });
                 }
+            }
         });
-    }
-
-    $('#btnList').click(function(){
-        testProduct();
     });
+
+
+ 
     //Func add ChatLieu
     function addChatLieu()
     {
