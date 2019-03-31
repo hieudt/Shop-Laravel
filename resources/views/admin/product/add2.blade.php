@@ -24,6 +24,15 @@
                             <input type="text" class="form-control" id="nameProduct" placeholder="Nhập tên sản phẩm">
                         </div>
                         <div class="form-group">
+                            <label for="Name Product">Đường dẫn sản phẩm</label>
+                            <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text">{{url('san-pham/')}}/</span>
+                                </div>
+                                <input type="text" class="form-control form-control-sm" id="inlineFormInputGroup1" placeholder="Để trống sẽ tự tạo theo tiêu đề sp">
+                            </div>
+                        </div>
+                        <div class="form-group">
                             <label for="exampleInputPassword1">Mô tả</label>
                             <textarea id="summernote" name="editordata"></textarea>
                         </div>
@@ -38,41 +47,27 @@
                     <p class="card-description">
                         Cấu hình thuộc tính cho sản phẩm
                     </p>
-                    <form class="repeater" id="addname">
-                        <div data-repeater-list="ListRepeat">
-                            <div data-repeater-item class="d-flex mb-2">
-                                <div class="input-group mr-sm-2 mb-sm-0">
-                                    <div class="form-group row">
-                                        <div class="col-3">
-                                            <input type="text" class="form-control" id="inlineFormInputGroup1" placeholder="SKU">
-                                        </div>
-                                        <div class="col-3">
-                                            <select class="form-control" id="selColor">
-                                                        <option disabled selected> Màu Sắc </option>
-                                            </select>
-                                        </div>
-                                        <div class="col-3">
-                                            <select class="form-control" id="selSize">
-                                                        <option disabled selected> Kích cỡ </option>
-                                            </select>
-                                        </div>
-                                        <div class="col-3">
-                                            <input type="number" class="form-control" id="inlineFormInputGroup1" placeholder="Số lượng">
-                                        </div>
-                                        <div class="col-3">
-                                            <br/>
-                                            <button data-repeater-delete type="button" class="btn btn-danger icon-btn">
-                                            <i class="mdi mdi-delete"></i>
-                                            </button>
-                                        </div>
-                                    </div>
-
+                    <form id="addname">
+                        <div class="input-group mr-sm-2 mb-sm-0" id="dynamic">
+                            <div class="form-group row" id="listRow">
+                                <div class="col-3">
+                                    <input type="text" class="form-control" id="inlineFormInputGroup1" name="sku[]" placeholder="SKU" required="">
                                 </div>
-
+                                <div class="col-3">
+                                    <select class="form-control" name="selColor[]" id="selColor">
+                                    </select>
+                                </div>
+                                <div class="col-3">
+                                    <select class="form-control" id="selSize" name="selSize[]">
+                                    </select>
+                                </div>
+                                <div class="col-2">
+                                    <input type="number" name="number[]" class="form-control" id="inlineFormInputGroup1" placeholder="Số lượng">
+                                </div>
                             </div>
                         </div>
-                        <button data-repeater-create type="button" class="btn btn-info btn-sm">+</button>
-                        <button type="button" id="btnList" class="btn btn-success btn-sm">Submit</button>
+                        <button type="button" id="btnAddList" class="btn btn-info btn-sm">+</button>
+                        <button type="button" name="submit" id="btnList" class="btn btn-success btn-sm">Submit</button>
                     </form>
                 </div>
             </div>
@@ -134,6 +129,26 @@
                                 </div>
                             </div>
                         </form>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-body">
+                        <h4 class="card-title">Giá sản phẩm</h4>
+                        <p class="card-description">
+                            Giá sản phẩm và khuyến mãi
+                        </p>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label for="Name Product">Giá tiền</label>
+                                <input type="text" class="form-control" placeholder="Giá tiền" id="txtMoney">
+                            </div>
+                            <div class="col-md-6">
+                                <label for="Name Product">% Khuyến Mãi</label>
+                                <input type="number" class="form-control" placeholder="% Khuyến mãi" id="txtMoney">
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -235,6 +250,7 @@
     fetch_subcategory(1);
     fetch_chatlieu();
     fetch_color();
+    fetch_size();
     //Open modal SubCategory
     $('#OpenSubModal').click(function(){
             $('#SubCategoryLabel').html('Thêm danh mục con');
@@ -324,6 +340,8 @@
                     $.each(request.responseJSON.errors,function(key,val){
                         ToastError(val);
                     });
+
+                    console.log(request.responseJSON);
                 }
         });
     }
@@ -340,16 +358,23 @@
                 url: '{{route('productdetails.test')}}',
                 data:$('#addname').serialize(),
                 success: function(data) {
-                    console.log(data);
+                    ToastSuccess('Ok');
                 },
                 error: function(request, status) {
-                    console.log(request.responseText);
+                    if(request.responseText == 1)
+                    {
+                        ToastError('Có trường bị trùng');
+                    } else {
+                        $.each(request.responseJSON.errors,function(key,val){
+                        ToastError(val);
+                        });
+                    }
                 }
         });
     }
 
     $('#btnList').click(function(){
-        console.log(text);
+        testProduct();
     });
     //Func add ChatLieu
     function addChatLieu()
@@ -474,6 +499,21 @@
         });
     }
     $(document).ready(function(){
+
+        var i = 1;
+        var a = $('#listRow').html();
+        $('#listRow').append('<div class="col-1"><button type="button" id="'+i+'" class="btn btn-danger btnRemoveList">-</button></div>');
+        $('#btnAddList').click(function(){
+            i++;
+            $('#dynamic').append('<div class="form-group row" id="listRow'+i+'">'+a+'<div class="col-1"><button type="button" id="'+i+'" class="btn btn-danger btnRemoveList">-</button></div></div>');
+            
+        });
+
+        $(document).on('click','.btnRemoveList',function(){
+            var button_id = $(this).attr("id");
+            $('#listRow'+button_id+'').remove();
+        });
+
         $('#SelCat').change(function(){
             var idCat = $(this).val();
             fetch_subcategory(idCat);
@@ -508,5 +548,7 @@
 <script src="{{asset('@styleadmin/js/select2.js')}}"></script>
 <script src="{{asset('@styleadmin/js/editorDemo.js')}}"></script>
 <script src="{{asset('@styleadmin/js/form-repeater.js')}}"></script>
+<script src="{{asset('@styleadmin/node_modules/inputmask/dist/inputmask/bindings/inputmask.binding.js')}}"></script>
+<script src="{{asset('@styleadmin/node_modules/inputmask/dist/jquery.inputmask.bundle.js')}}"></script>
 <script src="{{asset('@styleadmin/node_modules/jquery.repeater/jquery.repeater.min.js')}}"></script>
 @endsection

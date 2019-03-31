@@ -21,6 +21,7 @@ class ProductDetails extends Migration
             $table->foreign('id_color')->references('id')->on('Color');
             $table->integer('id_size')->unsigned();
             $table->foreign('id_size')->references('id')->on('Size');
+            $table->string('sku');
             $table->integer('soluong');
             $table->timestamps();
         });
