@@ -1,5 +1,6 @@
 <?php
 use juno_okyo\Chatfuel;
+use App\Product;
 /*
 |--------------------------------------------------------------------------
 | Web Routes

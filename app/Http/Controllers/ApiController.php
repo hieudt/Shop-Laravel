@@ -19,8 +19,8 @@ class ApiController extends Controller
     {
         $A = new Chatfuel();
         if ($min > $max) {
-                $A->sendText('Lỗi : giá trị min phải nhỏ hơn max');
-            }
+            $A->sendText('Lỗi : giá trị min phải nhỏ hơn max');
+        }
 
         $A->sendText("Số ngẫu nhiên là : " . rand($min, $max) . " nhé =)) ");
     }
@@ -29,24 +29,30 @@ class ApiController extends Controller
     {
         $A = new Chatfuel();
         if ($msg == "category") {
-                $data = DB::table('categories')->select(DB::raw('title'))->orderBy('id', 'desc')->get();
-                $text = '';
-                foreach($data as $_data)
-                {
+            $data = DB::table('categories')->select(DB::raw('title'))->orderBy('id', 'desc')->get();
+            $text = '';
+            foreach ($data as $_data) {
                     foreach ($_data as $key => $value) {
-                        $text .= $value."\n";
+                        $text .= $value . "\n";
                     }
                 }
-                $A = new Chatfuel;
-                $A->sendText($text);
-        }
-        elseif($msg == "product"){
-            $data = DB::table('product')->get();
-            $A->sendImage('http://123.16.227.89/Shop-Laravel/public/images/product/gMyc_fdsfds.jpg');
-        }
-        else {
+            $A = new Chatfuel;
+            $A->sendText($text);
+        } elseif ($msg == "product") {
+            $data = Product::all();
+            
+            foreach ($data as $_data) {
+                    $text = '';
+                    $text .= "Tên sản phẩm : " . $_data['title'] . "\n";
+                    $text .= "Giá tiền :" . $_data['cost'] . "đ\n";
+                    $text .= "Hình ảnh :" . "\n";
+                    $A->sendText($text);
+                    $A->sendImage('http://123.16.227.89/Shop-Laravel/public/images/product/'.$_data['thumbnail']);
+            }
+
+            echo $text;
+        } else {
             $A->sendText("Đéo Hiểu");
         }
-        
     }
 }
