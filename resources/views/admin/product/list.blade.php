@@ -33,45 +33,13 @@
     </div>
 </div>
 
-<form id="addProduct" method="POST" enctype="multipart/form-data">
-    <input type="file" name="fileUp" id="fileUp">
-    <input type="text" class="form-control" name="inputText">
-    <button id="Submit" type="submit" class="btn btn-primary"></button>
-</form>
 @endsection
  
 @section('javascript')
 <script>
 $(document).ready(function(){
-    $('#addProduct').on('submit',function(event){
-    event.preventDefault();
-        $.ajax({
-            headers: {
-                'X-CSRF-TOKEN':  $('meta[name="csrf-token"]').attr('content')
-            },
-            method: 'POST',
-            url: '{{route('productdetails.test')}}',
-            data:new FormData(this),
-            dataType:'JSON',
-            contentType:false,
-            cache:false,
-            processData:false,
-            success: function(data) {
-                ToastSuccess('Ok');
-            },
-            error: function(request, status) {
-                if(request.responseText == 1)
-                {
-                    ToastError('Có trường bị trùng');
-                } else {
-                    $.each(request.responseJSON.errors,function(key,val){
-                    ToastError(val);
-                    });
-                }
-            }
-        });
-    });
-  });
+   
+});
 
 </script>
 @endsection

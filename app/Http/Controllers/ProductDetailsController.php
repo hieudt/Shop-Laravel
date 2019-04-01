@@ -136,7 +136,7 @@ class ProductDetailsController extends Controller
                 $Object->save();
             }
 
-            return response()->json(['success' => $Product->id]);
+            return response()->json(['success' => 'Thêm mới thành công']);
         }
     }
 }

@@ -255,6 +255,11 @@
                     }
                 })
             });
+
+            //Pagination
+
+            Pagination('#category_table');
+            
         });
         // Tìm kiếm
         $(document).on('keyup', '#SearchCategory', function(){

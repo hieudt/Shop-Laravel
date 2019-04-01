@@ -339,7 +339,7 @@
         });
     }
 
-    //Func test
+    //Func add product
     $('#addProduct').on('submit',function(event){
     event.preventDefault();
         $.ajax({
@@ -354,7 +354,7 @@
             cache:false,
             processData:false,
             success: function(data) {
-                ToastSuccess(data);
+                ToastSuccess(data.success);
             },
             error: function(request, status) {
                 if(request.responseText == 1)
