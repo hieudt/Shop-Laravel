@@ -496,7 +496,7 @@
     $(document).ready(function(){
 
         var i = 1;
-        var a = $('#listRow').html();
+        var a = document.getElementById("listRow").innerHTML;
         $('#listRow').append('<div class="col-1"><button type="button" id="'+i+'" class="btn btn-danger btnRemoveList">-</button></div>');
         $('#btnAddList').click(function(){
             i++;
