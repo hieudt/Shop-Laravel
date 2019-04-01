@@ -48,7 +48,7 @@ Route::group(['prefix' => 'admin'], function () {
     
     Route::get('size/Search','SizeController@search')->name('size.search');
 
-    Route::post('productdetails','ProductDetailsController@test')->name('productdetails.store');
+    Route::post('productdetails','ProductDetailsController@store')->name('productdetails.store');
 
     Route::get('getapi/minmax/{min}/{max}','ApiController@minmax')->name('getapi.minmax');
     Route::get('getapi/service/{msg}','ApiController@service')->name('getapi.service');
