@@ -6,7 +6,7 @@ use DB;
 use Illuminate\Http\Request;
 use juno_okyo\Chatfuel;
 use App\Category;
-
+use App\Product;
 class ApiController extends Controller
 {
     public function index($msg)
@@ -27,7 +27,6 @@ class ApiController extends Controller
 
     public function service($msg)
     {
-        $A = new Chatfuel();
         if ($msg == "category") {
             $data = DB::table('categories')->select(DB::raw('title'))->orderBy('id', 'desc')->get();
             $text = '';
@@ -39,18 +38,17 @@ class ApiController extends Controller
             $A = new Chatfuel;
             $A->sendText($text);
         } elseif ($msg == "product") {
+            $A = new Chatfuel;
             $data = Product::all();
             
             foreach ($data as $_data) {
                     $text = '';
                     $text .= "Tên sản phẩm : " . $_data['title'] . "\n";
-                    $text .= "Giá tiền :" . $_data['cost'] . "đ\n";
+                    $text .= "Giá tiền :" . $_data['cost'] . "\n";
                     $text .= "Hình ảnh :" . "\n";
                     $A->sendText($text);
-                    $A->sendImage('http://123.16.227.89/Shop-Laravel/public/images/product/'.$_data['thumbnail']);
+                    echo $text;
             }
-
-            echo $text;
         } else {
             $A->sendText("Đéo Hiểu");
         }
