@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Máy chủ: localhost
--- Thời gian đã tạo: Th4 01, 2019 lúc 06:42 PM
+-- Thời gian đã tạo: Th4 01, 2019 lúc 07:55 PM
 -- Phiên bản máy phục vụ: 5.7.25-0ubuntu0.16.04.2
 -- Phiên bản PHP: 7.0.33-0ubuntu0.16.04.3
 
@@ -154,6 +154,14 @@ CREATE TABLE `Images` (
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+--
+-- Đang đổ dữ liệu cho bảng `Images`
+--
+
+INSERT INTO `Images` (`id`, `id_product`, `Link`, `created_at`, `updated_at`) VALUES
+(1, 14, 'AWBs_05.png', '2019-04-01 04:46:35', '2019-04-01 04:46:35'),
+(2, 14, 'WJ1M_02.png', '2019-04-01 04:46:35', '2019-04-01 04:46:35');
+
 -- --------------------------------------------------------
 
 --
@@ -263,191 +271,6 @@ CREATE TABLE `password_resets` (
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `permissions`
---
-
-CREATE TABLE `permissions` (
-  `id` bigint(20) UNSIGNED NOT NULL,
-  `key` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `table_name` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
---
--- Đang đổ dữ liệu cho bảng `permissions`
---
-
-INSERT INTO `permissions` (`id`, `key`, `table_name`, `created_at`, `updated_at`) VALUES
-(1, 'browse_admin', NULL, '2019-03-21 03:35:28', '2019-03-21 03:35:28'),
-(2, 'browse_bread', NULL, '2019-03-21 03:35:28', '2019-03-21 03:35:28'),
-(3, 'browse_database', NULL, '2019-03-21 03:35:28', '2019-03-21 03:35:28'),
-(4, 'browse_media', NULL, '2019-03-21 03:35:28', '2019-03-21 03:35:28'),
-(5, 'browse_compass', NULL, '2019-03-21 03:35:28', '2019-03-21 03:35:28'),
-(6, 'browse_menus', 'menus', '2019-03-21 03:35:28', '2019-03-21 03:35:28'),
-(7, 'read_menus', 'menus', '2019-03-21 03:35:28', '2019-03-21 03:35:28'),
-(8, 'edit_menus', 'menus', '2019-03-21 03:35:28', '2019-03-21 03:35:28'),
-(9, 'add_menus', 'menus', '2019-03-21 03:35:28', '2019-03-21 03:35:28'),
-(10, 'delete_menus', 'menus', '2019-03-21 03:35:28', '2019-03-21 03:35:28'),
-(11, 'browse_roles', 'roles', '2019-03-21 03:35:28', '2019-03-21 03:35:28'),
-(12, 'read_roles', 'roles', '2019-03-21 03:35:28', '2019-03-21 03:35:28'),
-(13, 'edit_roles', 'roles', '2019-03-21 03:35:29', '2019-03-21 03:35:29'),
-(14, 'add_roles', 'roles', '2019-03-21 03:35:29', '2019-03-21 03:35:29'),
-(15, 'delete_roles', 'roles', '2019-03-21 03:35:29', '2019-03-21 03:35:29'),
-(16, 'browse_users', 'users', '2019-03-21 03:35:29', '2019-03-21 03:35:29'),
-(17, 'read_users', 'users', '2019-03-21 03:35:29', '2019-03-21 03:35:29'),
-(18, 'edit_users', 'users', '2019-03-21 03:35:29', '2019-03-21 03:35:29'),
-(19, 'add_users', 'users', '2019-03-21 03:35:29', '2019-03-21 03:35:29'),
-(20, 'delete_users', 'users', '2019-03-21 03:35:29', '2019-03-21 03:35:29'),
-(21, 'browse_settings', 'settings', '2019-03-21 03:35:29', '2019-03-21 03:35:29'),
-(22, 'read_settings', 'settings', '2019-03-21 03:35:29', '2019-03-21 03:35:29'),
-(23, 'edit_settings', 'settings', '2019-03-21 03:35:29', '2019-03-21 03:35:29'),
-(24, 'add_settings', 'settings', '2019-03-21 03:35:29', '2019-03-21 03:35:29'),
-(25, 'delete_settings', 'settings', '2019-03-21 03:35:29', '2019-03-21 03:35:29'),
-(26, 'browse_hooks', NULL, '2019-03-21 03:35:30', '2019-03-21 03:35:30'),
-(27, 'browse_categories', 'categories', '2019-03-21 04:45:55', '2019-03-21 04:45:55'),
-(28, 'read_categories', 'categories', '2019-03-21 04:45:55', '2019-03-21 04:45:55'),
-(29, 'edit_categories', 'categories', '2019-03-21 04:45:55', '2019-03-21 04:45:55'),
-(30, 'add_categories', 'categories', '2019-03-21 04:45:55', '2019-03-21 04:45:55'),
-(31, 'delete_categories', 'categories', '2019-03-21 04:45:55', '2019-03-21 04:45:55'),
-(32, 'browse_SubCategory', 'SubCategory', '2019-03-26 14:13:29', '2019-03-26 14:13:29'),
-(33, 'read_SubCategory', 'SubCategory', '2019-03-26 14:13:29', '2019-03-26 14:13:29'),
-(34, 'edit_SubCategory', 'SubCategory', '2019-03-26 14:13:29', '2019-03-26 14:13:29'),
-(35, 'add_SubCategory', 'SubCategory', '2019-03-26 14:13:29', '2019-03-26 14:13:29'),
-(36, 'delete_SubCategory', 'SubCategory', '2019-03-26 14:13:29', '2019-03-26 14:13:29'),
-(37, 'browse_Product', 'Product', '2019-03-26 14:18:10', '2019-03-26 14:18:10'),
-(38, 'read_Product', 'Product', '2019-03-26 14:18:10', '2019-03-26 14:18:10'),
-(39, 'edit_Product', 'Product', '2019-03-26 14:18:10', '2019-03-26 14:18:10'),
-(40, 'add_Product', 'Product', '2019-03-26 14:18:10', '2019-03-26 14:18:10'),
-(41, 'delete_Product', 'Product', '2019-03-26 14:18:10', '2019-03-26 14:18:10'),
-(42, 'browse_thanhpho', 'thanhpho', '2019-03-26 14:22:02', '2019-03-26 14:22:02'),
-(43, 'read_thanhpho', 'thanhpho', '2019-03-26 14:22:02', '2019-03-26 14:22:02'),
-(44, 'edit_thanhpho', 'thanhpho', '2019-03-26 14:22:02', '2019-03-26 14:22:02'),
-(45, 'add_thanhpho', 'thanhpho', '2019-03-26 14:22:02', '2019-03-26 14:22:02'),
-(46, 'delete_thanhpho', 'thanhpho', '2019-03-26 14:22:02', '2019-03-26 14:22:02'),
-(47, 'browse_quan', 'quan', '2019-03-26 14:22:26', '2019-03-26 14:22:26'),
-(48, 'read_quan', 'quan', '2019-03-26 14:22:26', '2019-03-26 14:22:26'),
-(49, 'edit_quan', 'quan', '2019-03-26 14:22:26', '2019-03-26 14:22:26'),
-(50, 'add_quan', 'quan', '2019-03-26 14:22:26', '2019-03-26 14:22:26'),
-(51, 'delete_quan', 'quan', '2019-03-26 14:22:26', '2019-03-26 14:22:26'),
-(52, 'browse_ChatLieu', 'ChatLieu', '2019-03-26 14:22:52', '2019-03-26 14:22:52'),
-(53, 'read_ChatLieu', 'ChatLieu', '2019-03-26 14:22:52', '2019-03-26 14:22:52'),
-(54, 'edit_ChatLieu', 'ChatLieu', '2019-03-26 14:22:52', '2019-03-26 14:22:52'),
-(55, 'add_ChatLieu', 'ChatLieu', '2019-03-26 14:22:52', '2019-03-26 14:22:52'),
-(56, 'delete_ChatLieu', 'ChatLieu', '2019-03-26 14:22:52', '2019-03-26 14:22:52'),
-(62, 'browse_Attribute', 'Attribute', '2019-03-26 14:26:39', '2019-03-26 14:26:39'),
-(63, 'read_Attribute', 'Attribute', '2019-03-26 14:26:39', '2019-03-26 14:26:39'),
-(64, 'edit_Attribute', 'Attribute', '2019-03-26 14:26:39', '2019-03-26 14:26:39'),
-(65, 'add_Attribute', 'Attribute', '2019-03-26 14:26:39', '2019-03-26 14:26:39'),
-(66, 'delete_Attribute', 'Attribute', '2019-03-26 14:26:39', '2019-03-26 14:26:39'),
-(67, 'browse_AttributeProduct', 'AttributeProduct', '2019-03-26 14:26:59', '2019-03-26 14:26:59'),
-(68, 'read_AttributeProduct', 'AttributeProduct', '2019-03-26 14:26:59', '2019-03-26 14:26:59'),
-(69, 'edit_AttributeProduct', 'AttributeProduct', '2019-03-26 14:26:59', '2019-03-26 14:26:59'),
-(70, 'add_AttributeProduct', 'AttributeProduct', '2019-03-26 14:26:59', '2019-03-26 14:26:59'),
-(71, 'delete_AttributeProduct', 'AttributeProduct', '2019-03-26 14:26:59', '2019-03-26 14:26:59'),
-(72, 'browse_AttributeValue', 'AttributeValue', '2019-03-26 14:27:16', '2019-03-26 14:27:16'),
-(73, 'read_AttributeValue', 'AttributeValue', '2019-03-26 14:27:16', '2019-03-26 14:27:16'),
-(74, 'edit_AttributeValue', 'AttributeValue', '2019-03-26 14:27:16', '2019-03-26 14:27:16'),
-(75, 'add_AttributeValue', 'AttributeValue', '2019-03-26 14:27:16', '2019-03-26 14:27:16'),
-(76, 'delete_AttributeValue', 'AttributeValue', '2019-03-26 14:27:16', '2019-03-26 14:27:16');
-
--- --------------------------------------------------------
-
---
--- Cấu trúc bảng cho bảng `permission_role`
---
-
-CREATE TABLE `permission_role` (
-  `permission_id` bigint(20) UNSIGNED NOT NULL,
-  `role_id` bigint(20) UNSIGNED NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
---
--- Đang đổ dữ liệu cho bảng `permission_role`
---
-
-INSERT INTO `permission_role` (`permission_id`, `role_id`) VALUES
-(1, 1),
-(1, 3),
-(2, 1),
-(3, 1),
-(4, 1),
-(5, 1),
-(6, 1),
-(7, 1),
-(7, 3),
-(8, 1),
-(9, 1),
-(10, 1),
-(11, 1),
-(12, 1),
-(13, 1),
-(14, 1),
-(15, 1),
-(16, 1),
-(16, 3),
-(17, 1),
-(17, 3),
-(18, 1),
-(19, 1),
-(20, 1),
-(21, 1),
-(21, 3),
-(22, 1),
-(22, 3),
-(23, 1),
-(24, 1),
-(25, 1),
-(26, 1),
-(27, 1),
-(28, 1),
-(29, 1),
-(30, 1),
-(31, 1),
-(32, 1),
-(33, 1),
-(34, 1),
-(35, 1),
-(36, 1),
-(37, 1),
-(38, 1),
-(39, 1),
-(40, 1),
-(41, 1),
-(42, 1),
-(43, 1),
-(44, 1),
-(45, 1),
-(46, 1),
-(47, 1),
-(48, 1),
-(49, 1),
-(50, 1),
-(51, 1),
-(52, 1),
-(53, 1),
-(54, 1),
-(55, 1),
-(56, 1),
-(62, 1),
-(63, 1),
-(64, 1),
-(65, 1),
-(66, 1),
-(67, 1),
-(68, 1),
-(69, 1),
-(70, 1),
-(71, 1),
-(72, 1),
-(73, 1),
-(74, 1),
-(75, 1),
-(76, 1);
-
--- --------------------------------------------------------
-
---
 -- Cấu trúc bảng cho bảng `Product`
 --
 
@@ -470,8 +293,8 @@ CREATE TABLE `Product` (
 --
 
 INSERT INTO `Product` (`id`, `id_sub`, `id_chatlieu`, `slug`, `title`, `description`, `discount`, `cost`, `created_at`, `updated_at`, `thumbnail`) VALUES
-(12, 2, 1, 'ao-phong-thank-you-', 'ÁO PHÔNG " THANK YOU "', '<p>đây là áo phông</p>', 0, 250000, '2019-04-01 00:54:34', '2019-04-01 00:54:34', 'M9nF_ao1.jpg'),
-(13, 2, 1, 'ao-phong-loai-2', 'ÁO PHÔNG loại 2', '<p>đây là áo phông</p>', 0, 330000, '2019-04-01 00:55:35', '2019-04-01 00:55:35', 'HuPQ_fdsfds.jpg');
+(14, 2, 2, 'fghfghgfhrt', 'fghfghgfhrt', '<p>htehrehre</p>', 5, 32423, '2019-04-01 04:46:35', '2019-04-01 04:46:35', 'bak9_04.png'),
+(15, 1, 1, 'fewfew', 'fewfew', '<p>ewqewq</p>', 5, 43241, '2019-04-01 05:48:02', '2019-04-01 05:48:02', 'DZn5_DangKy.png');
 
 -- --------------------------------------------------------
 
@@ -495,9 +318,9 @@ CREATE TABLE `product_details` (
 --
 
 INSERT INTO `product_details` (`id`, `id_product`, `id_color`, `id_size`, `sku`, `soluong`, `created_at`, `updated_at`) VALUES
-(9, 12, 1, 2, 'SKU01', 5, '2019-04-01 00:54:34', '2019-04-01 00:54:34'),
-(10, 13, 1, 1, 'SKU02', 10, '2019-04-01 00:55:35', '2019-04-01 00:55:35'),
-(12, 12, 2, 1, 'ewrewrew', 4, NULL, NULL);
+(13, 14, 1, 1, 'wqewq', 2, '2019-04-01 04:46:35', '2019-04-01 04:46:35'),
+(14, 15, 1, 1, 'rewrew', 3, '2019-04-01 05:48:02', '2019-04-01 05:48:02'),
+(15, 15, 1, 2, 'rewrew', 4, '2019-04-01 05:48:02', '2019-04-01 05:48:02');
 
 -- --------------------------------------------------------
 
@@ -512,29 +335,6 @@ CREATE TABLE `quan` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
--- --------------------------------------------------------
-
---
--- Cấu trúc bảng cho bảng `roles`
---
-
-CREATE TABLE `roles` (
-  `id` bigint(20) UNSIGNED NOT NULL,
-  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `display_name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
---
--- Đang đổ dữ liệu cho bảng `roles`
---
-
-INSERT INTO `roles` (`id`, `name`, `display_name`, `created_at`, `updated_at`) VALUES
-(1, 'admin', 'Administrator', '2019-03-21 03:35:28', '2019-03-21 03:35:28'),
-(2, 'user', 'Normal User', '2019-03-21 03:35:28', '2019-03-21 03:35:28'),
-(3, 'mod', 'Cộng Tác Viên', '2019-03-21 03:53:09', '2019-03-21 03:53:09');
 
 -- --------------------------------------------------------
 
@@ -634,7 +434,6 @@ CREATE TABLE `thanhpho` (
 
 CREATE TABLE `users` (
   `id` int(10) UNSIGNED NOT NULL,
-  `role_id` bigint(20) UNSIGNED DEFAULT NULL,
   `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `email` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `avatar` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT 'users/default.png',
@@ -649,27 +448,9 @@ CREATE TABLE `users` (
 -- Đang đổ dữ liệu cho bảng `users`
 --
 
-INSERT INTO `users` (`id`, `role_id`, `name`, `email`, `avatar`, `password`, `remember_token`, `settings`, `created_at`, `updated_at`) VALUES
-(1, 1, 'trunghieu', 'rogteamvn@gmail.com', 'users/default.png', '$2y$10$AFONSnQeqg/dHHE65pV0q.qzgFjXjMuLluPsl4uQ9.wehO/xJ/bbO', '8XU5MgL19RgSNFOXrdTrnd9Smr6dC2S03E6hSLGvAJwXJp0fIrGGJbK1Rmmi', '{"locale":"en"}', NULL, '2019-03-21 04:36:02'),
-(2, 2, 'maimai', 'rogteamvn2@gmail.com', 'users/March2019/mqsHF5u7blEjHug0UYaZ.jpg', '$2y$10$1toui9VszKGzkOUKuEjQb.oScpILZIg92LLGSr6mQwu9LzuxkKwsO', NULL, '{"locale":"en"}', NULL, '2019-03-21 03:51:51');
-
--- --------------------------------------------------------
-
---
--- Cấu trúc bảng cho bảng `user_roles`
---
-
-CREATE TABLE `user_roles` (
-  `user_id` int(10) UNSIGNED NOT NULL,
-  `role_id` bigint(20) UNSIGNED NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
---
--- Đang đổ dữ liệu cho bảng `user_roles`
---
-
-INSERT INTO `user_roles` (`user_id`, `role_id`) VALUES
-(2, 3);
+INSERT INTO `users` (`id`, `name`, `email`, `avatar`, `password`, `remember_token`, `settings`, `created_at`, `updated_at`) VALUES
+(1, 'trunghieu', 'rogteamvn@gmail.com', 'users/default.png', '$2y$10$AFONSnQeqg/dHHE65pV0q.qzgFjXjMuLluPsl4uQ9.wehO/xJ/bbO', '8XU5MgL19RgSNFOXrdTrnd9Smr6dC2S03E6hSLGvAJwXJp0fIrGGJbK1Rmmi', '{"locale":"en"}', NULL, '2019-03-21 04:36:02'),
+(2, 'maimai', 'rogteamvn2@gmail.com', 'users/March2019/mqsHF5u7blEjHug0UYaZ.jpg', '$2y$10$1toui9VszKGzkOUKuEjQb.oScpILZIg92LLGSr6mQwu9LzuxkKwsO', NULL, '{"locale":"en"}', NULL, '2019-03-21 03:51:51');
 
 --
 -- Chỉ mục cho các bảng đã đổ
@@ -745,21 +526,6 @@ ALTER TABLE `password_resets`
   ADD KEY `password_resets_email_index` (`email`);
 
 --
--- Chỉ mục cho bảng `permissions`
---
-ALTER TABLE `permissions`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `permissions_key_index` (`key`);
-
---
--- Chỉ mục cho bảng `permission_role`
---
-ALTER TABLE `permission_role`
-  ADD PRIMARY KEY (`permission_id`,`role_id`),
-  ADD KEY `permission_role_permission_id_index` (`permission_id`),
-  ADD KEY `permission_role_role_id_index` (`role_id`);
-
---
 -- Chỉ mục cho bảng `Product`
 --
 ALTER TABLE `Product`
@@ -782,13 +548,6 @@ ALTER TABLE `product_details`
 ALTER TABLE `quan`
   ADD PRIMARY KEY (`id`),
   ADD KEY `quan_id_thanhpho_foreign` (`id_thanhpho`);
-
---
--- Chỉ mục cho bảng `roles`
---
-ALTER TABLE `roles`
-  ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `roles_name_unique` (`name`);
 
 --
 -- Chỉ mục cho bảng `Shipper`
@@ -826,16 +585,7 @@ ALTER TABLE `thanhpho`
 --
 ALTER TABLE `users`
   ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `users_email_unique` (`email`),
-  ADD KEY `users_role_id_foreign` (`role_id`);
-
---
--- Chỉ mục cho bảng `user_roles`
---
-ALTER TABLE `user_roles`
-  ADD PRIMARY KEY (`user_id`,`role_id`),
-  ADD KEY `user_roles_user_id_index` (`user_id`),
-  ADD KEY `user_roles_role_id_index` (`role_id`);
+  ADD UNIQUE KEY `users_email_unique` (`email`);
 
 --
 -- AUTO_INCREMENT cho các bảng đã đổ
@@ -875,7 +625,7 @@ ALTER TABLE `DetailsBill`
 -- AUTO_INCREMENT cho bảng `Images`
 --
 ALTER TABLE `Images`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT cho bảng `InfoShip`
 --
@@ -887,30 +637,20 @@ ALTER TABLE `InfoShip`
 ALTER TABLE `migrations`
   MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=78;
 --
--- AUTO_INCREMENT cho bảng `permissions`
---
-ALTER TABLE `permissions`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=77;
---
 -- AUTO_INCREMENT cho bảng `Product`
 --
 ALTER TABLE `Product`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 --
 -- AUTO_INCREMENT cho bảng `product_details`
 --
 ALTER TABLE `product_details`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 --
 -- AUTO_INCREMENT cho bảng `quan`
 --
 ALTER TABLE `quan`
   MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
---
--- AUTO_INCREMENT cho bảng `roles`
---
-ALTER TABLE `roles`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 --
 -- AUTO_INCREMENT cho bảng `Shipper`
 --
@@ -975,13 +715,6 @@ ALTER TABLE `InfoShip`
   ADD CONSTRAINT `infoship_id_quan_foreign` FOREIGN KEY (`id_quan`) REFERENCES `quan` (`id`);
 
 --
--- Các ràng buộc cho bảng `permission_role`
---
-ALTER TABLE `permission_role`
-  ADD CONSTRAINT `permission_role_permission_id_foreign` FOREIGN KEY (`permission_id`) REFERENCES `permissions` (`id`) ON DELETE CASCADE,
-  ADD CONSTRAINT `permission_role_role_id_foreign` FOREIGN KEY (`role_id`) REFERENCES `roles` (`id`) ON DELETE CASCADE;
-
---
 -- Các ràng buộc cho bảng `Product`
 --
 ALTER TABLE `Product`
@@ -1007,19 +740,6 @@ ALTER TABLE `quan`
 --
 ALTER TABLE `SubCategory`
   ADD CONSTRAINT `subcategory_id_category_foreign` FOREIGN KEY (`id_category`) REFERENCES `categories` (`id`);
-
---
--- Các ràng buộc cho bảng `users`
---
-ALTER TABLE `users`
-  ADD CONSTRAINT `users_role_id_foreign` FOREIGN KEY (`role_id`) REFERENCES `roles` (`id`);
-
---
--- Các ràng buộc cho bảng `user_roles`
---
-ALTER TABLE `user_roles`
-  ADD CONSTRAINT `user_roles_role_id_foreign` FOREIGN KEY (`role_id`) REFERENCES `roles` (`id`) ON DELETE CASCADE,
-  ADD CONSTRAINT `user_roles_user_id_foreign` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

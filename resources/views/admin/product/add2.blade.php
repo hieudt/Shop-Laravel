@@ -10,15 +10,15 @@
  
 @section('content')
 <form id="addProduct" method="POST" enctype="multipart/form-data">
-<div class="row">
-    <div class="col-md-8">
-        <div class="col-12 ">
-            <div class="card">
-                <div class="card-body">
-                    <h4 class="card-title">Thêm mới sản phẩm</h4>
-                    <p class="card-description">
-                        Thông tin sản phẩm
-                    </p>
+    <div class="row">
+        <div class="col-md-8">
+            <div class="col-12 ">
+                <div class="card">
+                    <div class="card-body">
+                        <h4 class="card-title">Thêm mới sản phẩm</h4>
+                        <p class="card-description">
+                            Thông tin sản phẩm
+                        </p>
                         <div class="form-group">
                             <label for="Name Product">Tên sản phẩm</label>
                             <input type="text" class="form-control" id="nameProduct" name="txtNameProduct" placeholder="Nhập tên sản phẩm">
@@ -36,27 +36,27 @@
                             <label for="exampleInputPassword1">Mô tả</label>
                             <textarea id="summernote" name="editordata"></textarea>
                         </div>
+                    </div>
                 </div>
             </div>
-        </div>
-        <div class="col-12">
-            <div class="card">
-                <div class="card-body">
-                    <h4 class="card-title">Chi tiết sản phẩm</h4>
-                    <p class="card-description">
-                        Cấu hình thuộc tính cho sản phẩm
-                    </p>
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-body">
+                        <h4 class="card-title">Chi tiết sản phẩm</h4>
+                        <p class="card-description">
+                            Cấu hình thuộc tính cho sản phẩm
+                        </p>
                         <div class="input-group mr-sm-2 mb-sm-0" id="dynamic">
                             <div class="form-group row" id="listRow">
                                 <div class="col-3">
                                     <input type="text" class="form-control" id="inlineFormInputGroup1" name="sku[]" placeholder="SKU" required="">
                                 </div>
                                 <div class="col-3">
-                                    <select class="form-control" name="selColor[]" id="selColor">
+                                    <select class="form-control selColor" name="selColor[]" id="selColor">
                                     </select>
                                 </div>
                                 <div class="col-3">
-                                    <select class="form-control" id="selSize" name="selSize[]">
+                                    <select class="form-control selSize" id="selSize" name="selSize[]">
                                     </select>
                                 </div>
                                 <div class="col-2">
@@ -66,19 +66,19 @@
                         </div>
                         <button type="button" id="btnAddList" class="btn btn-info btn-sm">+</button>
                         <button type="submit" name="submit" id="btnList" class="btn btn-success btn-sm">Submit</button>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-    <div class="col-md-4">
-        <div class="row">
-            <div class="col-md-12">
-                <div class="card">
-                    <div class="card-body">
-                        <h4 class="card-title">Phân loại</h4>
-                        <p class="card-description">
-                            Chọn danh mục cho sản phẩm
-                        </p>
+        <div class="col-md-4">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <h4 class="card-title">Phân loại</h4>
+                            <p class="card-description">
+                                Chọn danh mục cho sản phẩm
+                            </p>
                             <div class="form-group">
                                 <label>Danh mục cha</label>
                                 <select class="js-example-basic-single" id="SelCat" name="SelCat" style="width:80%">    
@@ -97,16 +97,16 @@
                                 </select>
                                 <button type="button" id="OpenChatLieuModal" class="btn btn-success" data-toggle="modal" data-target="#ChatLieuModal" data-whatever="@getbootstrap">+</button>
                             </div>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="col-md-12">
-                <div class="card">
-                    <div class="card-body">
-                        <h4 class="card-title">Hình ảnh</h4>
-                        <p class="card-description">
-                            Chọn hình ảnh cho sản phẩm
-                        </p>
+                <div class="col-md-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <h4 class="card-title">Hình ảnh</h4>
+                            <p class="card-description">
+                                Chọn hình ảnh cho sản phẩm
+                            </p>
                             <div class="form-group">
                                 <input type="file" id="Image1" name="Image1" class="dropify">
                             </div>
@@ -122,24 +122,25 @@
                                     </div>
                                 </div>
                             </div>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="col-md-12">
-                <div class="card">
-                    <div class="card-body">
-                        <h4 class="card-title">Giá sản phẩm</h4>
-                        <p class="card-description">
-                            Giá sản phẩm và khuyến mãi
-                        </p>
-                        <div class="row">
-                            <div class="col-md-6">
-                                <label for="Name Product">Giá tiền</label>
-                                <input type="text" class="form-control" placeholder="Giá tiền" name="txtMoney" id="txtMoney">
-                            </div>
-                            <div class="col-md-6">
-                                <label for="Name Product">% Khuyến Mãi</label>
-                                <input type="number" class="form-control" placeholder="% Khuyến mãi" name="txtDiscount" id="txtMoney">
+                <div class="col-md-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <h4 class="card-title">Giá sản phẩm</h4>
+                            <p class="card-description">
+                                Giá sản phẩm và khuyến mãi
+                            </p>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <label for="Name Product">Giá tiền</label>
+                                    <input type="text" class="form-control" placeholder="Giá tiền" name="txtMoney" id="txtMoney">
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="Name Product">% Khuyến Mãi</label>
+                                    <input type="number" class="form-control" placeholder="% Khuyến mãi" name="txtDiscount" id="txtMoney">
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -147,7 +148,6 @@
             </div>
         </div>
     </div>
-</div>
 </form>
 
 {{--Modal Category--}}
@@ -495,15 +495,7 @@
     }
     $(document).ready(function(){
 
-        var i = 1;
-        var a = document.getElementById("listRow").innerHTML;
-        $('#listRow').append('<div class="col-1"><button type="button" id="'+i+'" class="btn btn-danger btnRemoveList">-</button></div>');
-        $('#btnAddList').click(function(){
-            i++;
-            $('#dynamic').append('<div class="form-group row" id="listRow'+i+'">'+a+'<div class="col-1"><button type="button" id="'+i+'" class="btn btn-danger btnRemoveList">-</button></div></div>');
-            
-        });
-
+        
         $(document).on('click','.btnRemoveList',function(){
             var button_id = $(this).attr("id");
             $('#listRow'+button_id+'').remove();
@@ -534,6 +526,22 @@
             },
         });
 
+        var i = 1;
+        var b = 0;
+        var a = '';
+       
+
+        $('#btnAddList').click(function(){
+            if(b == 0)
+            {
+                a = $('#listRow').html();
+                $('#listRow').append('<div class="col-1"><button type="button" id="'+i+'" class="btn btn-danger btnRemoveList">-</button></div>');
+            }
+            b++;
+            i++;
+            $('#dynamic').append('<div class="form-group row" id="listRow'+i+'">'+a+'<div class="col-1"><button type="button" id="'+i+'" class="btn btn-danger btnRemoveList">-</button></div></div>');
+            
+        });
     });
 
 </script>
