@@ -39,8 +39,14 @@ class ApiController extends Controller
                 }
                 $A = new Chatfuel;
                 $A->sendText($text);
-        } else {
+        }
+        elseif($msg == "product"){
+            $data = DB::table('product')->get();
+            $A->sendImage('http://123.16.227.89/Shop-Laravel/public/images/product/gMyc_fdsfds.jpg');
+        }
+        else {
             $A->sendText("Đéo Hiểu");
         }
+        
     }
 }
