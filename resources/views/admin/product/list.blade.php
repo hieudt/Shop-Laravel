@@ -1,34 +1,40 @@
 @extends('admin.master') 
 @section('title','Trang sản phẩm') 
 @section('css')
+<link rel="stylesheet" href="{{asset('@styleadmin/node_modules/owl-carousel-2/assets/owl.carousel.min.css')}}">
+<link rel="stylesheet" href="{{asset('@styleadmin/node_modules/owl-carousel-2/assets/owl.theme.default.min.css')}}">
+<link rel="stylesheet" href="{{asset('@styleadmin/css/style.css')}}">
+
 <style>
     .tool {
         position: relative;
         display: inline-block;
         border-bottom: 1px dotted black;
-        color:blue;
+        color: blue;
+        
     }
 
     .imgProduct {
         border-radius: 0% !important;
-        width:200px !important;
-        height:auto !important;
+        width: 200px !important;
+        height: auto !important;
 
     }
 
     .tool .tool2 {
         visibility: hidden;
         width: 100px;
-        height:100px;
+        height: auto;
         background-color: gray;
         color: black;
         text-align: center;
         border-radius: 6px;
-        font-size:3pt;
-        padding: 5px 0;
+        font-size: 3pt;
+        padding: 5px;
         box-shadow: 10px 10px 10px 10px rgba(0, 0, 0, 0.5);
-        -webkit-transition:  font-size 1s,width 1s, height 1s, background-color 1s, -webkit-transform 1s; /* Safari */
-        transition: font-size 1s,width 1s, height 1s, background-color 1s, transform 1s;
+        -webkit-transition: font-size 1s, width 1s, height 1s, background-color 1s, -webkit-transform 1s;
+        /* Safari */
+        transition: font-size 1s, width 1s, height 1s, background-color 1s, transform 1s;
         /* Position the tooltip */
         position: absolute;
         z-index: 1;
@@ -37,12 +43,10 @@
     .tool:hover .tool2 {
         background-color: white;
         visibility: visible;
-        width: 500px;   
-        height: 500px;
-        font-size:15pt;
-
+        width: 800px;
+        height: auto;
+        font-size: 15pt;
     }
-
 </style>
 @endsection
  
@@ -75,6 +79,7 @@
                     </tbody>
                 </table>
 
+                
             </div>
         </div>
     </div>
@@ -84,7 +89,7 @@
 @section('javascript')
 <script>
     $(document).ready(function(){
-    
+
     fetch_product();
     $('[data-toggle="tooltip"]').tooltip(); 
     function fetch_product(query = '')
@@ -106,6 +111,11 @@
             });
     }
 });
+
+</script>
+
+<script src="{{asset('@styleadmin/node_modules/owl-carousel-2/owl.carousel.min.js')}}"></script>
+<script>
 
 </script>
 @endsection

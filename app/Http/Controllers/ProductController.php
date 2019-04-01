@@ -66,17 +66,22 @@ class ProductController extends Controller
                     setlocale(LC_MONETARY, 'vi_VN');
 
                     $data = product_details::where('id_product',$row->id)->get();
-                    $text = '';
-                    $text .= "Tên sản phẩm : ".$row->title."<br/>";
-                    $text .= "Mô tả : ".$row->description."<br/>";
-                    $text .= "Trong Kho : <br/>";
+                    $text = '<table class="table table-bordered"><tbody>
+                    <tr>
+                        <td>Tên sản phẩm</td>';
+                    $text .= "<td colspan='2'> ".$row->title."</td></tr>";
+                    $text .= "<tr><td>Mô tả : </td><td colspan='2'>".$row->description."</td>";
+                    $text .= "<tr><td colspan='3'>Trong Kho : </td></tr>";
+                    $text .= "<tr><td>Màu</td><td>Kích cỡ</td><td>Số lượng</td></tr>";
                     foreach ($data as $key) {
                         $data2 = product_details::find($key['id']);
-                        $text .= "Màu ".$data2->Color->name." | Kích thước ".$data2->Size->name." | Còn  : ".$data2->soluong."<br/>";
+                        $text .= "<tr><td>".$data2->Color->name."</td><td>".$data2->Size->name."</td><td>".$data2->soluong."</td>";
                     }
+                    $text .= "</tbody></table>";
                     $text .= "Hình ảnh <br/>";
+                    $text .= " <img class='imgProduct' src='/images/product/".$row->thumbnail."'> <img class='imgProduct' src='/images/product/".$row->thumbnail."'/> <img class='imgProduct' src='/images/product/".$row->thumbnail."' /> ";
+
                     
-                    $text .= "<img class='imgProduct' src='/images/product/".$row->thumbnail."' width='300px' height='300px'>";
                     
                     
 
