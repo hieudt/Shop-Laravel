@@ -48,7 +48,7 @@ Route::group(['prefix' => 'admin'], function () {
     
     Route::get('size/Search','SizeController@search')->name('size.search');
 
-    Route::post('productdetails/test','ProductDetailsController@test')->name('productdetails.test');
+    Route::post('productdetails','ProductDetailsController@test')->name('productdetails.store');
 
     Route::get('getapi/minmax/{min}/{max}','ApiController@minmax')->name('getapi.minmax');
     Route::get('getapi/service/{msg}','ApiController@service')->name('getapi.service');
@@ -69,38 +69,8 @@ Route::get('checkProduct',function(){
 });
 
 Route::get('checkProduct2',function(){
-    $data = Product::with('Color','Size','product_details')->where('id',12)->get()->toArray();
-    $text = '';
-    foreach ($data as $key) {
-        $array = array();
-        $i = 0;
-        echo "Tên SP : ".$key['title']."</br>";
-        echo "Giá SP : ".$key['cost']."<br/>";
-        foreach ($key['color'] as $keys) {
-            $array[$i] = "Màu : ".$keys['name']."|";
-            $i++;
-        }
-        $i = 0;
-        foreach($key['size'] as $keys){
-            $array[$i] .= "Size : ".$keys['name']."|";
-            $i++;
-        }
-        $i = 0;
-        foreach($key['product_details'] as $keys){
-            
-            $array[$i] .=  "Số lượng : ".$keys['soluong']."|";
-            $i++;
-        }
-        foreach($array as $ar){
-            $text .= $ar ."\n";
-        }
-    }
-    echo $text;
-
-    echo "<hr/>";
-    print_r($data);
  
-    
+   
 });
 
 

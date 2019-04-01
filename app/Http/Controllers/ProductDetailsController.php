@@ -10,7 +10,7 @@ use App\Images;
 
 class ProductDetailsController extends Controller
 {
-    public function test(Request $request)
+    public function store(Request $request)
     {
         if ($request->ajax()) {
             $SkuArray = $request->input('sku');
@@ -90,10 +90,10 @@ class ProductDetailsController extends Controller
             $File = $request->file('Image1');
             $nameImage = $File->getClientOriginalName(); // lấy tên hình 
             $Image = str_random(4) . "_" . $nameImage;
-            while (file_exists("storage/images/Product/" . $Image)) {
+            while (file_exists("images/product/" . $Image)) {
                 $Image = str_random(4) . "_" . $nameImage;
             }
-            $File->move("storage/images/Product", $Image);
+            $File->move("images/product", $Image);
             $Product->thumbnail = $Image;
             $Product->save();
 
@@ -112,10 +112,10 @@ class ProductDetailsController extends Controller
                 $File = $request->file('Image2');
                 $nameImage = $File->getClientOriginalName(); // lấy tên hình 
                 $Image = str_random(4) . "_" . $nameImage;
-                while (file_exists("storage/images/Product/" . $Image)) {
+                while (file_exists("images/product/" . $Image)) {
                     $Image = str_random(4) . "_" . $nameImage;
                 }
-                $File->move("storage/images/Product", $Image);
+                $File->move("images/product", $Image);
                 $Object = new Images;
                 $Object->id_product = $Product->id;
                 $Object->Link = $Image;
@@ -126,10 +126,10 @@ class ProductDetailsController extends Controller
                 $File = $request->file('Image3');
                 $nameImage = $File->getClientOriginalName(); // lấy tên hình 
                 $Image = str_random(4) . "_" . $nameImage;
-                while (file_exists("storage/images/Product/" . $Image)) {
+                while (file_exists("images/product/" . $Image)) {
                     $Image = str_random(4) . "_" . $nameImage;
                 }
-                $File->move("storage/images/Product", $Image);
+                $File->move("images/product", $Image);
                 $Object = new Images;
                 $Object->id_product = $Product->id;
                 $Object->Link = $Image;

@@ -347,7 +347,7 @@
                 'X-CSRF-TOKEN':  $('meta[name="csrf-token"]').attr('content')
             },
             method: 'POST',
-            url: '{{route('productdetails.test')}}',
+            url: '{{route('productdetails.store')}}',
             data:new FormData(this),
             dataType:'JSON',
             contentType:false,
