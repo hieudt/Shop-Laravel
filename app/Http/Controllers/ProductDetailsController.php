@@ -139,4 +139,5 @@ class ProductDetailsController extends Controller
             return response()->json(['success' => 'Thêm mới thành công']);
         }
     }
+
 }

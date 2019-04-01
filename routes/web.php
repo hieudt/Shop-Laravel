@@ -43,6 +43,7 @@ Route::group(['prefix' => 'admin'], function () {
 
     Route::get('product/add','ProductController@create')->name('product.create');
     Route::get('product/home','ProductController@index')->name('product.list');
+    Route::get('product/search','ProductController@search')->name('product.search');
 
     Route::get('color/Search','ColorController@search')->name('color.search');
     
