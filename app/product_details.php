@@ -18,4 +18,13 @@ class product_details extends Model
         return $this->hasMany('App\Detailsbill','id_products_details','id');
     }
     
+    public function Color()
+    {
+        return $this->belongsTo('App\Color','id_color','id');
+    }
+
+    public function Size()
+    {
+        return $this->belongsTo('App\Color','id_size','id');
+    }
 }

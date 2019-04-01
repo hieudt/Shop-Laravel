@@ -1,6 +1,7 @@
 <?php
 use juno_okyo\Chatfuel;
 use App\Product;
+use App\product_details;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -51,6 +52,55 @@ Route::group(['prefix' => 'admin'], function () {
 
     Route::get('getapi/minmax/{min}/{max}','ApiController@minmax')->name('getapi.minmax');
     Route::get('getapi/service/{msg}','ApiController@service')->name('getapi.service');
+});
+
+
+Route::get('checkProduct',function(){
+    $data = Product::all();
+    $text = '';
+        $productdetails = product_details::where('id_product',12)->get()->toArray();
+        foreach ($productdetails as $pd) {
+            $text .= "Soluong : ".$pd['soluong']."<br/>";
+            $text .= "Color : ".$pd->Color->name;
+            
+        }
+        
+    echo $text;
+});
+
+Route::get('checkProduct2',function(){
+    $data = Product::with('Color','Size','product_details')->where('id',12)->get()->toArray();
+    $text = '';
+    foreach ($data as $key) {
+        $array = array();
+        $i = 0;
+        echo "Tên SP : ".$key['title']."</br>";
+        echo "Giá SP : ".$key['cost']."<br/>";
+        foreach ($key['color'] as $keys) {
+            $array[$i] = "Màu : ".$keys['name']."|";
+            $i++;
+        }
+        $i = 0;
+        foreach($key['size'] as $keys){
+            $array[$i] .= "Size : ".$keys['name']."|";
+            $i++;
+        }
+        $i = 0;
+        foreach($key['product_details'] as $keys){
+            
+            $array[$i] .=  "Số lượng : ".$keys['soluong']."|";
+            $i++;
+        }
+        foreach($array as $ar){
+            $text .= $ar ."\n";
+        }
+    }
+    echo $text;
+
+    echo "<hr/>";
+    print_r($data);
+ 
+    
 });
 
 

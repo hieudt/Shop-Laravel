@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use juno_okyo\Chatfuel;
 use App\Category;
 use App\Product;
+
 class ApiController extends Controller
 {
     public function index($msg)
@@ -31,26 +32,56 @@ class ApiController extends Controller
             $data = DB::table('categories')->select(DB::raw('title'))->orderBy('id', 'desc')->get();
             $text = '';
             foreach ($data as $_data) {
-                    foreach ($_data as $key => $value) {
-                        $text .= $value . "\n";
-                    }
+                foreach ($_data as $key => $value) {
+                    $text .= $value . "\n";
                 }
+            }
             $A = new Chatfuel;
             $A->sendText($text);
         } elseif ($msg == "product") {
-            $A = new Chatfuel;
+
             $data = Product::all();
-            
+            $A = new Chatfuel;
+            $ar = array();
+
             foreach ($data as $_data) {
-                    $text = '';
-                    $text .= "Tên sản phẩm : " . $_data['title'] . "\n";
-                    $text .= "Giá tiền :" . $_data['cost'] . "\n";
-                    $text .= "Hình ảnh :" . "\n";
-                    $A->sendText($text);
-                    echo $text;
+                $price = "Giá tiền :" . $_data['cost'] . "đ \n";
+                $data = Product::with('Color', 'Size', 'product_details')->where('id', $_data['id'])->get()->toArray();
+                $text = '';
+                foreach ($data as $key) {
+                    $array = array();
+                    $i = 0;
+                    foreach ($key['color'] as $keys) {
+                        $array[$i] =  $keys['name'] . "|";
+                        $i++;
+                    }
+                    $i = 0;
+                    foreach ($key['size'] as $keys) {
+                        $array[$i] .=  $keys['name'] . "|";
+                        $i++;
+                    }
+                    $i = 0;
+                    foreach ($key['product_details'] as $keys) {
+
+                        $array[$i] .=   $keys['soluong'] . "|";
+                        $i++;
+                    }
+                    foreach ($array as $ar) {
+                        $text .= $ar . "\n";
+                    }
+                }
+                $price .= $text;
+                $image = "http://123.16.227.89/Shop-Laravel/public/images/product/" . $_data['thumbnail'];
+
+                $ar[] = $A->createElement($_data['title'], $image, $price, [
+                    $A->createButtonToURL('Mua Ngay', 'https://facebook.com/bossgin.vhb'),
+                    $A->createShareButton()
+                ]);
             }
+           // $A->sendGallery($ar);
         } else {
-            $A->sendText("Đéo Hiểu");
+            $A = new Chatfuel;
+            $A->sendText("Lệnh không hợp lệ vui lòng gõ category để xem danh mục hoặc product để xem sản phẩm");
         }
     }
 }
