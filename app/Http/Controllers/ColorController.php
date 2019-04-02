@@ -26,7 +26,7 @@ class ColorController extends Controller
                     $output .= '
                     ';
 
-                    $select_data .= '<option value="'.$row->id.'">'.$row->name.'</option>';
+                    $select_data .= '<option value="'.$row->id.'" data-color="'.$row->codeColor.'">'.$row->name.'</option>';
                 }
             } else {
                 $output .= '<tr><td colspan="5" align="center">

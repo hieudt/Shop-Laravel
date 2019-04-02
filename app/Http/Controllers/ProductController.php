@@ -5,6 +5,9 @@ namespace App\Http\Controllers;
 use App\Product;
 use Illuminate\Http\Request;
 use App\product_details;
+use App\Images;
+use App\Size;
+use App\Color;
 class ProductController extends Controller
 {
     /**
@@ -63,8 +66,7 @@ class ProductController extends Controller
             $output = '';
             if ($total_row > 0) {
                 foreach ($data as $row) {
-                    setlocale(LC_MONETARY, 'vi_VN');
-
+        
                     $data = product_details::where('id_product',$row->id)->get();
                     $text = '<table class="table table-bordered"><tbody>
                     <tr>
@@ -81,17 +83,14 @@ class ProductController extends Controller
                     $text .= "Hình ảnh <br/>";
                     $text .= " <img class='imgProduct' src='/images/product/".$row->thumbnail."'> <img class='imgProduct' src='/images/product/".$row->thumbnail."'/> <img class='imgProduct' src='/images/product/".$row->thumbnail."' /> ";
 
-                    
-                    
-                    
 
                     $output .= '
                      <tr>
                      <td>' . $row->id . '</td>
                      <td><div class="tool">' . $row->title . '<span class="tool2">'.$text.'</span></div></td>
-                     <td>' . $this->formatMoney($row->cost) . ' đ</td>
-                     <td><button type="button" class="btn btn-success" data-toggle="tooltip" title="Hooray!">Click me</button></td>
-                     <td><button class="btn btn-outline-primary edited" id="' . $row->id . '" title="' . $row->title . '" slug="' . $row->slug . '">Sửa</button>
+                     <td>' . $this->formatMoney($row->cost) . ' ₫</td>
+                     <td>'.$this->formatMoney($this->priceDiscount($row->cost,$row->discount)).' ₫ (KM '.$row->discount.'%)</td>
+                     <td><a href="edit/'.$row->id.'"><button class="btn btn-outline-primary edited" id="' . $row->id . '" title="' . $row->title . '" slug="' . $row->slug . '">Sửa</button></a>
                      <button type="button" class="btn btn-outline-danger delete" id="' . $row->id . '">Xóa</button>
                      </td>
                      </tr>
@@ -121,9 +120,16 @@ class ProductController extends Controller
      * @param  \App\Product  $product
      * @return \Illuminate\Http\Response
      */
-    public function edit(Product $product)
+    public function edit($id)
     {
-        //
+        if($Product = Product::find($id))
+        {
+            $Count = count($Product->product_details);
+            $Size = Size::all();
+            $Color = Color::all();
+            return view('admin.product.edit',compact('Product','Count','Size','Color'));
+        }      
+        return back();
     }
 
     /**
@@ -151,7 +157,7 @@ class ProductController extends Controller
 
     public function formatMoney($number, $fractional=false) {  
 	    if ($fractional) {  
-	        $number = sprintf('%.2f', $number);  
+	        $number = sprintf('%d', $number);  
 	    }  
 	    while (true) {  
 	        $replaced = preg_replace('/(-?\d+)(\d\d\d)/', '$1,$2', $number);  
@@ -162,5 +168,10 @@ class ProductController extends Controller
 	        }  
 	    }  
 	    return $number;  
-	}
+    }
+    
+    public function priceDiscount($Money,$Discount)
+    {
+       return  $Money - ($Money / 100 * $Discount);
+    }
 }

@@ -256,9 +256,6 @@
                 })
             });
 
-            //Pagination
-
-            Pagination('#category_table');
             
         });
         // Tìm kiếm

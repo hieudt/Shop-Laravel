@@ -104,10 +104,12 @@ class CategoryController extends Controller
     {
         if ($request->ajax()) {
             $query = $request->get('query');
+            $id = $request->get('id');
             if ($query != '') {
                 $data = DB::table('categories')
                     ->where('title', 'like', '%' . $query . '%')
                     ->orWhere('slug', 'like', '%' . $query . '%')
+                    ->orWhere('id','like','%'.$query.'%')
                     ->orderBy('id', 'asc')
                     ->get();
             } else {
@@ -131,8 +133,11 @@ class CategoryController extends Controller
                      </td>
                      </tr>
                     ';
+                    if($id == $row->id)
+                        {$select_data .= '<option value="'.$row->id.'" selected>'.$row->title.'</option>';}
+                    else 
+                        {$select_data .= '<option value="'.$row->id.'">'.$row->title.'</option>';}
 
-                    $select_data .= '<option value="'.$row->id.'">'.$row->title.'</option>';
                 }
                
             } else {

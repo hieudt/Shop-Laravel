@@ -20,16 +20,6 @@
                     <div class="col-md-6">
                         <button type="button" id="OpenModal" class="btn btn-success btn-fw" data-toggle="modal" data-target="#CategoryModal" data-whatever="@getbootstrap"><i class="mdi mdi-check"></i>Thêm mới</button>
                     </div>
-                    <div class="col-md-6">
-                        <div class="form-group">
-                            <select name="state" id="maxRows" class="form-control">
-                                    <option value="5000">Show All</option>
-                                    <option value="2">2</option>
-                                    <option value="5">5</option>
-                                    <option value="10">10</option>
-                                </select>
-                        </div>
-                    </div>
                 </div><br/>
                 <table id="category_table" class="table" cellspacing="0">
                     <thead>
@@ -44,12 +34,6 @@
                     <tbody id="category_table_body">
                     </tbody>
                 </table>
-                <div class="pagination-container">
-                    <nav>
-                        <ul class="pagination flat pagination-success">
-                        </ul>
-                    </nav>
-                </div>
             </div>
         </div>
     </div>
@@ -100,16 +84,6 @@
                             data-whatever="@getbootstrap"><i class="mdi mdi-check"></i>Thêm mới</button>
 
                     </div>
-                    <div class="col-md-6">
-                        <div class="form-group">
-                            <select name="state" id="maxRows" class="form-control">
-                                        <option value="5000">Show All</option>
-                                        <option value="2">2</option>
-                                        <option value="5">5</option>
-                                        <option value="10">10</option>
-                             </select>
-                        </div>
-                    </div>
                 </div><br/>
                 <table id="subcategory_table" class="table" cellspacing="0">
                     <thead>
@@ -124,12 +98,6 @@
                     <tbody id="subcategory_table_body">
                     </tbody>
                 </table>
-                <div class="pagination-container">
-                    <nav>
-                        <ul class="pagination flat pagination-success">
-                        </ul>
-                    </nav>
-                </div>
             </div>
         </div>
     </div>

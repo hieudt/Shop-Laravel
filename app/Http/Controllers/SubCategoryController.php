@@ -174,10 +174,11 @@ class SubCategoryController extends Controller
     {
         if ($request->ajax()) {
             $query = $request->get('query');
+            $id = $request->get('id');
             if ($query != '') {
                 $data = SubCategory::where('name_sub','like','%'.$query.'%')
                         ->orWhere('slug','like','%'.$query.'%')
-                        ->orWhere('id_category','like','%'.$query.'%')
+                        ->orWhere('id_category',$query)
                         ->orderBy('id','asc')
                         ->get();
                 //$data = DB::table('SubCategory')
@@ -207,8 +208,11 @@ class SubCategoryController extends Controller
                      </td>
                      </tr>
                     ';
-
-                    $select_data .= '<option value="'.$row->id.'">'.$row->name_sub.'</option>';
+                    if($id == $row->id){
+                        $select_data .= '<option value="'.$row->id.'" selected>'.$row->name_sub.'</option>';
+                    } else {
+                        $select_data .= '<option value="'.$row->id.'">'.$row->name_sub.'</option>';
+                    }
                 }
             } else {
                 $output .= '<tr><td colspan="5" align="center">

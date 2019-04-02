@@ -44,12 +44,14 @@ Route::group(['prefix' => 'admin'], function () {
     Route::get('product/add','ProductController@create')->name('product.create');
     Route::get('product/home','ProductController@index')->name('product.list');
     Route::get('product/search','ProductController@search')->name('product.search');
+    Route::get('product/edit/{id}','ProductController@edit')->name('product.edit');
 
     Route::get('color/Search','ColorController@search')->name('color.search');
     
     Route::get('size/Search','SizeController@search')->name('size.search');
 
     Route::post('productdetails','ProductDetailsController@store')->name('productdetails.store');
+    Route::post('productdetails/update/{id}','ProductDetailsController@update')->name('productdetails.update');
 
     Route::get('getapi/minmax/{min}/{max}','ApiController@minmax')->name('getapi.minmax');
     Route::get('getapi/service/{msg}','ApiController@service')->name('getapi.service');
@@ -70,7 +72,8 @@ Route::get('checkProduct',function(){
 });
 
 Route::get('checkProduct2',function(){
- 
+    $data = Product::find(14);
+    echo $data->product_details[0]->sku;
    
 });
 

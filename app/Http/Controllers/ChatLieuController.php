@@ -115,6 +115,7 @@ class ChatLieuController extends Controller
     {
         if ($request->ajax()) {
             $query = $request->get('query');
+            $id = $request->get('id');
             if ($query != '') {
                 $data = ChatLieu::where('name','like','%'.$query.'%')
                         ->orWhere('slug','like','%'.$query.'%')
@@ -132,7 +133,11 @@ class ChatLieuController extends Controller
                     $output .= '
                     ';
 
-                    $select_data .= '<option value="'.$row->id.'">'.$row->name.'</option>';
+                    if($id == $row->id){
+                        $select_data .= '<option value="'.$row->id.'" selected>'.$row->name.'</option>';
+                    } else {
+                        $select_data .= '<option value="'.$row->id.'">'.$row->name.'</option>';
+                    }
                 }
             } else {
                 $output .= '<tr><td colspan="5" align="center">

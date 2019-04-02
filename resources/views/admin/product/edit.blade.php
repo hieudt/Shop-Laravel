@@ -1,7 +1,7 @@
 @extends('admin.master') 
 @section('title','Trang chủ admin') 
 @section('css')
- 
+
 <link rel="stylesheet" href="{{asset('@styleadmin/node_modules/dropify/dist/css/dropify.min.css')}}">
 <link rel="stylesheet" href="{{asset('@styleadmin/node_modules/select2/dist/css/select2.min.css')}}">
 <link rel="stylesheet" href="{{asset('@styleadmin/node_modules/select2-bootstrap-theme/dist/select2-bootstrap.min.css')}}">
@@ -9,19 +9,20 @@
 @endsection
  
 @section('content')
+
 <form id="addProduct" method="POST" enctype="multipart/form-data">
     <div class="row">
         <div class="col-md-8">
             <div class="col-12 ">
                 <div class="card">
                     <div class="card-body">
-                        <h4 class="card-title">Thêm mới sản phẩm</h4>
+                        <h4 class="card-title">Cập nhật sản phẩm</h4>
                         <p class="card-description">
                             Thông tin sản phẩm
                         </p>
                         <div class="form-group">
                             <label for="Name Product">Tên sản phẩm</label>
-                            <input type="text" class="form-control" id="nameProduct" name="txtNameProduct" placeholder="Nhập tên sản phẩm">
+                            <input type="text" class="form-control" id="nameProduct" name="txtNameProduct" placeholder="Nhập tên sản phẩm" value="{{$Product->title}}">
                         </div>
                         <div class="form-group">
                             <label for="Name Product">Đường dẫn sản phẩm</label>
@@ -29,12 +30,13 @@
                                 <div class="input-group-prepend">
                                     <span class="input-group-text">{{url('san-pham/')}}/</span>
                                 </div>
-                                <input type="text" class="form-control form-control-sm" id="inlineFormInputGroup1" name="txtSlugProduct" placeholder="Để trống sẽ tự tạo theo tiêu đề sp">
+                                <input type="text" class="form-control form-control-sm" id="inlineFormInputGroup1" name="txtSlugProduct" placeholder="Để trống sẽ tự tạo theo tiêu đề sp"
+                                    value="{{$Product->slug}}">
                             </div>
                         </div>
                         <div class="form-group">
                             <label for="exampleInputPassword1">Mô tả</label>
-                            <textarea id="summernote" name="editordata"></textarea>
+                            <textarea id="summernote" name="editordata">{{$Product->description}}</textarea>
                         </div>
                     </div>
                 </div>
@@ -47,106 +49,129 @@
                             Cấu hình thuộc tính cho sản phẩm
                         </p>
                         <div class="input-group mr-sm-2 mb-sm-0" id="dynamic">
+                        @for($i = 0;$i < $Count;$i++) 
+                            @if($i > 0)
+                            <div class="form-group row" id="listRow{{$i}}">
+                            @else
                             <div class="form-group row" id="listRow">
+                            @endif
                                 <div class="col-3">
-                                    <input type="text" class="form-control" id="inlineFormInputGroup1" name="sku[]" placeholder="SKU" required="">
+                                <input type="text" class="form-control" id="inlineFormInputGroup1" name="sku[]" placeholder="SKU" required="" value="{{$Product->product_details[$i]->sku}}">
                                 </div>
                                 <div class="col-3">
                                     <select class="form-control selColor" name="selColor[]" id="selColor">
+                                        @foreach($Color as $c)
+                                            @if($Product->product_details[$i]->id_color == $c->id)
+                                            <option value="{{$c->id}}" selected>{{$c->name}}</option>
+                                            @else
+                                            <option value="{{$c->id}}">{{$c->name}}</option>
+                                            @endif
+                                        @endforeach
                                     </select>
                                 </div>
                                 <div class="col-3">
                                     <select class="form-control selSize" id="selSize" name="selSize[]">
+                                        @foreach($Size as $c)
+                                            @if($Product->product_details[$i]->id_size == $c->id)
+                                            <option value="{{$c->id}}" selected>{{$c->name}}</option>
+                                            @else
+                                            <option value="{{$c->id}}">{{$c->name}}</option>
+                                            @endif
+                                        @endforeach
                                     </select>
                                 </div>
                                 <div class="col-2">
-                                    <input type="number" name="number[]" class="form-control" id="inlineFormInputGroup1" placeholder="Số lượng">
+                                <input type="number" name="number[]" class="form-control" id="inlineFormInputGroup1" placeholder="Số lượng" value="{{$Product->product_details[$i]->soluong}}">
                                 </div>
+                                @if($Count > 1 && $i > 0)
+                                    <div class="col-1"><button type="button" id="{{$i}}" class="btn btn-danger btnRemoveList">-</button></div>
+                                @endif
                             </div>
-                        </div>
-                        <button type="button" id="btnAddList" class="btn btn-info btn-sm">+</button>
-                        <button type="submit" name="submit" id="btnList" class="btn btn-success btn-sm">Submit</button>
+                        @endfor
                     </div>
+                    <button type="button" id="btnAddList" class="btn btn-info btn-sm">+</button>
+                    <button type="submit" name="submit" id="btnList" class="btn btn-success btn-sm">Cập nhật</button>
                 </div>
             </div>
         </div>
-        <div class="col-md-4">
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="card">
-                        <div class="card-body">
-                            <h4 class="card-title">Phân loại</h4>
-                            <p class="card-description">
-                                Chọn danh mục cho sản phẩm
-                            </p>
-                            <div class="form-group">
-                                <label>Danh mục cha</label>
-                                <select class="js-example-basic-single" id="SelCat" name="SelCat" style="width:80%">    
+    </div>
+    <div class="col-md-4">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-body">
+                        <h4 class="card-title">Phân loại</h4>
+                        <p class="card-description">
+                            Chọn danh mục cho sản phẩm
+                        </p>
+                        <div class="form-group">
+                            <label>Danh mục cha</label>
+                            <select class="js-example-basic-single" id="SelCat" name="SelCat" style="width:80%">    
                                 </select>
-                                <button type="button" id="OpenModal" class="btn btn-success" data-toggle="modal" data-target="#CategoryModal" data-whatever="@getbootstrap">+</button>
-                            </div>
-                            <div class="form-group">
-                                <label>Danh mục con</label>
-                                <select class="js-example-basic-single" id="SelSubCat" name="SelSubCat" style="width:80%">    
+                            <button type="button" id="OpenModal" class="btn btn-success" data-toggle="modal" data-target="#CategoryModal" data-whatever="@getbootstrap">+</button>
+                        </div>
+                        <div class="form-group">
+                            <label>Danh mục con</label>
+                            <select class="js-example-basic-single" id="SelSubCat" name="SelSubCat" style="width:80%">    
                                 </select>
-                                <button type="button" id="OpenSubModal" class="btn btn-success" data-toggle="modal" data-target="#SubcategoryModal" data-whatever="@getbootstrap">+</button>
-                            </div>
-                            <div class="form-group">
-                                <label>Chất Liệu SP</label>
-                                <select class="js-example-basic-single" id="SelChatLieu" name="SelChatLieu" style="width:80%">    
+                            <button type="button" id="OpenSubModal" class="btn btn-success" data-toggle="modal" data-target="#SubcategoryModal" data-whatever="@getbootstrap">+</button>
+                        </div>
+                        <div class="form-group">
+                            <label>Chất Liệu SP</label>
+                            <select class="js-example-basic-single" id="SelChatLieu" name="SelChatLieu" style="width:80%">    
                                 </select>
-                                <button type="button" id="OpenChatLieuModal" class="btn btn-success" data-toggle="modal" data-target="#ChatLieuModal" data-whatever="@getbootstrap">+</button>
-                            </div>
+                            <button type="button" id="OpenChatLieuModal" class="btn btn-success" data-toggle="modal" data-target="#ChatLieuModal" data-whatever="@getbootstrap">+</button>
                         </div>
                     </div>
                 </div>
-                <div class="col-md-12">
-                    <div class="card">
-                        <div class="card-body">
-                            <h4 class="card-title">Hình ảnh</h4>
-                            <p class="card-description">
-                                Chọn hình ảnh cho sản phẩm
-                            </p>
-                            <div class="form-group">
-                                <input type="file" id="Image1" name="Image1" class="dropify">
-                            </div>
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <input type="file" id="Image2" name="Image2" class="subDropify">
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <input type="file" id="Image3" name="Image3" class="subDropify">
-                                    </div>
-                                </div>
-                            </div>
+            </div>
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-body">
+                        <h4 class="card-title">Hình ảnh</h4>
+                        <p class="card-description">
+                            Chọn hình ảnh cho sản phẩm
+                        </p>
+                        <div class="form-group">
+                            <input disabled type="file" id="Image1" name="Image1" class="dropify" data-default-file="/images/product/{{$Product->thumbnail}}">
                         </div>
-                    </div>
-                </div>
-                <div class="col-md-12">
-                    <div class="card">
-                        <div class="card-body">
-                            <h4 class="card-title">Giá sản phẩm</h4>
-                            <p class="card-description">
-                                Giá sản phẩm và khuyến mãi
-                            </p>
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <label for="Name Product">Giá tiền</label>
-                                    <input type="text" class="form-control" placeholder="Giá tiền" name="txtMoney" id="txtMoney">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <input type="file" id="Image2" name="Image2" class="subDropify" data-default-file="@if(isset($Product->Images[0]))/images/product/{{$Product->Images[0]->Link}}@endif">
                                 </div>
-                                <div class="col-md-6">
-                                    <label for="Name Product">% Khuyến Mãi</label>
-                                    <input type="number" class="form-control" placeholder="% Khuyến mãi" name="txtDiscount" id="txtMoney">
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <input type="file" id="Image3" name="Image3" class="subDropify" data-default-file="@if(isset($Product->Images[1]))/images/product/{{$Product->Images[1]->Link}}@endif">
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-body">
+                        <h4 class="card-title">Giá sản phẩm</h4>
+                        <p class="card-description">
+                            Giá sản phẩm và khuyến mãi
+                        </p>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label for="Name Product">Giá tiền</label>
+                                <input type="text" class="form-control" placeholder="Giá tiền" name="txtMoney" id="txtMoney" value="{{$Product->cost}}">
+                            </div>
+                            <div class="col-md-6">
+                                <label for="Name Product">% Khuyến Mãi</label>
+                                <input type="number" class="form-control" placeholder="% Khuyến mãi" name="txtDiscount" id="txtDiscount" value="{{$Product->discount}}">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
+    </div>
     </div>
 </form>
 
@@ -239,11 +264,11 @@
  
 @section('javascript')
 <script>
-    fetch_category();
-    fetch_subcategory(1);
-    fetch_chatlieu();
-    fetch_color();
-    fetch_size();
+    fetch_category('',{{$Product->SubCategory->Category->id}});
+    fetch_subcategory({{$Product->SubCategory->Category->id}},{{$Product->SubCategory->id}});
+    fetch_chatlieu('',{{$Product->ChatLieu->id}});
+    //fetch_color();
+    //fetch_size();
     //Open modal SubCategory
     $('#OpenSubModal').click(function(){
             $('#SubCategoryLabel').html('Thêm danh mục con');
@@ -347,7 +372,7 @@
                 'X-CSRF-TOKEN':  $('meta[name="csrf-token"]').attr('content')
             },
             method: 'POST',
-            url: '{{route('productdetails.store')}}',
+            url: '{{url('admin/productdetails/update/'.$Product->id)}}',
             data:new FormData(this),
             dataType:'JSON',
             contentType:false,
@@ -398,7 +423,7 @@
     }
 
     // Load category Func
-    function fetch_category(query = '')
+    function fetch_category(query = '',id = '')
     {
             $.ajax({
             headers: {
@@ -406,7 +431,7 @@
             },
             method: 'GET',
             url: '{{route('category.search')}}',
-            data:{query:query},
+            data:{query:query,id:id},
             dataType: 'json',
                 success: function(data) {
                     $('#SelCat').html(data.select_data);
@@ -418,7 +443,7 @@
     }
 
     // Load subcategory func
-    function fetch_subcategory(query = '')
+    function fetch_subcategory(query = '',id = '')
     {
             $.ajax({
             headers: {
@@ -426,7 +451,7 @@
             },
             method: 'GET',
             url: '{{route('subcategory.search')}}',
-            data:{query:query},
+            data:{query:query,id:id},
             dataType: 'json',
                 success: function(data) {
                     $('#SelSubCat').html(data.select_data);
@@ -475,7 +500,7 @@
         });
     }
     // Load Chat Lieu func
-    function fetch_chatlieu(query = '')
+    function fetch_chatlieu(query = '',id = '')
     {
         $.ajax({
         headers: {
@@ -483,7 +508,7 @@
         },
         method: 'GET',
         url: '{{route('chatlieu.search')}}',
-        data:{query:query},
+        data:{query:query,id:id},
         dataType: 'json',
             success: function(data) {
                 $('#SelChatLieu').html(data.select_data);
@@ -526,10 +551,9 @@
             },
         });
 
-        var i = 1;
-        var b = 0;
+        var i = {{$Count}};
         var a = '';
-       
+        var b = 0;
 
         $('#btnAddList').click(function(){
             if(b == 0)
@@ -540,7 +564,8 @@
             b++;
             i++;
             $('#dynamic').append('<div class="form-group row" id="listRow'+i+'">'+a+'<div class="col-1"><button type="button" id="'+i+'" class="btn btn-danger btnRemoveList">-</button></div></div>');
-            
+            $("#listRow"+i+" .col-3 #inlineFormInputGroup1").val('');
+            $("#listRow"+i+" .col-2 #inlineFormInputGroup1").val('');
         });
     });
 

@@ -61,9 +61,9 @@
                         <input type="text" name="SearchProduct" id="SearchProduct" placeholder="Tìm kiếm sản phẩm" class="form-control">
                     </div>
                     <div class="col-md-6">
-                        <button type="button" id="OpenModal" class="btn btn-success btn-fw" data-toggle="modal" data-target="#ProductModal" data-whatever="@getbootstrap"><i class="mdi mdi-check"></i>Thêm mới</button>
-
+                    <button type="button" id="OpenAdd" class="btn btn-success btn-fw" data-toggle="modal" data-target="#ProductModal" data-whatever="@getbootstrap"><i class="mdi mdi-check"></i>Thêm mới</button>
                     </div>
+
                 </div><br/>
                 <table id="Product_table" class="table" cellspacing="0">
                     <thead>
@@ -78,8 +78,12 @@
                     <tbody id="product_table_body">
                     </tbody>
                 </table>
-
-                
+                <div class="pagination-container">
+                    <nav>
+                        <ul class="pagination flat pagination-success">
+                        </ul>
+                    </nav>
+                </div>
             </div>
         </div>
     </div>
@@ -88,7 +92,7 @@
  
 @section('javascript')
 <script>
-    $(document).ready(function(){
+$(document).ready(function(){
 
     fetch_product();
     $('[data-toggle="tooltip"]').tooltip(); 
@@ -110,7 +114,19 @@
                 }
             });
     }
+
+    $(document).on('keyup', '#SearchProduct', function(){
+        var query = $(this).val();
+        fetch_product(query);
+    });
+
+    $('#OpenAdd').click(function(){
+        window.location.href = "{{route('product.create')}}";
+    });
+
+
 });
+// Tìm kiếm
 
 </script>
 
