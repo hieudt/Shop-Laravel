@@ -10,4 +10,8 @@ class AdminPages extends Controller
     {
         return view('admin.home');
     }
+
+    public function attIndex(){
+        return view('admin.attribute.home');
+    }
 }

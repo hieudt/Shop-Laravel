@@ -26,6 +26,9 @@
               <li class="nav-item">
                   <a href="{{url('admin/product/add')}}" class="nav-link">Thêm Mới</a>
               </li>
+              <li class="nav-item">
+                <a href="{{url('admin/product/attribute')}}" class="nav-link">Thuộc tính</a>
+              </li>
             </ul>
           </div>
         </li>

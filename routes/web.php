@@ -47,8 +47,10 @@ Route::group(['prefix' => 'admin'], function () {
     Route::get('product/edit/{id}','ProductController@edit')->name('product.edit');
     Route::get('product/attribute','AdminPages@attIndex')->name('product.att.list');
 
+
     Route::get('color/Search','ColorController@search')->name('color.search');
-    
+    Route::get('color/Store','ColorController@store')->name('color.store');
+
     Route::get('size/Search','SizeController@search')->name('size.search');
 
     Route::post('productdetails','ProductDetailsController@store')->name('productdetails.store');

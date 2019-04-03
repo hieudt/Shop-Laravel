@@ -24,6 +24,14 @@ class ColorController extends Controller
             if ($total_row > 0) {
                 foreach ($data as $row) {
                     $output .= '
+                    <tr>
+                        <td>'.$row->id.'</td>
+                        <td>'.$row->name.'</td>
+                        <td><span class="colors" data-color="'.$row->codeColor.'"></span></td>
+                        <td><label class="badge badge-info badge-pill">Enable</label></td>
+                        <td><button class="btn btn-outline-primary edited" id="' . $row->id . '" title="' . $row->title . '" slug="' . $row->slug . '">Sửa</button>
+                        <button type="button" class="btn btn-outline-danger delete" id="' . $row->id . '">Xóa</button></td>
+                    </tr>
                     ';
 
                     $select_data .= '<option value="'.$row->id.'" data-color="'.$row->codeColor.'">'.$row->name.'</option>';
