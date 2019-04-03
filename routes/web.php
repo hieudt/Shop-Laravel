@@ -45,6 +45,7 @@ Route::group(['prefix' => 'admin'], function () {
     Route::get('product/home','ProductController@index')->name('product.list');
     Route::get('product/search','ProductController@search')->name('product.search');
     Route::get('product/edit/{id}','ProductController@edit')->name('product.edit');
+    Route::get('product/attribute','AdminPages@attIndex')->name('product.att.list');
 
     Route::get('color/Search','ColorController@search')->name('color.search');
     

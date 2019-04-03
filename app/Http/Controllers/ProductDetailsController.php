@@ -241,8 +241,8 @@ class ProductDetailsController extends Controller
                 }
 
                 $File->move("images/product", $Image);
-                if ($Product->Images[0]) {
-                    unlink("images/product/".$Product->thumbnail);
+                if (!empty($Product->Images[0])) {
+                    unlink("images/product/".$Product->Images[0]->Link);
                     $Object = Images::find($Product->Images[0]->id);
                     $Object->Link = $Image;
                     $Object->save();
@@ -264,8 +264,8 @@ class ProductDetailsController extends Controller
                 }
 
                 $File->move("images/product", $Image);
-                if ($Product->Images[1]) {
-                    unlink("images/product/".$Product->thumbnail);
+                if (!empty($Product->Images[1])) {
+                    unlink("images/product/".$Product->Images[1]->Link);
                     $Object = Images::find($Product->Images[1]->id);
                     $Object->Link = $Image;
                     $Object->save();
