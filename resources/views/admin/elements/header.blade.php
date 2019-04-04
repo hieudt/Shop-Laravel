@@ -1,6 +1,6 @@
 <nav class="navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
     <div class="text-center navbar-brand-wrapper d-flex align-items-center justify-content-center">
-      <a class="navbar-brand brand-logo" href="{{asset('@styleadmin/index.html')}}"><img src="{{asset('@styleadmin/images/logo.svg')}}" alt="logo"/></a>
+      <a class="navbar-brand brand-logo" href="{{asset('@styleadmin/index.html')}}"><img src="{{asset('@styleadmin/images/avatar_null_nonecircle.png')}}" alt="logo"/></a>
       <a class="navbar-brand brand-logo-mini" href="{{asset('@styleadmin/index.html')}}"><img src="{{asset('@styleadmin/images/logo-mini.svg')}}" alt="logo"/></a>
     </div>
     <div class="navbar-menu-wrapper d-flex align-items-stretch">
@@ -97,7 +97,7 @@
         <li class="nav-item dropdown d-none d-lg-flex">
           <a class="nav-link dropdown-toggle" id="languageDropdown" href="#" data-toggle="dropdown">
             <i class="mdi mdi-earth"></i>
-            English
+            VI
           </a>
           <div class="dropdown-menu navbar-dropdown" aria-labelledby="languageDropdown">
             <a class="dropdown-item" href="#">
@@ -117,7 +117,7 @@
         <li class="nav-item  nav-profile dropdown">
           <a class="nav-link dropdown-toggle" id="profileDropdown" href="#" data-toggle="dropdown">
             <img src="{{asset('@styleadmin/images/faces-clipart/pic-1.png')}}">
-            <span class="profile-name">Peter John</span>
+            <span class="profile-name">Trung Hieu Duong</span>
           </a>
           <div class="dropdown-menu navbar-dropdown w-100" aria-labelledby="profileDropdown">
             <a class="dropdown-item" href="#">

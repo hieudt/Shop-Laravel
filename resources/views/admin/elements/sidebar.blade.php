@@ -3,18 +3,18 @@
       <li class="nav-item">
         <a class="nav-link" href="{{url('admin/index')}}">
           <i class="mdi mdi-compass-outline menu-icon"></i>
-          <span class="menu-title">Dashboard</span>
+          <span class="menu-title">Tổng Quan</span>
         </a>
       </li>
       <li class="nav-item">
       <a class="nav-link" href="{{url('admin/category')}}">
-          <i class="mdi mdi-puzzle menu-icon"></i>
+          <i class="mdi mdi-format-list-bulleted menu-icon"></i>
           <span class="menu-title">Danh mục</span>
         </a>
       </li>
       <li class="nav-item">
         <a class="nav-link collapsed" data-toggle="collapse" href="#products" aria-expanded="false" aria-controls="products">
-            <i class="mdi mdi-puzzle menu-icon"></i>
+            <i class="mdi mdi-shopping menu-icon"></i>
             <span class="menu-title">Sản Phẩm</span>
             <i class="menu-arrow"></i>
           </a>

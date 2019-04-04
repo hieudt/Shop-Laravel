@@ -131,7 +131,16 @@ class ChatLieuController extends Controller
             if ($total_row > 0) {
                 foreach ($data as $row) {
                     $output .= '
+                    <tr>
+                        <td>'.$row->id.'</td>
+                        <td>'.$row->name.'</td>
+                        <td>'.$row->slug.'</td>
+                        <td><label class="badge badge-info badge-pill">Enable</label></td>
+                        <td><button class="btn btn-outline-primary edited" id="' . $row->id . '" title="' . $row->title . '" slug="'.$row->slug.'">Sửa</button>
+                        <button type="button" class="btn btn-outline-danger delete" id="' . $row->id . '">Xóa</button></td>
+                    </tr>
                     ';
+
 
                     if($id == $row->id){
                         $select_data .= '<option value="'.$row->id.'" selected>'.$row->name.'</option>';

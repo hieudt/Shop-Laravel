@@ -49,7 +49,7 @@ Route::group(['prefix' => 'admin'], function () {
 
 
     Route::get('color/Search','ColorController@search')->name('color.search');
-    Route::get('color/Store','ColorController@store')->name('color.store');
+    Route::post('color/Store','ColorController@store')->name('color.store');
 
     Route::get('size/Search','SizeController@search')->name('size.search');
 

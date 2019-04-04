@@ -13,6 +13,7 @@ class ColorController extends Controller
             $query = $request->get('query');
             if ($query != '') {
                 $data = Color::where('name','like','%'.$query.'%')
+                        ->orWhere('slug','like','%'.$query.'%')
                         ->orderBy('id','asc')
                         ->get();
             } else {
@@ -48,6 +49,43 @@ class ColorController extends Controller
             );
 
             echo json_encode($data);
+        }
+    }
+
+    public function store(Request $request)
+    {
+
+        if ($request->ajax()) {
+            $this->validate(
+                $request,
+                [
+                    'name' => 'required|min:3|max:150|unique:Color,name', /* không trùng tiêu đề khác */
+                    'slug' => 'unique:Color,slug',
+                    'codeColor' => 'required'
+                ],
+                [
+                    'name.required' => 'Bạn chưa nhập tiêu đề',
+                    'name.min' => 'Tiêu đề tối thiểu 3 ký tự',
+                    'name.max' => 'Tiêu đề tối đa 150 ký tự',
+                    'slug.unique' => 'Đường dẫn tắt bị trùng',
+                    'name.unique' => 'Tên màu bị trùng',
+                    'codeColor.required' => 'Vui lòng chọn mã màu'
+                ]
+            );
+
+
+            $Color = new Color;
+            $Color->name = $request->name;
+            $Color->codeColor = $request->codeColor;
+            if ($request->slug == '') {
+                    $slug = changeTitle($request->name);
+                    $Color->slug = $slug;
+
+                } else {
+                $Color->slug = $request->slug;
+            }
+            $Color->save();
+            return response()->json(['success' => 'Thêm mới thành công']);
         }
     }
 }
