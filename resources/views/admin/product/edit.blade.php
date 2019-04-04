@@ -170,6 +170,36 @@
                     </div>
                 </div>
             </div>
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-body">
+                        <h4 class="card-title">Nổi bật</h4>
+                        <div class="row">
+                            <div class="form-radio">
+                                <label class="form-check-label">
+                                <input type="radio" class="form-check-input" name="rdoNoiBat" id="rdoNoiBat" value="1"
+                                @if($Product->featured == 1)
+                                checked=""
+                                @endif
+                                >
+                                Có 
+                                <i class="input-helper"></i></label>
+                            </div>
+                            &nbsp;
+                            <div class="form-radio">
+                                <label class="form-check-label">
+                                <input type="radio" class="form-check-input" name="rdoNoiBat" id="rdoNoiBat" value="0"
+                                @if($Product->featured == 0)
+                                checked=""
+                                @endif
+                                >
+                                Không
+                                <i class="input-helper"></i></label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
     </div>

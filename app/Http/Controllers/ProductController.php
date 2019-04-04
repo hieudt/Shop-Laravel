@@ -93,8 +93,12 @@ class ProductController extends Controller
                      <td>' . $row->id . '</td>
                      <td><div class="tool">' . $row->title . '<span class="tool2">'.$text.'</span></div></td>
                      <td>' . $this->formatMoney($row->cost) . ' ₫</td>
-                     <td>'.$this->formatMoney($this->priceDiscount($row->cost,$row->discount)).' ₫ (KM '.$row->discount.'%)</td>
-                     <td><a href="edit/'.$row->id.'"><button class="btn btn-outline-primary edited" id="' . $row->id . '" title="' . $row->title . '" slug="' . $row->slug . '">Sửa</button></a>
+                     <td>'.$this->formatMoney($this->priceDiscount($row->cost,$row->discount)).' ₫ (KM '.$row->discount.'%)</td>';
+                    if($row->featured == 1)
+                    $output .= '<td><label class="badge badge-info badge-pill">Nổi Bật </label></td>';
+                    else
+                    $output .= '<td><label class="badge badge-danger badge-pill">Không </label></td>';
+                     $output .= '<td><a href="edit/'.$row->id.'"><button class="btn btn-outline-primary edited" id="' . $row->id . '" title="' . $row->title . '" slug="' . $row->slug . '">Sửa</button></a>
                      <button type="button" class="btn btn-outline-danger delete" id="' . $row->id . '">Xóa</button>
                      </td>
                      </tr>

@@ -1,99 +1,61 @@
-@extends('includes.master')
+@extends('includes.master') 
 @section('content')
+<style>
+.box-items-dev {
+    background-color:white;
+    color:blue;
+    height: 40px;
+    text-align: center;
+    font-size:13pt;
+    line-height: 40px;
+    position:relative !important;
+    top:200px;
+    z-index:1;
+    transform: rotateX(-100deg);
+    transform-origin: top center;
+    transition: opacity .3s, transform 1s;
+    opacity: 0;
+    text-decoration: none;
+}
+.product:hover {
+    box-shadow: 25px 25px 25px 25px rgba(0, 0, 0, 0.2);
+}
 
-
-<section class="go-slider">
-<div id="bootstrap-touch-slider" class="carousel bs-slider fade  control-round indicators-line" data-ride="carousel" data-pause="hover" data-interval="5000" >
-
-    <!-- Indicators -->
-    {{--<ol class="carousel-indicators">--}}
-        {{--@for ($i = 0; $i < count($sliders); $i++)--}}
-            {{--@if($i == 0)--}}
-                {{--<li data-target="#bootstrap-touch-slider" data-slide-to="{{$i}}" class="active"></li>--}}
-            {{--@else--}}
-                {{--<li data-target="#bootstrap-touch-slider" data-slide-to="{{$i}}"></li>--}}
-            {{--@endif--}}
-        {{--@endfor--}}
-    {{--</ol>--}}
-
-    <!-- Wrapper For Slides -->
-    {{-- <div class="carousel-inner" role="listbox">
-
-        @for ($i = 0; $i < count($sliders); $i++)
-            @if($i == 0)
-                <!-- Third Slide -->
-                    <div class="item active">
-
-                        <!-- Slide Background -->
-                        <img src="{{url('/')}}/assets/images/sliders/{{$sliders[$i]->image}}" alt="Bootstrap Touch Slider"  class="slide-image"/>
-                        <div class="bs-slider-overlay"></div>
-
-                        <div class="container">
-                            <div class="row">
-                                <!-- Slide Text Layer -->
-                                <div class="slide-text {{$sliders[$i]->text_position}}">
-
-                                    <h1 data-animation="animated fadeInDown">{{$sliders[$i]->title}}</h1>
-                                    <p data-animation="animated fadeInUp">{{$sliders[$i]->text}}</p>
-
-                                </div>
-
-                            </div>
-                        </div>
-                    </div>
-                    <!-- End of Slide -->
-            @else
-            <!-- Second Slide -->
-                <div class="item">
-
-                    <!-- Slide Background -->
-                    <img src="{{url('/')}}/assets/images/sliders/{{$sliders[$i]->image}}" alt="Bootstrap Touch Slider"  class="slide-image"/>
-                    <div class="bs-slider-overlay"></div>
-                    <!-- Slide Text Layer -->
-                    <div class="slide-text {{$sliders[$i]->text_position}}">
-                        <h1 data-animation="animated fadeInDown">{{$sliders[$i]->title}}</h1>
-                        <p data-animation="animated fadeInUp">{{$sliders[$i]->text}}</p>
-                    </div>
-                </div>
-                <!-- End of Slide -->
-            @endif
-    @endfor
-
-
-    </div><!-- End of Wrapper For Slides --> --}}
-
-        <!-- Left Control -->
-        <a class="left carousel-control" href="#bootstrap-touch-slider" role="button" data-slide="prev">
-            <span class="fa fa-angle-left" aria-hidden="true"></span>
-            <span class="sr-only">Previous</span>
-        </a>
-
-        <!-- Right Control -->
-        <a class="right carousel-control" href="#bootstrap-touch-slider" role="button" data-slide="next">
-            <span class="fa fa-angle-right" aria-hidden="true"></span>
-            <span class="sr-only">Next</span>
-        </a>
-
-    </div> <!-- End  bootstrap-touch-slider Slider -->
-
-</section>
-
+.product:hover .box-items-dev {
+    opacity:0.8;
+    transform: rotateX(0deg);
+}
+</style>
 <section class="wow fadeInUp go-services hideme">
     <div class="row" style="margin-top:70px;">
         <div class="container">
             <div class="col-md-6 col-md-offset-3">
                 <div class="section-title">
-                    <h2>Language</h2>
-                    <p>Language</p>
+                    <h2>Dịch vụ của chúng tôi</h2>
+                    <p>ShopTMĐT</p>
                 </div>
             </div>
-                <div class="col-xs-12 col-md-4">
-                    <div class="service-list text-center wow fadeInUp">
-                        <img src="{{url('/assets/images/service')}}/jz52.jpg" alt="">
-                        <h3>Service title</h3>
-                        <p>Service Text</p>
-                    </div>
+            <div class="col-xs-12 col-md-4">
+                <div class="service-list text-center wow fadeInUp">
+                    <img src="{{url('/assets/images/service')}}/jz52.jpg" alt="">
+                    <h3>Giao dịch nhanh chóng</h3>
+                    <p></p>
                 </div>
+            </div>
+            <div class="col-xs-12 col-md-4">
+                <div class="service-list text-center wow fadeInUp">
+                    <img src="{{url('/assets/images/service')}}/jz52.jpg" alt="">
+                    <h3>Sản phẩm chất lượng</h3>
+                    <p></p>
+                </div>
+            </div>
+            <div class="col-xs-12 col-md-4">
+                <div class="service-list text-center wow fadeInUp">
+                    <img src="{{url('/assets/images/service')}}/jz52.jpg" alt="">
+                    <h3>Hệ thống chuyên nghiệp</h3>
+                    <p></p>
+                </div>
+            </div>
         </div>
     </div>
 </section>
@@ -102,197 +64,181 @@
 <section class="wow fadeInUp go-products">
     <div class="container">
         <div class="row">
-                <!-- Nav tabs -->
-                <div class="card">
-                    <div class="col-md-12">
+            <!-- Nav tabs -->
+            <div class="card">
+                <div class="col-md-12">
                     <ul class="nav nav-tabs home-tab" role="tablist">
-                        <li class="active"><a href="#home" aria-controls="home" role="tab" data-toggle="tab">Feature Products</a></li>
-                        <li><a href="#profile" aria-controls="profile" role="tab" data-toggle="tab"> Latest Products</a></li>
-                        <li><a href="#messages" aria-controls="messages" role="tab" data-toggle="tab">Popular Products</a></li>
+                        <li class="active"><a href="#home" aria-controls="home" role="tab" data-toggle="tab">Nổi Bật</a></li>
+                        <li><a href="#profile" aria-controls="profile" role="tab" data-toggle="tab">Mới Nhất</a></li>
+                        <li><a href="#messages" aria-controls="messages" role="tab" data-toggle="tab">Khuyến Mãi</a></li>
                     </ul>
-                    </div>
-                    <!-- Tab panes -->
-                    <div class="tab-content">
-                        <div role="tabpanel" class="tab-pane fade active" id="home">
-                                <div class="row">
-                                        <div class="col-xs-6 col-sm-4 col-md-3 product">
-                                            <article class="col-item">
-                                                <div class="photo">
-                                                    <a href="{{url('/product')}}/1/"> <img src="{{url('/assets/images/products')}}/149615617618342277_1363825740371972_1502677715878156657_n.jpg" class="img-responsive" style="height: 320px;" alt="Product Image" /> </a>
+                </div>
+                <!-- Tab panes -->
+                <div class="tab-content">
+                    <div role="tabpanel" class="tab-pane fade active" id="home">
+                        <div class="row">
+                            @foreach($features as $product)
+                            <div class="col-xs-6 col-sm-4 col-md-3 product">
+                                    <div class="box-items-dev">
+                                        <a href="#">Xem Sản Phẩm</a>
+                                    </div>
+                                <article class="col-item">
+                                    <div class="photo">
+                                        <a href="{{url('/sanpham')}}/{{$product->id}}/"> <img src="{{url('/images/product')}}/{{$product->thumbnail}}" class="img-responsive" style="height: 320px;" alt="Product Image" /> </a>
+                                    </div>
+                                    <div class="info">
+                                        <div class="row">
+                                            <div class="price-details">
+                                                <a href="" class="row" style="min-height: 60px">
+                                                    <h1>{{$product->title}}</h1>
+                                                </a>
+                                                <div class="row">
+                                                    @if($product->discount > 0)
+                                                    <span class="price-old">{{$product->formatMoney($product->cost)}}₫</span>
+                                                    <span class="price-new">{{$product->formatMoney($product->priceDiscount($product->cost,$product->discount))}}₫</span> 
+                                                    @else                                                   
+                                                    <span class="price-new">{{$product->formatMoney($product->cost)}}₫</span>                                                    
+                                                    @endif
                                                 </div>
-                                                <div class="info">
-                                                    <div class="row">
-                                                        <div class="price-details">
-
-                                                            <a href="" class="row" style="min-height: 60px">
-                                                                <h1>ProductTitle</h1>
-                                                            </a>
-                                                            <div class="pull-left">
-                                                                    <span class="price-old">255000</span>
-                                                                <span class="price-new">255000</span>
-                                                            </div>
-                                                            <div class="pull-right">
-                                                            <span class="review">
-                                                               
-                                                                        <i class="fa fa-star"></i>
-                                                                        <i class="fa fa-star-o"></i>
-                                                                  
-                                                            </span>
-                                                            </div>
-
-                                                        </div>
-
-                                                    </div>
-                                                    <div class="separator clear-left">
-                                                        <form>
-                                                            <p>
-                                                                {{csrf_field()}}
-                                                                <input type="hidden" name="title" value="">
-                                                                <input type="hidden" name="product" value="">
-                                                                <input type="hidden" id="cost" name="cost" value="">
-                                                                <input type="hidden" id="quantity" name="quantity" value="1">
-
-                                                                    <button type="button" class="button style-10 to-cart">Add to cart</button>
-
-                                                                    <button type="button" class="button style-10 to-cart" disabled>Out Of Stock</button>
-
-                                                                {{--<button type="button" class="button style-10 hidden-sm to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</button>--}}
-                                                            </p>
-                                                        </form>
-
-                                                    </div>
-                                                    <div class="clearfix"></div>
+                                                <div class="row">
+                                                    <span class="review">
+                                                            @for($i=1;$i<=5;$i++)
+                                                                @if($i <= \App\Review::ratings($product->id))
+                                                                    <i class="fa fa-star"></i>
+                                                                @else
+                                                                    <i class="fa fa-star-o"></i>
+                                                                @endif
+                                                            @endfor
+                                                    </span>
                                                 </div>
-                                            </article>
+                                            </div>
                                         </div>
+                                        <div class="separator clear-left">
+                                            <form>
+                                                <p>
+                                                    {{csrf_field()}}
+                                                    <button type="button" class="button style-10 to-cart">Thêm vào giỏ</button>
+                                                </p>
+                                            </form>
 
-                                </div>
-                        </div>
-                        <div role="tabpanel" class="tab-pane fade" id="profile">
-                            <div class="row">
-                                    <div class="col-xs-6 col-sm-4 col-md-3 product">
-                                        <article class="col-item">
-                                            <div class="photo">
-                                                <a href=""> <img src="{{url('/assets/images/products')}}/149615617618342277_1363825740371972_1502677715878156657_n.jpg" class="img-responsive" style="height: 320px;" alt="Product Image" /> </a>
-                                            </div>
-                                            <div class="info">
-                                                <div class="row">
-                                                    <div class="price-details">
-
-                                                        <a href="" class="row" style="min-height: 60px">
-                                                            <h1>Product Title</h1>
-                                                        </a>
-
-                                                        <div class="pull-left prices">
-                                                                <span class="price-old">250000</span>
-                                        
-                                                            <span class="price-new">255000</span>
-                                                        </div>
-                                                        <div class="pull-right revs">
-                                                            <span class="review">
-                                                              
-                                                                   
-                                                                        <i class="fa fa-star"></i>
-                                                                   
-                                                                        <i class="fa fa-star-o"></i>
-                                                             
-                                                            </span>
-                                                        </div>
-
-                                                    </div>
-
-                                                </div>
-                                                <div class="separator clear-left">
-                                                    <form>
-                                                        <p>
-                                                            {{csrf_field()}}
-                                                           
-                                                            <input type="hidden" name="title" value="">
-                                                            <input type="hidden" name="product" value="">
-                                                            <input type="hidden" id="cost" name="cost" value="">
-                                                            <input type="hidden" id="quantity" name="quantity" value="1">
-                                                          
-                                                                <button type="button" class="button style-10 to-cart">Add to cart</button>
-                                                        
-                                                                <button type="button" class="button style-10 to-cart" disabled>Out Of Stock</button>
-                                                            
-                                                            {{--<button type="button" class="button style-10 hidden-sm to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</button>--}}
-                                                        </p>
-                                                    </form>
-
-                                                </div>
-                                                <div class="clearfix"></div>
-                                            </div>
-                                        </article>
+                                        </div>
+                                        <div class="clearfix"></div>
                                     </div>
-                              
-
+                                </article>
                             </div>
+                            @endforeach
                         </div>
-                        <div role="tabpanel" class="tab-pane fade" id="messages">
-                            <div class="row">
-                              
-                                    <div class="col-xs-6 col-sm-4 col-md-3 product">
-                                        <article class="col-item">
-                                            <div class="photo">
-                                                <a href="" class="img-responsive" style="height: 320px;" alt="Product Image" /> </a>
-                                            </div>
-                                            <div class="info">
-                                                <div class="row">
-                                                    <div class="price-details">
-
-                                                        <a href="" class="row" style="min-height: 60px">
-                                                            <h1>Product tile</h1>
-                                                        </a>
-                                                        <div class="pull-left">
-                                                          
-                                                                <span class="price-old">$2555000</span>
-                                                           
-                                                            <span class="price-new">$255252</span>
-                                                        </div>
-                                                        <div class="pull-right">
-                                                            <span class="review">
-                                                            
-                                                                   
-                                                                        <i class="fa fa-star"></i>
-                                                                   
-                                                                        <i class="fa fa-star-o"></i>
-                                                                
-                                                            </span>
-                                                        </div>
-
-                                                    </div>
-
-                                                </div>
-                                                <div class="separator clear-left">
-                                                    <form>
-                                                        <p>
-                                                            {{csrf_field()}}
-                                                           
-                                                            <input type="hidden" name="title" value="">
-                                                            <input type="hidden" name="product" value="">
-                                                            <input type="hidden" id="cost" name="cost" value="">
-                                                            <input type="hidden" id="quantity" name="quantity" value="1">
-                                                     
-                                                                <button type="button" class="button style-10 to-cart">Add to cart</button>
-                                                        
-                                                                <button type="button" class="button style-10 to-cart" disabled>Out Of Stock</button>
-                                                          
-                                                            {{--<button type="button" class="button style-10 hidden-sm to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</button>--}}
-                                                        </p>
-                                                    </form>
-
-                                                </div>
-                                                <div class="clearfix"></div>
-                                            </div>
-                                        </article>
+                    </div>
+                    <div role="tabpanel" class="tab-pane fade" id="profile">
+                        <div class="row">
+                            @foreach($lastes as $product)
+                            <div class="col-xs-6 col-sm-4 col-md-3 product">
+                                    <div class="box-items-dev">
+                                        <a href="#">Xem Sản Phẩm</a>
                                     </div>
-                               
+                                <article class="col-item">
+                                    <div class="photo">
+                                        <a href="{{url('/sanpham')}}/{{$product->id}}/"> <img src="{{url('/images/product')}}/{{$product->thumbnail}}" class="img-responsive" style="height: 320px;" alt="Product Image" /> </a>
+                                    </div>
+                                    <div class="info">
+                                        <div class="row">
+                                            <div class="price-details">
+                                                <a href="" class="row" style="min-height: 60px">
+                                                    <h1>{{$product->title}}</h1>
+                                                </a>
+                                                <div class="row">
+                                                    @if($product->discount > 0)
+                                                    <span class="price-old">{{$product->formatMoney($product->cost)}}₫</span>
+                                                    <span class="price-new">{{$product->formatMoney($product->priceDiscount($product->cost,$product->discount))}}₫</span> 
+                                                    @else                                                   
+                                                    <span class="price-new">{{$product->formatMoney($product->cost)}}₫</span>                                                    
+                                                    @endif
+                                                </div>
+                                                <div class="row">
+                                                    <span class="review">
+                                                            @for($i=1;$i<=5;$i++)
+                                                                @if($i <= \App\Review::ratings($product->id))
+                                                                    <i class="fa fa-star"></i>
+                                                                @else
+                                                                    <i class="fa fa-star-o"></i>
+                                                                @endif
+                                                            @endfor
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="separator clear-left">
+                                            <form>
+                                                <p>
+                                                    {{csrf_field()}}
+                                                    <button type="button" class="button style-10 to-cart">Thêm vào giỏ</button>
+                                                </p>
+                                            </form>
 
+                                        </div>
+                                        <div class="clearfix"></div>
+                                    </div>
+                                </article>
                             </div>
+                            @endforeach
+                        </div>
+                    </div>
+                    <div role="tabpanel" class="tab-pane fade" id="messages">
+                        <div class="row">
+                            @foreach($discounts as $product)
+                            <div class="col-xs-6 col-sm-4 col-md-3 product">
+                                    <div class="box-items-dev">
+                                        <a href="#">Xem Sản Phẩm</a>
+                                    </div>
+                                <article class="col-item">
+                                    <div class="photo">
+                                        <a href="{{url('/sanpham')}}/{{$product->id}}/"> <img src="{{url('/images/product')}}/{{$product->thumbnail}}" class="img-responsive" style="height: 320px;" alt="Product Image" /> </a>
+                                    </div>
+                                    <div class="info">
+                                        <div class="row">
+                                            <div class="price-details">
+                                                <a href="" class="row" style="min-height: 60px">
+                                                    <h1>{{$product->title}}</h1>
+                                                </a>
+                                                <div class="row">
+                                                    @if($product->discount > 0)
+                                                    <span class="price-old">{{$product->formatMoney($product->cost)}}₫</span>
+                                                    <span class="price-new">{{$product->formatMoney($product->priceDiscount($product->cost,$product->discount))}}₫</span> 
+                                                    @else                                                   
+                                                    <span class="price-new">{{$product->formatMoney($product->cost)}}₫</span>                                                    
+                                                    @endif
+                                                </div>
+                                                <div class="row">
+                                                    <span class="review">
+                                                            @for($i=1;$i<=5;$i++)
+                                                                @if($i <= \App\Review::ratings($product->id))
+                                                                    <i class="fa fa-star"></i>
+                                                                @else
+                                                                    <i class="fa fa-star-o"></i>
+                                                                @endif
+                                                            @endfor
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="separator clear-left">
+                                            <form>
+                                                <p>
+                                                    {{csrf_field()}}
+                                                    <button type="button" class="button style-10 to-cart">Thêm vào giỏ</button>
+                                                </p>
+                                            </form>
+
+                                        </div>
+                                        <div class="clearfix"></div>
+                                    </div>
+                                </article>
+                            </div>
+                            @endforeach
                         </div>
                     </div>
                 </div>
+            </div>
         </div>
     </div>
 </section>
@@ -309,7 +255,7 @@
             </div>
             <div class="col-sm-12">
                 <div id="customers-testimonials" class="owl-carousel">
-               
+
                     <div class="item">
                         <div class="shadow-effect">
                             <i class="fa fa-quote-right"></i>
@@ -320,7 +266,7 @@
                             </div>
                         </div>
                     </div>
-              
+
                 </div>
             </div>
         </div>
@@ -328,10 +274,11 @@
 </section>
 <!-- END OF TESTIMONIALS -->
 
-@stop
 
+@stop 
 @section('footer')
 <script>
 
 </script>
+
 @stop

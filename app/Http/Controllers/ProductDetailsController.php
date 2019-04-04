@@ -38,6 +38,7 @@ class ProductDetailsController extends Controller
                 $request,
                 [
                     'txtNameProduct' => 'required',
+                    'rdoNoiBat' => 'required',
                     'txtSlugProduct' => 'unique:Product,slug',
                     'editordata' => 'required',
                     'Image1' => 'mimes:jpeg,png,jpg|required',
@@ -70,13 +71,15 @@ class ProductDetailsController extends Controller
                     'txtMoney.min' => 'Giá tiền phải lớn hơn 1000',
                     'txtDiscount.numeric' => 'Khuyến mãi phải là số ',
                     'txtDiscount.min' => 'Khuyến mãi ít nhất là 0%',
-                    'txtDiscount.max' => 'Khuyến mãi tối đa 100'
+                    'txtDiscount.max' => 'Khuyến mãi tối đa 100',
+                    'rdoNoiBat.required' => 'Vui lòng chọn trạng thái sản phẩm'
                 ]
             );
 
             $Product = new Product;
             $Product->id_sub = $request->SelSubCat;
             $Product->id_chatlieu = $request->SelChatLieu;
+            $Product->featured = $request->rdoNoiBat;
             if ($request->txtSlugProduct == '') {
                 $slug = changeTitle($request->txtNameProduct);
                 $Product->slug = $slug;
@@ -170,6 +173,7 @@ class ProductDetailsController extends Controller
                 [
                     'txtNameProduct' => 'required',
                     'txtSlugProduct' => 'unique:Product,slug,'.$id,
+                    'rdoNoiBat' => 'required',
                     'editordata' => 'required',
                     'Image1' => 'mimes:jpeg,png,jpg',
                     'sku.*' => 'required',
@@ -200,11 +204,13 @@ class ProductDetailsController extends Controller
                     'txtMoney.min' => 'Giá tiền phải lớn hơn 1000',
                     'txtDiscount.numeric' => 'Khuyến mãi phải là số ',
                     'txtDiscount.min' => 'Khuyến mãi ít nhất là 0%',
-                    'txtDiscount.max' => 'Khuyến mãi tối đa 100'
+                    'txtDiscount.max' => 'Khuyến mãi tối đa 100',
+                    'rdoNoiBat.required' => 'Vui lòng chọn trạng thái sản phẩm'
                 ]
             );
 
             $Product->id_sub = $request->SelSubCat;
+            $Product->featured = $request->rdoNoiBat;
             $Product->id_chatlieu = $request->SelChatLieu;
             if ($request->txtSlugProduct == '') {
                 $slug = changeTitle($request->txtNameProduct);

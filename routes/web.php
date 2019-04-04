@@ -13,9 +13,7 @@ use App\product_details;
 |
 */
 
-Route::get('/', function () {
-    return view('index');
-});
+Route::get('/', 'FrontEndController@index');
 
 
 Route::get('check',function(){

@@ -36,5 +36,28 @@ class Product extends Model
         return $this->belongsTo('App\SubCategory','id_sub','id');
     }
 
+    public function Review(){
+        return $this->hasMany('App\Review','id_product','id');
+    }
+
+    public function formatMoney($number, $fractional=false) {  
+	    if ($fractional) {  
+	        $number = sprintf('%d', $number);  
+	    }  
+	    while (true) {  
+	        $replaced = preg_replace('/(-?\d+)(\d\d\d)/', '$1,$2', $number);  
+	        if ($replaced != $number) {  
+	            $number = $replaced;  
+	        } else {  
+	            break;  
+	        }  
+	    }  
+	    return $number;  
+    }
+    
+    public function priceDiscount($Money,$Discount)
+    {
+       return  $Money - ($Money / 100 * $Discount);
+    }
     
 }

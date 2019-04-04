@@ -25,6 +25,7 @@ class Product extends Migration
             $table->integer('discount');
             $table->integer('cost');
             $table->text('thumbnail');
+            $table->integer('featured')->default(0);
             $table->timestamps();
         });
     }

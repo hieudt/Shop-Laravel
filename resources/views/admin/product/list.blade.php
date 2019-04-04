@@ -71,7 +71,8 @@
                             <th>ID</th>
                             <th>Tên Sản Phẩm</th>
                             <th>Giá SP</th>
-                            <th>Trạng thái</th>
+                            <th>Giá Khuyến mãi</th>
+                            <th>Nổi bật</th>
                             <th>Hành động</th>
                         </tr>
                     </thead>
