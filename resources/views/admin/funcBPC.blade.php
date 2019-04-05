@@ -1,6 +1,3 @@
-@extends('admin.master')
-@section('title','Trang chủ admin')
-@section('content')
 <style type="text/css">
     #myOverviewDiv {
       position: absolute;
@@ -127,14 +124,14 @@
 
       // set up the nodeDataArray, describing each person/position
       var nodeDataArray = [
-        { key: 0, name: "Website TMĐT"},
-        { key: 1, boss:0, name: "Dịch vụ Khách Hàng" },
+        { key: 0, name: "Website TMĐT" },
+        { key: 1, boss:0, name: "Dịch vụ Khách Hàng"},
         { key: 2, boss:0, name: "Dịch vụ Quản trị"},
         { key: 3, boss:1, name: "Phía trình duyệt"},
         { key: 4, boss:1, name: "Giỏ Hàng"},
         {key: 5 , boss:1, name: "Người Dùng"},
         {key: 6 , boss:3, name: "Tìm sản phẩm"},
-        {key: 7 , boss:3, name: "Xem sản phẩm",title:"Đã Xong"},
+        {key: 7 , boss:3, name: "Xem sản phẩm"},
         {key: 8 , boss:3, name: "Đăng nhập"},
         {key: 9 , boss:4, name: "Tạo giỏ hàng"},
         {key: 10 , boss:4, name: "Thêm / Xóa SP"},
@@ -150,11 +147,11 @@
         {key:20,boss:5,name:"Gửi Phản Hồi"},
         {key:21,boss:5,name:"Đăng ký nhận tin KM"},
         {key:22,boss:2,name:"Quản lý Bán Hàng"},
-        {key:23,boss:22,name:"Cập nhật danh mục",title:"Đã Xong"},
+        {key:23,boss:22,name:"Cập nhật danh mục"},
         {key:24,boss:23,name:"C.N Khách hàng"},
-        {key:25,boss:23,name:"C.N Sản phẩm",title:"Đã Xong"},
-        {key:26,boss:23,name:"C.N Loại SP",title:"Đã Xong"},
-        {key:27,boss:23,name:"C.N Thuộc Tính",title:"Đã Xong"},
+        {key:25,boss:23,name:"C.N Sản phẩm"},
+        {key:26,boss:23,name:"C.N Loại SP"},
+        {key:27,boss:23,name:"C.N Thuộc Tính"},
         {key:28,boss:22,name:"Quản lý hóa đơn"},
         {key:29,boss:28,name:"C.N Tình trạng hóa đơn"},
         {key:30,boss:28,name:"Tra cứu hóa đơn"},
@@ -174,13 +171,13 @@
         {key:44,boss:2,name:"Dịch vụ FB"},
         {key:45,boss:44,name:"Tương tác User / Fanpage"},
         {key:46,boss:45,name:"Tra cứu lịch sử mua"},
-        {key:47,boss:45,name:"Xem info SP",title:"Đã Xong"},
+        {key:47,boss:45,name:"Xem info SP"},
         {key:48,boss:45,name:"Mua SP"},
         {key:49,boss:45,name:"Cập nhật TT khách hàng"},
         {key:50,boss:44,name:"Kết nối kênh bán hàng"},
         {key:51,boss:44,name:"TK Đơn hàng"},
         {key:52,boss:44,name:"Kiểm tra lượng tương tác"},
-        {key:53,boss:44,name:"Minigame Tool",title:"Đã Xong"},
+        {key:53,boss:44,name:"Minigame Tool"},
         {key:54,boss:44,name:"Auto Rep Post"},
       ];
 
@@ -231,8 +228,4 @@
   <div id="myOverviewDiv"></div> <!-- Styled in a <style> tag at the top of the html page -->
   
 </div>
-
 <script src="{{asset('@styleadmin/js/go.js')}}"></script>
-
-@endsection
-

@@ -117,14 +117,16 @@
         <li class="nav-item  nav-profile dropdown">
           <a class="nav-link dropdown-toggle" id="profileDropdown" href="#" data-toggle="dropdown">
             <img src="{{asset('@styleadmin/images/faces-clipart/pic-1.png')}}">
-            <span class="profile-name">Trung Hieu Duong</span>
+            @if(Auth::user())
+            <span class="profile-name">{{Auth::user()->name}}</span>
+            @endif
           </a>
           <div class="dropdown-menu navbar-dropdown w-100" aria-labelledby="profileDropdown">
             <a class="dropdown-item" href="#">
               <i class="mdi mdi-cached mr-2 text-success"></i>
               Activity Log
             </a>
-            <a class="dropdown-item" href="#">
+            <a class="dropdown-item" href="/admin/logout">
               <i class="mdi mdi-logout mr-2 text-primary"></i>
               Signout
             </a>

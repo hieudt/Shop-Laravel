@@ -4,7 +4,7 @@
 .box-items-dev {
     background-color:white;
     color:blue;
-    height: 40px;
+    height: 50px;
     text-align: center;
     font-size:13pt;
     line-height: 40px;
@@ -80,11 +80,11 @@
                             @foreach($features as $product)
                             <div class="col-xs-6 col-sm-4 col-md-3 product">
                                     <div class="box-items-dev">
-                                        <a href="#">Xem Sản Phẩm</a>
+                                    <a href="{{url('/san-pham')}}/{{$product->id}}/{{$product->slug}}/">Xem Sản Phẩm</a>
                                     </div>
                                 <article class="col-item">
                                     <div class="photo">
-                                        <a href="{{url('/sanpham')}}/{{$product->id}}/"> <img src="{{url('/images/product')}}/{{$product->thumbnail}}" class="img-responsive" style="height: 320px;" alt="Product Image" /> </a>
+                                        <a href="{{url('/san-pham')}}/{{$product->id}}/{{$product->slug}}/"> <img src="{{url('/images/product')}}/{{$product->thumbnail}}" class="img-responsive" style="height: 320px;" alt="Product Image" /> </a>
                                     </div>
                                     <div class="info">
                                         <div class="row">
@@ -134,11 +134,11 @@
                             @foreach($lastes as $product)
                             <div class="col-xs-6 col-sm-4 col-md-3 product">
                                     <div class="box-items-dev">
-                                        <a href="#">Xem Sản Phẩm</a>
+                                        <a href="{{url('/san-pham')}}/{{$product->id}}/{{$product->slug}}/">Xem Sản Phẩm</a>
                                     </div>
                                 <article class="col-item">
                                     <div class="photo">
-                                        <a href="{{url('/sanpham')}}/{{$product->id}}/"> <img src="{{url('/images/product')}}/{{$product->thumbnail}}" class="img-responsive" style="height: 320px;" alt="Product Image" /> </a>
+                                        <a href="{{url('/san-pham')}}/{{$product->id}}/{{$product->slug}}/"> <img src="{{url('/images/product')}}/{{$product->thumbnail}}" class="img-responsive" style="height: 320px;" alt="Product Image" /> </a>
                                     </div>
                                     <div class="info">
                                         <div class="row">
@@ -188,11 +188,11 @@
                             @foreach($discounts as $product)
                             <div class="col-xs-6 col-sm-4 col-md-3 product">
                                     <div class="box-items-dev">
-                                        <a href="#">Xem Sản Phẩm</a>
+                                        <a href="{{url('/san-pham')}}/{{$product->id}}/{{$product->slug}}/">Xem Sản Phẩm</a>
                                     </div>
                                 <article class="col-item">
                                     <div class="photo">
-                                        <a href="{{url('/sanpham')}}/{{$product->id}}/"> <img src="{{url('/images/product')}}/{{$product->thumbnail}}" class="img-responsive" style="height: 320px;" alt="Product Image" /> </a>
+                                        <a href="{{url('/san-pham')}}/{{$product->id}}/{{$product->slug}}/"> <img src="{{url('/images/product')}}/{{$product->thumbnail}}" class="img-responsive" style="height: 320px;" alt="Product Image" /> </a>
                                     </div>
                                     <div class="info">
                                         <div class="row">

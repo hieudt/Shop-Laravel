@@ -1,5 +1,33 @@
 @extends('includes.master')
+@section('css')
+<link rel="stylesheet" href="{{asset('@styleadmin/css/attribute.css')}}">
+<style>
+.box-items-dev {
+    background-color:white;
+    color:blue;
+    height: 40px;
+    text-align: center;
+    font-size:13pt;
+    line-height: 40px;
+    position:relative !important;
+    top:200px;
+    z-index:1;
+    transform: rotateX(-100deg);
+    transform-origin: top center;
+    transition: opacity .3s, transform 1s;
+    opacity: 0;
+    text-decoration: none;
+}
+.product:hover {
+    box-shadow: 0px 0px 25px 25px rgba(0, 0, 0, 0.2);
+}
 
+.product:hover .box-items-dev {
+    opacity:0.8;
+    transform: rotateX(0deg);
+}
+</style>
+@endsection
 @section('content')
 
     <section class="container" style="margin-top: 20px;">
@@ -7,14 +35,9 @@
 
             <div class="breadcrumb-box">
                 <a href="{{url('/')}}">Home</a>
-                <a href="{{url('/category')}}/{{\App\Category::where('id',$productdata->category[0])->first()->slug}}">{{\App\Category::where('id',$productdata->category[0])->first()->name}}</a>
-                @if($productdata->category[1] != "")
-                <a href="{{url('/category')}}/{{\App\Category::where('id',$productdata->category[1])->first()->slug}}">{{\App\Category::where('id',$productdata->category[1])->first()->name}}</a>
-                @endif
-                @if($productdata->category[2] != "")
-                <a href="{{url('/category')}}/{{\App\Category::where('id',$productdata->category[2])->first()->slug}}">{{\App\Category::where('id',$productdata->category[2])->first()->name}}</a>
-                @endif
-                <a href="{{url('/product')}}/{{$productdata->id}}/{{str_replace(' ','-',strtolower($productdata->title))}}">{{$productdata->title}}</a>
+                <a href="/danh-muc/{{$productdata->SubCategory->Category->slug}}">{{$productdata->SubCategory->Category->title}}</a>
+                <a href="/danh-muc-con/{{$productdata->SubCategory->slug}}">{{$productdata->SubCategory->name_sub}}</a>
+                <a href="/san-pham/{{$productdata->id}}/{{$productdata->slug}}">{{$productdata->title}}</a>
             </div>
 
             <div class="information-blocks">
@@ -25,13 +48,13 @@
                                 <div class="swiper-wrapper">
                                     <div class="swiper-slide">
                                         <div class="product-zoom-image">
-                                            <img src="{{url('/')}}/assets/images/products/{{$productdata->feature_image}}" alt="" data-zoom="" />
+                                            <img src="{{url('/')}}/images/product/{{$productdata->thumbnail}}" alt="" data-zoom="" />
                                         </div>
                                     </div>
                                     @forelse($gallery as $galdta)
                                         <div class="swiper-slide">
                                             <div class="product-zoom-image">
-                                                <img src="{{url('/')}}/assets/images/gallery/{{$galdta->image}}" alt="" data-zoom="" />
+                                                <img src="{{url('/')}}/images/product/{{$galdta->Link}}" alt="" data-zoom="" />
                                             </div>
                                         </div>
                                     @empty
@@ -51,13 +74,13 @@
                                     <div class="swiper-wrapper">
                                         <div class="swiper-slide selected">
                                             <div class="paddings-container">
-                                                <img src="{{url('/')}}/assets/images/products/{{$productdata->feature_image}}" alt="" />
+                                                <img src="{{url('/')}}/images/product/{{$productdata->thumbnail}}" alt="" />
                                             </div>
                                         </div>
                                         @forelse($gallery as $galdta)
                                             <div class="swiper-slide">
                                                 <div class="paddings-container">
-                                                    <img src="{{url('/')}}/assets/images/gallery/{{$galdta->image}}" alt="" />
+                                                    <img src="{{url('/')}}/images/product/{{$galdta->Link}}" alt="" />
                                                 </div>
                                             </div>
                                         @empty
@@ -73,19 +96,7 @@
                     <div class="col-sm-7 col-md-7 information-entry">
                         <div class="product-detail-box">
                             <h1 class="product-title">{{$productdata->title}}</h1>
-
-                            @if($productdata->owner != "admin")
-
-                                <strong class="">Vendor: <a href="{{url('/shop')}}/{{$productdata->vendorid}}/{{str_replace(' ','-',strtolower(\App\Vendors::findOrFail($productdata->vendorid)->shop_name))}}" target="_blank">{{\App\Vendors::findOrFail($productdata->vendorid)->shop_name}}</a></strong>
-                            @else
-
-                            @endif
-
-                            @if($productdata->stock != 0 || $productdata->stock === null )
-                                <h3 class="product-subtitle"><i class="fa fa-check-circle fa-fw"></i> Available</h3>
-                            @else
-                                <h3 class="product-subtitle2"><i class="fa fa-times-circle fa-fw"></i> Not in Stock</h3>
-                            @endif
+                                <h3 class="product-subtitle"><i class="fa fa-check-circle fa-fw"></i> Còn hàng </h3>
 
                             <div class="rating-box">
                                 @for($i=1;$i<=5;$i++)
@@ -96,27 +107,35 @@
                                     @endif
                                 @endfor
 
-                                <div class="rating-number">{{\App\Review::where('productid',$productdata->id)->count()}} Reviews</div>
+                                <div class="rating-number">{{\App\Review::where('id_product',$productdata->id)->count()}} Reviews</div>
                             </div>
-                            <div class="product-description detail-info-entry">{{substr(strip_tags($productdata->description), 0, 600)}}... <a id="showmore">Show More</a></div>
+                            <div class="product-description detail-info-entry">{{substr(strip_tags($productdata->description), 0, 600)}}... <a id="showmore">Xem Tiếp</a></div>
                             <div class="price detail-info-entry">
-                                @if($productdata->previous_price != "")
-                                    <div class="prev">${{$productdata->previous_price}}</div>
-                                @else
-                                @endif
-                                <div class="current">$<span id="price">{{$productdata->price}}</span></div>
+                                    @if($productdata->discount > 0)
+                                    <span class="prev">{{$productdata->formatMoney($productdata->cost)}}₫</span>
+                                    <span class="current">{{$productdata->formatMoney($productdata->priceDiscount($productdata->cost,$productdata->discount))}}₫</span> 
+                                    @else                                                   
+                                    <span class="current">{{$productdata->formatMoney($productdata->cost)}}₫</span>                                                    
+                                    @endif
                             </div>
-                            @if($productdata->sizes != null)
+                           
                             <div class="size-selector detail-info-entry">
-                                <div class="detail-info-entry-title">Size</div>
-                                @foreach(explode(',',$productdata->sizes) as $size)
-                                    <div class="entry">{{$size}}</div>
+                                <div class="detail-info-entry-title">Kích cỡ</div>
+                                @foreach($productdata->product_details as $att)
+                                    <div class="entry">{{$att->Size->name}}</div>
                                 @endforeach
                                 <div class="spacer"></div>
                             </div>
-                            @endif
+                            <div class="size-selector detail-info-entry">
+                                    <div class="detail-info-entry-title">Màu Sắc</div>
+                                        @foreach($productdata->product_details as $att)
+                                        <span class="colors" data-color="{{$att->Color->codeColor}}"></span>
+                                        @endforeach
+                                    <div class="spacer"></div>
+                                </div>
+                            
                             <div class="quantity-selector detail-info-entry">
-                                <div class="detail-info-entry-title">Quantity</div>
+                                <div class="detail-info-entry-title">Số Lượng</div>
                                 <div class="entry number-minus">&nbsp;</div>
                                 <div class="entry number">1</div>
                                 <div class="entry number-plus">&nbsp;</div>
@@ -135,12 +154,8 @@
                                     <input type="hidden" id="size" name="size" value="">
                                     <input type="hidden" id="cost" name="cost" value="{{$productdata->price}}">
                                     <input type="hidden" id="quantity" name="quantity" value="1">
-                                    @if($productdata->stock != 0 || $productdata->stock === null )
-                                        <button type="button" class="button style-10 to-cart">Add to cart</button>
-                                    @else
-                                        <button type="button" class="button style-10 to-cart" disabled>Out Of Stock</button>
-                                    @endif
-                                    {{--<button type="button" class="button style-10 to-cart">Add to cart</button>--}}
+                                    <button type="button" class="button style-10 to-cart">Thêm giỏ hàng</button>
+
                                 </form>
                                 <div class="clear"></div>
                             </div>
@@ -156,7 +171,7 @@
                                 </div>
                                 <script async src="https://static.addtoany.com/menu/page.js"></script>
                                 <!-- AddToAny END -->
-                                <div class="title">Share in social media</div>
+                                <div class="title">Chia sẻ lên mạng xã hội</div>
 
                                 <div class="clear"></div>
                             </div>
@@ -176,9 +191,9 @@
                         </div>
                     @endif
                     <ul class="nav nav-tabs" role="tablist">
-                        <li role="presentation" class="active"><a href="#description" aria-controls="home" role="tab" data-toggle="tab">Full Description</a></li>
-                        <li role="presentation"><a href="#policy" aria-controls="profile" role="tab" data-toggle="tab"> Return & Policy</a></li>
-                        <li role="presentation"><a href="#reviews" aria-controls="messages" role="tab" data-toggle="tab">Reviews({{\App\Review::where('productid',$productdata->id)->count()}})</a></li>
+                        <li role="presentation" class="active"><a href="#description" aria-controls="home" role="tab" data-toggle="tab">Mô Tả</a></li>
+                        <li role="presentation"><a href="#policy" aria-controls="profile" role="tab" data-toggle="tab"> Lưu Ý </a></li>
+                        <li role="presentation"><a href="#reviews" aria-controls="messages" role="tab" data-toggle="tab">Đánh giá({{\App\Review::where('id_product',$productdata->id)->count()}})</a></li>
                     </ul>
 
                     <!-- Tab panes -->
@@ -197,15 +212,15 @@
                                     <div class='starrr' id='star1'></div>
                                     <div>
                                         <span class='your-choice-was' style='display: none;'>
-                                            Your rating is: <span class='choice'></span>.
+                                            Đánh giá của bạn: <span class='choice'></span>.
                                         </span>
                                     </div>
                                 </div>
                             </div>
-                            <form method="POST" action="{{route('review.submit')}}">
+                            <form method="POST" action="">
                                 {{ csrf_field() }}
                                 <input type="hidden" name="rating" id="rate" value="5">
-                                <input type="hidden" name="productid" value="{{$productdata->id}}">
+                                <input type="hidden" name="id_product" value="{{$productdata->id}}">
                                 <div class="row">
                                     <div class="col-md-6">
                                         <div class="form-group">
@@ -283,43 +298,45 @@
     <section class="wow fadeInUp">
         <div class="container">
 
-            <h3>Related Products</h3>
+            <h3>Sản phẩm liên quan</h3>
             <hr>
             <div class="row owl-carousel" id="related-products">
                 @foreach($relateds as $product)
                     <div class="product">
+                           
                         <article class="col-item">
+                                <div class="box-items-dev">
+                                    <a href="{{url('/san-pham')}}/{{$product->id}}/{{$product->slug}}/">Xem Sản Phẩm</a>
+                                </div>
                             <div class="photo">
-                                <a href="{{url('/product')}}/{{$product->id}}/{{str_replace(' ','-',strtolower($product->title))}}"> <img src="{{url('/assets/images/products')}}/{{$product->feature_image}}" class="img-responsive" style="height: 320px;" alt="Product Image" /> </a>
+                                    <a href="{{url('/san-pham')}}/{{$product->id}}/{{$product->slug}}/"> <img src="{{url('/images/product')}}/{{$product->thumbnail}}" class="img-responsive" style="height: 320px;" alt="Product Image" /> </a>
                             </div>
                             <div class="info">
                                 <div class="row">
                                     <div class="price-details">
-
-                                        <a href="{{url('/product')}}/{{$product->id}}/{{str_replace(' ','-',strtolower($product->title))}}" class="row" style="min-height: 60px">
+                                        <a href="" class="row" style="min-height: 60px">
                                             <h1>{{$product->title}}</h1>
                                         </a>
-                                        <div class="pull-left">
-                                            @if($product->previous_price != "")
-                                                <span class="price-old">${{$product->previous_price}}</span>
-                                            @else
+                                        <div class="row">
+                                            @if($product->discount > 0)
+                                            <span class="price-old">{{$product->formatMoney($product->cost)}}₫</span>
+                                            <span class="price-new">{{$product->formatMoney($product->priceDiscount($product->cost,$product->discount))}}₫</span> 
+                                            @else                                                   
+                                            <span class="price-new">{{$product->formatMoney($product->cost)}}₫</span>                                                    
                                             @endif
-                                            <span class="price-new">${{$product->price}}</span>
                                         </div>
-                                        <div class="pull-right">
-                                                            <span class="review">
-                                                                @for($i=1;$i<=5;$i++)
-                                                                    @if($i <= \App\Review::ratings($product->id))
-                                                                        <i class="fa fa-star"></i>
-                                                                    @else
-                                                                        <i class="fa fa-star-o"></i>
-                                                                    @endif
-                                                                @endfor
-                                                            </span>
+                                        <div class="row">
+                                            <span class="review">
+                                                @for($i=1;$i<=5;$i++)
+                                                    @if($i <= \App\Review::ratings($product->id))
+                                                        <i class="fa fa-star"></i>
+                                                    @else
+                                                        <i class="fa fa-star-o"></i>
+                                                    @endif
+                                                @endfor
+                                            </span>
                                         </div>
-
                                     </div>
-
                                 </div>
                                 <div class="separator clear-left">
                                     <form>
@@ -334,12 +351,9 @@
                                             <input type="hidden" name="product" value="{{$product->id}}">
                                             <input type="hidden" id="cost" name="cost" value="{{$product->price}}">
                                             <input type="hidden" id="quantity" name="quantity" value="1">
-                                            @if($product->stock != 0 || $product->stock === null )
-                                                <button type="button" class="button style-10 to-cart">Add to cart</button>
-                                            @else
-                                                <button type="button" class="button style-10 to-cart" disabled>Out Of Stock</button>
-                                            @endif
-                                            {{--<button type="button" class="button style-10 hidden-sm to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</button>--}}
+                                            <button type="button" class="button style-10 to-cart">Thêm giỏ hàng</button>
+
+                                        
                                         </p>
                                     </form>
 
@@ -356,7 +370,21 @@
 
 
 @stop
+@section('javascript')
 
+<script>
+    $(document).ready(function(){
+        changeElementsCSS();
+    });
+    function changeElementsCSS()
+    {
+        $('.colors').each(function(){
+            var att = $(this).attr("data-color");
+            $(this).css('background-color',att);
+        });
+    }
+</script>
+@endsection
 @section('footer')
 <script>
     $('#star1').starrr({

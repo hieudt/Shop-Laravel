@@ -18,7 +18,6 @@
         border-radius: 0% !important;
         width: 200px !important;
         height: auto !important;
-
     }
 
     .tool .tool2 {

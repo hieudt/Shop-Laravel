@@ -24,6 +24,8 @@
     <link href="{{ URL::asset('assets/css/genius-gallery.css')}}" rel="stylesheet">
     <link href="{{ URL::asset('assets/css/lightbox.css')}}" rel="stylesheet">
     <link href="{{ URL::asset('assets/css/animate.min.css')}}" rel="stylesheet">
+    <!-- Inject CSS -->
+    @yield('css')
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -248,6 +250,7 @@
 <script>
     var mainurl = '{{url('/')}}';
 </script>
+    
     <!-- jQuery -->
     <script src="{{ URL::asset('assets/js/jquery.js')}}"></script>
     <script src="{{ URL::asset('assets/js/owl.carousel.min.js')}}"></script>
@@ -268,7 +271,8 @@
     <script src="{{ URL::asset('assets/js/jquery.mousewheel.js')}}"></script>
     <script src="{{ URL::asset('assets/js/jquery.jscrollpane.min.js')}}"></script>
     <script src="{{ URL::asset('assets/js/notify.js')}}"></script>
-    
+    <!-- js Page -->
+    @yield('javascript');
     @yield('footer')
     
     <script>

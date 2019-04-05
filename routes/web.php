@@ -14,15 +14,26 @@ use App\product_details;
 */
 
 Route::get('/', 'FrontEndController@index');
-
+Route::get('/san-pham/{id}/{slug}','FrontEndController@productDetails');
 
 Route::get('check',function(){
     return route('voyager.roles.index');
 });
 
 
-Route::group(['prefix' => 'admin'], function () {
+Route::get('/admin/login','AdminPages@loginIndex');
+Route::post('/admin/login','AdminPages@loginPost')->name('admin.login');
+Route::get('/admin/logout','AdminPages@logoutIndex');
+
+Route::group(['prefix' => 'admin','middleware'=>'adminLogin'], function () {
+    Route::get('/bpc',function(){
+        return view('admin.funcBPC');
+    });
     //Voyager::routes();
+   
+    Route::get('/',function(){
+        return redirect('/admin/index');
+    });
     Route::get('/index','AdminPages@index')->name('admin.index');
 
     Route::get('category','CategoryController@index')->name('category.list');
@@ -73,9 +84,9 @@ Route::get('checkProduct',function(){
 });
 
 Route::get('checkProduct2',function(){
-    $data = Product::find(14);
-    echo $data->product_details[0]->sku;
-   
+    $data = DB::table('Product')->where('slug','ao-phong-1')->get()->toArray();
+    $data2 = Product::hydrate($data);
+    dd($data2);
 });
 
 

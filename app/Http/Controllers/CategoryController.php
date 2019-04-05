@@ -59,7 +59,7 @@ class CategoryController extends Controller
                 return response('Tồn tại danh mục con', 422);
             } else {
                 $Category->delete();
-                return response()->json(['success' => 'Xóa thành công']);
+                
             }
         } else {
             return response('Thất bại', 422);
