@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <meta charset="utf-8">
     <meta http-equiv="content-type" content="text/html;charset=utf-8" />
@@ -7,7 +8,7 @@
     <meta name="viewport" content="width=device-width, shrink-to-fit=no, initial-scale=1">
     <meta name="keywords" content="">
     <meta name="author" content="GeniusOcean">
-    <link rel="icon" type="image/png" href="{{url('/')}}/assets/images/" />
+    <link rel="icon" type="image/png" href="{{url('/')}}/assets/images/logo/avatar_null_nonecircle.png" />
     <title></title>
     <!-- Bootstrap Core CSS -->
     <link href="{{ URL::asset('assets/css/bootstrap.min.css')}}" rel="stylesheet">
@@ -15,10 +16,12 @@
     <link href="{{ URL::asset('assets/css/owl.carousel.min.css')}}" rel="stylesheet">
 
     <link href="{{ URL::asset('assets/css/idangerous.swiper.css')}}" rel="stylesheet" type="text/css" />
-    <link href='http://fonts.googleapis.com/css?family=Raleway:300,400,500,600,700%7CDancing+Script%7CMontserrat:400,700%7CMerriweather:400,300italic%7CLato:400,700,900' rel='stylesheet' type='text/css' />
+    <link href='http://fonts.googleapis.com/css?family=Raleway:300,400,500,600,700%7CDancing+Script%7CMontserrat:400,700%7CMerriweather:400,300italic%7CLato:400,700,900'
+        rel='stylesheet' type='text/css' />
     <link href="{{ URL::asset('assets/css/style.css')}}" rel="stylesheet" type="text/css" />
 
     <!-- Custom CSS -->
+    <link href="{{URL::asset('assets/css/mycss.css')}}" rel="stylesheet">
     <link href="{{ URL::asset('assets/css/genius1.css')}}" rel="stylesheet">
     <link href="{{ URL::asset('assets/css/genius-slider.css')}}" rel="stylesheet">
     <link href="{{ URL::asset('assets/css/genius-gallery.css')}}" rel="stylesheet">
@@ -33,224 +36,276 @@
         <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
         <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
-    
-    
+
+
 </head>
+
 <body>
-<div id="cover"></div>
-<div class="theme2">
+    <div id="cover"></div>
+    <div class="theme2">
 
-    <div id="content-block">
+        <div id="content-block">
 
-        <div class="content-center fixed-header-margin">
-            <!-- HEADER -->
-            <div class="header-wrapper style-10">
-                <header class="type-1">
+            <div class="content-center fixed-header-margin">
+                <!-- HEADER -->
+                <div class="header-wrapper style-10">
+                    <header class="type-1">
 
-                    <div class="header-product">
-                        <div class="logo-wrapper">
-                            <a href="{{url('/')}}" id="logo">
-                                <img alt="" src="{{ URL::asset('assets/images/logo')}}/">
+                        <div class="header-product">
+                            <div class="logo-wrapper">
+                                <a href="{{url('/')}}" id="logo">
+                                <img class="logoImg" alt="" src="{{ URL::asset('/assets/images/logo/avatar_null_nonecircle.png')}}/">
                             </a>
-                        </div>
-
-                        <div class="product-header-content">
-                            <div class="line-entry">
-                                <div class="menu-button responsive-menu-toggle-class"><i class="fa fa-reorder"></i></div>
-
                             </div>
-                            {{--<div class="middle-line"></div>--}}
-                            <div class="line-entry">
-                                <div class="header-top-entry increase-icon-responsive open-search-popup">
-                                    <div class="title"><i class="fa fa-search"></i> <span>Search</span></div>
-                                </div>
-                                <div class="header-top-entry increase-icon-responsive login">
-                                    <a href="{{url('/vendor')}}" class="title"><i class="fa fa-group"></i> <span>Vendors</span></a>
-                                </div>
-                                <div class="header-top-entry increase-icon-responsive login">
-                                    <a href="{{url('user/login')}}" class="title"><i class="fa fa-user"></i> <span>My Account</span></a>
-                                </div>
-                                <a href="{{url('/cart')}}" class="header-top-entry open-cart-popup" id="notify"><div class="title"><i class="fa fa-shopping-cart"></i><span>My Cart</span> <b id="carttotal">$0.00</b></div></a>
 
+                            <div class="product-header-content">
+                                <div class="line-entry">
+                                    <div class="menu-button responsive-menu-toggle-class"><i class="fa fa-reorder"></i></div>
+
+                                </div>
+                                {{--
+                                <div class="middle-line"></div>--}}
+                                <div class="line-entry">
+                                    <div class="header-top-entry increase-icon-responsive open-search-popup">
+                                        <div class="title"><i class="fa fa-search"></i> <span>Tìm kiếm</span></div>
+                                    </div>
+                                    <div class="header-top-entry increase-icon-responsive login">
+                                        <a href="{{url('user/login')}}" class="title"><i class="fa fa-user"></i> <span>Tài khoản của tôi</span></a>
+                                    </div>
+                                    <a href="{{url('/cart')}}" class="header-top-entry open-cart-popup" id="notify">
+                                        <div class="title"><i class="fa fa-shopping-cart"></i><span>Giỏ Hàng</span> <b id="carttotal">(0)</b></div>
+                                    </a>
+
+                                </div>
                             </div>
                         </div>
-                    </div>
 
-                    <div class="close-header-layer"></div>
-                    <div class="navigation">
-                        <div class="navigation-header responsive-menu-toggle-class">
-                            <div class="title">Navigation</div>
-                            <div class="close-menu"></div>
-                        </div>
-                        <div class="nav-overflow">
-                            <nav>
-                                <ul>
-                                 <li class="simple-list"><a href="{{url('/')}}" class="">Home</a></li>
+                        <div class="close-header-layer"></div>
+                        <div class="navigation">
+                            <div class="navigation-header responsive-menu-toggle-class">
+                                <div class="title">Navigation</div>
+                                <div class="close-menu"></div>
+                            </div>
+                            <div class="nav-overflow">
+                                <nav>
+                                    <ul>
+                                        <li class="simple-list"><a href="{{url('/')}}" class="">TRANG CHỦ</a></li>
 
-                                
+
                                         <li class="full-width-columns">
-                                            <a href="{{url('/category')}}/fds">fgfdgfd</a>
-                                            
+                                            <a href="{{url('/category')}}/fds">DANH MỤC</a>
+
                                             <i class="fa fa-chevron-down"></i>
                                             <div class="submenu">
-                                                
+
                                                 <div class="product-column-entry">
                                                     <div class="submenu-list-title"><a href="{{url('/category')}}/gfdgfd">fdsfds</a><span class="toggle-list-button"></span></div>
                                                     <div class="description toggle-list-container">
                                                         <ul class="list-type-1">
-                                                          
-                                                                <li><a href="{{url('/category')}}/"><i class="fa fa-angle-right"></i>fdsfds</a></li>
-                                                                <li><a href="{{url('/category')}}/"><i class="fa fa-angle-right"></i>fdsfds</a></li>
-                                                                <li><a href="{{url('/category')}}/"><i class="fa fa-angle-right"></i>fdsfds</a></li>
-                                                                <li><a href="{{url('/category')}}/"><i class="fa fa-angle-right"></i>fdsfds</a></li>
-                                                           
+
+                                                            <li><a href="{{url('/category')}}/"><i class="fa fa-angle-right"></i>fdsfds</a></li>
+                                                            <li><a href="{{url('/category')}}/"><i class="fa fa-angle-right"></i>fdsfds</a></li>
+                                                            <li><a href="{{url('/category')}}/"><i class="fa fa-angle-right"></i>fdsfds</a></li>
+                                                            <li><a href="{{url('/category')}}/"><i class="fa fa-angle-right"></i>fdsfds</a></li>
+
                                                         </ul>
                                                     </div>
                                                     <div class="hot-mark yellow">sale</div>
                                                 </div>
-                                                
+
                                             </div>
-                                            
+
                                         </li>
-                                   
 
+
+
+                                        <li class="simple-list"><a href="{{url('/about')}}" class="">ĐIỀU KHOẢN</a></li>
+
+
+                                        <li class="simple-list"><a href="{{url('/faq')}}" class="">LIÊN HỆ</a></li>
+
+                                        <li class="simple-list"><a href="{{url('/contact')}}" class="">CHÍNH SÁCH</a></li>
+
+
+                                        <li class="fixed-header-visible">
+                                            <a class="fixed-header-square-button open-cart-popup"><i class="fa fa-shopping-cart"></i></a>
+                                            <a class="fixed-header-square-button open-search-popup"><i class="fa fa-search"></i></a>
+                                        </li>
+                                    </ul>
+
+                                    <div class="clear"></div>
+
+                                </nav>
+                                <div class="navigation-footer responsive-menu-toggle-class">
+
+                                </div>
+                            </div>
+                        </div>
+                    </header>
+                    <div class="clear"></div>
+                </div>
+            </div>
+            <div class="clear"></div>
+
+
+            @yield('content')
+
+
+        </div>
+
+        <footer class="v2_bnc_footer">
+            <div class="container">
+                <div class="row">
+                    <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 v2_bnc_footer_left">
+                        <div class="v2_bnc_footer_info_company"><br>
+                            <br>
+                            <strong><span style="color:rgb(255, 255, 255)">THỜI TRANG HÀ NỘI</span><br>
+                            Địa chỉ:</strong>&nbsp; Hoàng liệt - Hoàng Mai - Hà Nội<br>
+                            <strong>Email:</strong> hieuleadergin@rog.vn<br>
+                            <strong>Điên thoại :</strong> <a href="tel:0968051632"><span style="color:rgb(255, 255, 255);">033 600 1860</span></a>                            &amp; <a href="tel:0983982821"><span style="color:rgb(255, 255, 255);">0983 982 821</span></a>                            - Fax:<br> &nbsp;
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8">
+                        <div class="v2_bnc_footer_right">
+                            <div class="v2_bnc_footer_right_top">
+                                <div class="col-md-4 col-sm-6 col-xs-6 full-xs">
+                                    <h4 class="v2_bnc_footer_title">Giới thiệu</h4>
+                                    <ul class="v2_bnc_footer_links">
+                                        <li>
+                                            <a href="#" class="sm-link sm-link_padding-all sm-link5">
+                                                <span class="sm-link__label">Dịch vụ</span>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="#" class="sm-link sm-link_padding-all sm-link5">
+                                                    <span class="sm-link__label">Liên hệ chúng tôi</span>
+                                                </a>
+                                        </li>
+                                        <li>
+                                            <a href="#" class="sm-link sm-link_padding-all sm-link5">
+                                                        <span class="sm-link__label">Giới thiệu công ty</span>
+                                                    </a>
+                                        </li>
+                                        <li>
+                                            <a href="#" class="sm-link sm-link_padding-all sm-link5">
+                                                <span class="sm-link__label">Giới thiệu sản phẩm</span>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="col-md-4 col-sm-6 col-xs-6 full-xs">
+                                    <h4 class="v2_bnc_footer_title">Chính sách</h4>
+                                    <ul class="v2_bnc_footer_links">
+                                        <li>
+                                            <a href="#" class="sm-link sm-link_padding-all sm-link1">
+                                                        <span class="sm-link__label">Vận chuyển và trả hàng</span>
+                                                    </a>
+                                        </li>
+                                        <li>
+                                            <a href="#" class="sm-link sm-link_padding-all sm-link1">
+                                                            <span class="sm-link__label">Câu hỏi thường gặp</span>
+                                                        </a>
+                                        </li>
+                                        <li>
+                                            <a href="#" class="sm-link sm-link_padding-all sm-link1">
+                                                                <span class="sm-link__label">Quy chế hoạt động</span>
+                                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="#" class="sm-link sm-link_padding-all sm-link1">
+                                                <span class="sm-link__label">Chính sách bảo mật</span>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="section">
+                                    <h4 class="v2_bnc_footer_title">Sản phẩm</h4>
+                                    <div class="section__item">
                                         
-                                            <li class="simple-list"><a href="{{url('/about')}}" class="">About Us</a></li>
+                                            <a href="#" class="sm-link sm-link_padding-all sm-link1">
+                                                                <span class="sm-link__label">Phụ kiện</span>
+                                                            </a>
                                         
+                                        
+                                            <a href="#" class="sm-link sm-link_padding-all sm-link1">
+                                                                    <span class="sm-link__label">Quần áo nam</span>
+                                                                </a>
+                                        
+                                            <a href="#" class="sm-link sm-link_padding-all sm-link1">
+                                                                        <span class="sm-link__label">Bộ sưu tập</span>
+                                                                    </a>
                                        
-                                            <li class="simple-list"><a href="{{url('/faq')}}" class="">FAQ</a></li>
-                                        
-                                            <li class="simple-list"><a href="{{url('/contact')}}" class="">Contact Us</a></li>
+                                            <a href="#" class="sm-link sm-link_padding-all sm-link1">
+                                                                            <span class="sm-link__label">Mùa hè</span>
+                                                                        </a>
                                        
+                                    </div>
 
-                                    <li class="fixed-header-visible">
-                                        <a class="fixed-header-square-button open-cart-popup"><i class="fa fa-shopping-cart"></i></a>
-                                        <a class="fixed-header-square-button open-search-popup"><i class="fa fa-search"></i></a>
-                                    </li>
-                                </ul>
-
-                                <div class="clear"></div>
-
-                            </nav>
-                            <div class="navigation-footer responsive-menu-toggle-class">
-
+                                </div>
+                            </div>
+                            <div class="v2_bnc_footer_right_bottom">
+                                <div class="v2_bnc_footer_follow_me"></div>
                             </div>
                         </div>
                     </div>
-                </header>
-                <div class="clear"></div>
-            </div>
-        </div>
-        <div class="clear"></div>
-
-
-    @yield('content')
-
-
-    </div>
-
-<footer>
-
-    <div class="go-top">
-        <a id="gtop" href="javascript:;"><i class="fa fa-angle-up"></i></a>
-    </div>
-
-<div class="row">
-    <div class="col-md-3 about">
-        <h4>About Us</h4>
-        <p>fdsfdsfds</p>
-    </div>
-    <div class="col-md-3 address">
-        <h4>Address</h4>
-        <p>Street Address: </p>
-        <p>Phone: </p>
-        <p>Fax: </p>
-        <p>Email: </p>
-    </div>
-    <div class="col-md-3">
-        <div class="socicon text-center">
-                       
-                            <a href="" class="facebook"><i class="fa fa-facebook"></i></a>
-                       
-                        
-                            <a href="" class="twitter"><i class="fa fa-twitter"></i></a>
-                       
-                            <a href="" class="google"><i class="fa fa-google"></i></a>
-                       
-                            <a href="" class="linkedin"><i class="fa fa-linkedin"></i></a>
-                        
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                        <div class="v2_bnc_footer_bottom"><small class="copyright ">Thiết kế bởi <a rel="nofollow" href="https://fb.com/bossgin.vhb" target="_blank">Rog.vn</a></small></div>
                     </div>
-    </div>      
-    <div class="col-md-3 text-center">
-        <form action="" method="post">
-            {{csrf_field()}}
-            <h4>Subscription:</h4>
-            <input type="email" id="email" class="form-control" placeholder="Enter Email" name="email" required>
-            <p id="resp">
-            
-            </p>
-            <button id="subs" class="btn btn-ocean">Subscribe</button>
-        </form>
-    </div>
-</div>
-      
-
-<div class="c-line"></div>
-            <div class="text-center footerlink">
-              Footer
+                </div>
             </div>
-</footer>
+        </footer>
 
 
-    <div class="cart-box popup">
-        <div class="popup-container">
-            <div id="emptycart">
-                Your Cart is Empty.
-            </div>
-            <div id="goCart">
 
-            </div>
-            <div class="summary">
-                <div class="grandtotal">Total <span id="grandttl">$0.00</span></div>
-            </div>
-            <div class="cart-buttons">
-                <div class="column">
-                    <a href="{{url('/cart')}}" class="button style-3">view cart</a>
+        <div class="cart-box popup">
+            <div class="popup-container">
+                <div id="emptycart">
+                    Your Cart is Empty.
+                </div>
+                <div id="goCart">
+
+                </div>
+                <div class="summary">
+                    <div class="grandtotal">Total <span id="grandttl">$0.00</span></div>
+                </div>
+                <div class="cart-buttons">
+                    <div class="column">
+                        <a href="{{url('/cart')}}" class="button style-3">view cart</a>
+                        <div class="clear"></div>
+                    </div>
+                    <div class="column">
+                        <a href="" class="button style-4">checkout</a>
+                        <div class="clear"></div>
+                    </div>
                     <div class="clear"></div>
                 </div>
-                <div class="column">
-                    <a href="" class="button style-4">checkout</a>
-                    <div class="clear"></div>
-                </div>
-                <div class="clear"></div>
             </div>
         </div>
-    </div>
 
 
 
-    <div class="search-box popup">
-        <form id="searchform">
-            <button type="button" id="searchbtn" class="search-button">
+        <div class="search-box popup">
+            <form id="searchform">
+                <button type="button" id="searchbtn" class="search-button">
                 <i class="fa fa-search"></i>
 
             </button>
 
-            <div class="search-field">
-                <input type="text" id="searchdata" value="" placeholder="Search for product" />
-            </div>
-        </form>
+                <div class="search-field">
+                    <input type="text" id="searchdata" value="" placeholder="Search for product" />
+                </div>
+            </form>
+        </div>
+
+
+
+
+
     </div>
+    <script>
+        var mainurl = '{{url('/')}}';
+    </script>
 
-
-
-
-
-</div>
-<script>
-    var mainurl = '{{url('/')}}';
-</script>
-    
     <!-- jQuery -->
     <script src="{{ URL::asset('assets/js/jquery.js')}}"></script>
     <script src="{{ URL::asset('assets/js/owl.carousel.min.js')}}"></script>
@@ -272,15 +327,13 @@
     <script src="{{ URL::asset('assets/js/jquery.jscrollpane.min.js')}}"></script>
     <script src="{{ URL::asset('assets/js/notify.js')}}"></script>
     <!-- js Page -->
-    @yield('javascript');
-    @yield('footer')
-    
-    <script>
-              new WOW().init();
-    </script>
-<script>
+    @yield('javascript'); @yield('footer');
 
-	$(window).load(function(){
+    <script>
+        new WOW().init();
+    </script>
+    <script>
+        $(window).load(function(){
                 setTimeout(function(){
                 	$('#cover').fadeOut(500);
                 },500)
@@ -453,6 +506,7 @@
             }
         });
     });
-</script>
+    </script>
 </body>
+
 </html>

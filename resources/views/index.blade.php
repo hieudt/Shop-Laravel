@@ -1,31 +1,110 @@
 @extends('includes.master') 
 @section('content')
 <style>
-.box-items-dev {
-    background-color:white;
-    color:blue;
-    height: 50px;
-    text-align: center;
-    font-size:13pt;
-    line-height: 40px;
-    position:relative !important;
-    top:200px;
-    z-index:1;
-    transform: rotateX(-100deg);
-    transform-origin: top center;
-    transition: opacity .3s, transform 1s;
-    opacity: 0;
-    text-decoration: none;
-}
-.product:hover {
-    box-shadow: 25px 25px 25px 25px rgba(0, 0, 0, 0.2);
-}
+    .box-items-dev {
+        background-color: white;
+        color: blue;
+        height: 40px;
+        text-align: center;
+        font-size: 13pt;
+        line-height: 40px;
+        position: relative !important;
+        top: 200px;
+        z-index: 1;
+        transform: rotateX(-100deg);
+        transform-origin: top center;
+        transition: opacity .3s, transform 1s;
+        opacity: 0;
+        text-decoration: none;
+    }
 
-.product:hover .box-items-dev {
-    opacity:0.8;
-    transform: rotateX(0deg);
-}
+    .col-item:hover {
+        box-shadow: 5px 5px 5px 5px rgba(0, 0, 0, 0.2);
+    }
+
+    .col-item:hover .box-items-dev {
+        opacity: 1;
+        transform: rotateX(0deg);
+    }
 </style>
+<section class="go-slider">
+    <div id="bootstrap-touch-slider" class="carousel bs-slider fade  control-round indicators-line" data-ride="carousel" data-pause="hover"
+        data-interval="5000">
+
+        <!-- Indicators -->
+
+
+        <!-- Wrapper For Slides -->
+        <div class="carousel-inner" role="listbox">
+
+            <!-- Third Slide -->
+            <div class="item active">
+
+                <!-- Slide Background -->
+                <img src="{{url('/images//sliders/BrUslider.jpg')}}" alt="Bootstrap Touch Slider" class="slide-image" />
+                <div class="bs-slider-overlay"></div>
+
+                <div class="container">
+                    <div class="row">
+                        <!-- Slide Text Layer -->
+                        <div class="slide-text slide_style_left">
+
+                            <h1 data-animation="animated fadeInDown">Slider Title 1</h1>
+                            <p data-animation="animated fadeInUp">Lorem Ipsum is simply dummy text of the printing and typesetting industry</p>
+
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <!-- End of Slide -->
+            <!-- Second Slide -->
+            <div class="item">
+
+                <!-- Slide Background -->
+                <img src="{{url('/images/sliders/8Nsslider3.jpg')}}" alt="Bootstrap Touch Slider" class="slide-image" />
+                <div class="bs-slider-overlay"></div>
+                <!-- Slide Text Layer -->
+                <div class="slide-text slide_style_center">
+                    <h1 data-animation="animated fadeInDown">Slider Title 2</h1>
+                    <p data-animation="animated fadeInUp">Lorem Ipsum is simply dummy text of the printing and typesetting industry</p>
+                </div>
+            </div>
+            <!-- End of Slide -->
+            <!-- Second Slide -->
+            <div class="item">
+
+                <!-- Slide Background -->
+                <img src="{{url('/images/sliders/RWXslider1.jpg')}}" alt="Bootstrap Touch Slider" class="slide-image" />
+                <div class="bs-slider-overlay"></div>
+                <!-- Slide Text Layer -->
+                <div class="slide-text slide_style_right">
+                    <h1 data-animation="animated fadeInDown">Slider Title 3</h1>
+                    <p data-animation="animated fadeInUp">Lorem Ipsum is simply dummy text of the printing and typesetting industry</p>
+                </div>
+            </div>
+            <!-- End of Slide -->
+
+
+        </div>
+        <!-- End of Wrapper For Slides -->
+
+        <!-- Left Control -->
+        <a class="left carousel-control" href="#bootstrap-touch-slider" role="button" data-slide="prev">
+            <span class="fa fa-angle-left" aria-hidden="true"></span>
+            <span class="sr-only">Previous</span>
+        </a>
+
+        <!-- Right Control -->
+        <a class="right carousel-control" href="#bootstrap-touch-slider" role="button" data-slide="next">
+            <span class="fa fa-angle-right" aria-hidden="true"></span>
+            <span class="sr-only">Next</span>
+        </a>
+
+    </div>
+    <!-- End  bootstrap-touch-slider Slider -->
+
+</section>
 <section class="wow fadeInUp go-services hideme">
     <div class="row" style="margin-top:70px;">
         <div class="container">
@@ -79,10 +158,10 @@
                         <div class="row">
                             @foreach($features as $product)
                             <div class="col-xs-6 col-sm-4 col-md-3 product">
-                                    <div class="box-items-dev">
-                                    <a href="{{url('/san-pham')}}/{{$product->id}}/{{$product->slug}}/">Xem Sản Phẩm</a>
-                                    </div>
                                 <article class="col-item">
+                                        <div class="box-items-dev">
+                                                <a href="{{url('/san-pham')}}/{{$product->id}}/{{$product->slug}}/">Xem Sản Phẩm</a>
+                                            </div>
                                     <div class="photo">
                                         <a href="{{url('/san-pham')}}/{{$product->id}}/{{$product->slug}}/"> <img src="{{url('/images/product')}}/{{$product->thumbnail}}" class="img-responsive" style="height: 320px;" alt="Product Image" /> </a>
                                     </div>
@@ -95,10 +174,8 @@
                                                 <div class="row">
                                                     @if($product->discount > 0)
                                                     <span class="price-old">{{$product->formatMoney($product->cost)}}₫</span>
-                                                    <span class="price-new">{{$product->formatMoney($product->priceDiscount($product->cost,$product->discount))}}₫</span> 
-                                                    @else                                                   
-                                                    <span class="price-new">{{$product->formatMoney($product->cost)}}₫</span>                                                    
-                                                    @endif
+                                                    <span class="price-new">{{$product->formatMoney($product->priceDiscount($product->cost,$product->discount))}}₫</span>                                                    @else
+                                                    <span class="price-new">{{$product->formatMoney($product->cost)}}₫</span>                                                    @endif
                                                 </div>
                                                 <div class="row">
                                                     <span class="review">
@@ -133,10 +210,10 @@
                         <div class="row">
                             @foreach($lastes as $product)
                             <div class="col-xs-6 col-sm-4 col-md-3 product">
-                                    <div class="box-items-dev">
-                                        <a href="{{url('/san-pham')}}/{{$product->id}}/{{$product->slug}}/">Xem Sản Phẩm</a>
-                                    </div>
                                 <article class="col-item">
+                                        <div class="box-items-dev">
+                                                <a href="{{url('/san-pham')}}/{{$product->id}}/{{$product->slug}}/">Xem Sản Phẩm</a>
+                                            </div>
                                     <div class="photo">
                                         <a href="{{url('/san-pham')}}/{{$product->id}}/{{$product->slug}}/"> <img src="{{url('/images/product')}}/{{$product->thumbnail}}" class="img-responsive" style="height: 320px;" alt="Product Image" /> </a>
                                     </div>
@@ -149,10 +226,8 @@
                                                 <div class="row">
                                                     @if($product->discount > 0)
                                                     <span class="price-old">{{$product->formatMoney($product->cost)}}₫</span>
-                                                    <span class="price-new">{{$product->formatMoney($product->priceDiscount($product->cost,$product->discount))}}₫</span> 
-                                                    @else                                                   
-                                                    <span class="price-new">{{$product->formatMoney($product->cost)}}₫</span>                                                    
-                                                    @endif
+                                                    <span class="price-new">{{$product->formatMoney($product->priceDiscount($product->cost,$product->discount))}}₫</span>                                                    @else
+                                                    <span class="price-new">{{$product->formatMoney($product->cost)}}₫</span>                                                    @endif
                                                 </div>
                                                 <div class="row">
                                                     <span class="review">
@@ -187,10 +262,10 @@
                         <div class="row">
                             @foreach($discounts as $product)
                             <div class="col-xs-6 col-sm-4 col-md-3 product">
-                                    <div class="box-items-dev">
-                                        <a href="{{url('/san-pham')}}/{{$product->id}}/{{$product->slug}}/">Xem Sản Phẩm</a>
-                                    </div>
                                 <article class="col-item">
+                                        <div class="box-items-dev">
+                                                <a href="{{url('/san-pham')}}/{{$product->id}}/{{$product->slug}}/">Xem Sản Phẩm</a>
+                                            </div>
                                     <div class="photo">
                                         <a href="{{url('/san-pham')}}/{{$product->id}}/{{$product->slug}}/"> <img src="{{url('/images/product')}}/{{$product->thumbnail}}" class="img-responsive" style="height: 320px;" alt="Product Image" /> </a>
                                     </div>
@@ -203,10 +278,8 @@
                                                 <div class="row">
                                                     @if($product->discount > 0)
                                                     <span class="price-old">{{$product->formatMoney($product->cost)}}₫</span>
-                                                    <span class="price-new">{{$product->formatMoney($product->priceDiscount($product->cost,$product->discount))}}₫</span> 
-                                                    @else                                                   
-                                                    <span class="price-new">{{$product->formatMoney($product->cost)}}₫</span>                                                    
-                                                    @endif
+                                                    <span class="price-new">{{$product->formatMoney($product->priceDiscount($product->cost,$product->discount))}}₫</span>                                                    @else
+                                                    <span class="price-new">{{$product->formatMoney($product->cost)}}₫</span>                                                    @endif
                                                 </div>
                                                 <div class="row">
                                                     <span class="review">
@@ -275,10 +348,16 @@
 <!-- END OF TESTIMONIALS -->
 
 
+
+
+
 @stop 
 @section('footer')
 <script>
 
 </script>
+
+
+
 
 @stop
