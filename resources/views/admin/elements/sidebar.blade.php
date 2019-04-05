@@ -13,26 +13,31 @@
         </a>
       </li>
       <li class="nav-item">
-        <a class="nav-link collapsed" data-toggle="collapse" href="#products" aria-expanded="false" aria-controls="products">
-            <i class="mdi mdi-shopping menu-icon"></i>
-            <span class="menu-title">Sản Phẩm</span>
-            <i class="menu-arrow"></i>
+      <a class="nav-link collapsed" data-toggle="collapse" href="#products" aria-expanded="false" aria-controls="products">
+          <i class="mdi mdi-shopping menu-icon"></i>
+          <span class="menu-title">Sản Phẩm</span>
+          <i class="menu-arrow"></i>
+        </a>
+        <div id="products" class="collapse" style>
+          <ul class="nav flex-column sub-menu">
+            <li class="nav-item">
+              <a href="{{url('admin/product/home')}}" class="nav-link">Danh sách</a>
+            </li>
+            <li class="nav-item">
+                <a href="{{url('admin/product/add')}}" class="nav-link">Thêm Mới</a>
+            </li>
+            <li class="nav-item">
+              <a href="{{url('admin/product/attribute')}}" class="nav-link">Thuộc tính</a>
+            </li>
+          </ul>
+        </div>
+      </li>
+        <li class="nav-item">
+        <a class="nav-link" href="{{url('admin/coupons/index')}}">
+            <i class="mdi mdi-barcode menu-icon"></i>
+            <span class="menu-title">Mã Giảm Giá</span>
           </a>
-          <div id="products" class="collapse" style>
-            <ul class="nav flex-column sub-menu">
-              <li class="nav-item">
-                <a href="{{url('admin/product/home')}}" class="nav-link">Danh sách</a>
-              </li>
-              <li class="nav-item">
-                  <a href="{{url('admin/product/add')}}" class="nav-link">Thêm Mới</a>
-              </li>
-              <li class="nav-item">
-                <a href="{{url('admin/product/attribute')}}" class="nav-link">Thuộc tính</a>
-              </li>
-            </ul>
-          </div>
         </li>
-      
       <li class="nav-item nav-doc">
         <a class="nav-link" href="../../pages/documentation.html">
           <i class="mdi mdi-file-document-box menu-icon"></i>

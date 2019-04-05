@@ -50,6 +50,10 @@ Route::group(['prefix' => 'admin','middleware'=>'adminLogin'], function () {
     Route::get('chatlieu/Search','ChatLieuController@search')->name('chatlieu.search');
     Route::post('chatlieu','ChatLieuController@Store')->name('chatlieu.store');
 
+    Route::get('coupons/index','CouponsController@index')->name('coupons.list');
+    Route::post('coupons/index','CouponsController@store')->name('coupons.store');
+    Route::get('coupons/Search','CouponsController@search')->name('coupons.search');
+
     Route::get('product/add','ProductController@create')->name('product.create');
     Route::get('product/home','ProductController@index')->name('product.list');
     Route::get('product/search','ProductController@search')->name('product.search');

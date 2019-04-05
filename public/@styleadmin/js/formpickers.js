@@ -10,6 +10,8 @@
   }
   if ($("#datepicker-popup").length) {
     $('#datepicker-popup').datepicker({
+      format: 'dd/mm/yyyy',
+      startDate: '-3d',
       enableOnReadonly: true,
       todayHighlight: true,
     });

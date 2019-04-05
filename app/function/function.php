@@ -77,5 +77,18 @@ function stripUnicode($str){
 	return $str;
 }
 
-
+function formatMoney($number, $fractional=false) {  
+	if ($fractional) {  
+		$number = sprintf('%d', $number);  
+	}  
+	while (true) {  
+		$replaced = preg_replace('/(-?\d+)(\d\d\d)/', '$1,$2', $number);  
+		if ($replaced != $number) {  
+			$number = $replaced;  
+		} else {  
+			break;  
+		}  
+	}  
+	return $number;  
+}
 ?>

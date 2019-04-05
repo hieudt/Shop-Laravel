@@ -13,9 +13,8 @@
       border: solid 1px blue;
     }
   </style>
-  <script src="../release/go.js"></script>
   <link href='https://fonts.googleapis.com/css?family=Roboto:400,500' rel='stylesheet' type='text/css'>
-  <script src="../assets/js/goSamples.js"></script>  <!-- this is only for the GoJS Samples framework -->
+<!-- this is only for the GoJS Samples framework -->
   <script id="code">
     function init() {
       if (window.goSamples) goSamples();  // init for these samples -- you don't need to call this
@@ -53,8 +52,9 @@
           });
 
       // define Converters to be used for Bindings
-      function theNationFlagConverter(nation) {
-        return "https://www.nwoods.com/go/Flags/" + nation.toLowerCase().replace(/\s/g, "-") + "-flag.Png";
+      function theNationFlagConverter(check) {
+        if(check == 1)
+        return "{{url('/images/very.png')}}";
       }
 
       function theInfoTextConverter(info) {
@@ -106,8 +106,8 @@
                 alignment: go.Spot.TopRight
               },
               // only set a desired size if a flag is also present:
-              new go.Binding("desiredSize", "nation", function() { return new go.Size(34, 26) }),
-              new go.Binding("source", "nation", theNationFlagConverter)),
+              new go.Binding("desiredSize", "check", function() { return new go.Size(34, 26) }),
+              new go.Binding("source", "check", theNationFlagConverter)),
             // the additional textual information
             $(go.TextBlock,
               {
@@ -134,7 +134,7 @@
         { key: 4, boss:1, name: "Giỏ Hàng"},
         {key: 5 , boss:1, name: "Người Dùng"},
         {key: 6 , boss:3, name: "Tìm sản phẩm"},
-        {key: 7 , boss:3, name: "Xem sản phẩm",title:"Đã Xong"},
+        {key: 7 , boss:3, name: "Xem sản phẩm",title:"Đã Xong",},
         {key: 8 , boss:3, name: "Đăng nhập"},
         {key: 9 , boss:4, name: "Tạo giỏ hàng"},
         {key: 10 , boss:4, name: "Thêm / Xóa SP"},
@@ -155,6 +155,7 @@
         {key:25,boss:23,name:"C.N Sản phẩm",title:"Đã Xong"},
         {key:26,boss:23,name:"C.N Loại SP",title:"Đã Xong"},
         {key:27,boss:23,name:"C.N Thuộc Tính",title:"Đã Xong"},
+        {key:55,boss:23,name:"C.N Coupons",title:"Đã Xong"},
         {key:28,boss:22,name:"Quản lý hóa đơn"},
         {key:29,boss:28,name:"C.N Tình trạng hóa đơn"},
         {key:30,boss:28,name:"Tra cứu hóa đơn"},
@@ -168,6 +169,7 @@
         {key:38,boss:33,name:"TK Độ hài lòng của KH"},
         {key:39,boss:2,name:"Quản lý hệ thống"},
         {key:40,boss:39,name:"Cấu hình chung"},
+        {key:56,boss:39,name:"Đăng Nhập / Đăng Xuất",title:"Đã Xong"},
         {key:41,boss:39,name:"Sao lưu / Phục hồi CSDL"},
         {key:42,boss:39,name:"Trích xuất DL"},
         {key:43,boss:39,name:"Cấu hình kênh bán hàng"},
