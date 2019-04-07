@@ -13,13 +13,19 @@ use App\product_details;
 |
 */
 
-Route::get('/', 'FrontEndController@index');
+Route::get('/', 'FrontEndController@index')->name('front.index');
+
+
 Route::get('/san-pham/{id}/{slug}','FrontEndController@productDetails');
 
 Route::get('check',function(){
     return route('voyager.roles.index');
 });
 
+
+Route::post('/users/login','FrontEndController@loginPost')->name('user.login');
+Route::get('/users/logout','FrontEndController@logoutIndex')->name('front.logout');
+Route::post('/users/signup','FrontEndController@signUpPost')->name('user.signup');
 
 Route::get('/admin/login','AdminPages@loginIndex');
 Route::post('/admin/login','AdminPages@loginPost')->name('admin.login');

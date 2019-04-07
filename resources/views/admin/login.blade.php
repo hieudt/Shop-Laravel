@@ -344,7 +344,7 @@
     <script src="{{asset('@styleadmin/js/todolist.js')}}"></script>
     <!-- endinject -->
     <script>
-        var boxTwo = $('.box');
+    var boxTwo = $('.box');
     $('#loadingDiv').hide();
     $('#loginBtn').click(function(){
         postLogin();

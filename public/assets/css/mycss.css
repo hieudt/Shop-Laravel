@@ -5,7 +5,8 @@ P.S: if you like my content maybe you will become a donator and donate some mone
 /*
 * core styles
 */
-a:hover {
+.lienket:hover {
+    
     color:white !important;
 }
 .sm-link{
@@ -32,7 +33,7 @@ a.sm-link{
 .sm-link_padding-all{
 	--uismLinkLineWeight: var(--smLinkLineWeight, 2px);
 	--uismLinkLineColor: var(--smLinkLineColor, #ffffff);
-	--uismLinkPadding: var(--smLinkPadding, 5px);
+	--uismLinkPadding: var(--smLinkPadding, 0px);
 	
 	padding: var(--uismLinkPadding);
 }

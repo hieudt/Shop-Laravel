@@ -2,30 +2,7 @@
 @section('css')
 <link rel="stylesheet" href="{{asset('@styleadmin/css/attribute.css')}}">
 <style>
-.box-items-dev {
-    background-color:white;
-    color:blue;
-    height: 40px;
-    text-align: center;
-    font-size:13pt;
-    line-height: 40px;
-    position:relative !important;
-    top:200px;
-    z-index:1;
-    transform: rotateX(-100deg);
-    transform-origin: top center;
-    transition: opacity .3s, transform 1s;
-    opacity: 0;
-    text-decoration: none;
-}
-.product:hover {
-    box-shadow: 0px 0px 25px 25px rgba(0, 0, 0, 0.2);
-}
 
-.product:hover .box-items-dev {
-    opacity:0.8;
-    transform: rotateX(0deg);
-}
 </style>
 @endsection
 @section('content')
@@ -375,6 +352,28 @@
 <script>
     $(document).ready(function(){
         changeElementsCSS();
+        $('#related-products').owlCarousel( {
+            loop: true,
+            items: 4,
+            margin: 30,
+            autoplay: true,
+            dots:true,
+            nav:true,
+            autoplayTimeout: 8500,
+            smartSpeed: 450,
+            navText: ['<i class="fa fa-angle-left"></i>','<i class="fa fa-angle-right"></i>'],
+            responsive: {
+                0: {
+                    items: 1
+                },
+                768: {
+                    items: 2
+                },
+                1170: {
+                    items: 4
+                }
+            }
+        });
     });
     function changeElementsCSS()
     {

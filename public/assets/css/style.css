@@ -183,10 +183,10 @@ ol li:before{counter-increment: number; content: counter(number); color: #fff; f
 /* 04.01 - header */
 header{-webkit-backface-visibility: hidden;}
 header{ position: absolute; z-index: 5; background: #fff; padding: 0 70px; top: 0; left: 0; width: 100%;}
-.navigation{font-size: 0; position: relative; border-bottom: 2px #f7f7f7 solid; height: 70px;}
+.navigation{font-size: 0; position: relative; border-bottom: 2px #f7f7f7 solid; height: 72px;}
 nav{position: relative;}
 nav>ul>li{float: left; padding-right: 20px; padding-left: 20px;}
-nav>ul>li>a{font-size: 13px; font-weight: 700; color: #3d3d3d; line-height: 70px; text-transform: uppercase; display: inline-block;}
+nav>ul>li>a{font-size: 13px; font-weight: 700; color: #fff; line-height: 70px; text-transform: uppercase; display: inline-block;}
 nav>ul>li>a .menu-label{position: absolute; right: 3px; top: 10px;}
 nav>ul>li>.fa{color: #b9b9b9; font-size: 10px; margin-left: 3px; vertical-align: middle; position: relative; top: -5px;}
 .submenu-container{position: absolute; top: 60px; left: 50%; transform: translateX(-50%); -moz-transform: translateX(-50%); -webkit-transform: translateX(-50%); -ms-transform: translateX(-50%); padding: 20px 10px; display: none; border-radius: 3px; background-color: #fff; -webkit-box-shadow: 0 0 15px rgba(0,0,0,.1); box-shadow: 0 0 15px rgba(0,0,0,.1); border: solid 1px #f4f4f4;}
@@ -265,6 +265,15 @@ nav .simple-list .submenu{width: 270px; left: 50%; margin-left: -135px;}
 nav .simple-list .submenu a{font-size: 13px; line-height: 15px; color: #2e2e2e; padding: 16px 20px; border-top: 1px #f2f2f2 solid; display: block; margin-top: -1px;}
 nav .simple-list .submenu a .fa{color: #cacaca; display: inline-block; position: relative; vertical-align: bottom; top: -2px; margin-right: 7px; font-size: 13px;}
 
+.simple-list:hover {
+    background-color:white;
+    color:black !important;
+}
+
+.simple-list:hover a {
+    color:black !important;
+    text-decoration: none;
+}
 /*open desktop header drop-downs*/
 @media (min-width: 1200px) {
   /*.submenu{display: block!important; transform: rotateX(90deg); -moz-transform: rotateX(90deg); -webkit-transform: rotateX(90deg); -ms-transform: rotateX(90deg); -moz-transition:all 300ms ease-out; -o-transition:all 300ms ease-out; -webkit-transition:all 300ms ease-out; transition:all 300ms ease-out; -ms-transition:all 300ms ease-out; transform-origin: 50% 0% 0px; -moz-transform-origin: 50% 0% 0px; -webkit-transform-origin: 50% 0% 0px; -ms-transform-origin: 50% 0% 0px; opacity: 0;}
@@ -278,7 +287,7 @@ nav .simple-list .submenu a .fa{color: #cacaca; display: inline-block; position:
 @media (min-width: 1200px) {
     header.fixed-header{z-index: 6;}
     header.fixed-header .full-width .submenu, header.fixed-header .full-width-columns .submenu{left: auto; right: 0;}
-    header.fixed-header .nav-overflow{position: fixed; left: 0; top: 0; width: 100%; background: #fff; border-bottom: 2px #f7f7f7 solid; -webkit-backface-visibility: hidden;}
+    header.fixed-header .nav-overflow{position: fixed; left: 0; top: 0; width: 100%; background: #000; color:white; border-bottom: 2px #000 solid; -webkit-backface-visibility: hidden;}
     header.fixed-header nav{max-width: 1310px; padding: 0 70px; margin: 0 auto; text-align: right;}
     header.fixed-header nav>ul:nth-child(2){float: none;}
     header.fixed-header nav>ul{display: inline-block; text-align: left;}
@@ -362,7 +371,7 @@ body:not(.mobile) .socials-box a:hover .fa{top: -5px;}
 .search-box.popup.bottom-align{top: auto!important; bottom: 75px;}
 .search-box.popup.bottom-align .search-drop-down .list{position: absolute; top: auto; bottom: 100%;}
 /*.popup.active{opacity: 1; transform: rotateX(0deg); -moz-transform: rotateX(0deg); -webkit-transform: rotateX(0deg); -ms-transform: rotateX(0deg);}*/
-.search-box.popup:before{width: 28px; height: 15px; position: absolute; content: ""; background: url(../img/search-angle.png); top: -15px; right: 30px;}
+.search-box.popup:before{width: 28px; height: 15px; position: absolute; content: ""; top: -15px; right: 30px;}
 .search-box.popup.bottom-align:before{transform: rotate(180deg); -moz-transform: rotate(180deg); -webkit-transform: rotate(180deg); -ms-transform: rotate(180deg); top: 100%;}
 .cart-box.popup{position: fixed; padding: 15px 0 0 0; width: 300px;}
 .cart-box.popup .popup-container{border: 2px #ebebeb solid; padding: 25px 25px 20px 25px; background: #fff; position: relative;overflow-y: auto; max-height: 500px;}
@@ -382,7 +391,7 @@ body:not(.mobile) .socials-box a:hover .fa{top: -5px;}
 .cart-buttons .column:first-child{padding-left: 0; padding-right: 5px;}
 .cart-buttons .button{display: block; margin-bottom: 5px;}
 .cart-box.popup .button-x{position: absolute; top: 0; right: 0; cursor: pointer;}
-.cart-box.popup .popup-container:before {background: url(../img/search-angle.png); content: ""; height: 15px; position: absolute; right: 30px; top: -15px; width: 28px;}
+.cart-box.popup .popup-container:before { content: ""; height: 15px; position: absolute; right: 30px; top: -15px; width: 28px;}
 .cart-box.popup.left-align{left: 15px!important;}
 .cart-box.popup.left-align .popup-container:before{right: auto; left: 30px;}
 .cart-box.popup.cart-left .popup-container:before{right: auto; left: 30px;}
