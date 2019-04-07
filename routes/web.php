@@ -18,9 +18,7 @@ Route::get('/', 'FrontEndController@index')->name('front.index');
 
 Route::get('/san-pham/{id}/{slug}','FrontEndController@productDetails');
 
-Route::get('check',function(){
-    return route('voyager.roles.index');
-});
+
 
 
 Route::post('/users/login','FrontEndController@loginPost')->name('user.login');
@@ -30,6 +28,12 @@ Route::post('/users/signup','FrontEndController@signUpPost')->name('user.signup'
 Route::get('/admin/login','AdminPages@loginIndex');
 Route::post('/admin/login','AdminPages@loginPost')->name('admin.login');
 Route::get('/admin/logout','AdminPages@logoutIndex');
+
+Route::group(['prefix' => 'users'],function(){
+    Route::get('/','UsersProfileController@index')->name('profile.index');
+    Route::post('/users/update','UsersProfileController@update')->name('profile.update');
+    Route::post('/users/changepass','UsersProfileController@changePass')->name('profile.changepass');
+});
 
 Route::group(['prefix' => 'admin','middleware'=>'adminLogin'], function () {
     Route::get('/bpc',function(){

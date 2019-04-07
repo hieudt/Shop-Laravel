@@ -145,16 +145,11 @@
         <div class="row">
             <!-- Nav tabs -->
             <div class="card">
-                <div class="col-md-12">
-                    <ul class="nav nav-tabs home-tab" role="tablist">
-                        <li class="active"><a href="#home" aria-controls="home" role="tab" data-toggle="tab">Nổi Bật</a></li>
-                        <li><a href="#profile" aria-controls="profile" role="tab" data-toggle="tab">Mới Nhất</a></li>
-                        <li><a href="#messages" aria-controls="messages" role="tab" data-toggle="tab">Khuyến Mãi</a></li>
-                    </ul>
-                </div>
                 <!-- Tab panes -->
                 <div class="tab-content">
-                    <div role="tabpanel" class="tab-pane fade active" id="home">
+                        <ul class="nav nav-tabs home-tab" role="tablist">
+                            <li class="active"><a>Nổi Bật</a></li>
+                        </ul>
                         <div class="row">
                             @foreach($features as $product)
                             <div class="col-xs-6 col-sm-4 col-md-3 product">
@@ -205,8 +200,10 @@
                             </div>
                             @endforeach
                         </div>
-                    </div>
-                    <div role="tabpanel" class="tab-pane fade" id="profile">
+                        <br/><br/>
+                        <ul class="nav nav-tabs home-tab" role="tablist">
+                                <li class="active"><a>Mới Nhất</a></li>
+                        </ul>
                         <div class="row">
                             @foreach($lastes as $product)
                             <div class="col-xs-6 col-sm-4 col-md-3 product">
@@ -256,9 +253,10 @@
                                 </article>
                             </div>
                             @endforeach
-                        </div>
-                    </div>
-                    <div role="tabpanel" class="tab-pane fade" id="messages">
+                        </div><br/><br/>
+                    <ul class="nav nav-tabs home-tab" role="tablist">
+                        <li class="active"><a>Khuyến Mãi</a></li>
+                    </ul>
                         <div class="row">
                             @foreach($discounts as $product)
                             <div class="col-xs-6 col-sm-4 col-md-3 product">
@@ -309,7 +307,6 @@
                             </div>
                             @endforeach
                         </div>
-                    </div>
                 </div>
             </div>
         </div>

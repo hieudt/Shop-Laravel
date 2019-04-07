@@ -10,7 +10,7 @@
     <meta name="keywords" content="">
     <meta name="author" content="GeniusOcean">
     <link rel="icon" type="image/png" href="{{url('/')}}/assets/images/logo/avatar_null_nonecircle.png" />
-    <title></title>
+    <title>@yield('title')</title>
     <!-- Bootstrap Core CSS -->
     <link href="{{ URL::asset('assets/css/bootstrap.min.css')}}" rel="stylesheet">
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">

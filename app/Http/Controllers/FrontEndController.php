@@ -78,4 +78,6 @@ class FrontEndController extends Controller
             return response()->json(['success' => 'Đăng ký thành công']);
         }
     }
+
+
 }

@@ -39,4 +39,5 @@ class AdminPages extends Controller
         Auth::logout();
         return view('admin.login');
     }
+    
 }
