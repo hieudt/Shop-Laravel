@@ -1,7 +1,10 @@
 <?php
 use juno_okyo\Chatfuel;
 use App\Product;
+use App\Category;
 use App\product_details;
+use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\Input;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -14,7 +17,8 @@ use App\product_details;
 */
 
 Route::get('/', 'FrontEndController@index')->name('front.index');
-
+Route::get('list','FrontEndController@list')->name('front.list');
+Route::get('san-pham','FrontEndController@category2')->name('front.category');
 
 Route::get('/san-pham/{id}/{slug}','FrontEndController@productDetails');
 
@@ -85,16 +89,13 @@ Route::group(['prefix' => 'admin','middleware'=>'adminLogin'], function () {
 
 
 Route::get('checkProduct',function(){
-    $data = Product::all();
-    $text = '';
-        $productdetails = product_details::where('id_product',12)->get()->toArray();
-        foreach ($productdetails as $pd) {
-            $text .= "Soluong : ".$pd['soluong']."<br/>";
-            $text .= "Color : ".$pd->Color->name;
-            
-        }
-        
-    echo $text;
+    
+    $Product = DB::table('Product')
+                ->join('SubCategory','Product.id_sub','=','SubCategory.id')
+                ->join('categories','SubCategory.id_category','=','categories.id')
+                ->join('product_details','Product.id','=','product_details.id_product')
+                ->where('categories.id','2')->get();
+    dd($Product);
 });
 
 Route::get('checkProduct2',function(){

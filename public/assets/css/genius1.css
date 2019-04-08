@@ -1309,7 +1309,7 @@ footer{
     color: #222;
 }
 #left ul.nav>li.parent>a {
-    border-bottom: solid 1px #999;
+
     text-transform: uppercase;
     margin-bottom: 5px;
 }

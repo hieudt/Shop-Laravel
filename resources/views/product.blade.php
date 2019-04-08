@@ -12,8 +12,8 @@
 
             <div class="breadcrumb-box">
                 <a href="{{url('/')}}">Home</a>
-                <a href="/danh-muc/{{$productdata->SubCategory->Category->slug}}">{{$productdata->SubCategory->Category->title}}</a>
-                <a href="/danh-muc-con/{{$productdata->SubCategory->slug}}">{{$productdata->SubCategory->name_sub}}</a>
+                <a href="/san-pham?category={{$productdata->SubCategory->Category->slug}}">{{$productdata->SubCategory->Category->title}}</a>
+                <a href="/san-pham?subcategory={{$productdata->SubCategory->slug}}">{{$productdata->SubCategory->name_sub}}</a>
                 <a href="/san-pham/{{$productdata->id}}/{{$productdata->slug}}">{{$productdata->title}}</a>
             </div>
 
@@ -277,69 +277,39 @@
 
             <h3>Sản phẩm liên quan</h3>
             <hr>
-            <div class="row owl-carousel" id="related-products">
-                @foreach($relateds as $product)
-                    <div class="product">
-                           
-                        <article class="col-item">
-                                <div class="box-items-dev">
-                                    <a href="{{url('/san-pham')}}/{{$product->id}}/{{$product->slug}}/">Xem Sản Phẩm</a>
-                                </div>
-                            <div class="photo">
-                                    <a href="{{url('/san-pham')}}/{{$product->id}}/{{$product->slug}}/"> <img src="{{url('/images/product')}}/{{$product->thumbnail}}" class="img-responsive" style="height: 320px;" alt="Product Image" /> </a>
+            <div class="row">
+                    @foreach($relateds as $product)
+                    <div class="col-md-3 col-sm-6">
+                        <div class="product-grid4">
+                            <div class="product-image4">
+                                <a href="{{url('/san-pham')}}/{{$product->id}}/{{$product->slug}}/">
+                                    <img class="pic-1" src="{{url('/images/product')}}/{{$product->thumbnail}}">
+                                </a>
+                                <ul class="social">
+                                    <li><a href="#" data-tip="Quick View"><i class="fa fa-eye"></i></a></li>
+                                    <li><a href="#" data-tip="Add to Wishlist"><i class="fa fa-shopping-bag"></i></a></li>
+                                    <li><a href="#" data-tip="Add to Cart"><i class="fa fa-shopping-cart"></i></a></li>
+                                </ul>
+                                
+                                @if($product->discount>0)
+                                <span class="product-discount-label">-{{$product->discount}}%</span>
+                                @endif
                             </div>
-                            <div class="info">
-                                <div class="row">
-                                    <div class="price-details">
-                                        <a href="" class="row" style="min-height: 60px">
-                                            <h1>{{$product->title}}</h1>
-                                        </a>
-                                        <div class="row">
-                                            @if($product->discount > 0)
-                                            <span class="price-old">{{$product->formatMoney($product->cost)}}₫</span>
-                                            <span class="price-new">{{$product->formatMoney($product->priceDiscount($product->cost,$product->discount))}}₫</span> 
-                                            @else                                                   
-                                            <span class="price-new">{{$product->formatMoney($product->cost)}}₫</span>                                                    
-                                            @endif
-                                        </div>
-                                        <div class="row">
-                                            <span class="review">
-                                                @for($i=1;$i<=5;$i++)
-                                                    @if($i <= \App\Review::ratings($product->id))
-                                                        <i class="fa fa-star"></i>
-                                                    @else
-                                                        <i class="fa fa-star-o"></i>
-                                                    @endif
-                                                @endfor
-                                            </span>
-                                        </div>
-                                    </div>
+                            <div class="product-content">
+                                <h3 class="title"><a href="{{url('/san-pham')}}/{{$product->id}}/{{$product->slug}}/">{{$product->title}}</a></h3>
+                                <div class="price">
+                                    @if($product->discount > 0)
+                                    {{$product->formatMoney($product->priceDiscount($product->cost,$product->discount))}}₫
+                                    <span>{{$product->formatMoney($product->cost)}}₫</span>
+                                    @else
+                                    {{$product->formatMoney($product->cost)}}₫
+                                    @endif
                                 </div>
-                                <div class="separator clear-left">
-                                    <form>
-                                        <p>
-                                            {{csrf_field()}}
-                                            @if(Session::has('uniqueid'))
-                                                <input type="hidden" name="uniqueid" value="{{Session::get('uniqueid')}}">
-                                            @else
-                                                <input type="hidden" name="uniqueid" value="{{str_random(7)}}">
-                                            @endif
-                                            <input type="hidden" name="title" value="{{$product->title}}">
-                                            <input type="hidden" name="product" value="{{$product->id}}">
-                                            <input type="hidden" id="cost" name="cost" value="{{$product->price}}">
-                                            <input type="hidden" id="quantity" name="quantity" value="1">
-                                            <button type="button" class="button style-10 to-cart">Thêm giỏ hàng</button>
-
-                                        
-                                        </p>
-                                    </form>
-
-                                </div>
-                                <div class="clearfix"></div>
+                                <a class="add-to-cart" href="">Thêm vào giỏ</a>
                             </div>
-                        </article>
+                        </div>
                     </div>
-                @endforeach
+                    @endforeach
             </div>
         </div>
     </section>

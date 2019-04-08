@@ -15,7 +15,7 @@ class Category extends Model
 
     public function Product()
     {
-        return $this->hasManyThrough('App\Product','App\SubCategory','id_sub','id_category','id');
+        return $this->hasManyThrough('App\Product','App\SubCategory','id_category','id_sub','id');
     }
     
 }
