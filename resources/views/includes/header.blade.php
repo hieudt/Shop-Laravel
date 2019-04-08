@@ -238,18 +238,19 @@
                             <a href="{{url('/category')}}/fds">DANH MỤC</a>
                             <i class="fa fa-chevron-down"></i>
                             <div class="submenu">
+                                @foreach($danhmuc as $cat)
                                 <div class="product-column-entry">
-                                    <div class="submenu-list-title"><a href="{{url('/category')}}/gfdgfd">fdsfds</a><span class="toggle-list-button"></span></div>
+                                <div class="submenu-list-title"><a href="{{url('san-pham?category=')}}{{$cat->slug}}">{{$cat->title}}</a><span class="toggle-list-button"></span></div>
                                     <div class="description toggle-list-container">
                                         <ul class="list-type-1">
-                                            <li><a href="{{url('/category')}}/"><i class="fa fa-angle-right"></i>fdsfds</a></li>
-                                            <li><a href="{{url('/category')}}/"><i class="fa fa-angle-right"></i>fdsfds</a></li>
-                                            <li><a href="{{url('/category')}}/"><i class="fa fa-angle-right"></i>fdsfds</a></li>
-                                            <li><a href="{{url('/category')}}/"><i class="fa fa-angle-right"></i>fdsfds</a></li>
+                                            @foreach($cat->SubCategory as $s)
+                                            <li><a href="{{url('san-pham?subcategory=')}}{{$s->slug}}"><i class="fa fa-angle-right"></i>{{$s->name_sub}}</a></li>
+                                            @endforeach
                                         </ul>
                                     </div>
                                     <div class="hot-mark yellow">sale</div>
                                 </div>
+                                @endforeach
                             </div>
                         </li>
                         <li class="simple-list">

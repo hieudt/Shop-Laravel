@@ -98,19 +98,17 @@
                            
                             <div class="size-selector detail-info-entry">
                                 <div class="detail-info-entry-title">Kích cỡ</div>
-                                @foreach($productdata->product_details as $att)
-                                    <div class="entry">{{$att->Size->name}}</div>
-                                @endforeach
-                                <div class="spacer"></div>
-                            </div>
-                            <div class="size-selector detail-info-entry">
-                                    <div class="detail-info-entry-title">Màu Sắc</div>
-                                        @foreach($productdata->product_details as $att)
-                                        <span class="colors" data-color="{{$att->Color->codeColor}}"></span>
-                                        @endforeach
-                                    <div class="spacer"></div>
+                                <div class="form-group">
+                                    <select class="form-control" name="selSize" id="selSize">
+                                    </select>
                                 </div>
-                            
+                              
+                            </div>
+                            <div class="detail-info-entry-title">Màu Sắc</div>
+                            <div class="size-selector detail-info-entry" id="ListColor">
+                                       
+                                        
+                            </div>
                             <div class="quantity-selector detail-info-entry">
                                 <div class="detail-info-entry-title">Số Lượng</div>
                                 <div class="entry number-minus">&nbsp;</div>
@@ -350,6 +348,52 @@
         $('.colors').each(function(){
             var att = $(this).attr("data-color");
             $(this).css('background-color',att);
+        });
+    }
+
+    $('#selSize').change(function(){
+        fetch_color_forsize({{$productdata->id}},$(this).val());
+    });
+
+    fetch_size({{$productdata->id}});
+
+    function fetch_size(idproduct)
+    {
+        $.ajax({
+        headers: {
+            'X-CSRF-TOKEN':  $('meta[name="csrf-token"]').attr('content')
+        },
+        method: 'GET',
+        url: '{{route('front.fetchsize')}}',
+        data:{idproduct:idproduct},
+        dataType: 'json',
+            success: function(data) {
+                $('#selSize').html(data.table_data);
+                $('#selSize').append('<option disabled selected value> -- Chọn kích cỡ -- </option>');
+            },
+            error: function(html, status) {
+                console.log(html.responseText);
+            }
+        });
+    }
+
+    function fetch_color_forsize(idproduct,idsize)
+    {
+        $.ajax({
+        headers: {
+            'X-CSRF-TOKEN':  $('meta[name="csrf-token"]').attr('content')
+        },
+        method: 'GET',
+        url: '{{route('front.fetchcolor')}}',
+        data:{idproduct:idproduct,idsize:idsize},
+        dataType: 'json',
+            success: function(data) {
+                $('#ListColor').html(data.table_data);
+                changeElementsCSS();
+            },
+            error: function(html, status) {
+                    console.log(html.responseText);
+            }
         });
     }
 </script>

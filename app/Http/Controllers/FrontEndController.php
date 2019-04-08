@@ -11,9 +11,17 @@ use App\Category;
 use App\Color;
 use App\Images;
 use App\Review;
+use App\product_details;
 use App\User;
 class FrontEndController extends Controller
 {
+
+    public function __construct()
+    {
+        $danhmuc = Category::all();
+        view()->share('danhmuc',$danhmuc);
+    }
+
     public function index(){
         $features = Product::where('featured','1')->orderBy('id','desc')->take(8)->get();
         $lastes = Product::orderBy('id','desc')->take(8)->get();
@@ -191,4 +199,73 @@ class FrontEndController extends Controller
         return view('categoryproduct',compact('Product','Color','Category','CategoryName','CategorySlug','SubCategoryName','SubCategorySlug'));
     }
 
+    public function fetchColor(Request $request){
+        if ($request->ajax()) {
+            $idproduct = $request->get('idproduct');
+            $idsize = $request->get('idsize');
+            if ($idproduct != '') {
+                $data = product_details::where('id_product','=',$idproduct)
+                        ->where('id_size','=',$idsize)
+                        ->get();
+                //$data = DB::table('SubCategory')
+                  //  ->where('title', 'like', '%' . $query . '%')
+                    //->orWhere('slug', 'like', '%' . $query . '%')
+                    //->orderBy('id', 'asc')
+                    //->get();
+            } 
+            $total_row = $data->count();
+            $output = '';
+            if ($total_row > 0) {
+                foreach ($data as $row) {
+                    $output .= '
+                        <span class="colors" data-color="'.$row->Color->codeColor.'"></span>
+                    ';
+                }
+            } else {
+                $output .= '<tr><td colspan="5" align="center">
+                    Không tìm thấy kết quả
+                </td></tr>';
+            }
+
+            $data = array(
+                'table_data' => $output,
+            );
+
+            echo json_encode($data);
+        }
+    }
+
+    public function fetchSize(Request $request){
+        if ($request->ajax()) {
+            $idproduct = $request->get('idproduct');
+            if ($idproduct != '') {
+                $data = product_details::where('id_product','=',$idproduct)
+                        ->get();
+
+            } 
+            $total_row = $data->count();
+            $output = '';
+            $array = array();
+            if ($total_row > 0) {
+                foreach ($data as $row) {
+                   $array[] = $row->id_size."-".$row->Size->name;
+                }
+                $arr = array_unique($array);
+                foreach($arr as $ar){
+                    $tempArr = explode('-',$ar);
+                    $output .= '<option value="'.$tempArr[0].'">'.$tempArr[1].'</option>';
+                }
+            } else {
+                $output .= '<tr><td colspan="5" align="center">
+                    Không tìm thấy kết quả
+                </td></tr>';
+            }
+
+            $data = array(
+                'table_data' => $output,
+            );
+
+            echo json_encode($data);
+        }
+    }
 }

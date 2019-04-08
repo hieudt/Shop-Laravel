@@ -515,7 +515,7 @@ h3.h3{text-align:center;margin:1em;text-transform:capitalize;font-size:1.7em;}
 
 /********************* Shopping Demo-4 **********************/
 .product-grid4,.product-grid4 .product-image4{position:relative}
-.product-grid4{font-family:Poppins,sans-serif;text-align:center;border-radius:5px;overflow:hidden;z-index:1;transition:all .3s ease 0s}
+.product-grid4{padding:5px;font-family:Poppins,sans-serif;text-align:center;border-radius:5px;overflow:hidden;z-index:1;transition:all .3s ease 0s}
 .product-grid4:hover{box-shadow:0 0 10px rgba(0,0,0,.2)}
 .product-grid4 .product-image4 a{display:block}
 .product-grid4 .product-image4 img{width:100%;height:auto}

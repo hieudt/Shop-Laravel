@@ -1,6 +1,8 @@
 @extends('includes.master') 
 @section('title','Danh mục sản phẩm') 
 @section('css')
+
+<link rel="stylesheet" href="{{asset('@styleadmin/css/attribute.css')}}">
 <style>
     .pagination>.active>span {
         background-color: black !important;
@@ -89,7 +91,8 @@
                                     @foreach($Color as $colors)
                                         <li class="item-2 deeper parent">
                                             <a class="" href="{{route('front.category',['category'=>request()->category,'subcategory'=>request()->subcategory,'sort'=>request()->sort,'color'=>$colors->slug])}}">
-                                                <span data-toggle="collapse" data-parent="#menu-group-2" class="sign"><i class="fa fa-sort"></i></span>
+                                                <span data-toggle="collapse" data-parent="#menu-group-2" class="sign"></span>
+                                                <span class="colors" data-color="{{$colors->codeColor}}"></span>
                                                 <span class="lbl">{{$colors->name}}</span>
                                             </a>
                                         </li>
@@ -150,6 +153,9 @@
 @stop 
 @section('footer')
 <script>
+    $(document).ready(function(){
+        changeElementsCSS();
+    });
     $("#sortby").change(function () {
         var sort = $("#sortby").val();
         if(sort == 'low_high'){
@@ -176,7 +182,13 @@
 
         });
     });
-
+    function changeElementsCSS()
+    {
+        $('.colors').each(function(){
+            var att = $(this).attr("data-color");
+            $(this).css('background-color',att);
+        });
+    }
 </script>
 
 @stop

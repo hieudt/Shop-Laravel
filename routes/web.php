@@ -19,7 +19,8 @@ use Illuminate\Support\Facades\Input;
 Route::get('/', 'FrontEndController@index')->name('front.index');
 Route::get('list','FrontEndController@list')->name('front.list');
 Route::get('san-pham','FrontEndController@category2')->name('front.category');
-
+Route::get('fetchdata/colorforsize','FrontEndController@fetchColor')->name('front.fetchcolor');
+Route::get('fetchdata/size','FrontEndController@fetchSize')->name('front.fetchsize');
 Route::get('/san-pham/{id}/{slug}','FrontEndController@productDetails');
 
 
