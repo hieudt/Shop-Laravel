@@ -8,3 +8,4 @@ https://voyager.readme.io/docs/installation <br/>
 $ composer require tcg/voyager <br/>
 php artisan voyager:install <br/>
 $ composer require juno_okyo/php-chatfuel/class <br/>
+composer require yajra/laravel-datatables-oracle:^8.0
