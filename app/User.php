@@ -45,4 +45,19 @@ class User extends Authenticatable
     public function getTotalMoney($id){
         return $Data = \App\Bill::where('id_user',$id)->sum('TotalMoney');        
     }
+
+    public function getTitle($totalMoney,$id){
+        if($id == 1){
+            return 0;
+        }
+
+        if($totalMoney > 1000000){
+            return 2; // Tiềm Năng
+        }elseif($totalMoney > 100000){
+            return 1; // Khách hàng
+        }else{
+            return 3; // Mới Đ Ký
+        }
+        
+    }
 }
