@@ -128,7 +128,7 @@
                         </ul>
                         <div class="row">
                             @foreach($features as $product)
-                            {{$CountForm++}}
+                            <?php $CountForm++; ?>
                             <div class="col-md-3 col-sm-6">
                                 <div class="product-grid4">
                                     <div class="product-image4">
@@ -177,7 +177,7 @@
                         </ul>
                         <div class="row">
                             @foreach($lastes as $product)
-                            {{$CountForm++}}
+                            <?php $CountForm++; ?>
                             <div class="col-md-3 col-sm-6">
                                 <div class="product-grid4">
                                     <div class="product-image4">
@@ -224,7 +224,7 @@
                     </ul>
                     <div class="row">
                             @foreach($discounts as $product)
-                            {{$CountForm++}}
+                            <?php $CountForm++; ?>
                             <div class="col-md-3 col-sm-6">
                                 <div class="product-grid4">
                                     <div class="product-image4">
@@ -262,7 +262,7 @@
                                 <input type="hidden" name="discount" value={{$product->discount}}>
                                 <input type="hidden" name="price" value="{{$product->formatMoney($product->priceDiscount($product->cost,$product->discount))}}">
                                 <input type="hidden" name="idproduct" value="{{$product->id}}">
-                            </form>
+                                </form>
                             </div>
                             @endforeach
                         </div>

@@ -13,6 +13,8 @@
   <link rel="stylesheet" href="{{asset('@styleadmin/node_modules/flag-icon-css/css/flag-icon.min.css')}}">
   <link rel="stylesheet" href="{{asset('@styleadmin/node_modules/perfect-scrollbar/css/perfect-scrollbar.css')}}">
   <link rel="stylesheet" href="{{asset('@styleadmin/node_modules/jquery-toast-plugin/dist/jquery.toast.min.css')}}">
+  <link rel="stylesheet" href="{{asset('@styleadmin/css/home.css')}}">
+
   <!-- endinject -->
   <!-- plugin css for this page -->
   @yield('css')
@@ -60,6 +62,7 @@
   <script src="{{asset('@styleadmin/node_modules/jquery-toast-plugin/dist/jquery.toast.min.js')}}"></script>
   <script src="{{asset('@styleadmin/js/toastDemo.js')}}"></script>
   <script src="{{asset('@styleadmin/js/myjs.js')}}"></script>
+  <script src="{{asset('@styleadmin/js/pace.min.js')}}"></script>
   <script src="{{asset('@styleadmin/node_modules/perfect-scrollbar/dist/perfect-scrollbar.min.js')}}"></script>
   <!-- endinject -->
   <!-- Plugin js for this page-->

@@ -33,6 +33,8 @@
                     success: function(data) {
                         $('#category_table_body').html(data.table_data);
                         $('#SelCat').html(data.select_data);
+              
+
                     },
                     error: function(html, status) {
                         console.log(html.responseText);
@@ -145,7 +147,7 @@
             
             fetch_category(); // Làm mới table dữ liệu
             fetch_Subcategory(); // Làm mới table
-
+            
             $('#OpenSubModal').click(function(){
                 $('#SubCategoryLabel').html('Thêm danh mục con');
                 $('#submodalFooter').html('<button type="button" id="addSubCategory" class="btn btn-success">Lưu</button><button type="button" id="addSubCategory2" class="btn btn-success">Lưu & Đóng</button><button type="button" class="btn btn-light" data-dismiss="modal">Đóng</button>');
@@ -256,7 +258,7 @@
                 })
             });
 
-            
+            Pagination('#category_table');
         });
         // Tìm kiếm
         $(document).on('keyup', '#SearchCategory', function(){
@@ -268,5 +270,7 @@
             var query = $(this).val();
             fetch_Subcategory(query);
         });
+
+        
     
     </script>

@@ -72,7 +72,6 @@ class ProductController extends Controller
                     <tr>
                         <td>Tên sản phẩm</td>';
                     $text .= "<td colspan='2'> ".$row->title."</td></tr>";
-                    $text .= "<tr><td>Mô tả : </td><td colspan='2'>".$row->description."</td>";
                     $text .= "<tr><td colspan='3'>Trong Kho : </td></tr>";
                     $text .= "<tr><td>Màu</td><td>Kích cỡ</td><td>Số lượng</td></tr>";
                     foreach ($data as $key) {
@@ -89,7 +88,7 @@ class ProductController extends Controller
 
 
                     $output .= '
-                     <tr>
+                     <tr class="trProduct">
                      <td>' . $row->id . '</td>
                      <td><div class="tool">' . $row->title . '<span class="tool2">'.$text.'</span></div></td>
                      <td>' . $this->formatMoney($row->cost) . ' ₫</td>

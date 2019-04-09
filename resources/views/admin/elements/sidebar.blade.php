@@ -7,6 +7,12 @@
         </a>
       </li>
       <li class="nav-item">
+        <a class="nav-link" href="{{url('admin/users')}}">
+            <i class="mdi mdi mdi-account menu-icon"></i>
+            <span class="menu-title">Khách Hàng</span>
+          </a>
+        </li>
+      <li class="nav-item">
       <a class="nav-link" href="{{url('admin/category')}}">
           <i class="mdi mdi-format-list-bulleted menu-icon"></i>
           <span class="menu-title">Danh mục</span>

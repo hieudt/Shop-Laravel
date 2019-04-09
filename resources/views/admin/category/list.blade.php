@@ -14,12 +14,23 @@
         <div class="row">
             <div class="col-12">
                 <div class="row">
+
                     <div class="col-md-6">
                         <input type="text" name="SearchCategory" id="SearchCategory" placeholder="Tìm kiếm danh mục" class="form-control">
                     </div>
                     <div class="col-md-6">
                         <button type="button" id="OpenModal" class="btn btn-success btn-fw" data-toggle="modal" data-target="#CategoryModal" data-whatever="@getbootstrap"><i class="mdi mdi-check"></i>Thêm mới</button>
                     </div>
+                    <div class="col-md-6">
+                            <div class="form-group">
+                                <select name="state" id="maxRows" class="form-control">
+                                        <option value="5000">Show All</option>
+                                        <option value="2">2</option>
+                                        <option value="5">5</option>
+                                        <option value="10">10</option>
+                                    </select>
+                            </div>
+                        </div>
                 </div><br/>
                 <table id="category_table" class="table" cellspacing="0">
                     <thead>
@@ -34,6 +45,14 @@
                     <tbody id="category_table_body">
                     </tbody>
                 </table>
+                <div class="pagination-container">
+                    <nav>
+                        <ul class="pagination flat pagination-success">
+                            <li class="page-item">1</li>
+                            <li class="page-item">2</li>
+                        </ul>
+                    </nav>
+                </div>
             </div>
         </div>
     </div>
@@ -145,4 +164,5 @@
 <script src="{{asset('@styleadmin/node_modules/select2/dist/js/select2.min.js')}}"></script>
 <script src="{{asset('@styleadmin/js/select2.js')}}"></script>
 <script src="{{asset('@styleadmin/node_modules/datatables.net-bs4/js/dataTables.bootstrap4.js')}}"></script>
+
 @endsection

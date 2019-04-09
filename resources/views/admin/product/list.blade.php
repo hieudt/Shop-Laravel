@@ -62,7 +62,17 @@
                     <div class="col-md-6">
                     <button type="button" id="OpenAdd" class="btn btn-success btn-fw" data-toggle="modal" data-target="#ProductModal" data-whatever="@getbootstrap"><i class="mdi mdi-check"></i>Thêm mới</button>
                     </div>
-
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <select name="state" id="maxRows" class="form-control">
+                                    <option value="5000">Hiển thị hết</option>
+                                    <option value="5">Hiển thị 5 SP / Trang</option>
+                                    <option value="10">Hiển thị 10 SP / Trang</option>
+                                    <option value="20">Hiển thị 20 SP / Trang</option>
+                                    
+                                </select>
+                        </div>
+                    </div>
                 </div><br/>
                 <table id="Product_table" class="table" cellspacing="0">
                     <thead>
@@ -124,13 +134,14 @@ $(document).ready(function(){
         window.location.href = "{{route('product.create')}}";
     });
 
-
+    Pagination('#Product_table','.trProduct');
 });
 // Tìm kiếm
 
 </script>
 
 <script src="{{asset('@styleadmin/node_modules/owl-carousel-2/owl.carousel.min.js')}}"></script>
+<script src="{{asset('@styleadmin/js/myjs.js')}}"></script>
 <script>
 
 </script>

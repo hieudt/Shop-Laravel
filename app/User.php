@@ -36,4 +36,13 @@ class User extends Authenticatable
     {
         return $this->hasManyThrough('App\DetailsBill','App\Bill','id_bill','id_user','id');
     }
+
+    public function getCountBill($id){
+        $Data = \App\Bill::where('id_user',$id)->get();
+        return count($Data);
+    }
+
+    public function getTotalMoney($id){
+        return $Data = \App\Bill::where('id_user',$id)->sum('TotalMoney');        
+    }
 }

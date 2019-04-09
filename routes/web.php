@@ -4,6 +4,7 @@ use App\Product;
 use App\Category;
 use App\product_details;
 use Illuminate\Support\Collection;
+use App\User;
 use Illuminate\Support\Facades\Input;
 /*
 |--------------------------------------------------------------------------
@@ -34,7 +35,7 @@ Route::get('/admin/login','AdminPages@loginIndex');
 Route::post('/admin/login','AdminPages@loginPost')->name('admin.login');
 Route::get('/admin/logout','AdminPages@logoutIndex');
 
-Route::group(['prefix' => 'users'],function(){
+Route::group(['prefix' => 'users','middleware'=>'frontLogin'],function(){
     Route::get('/','UsersProfileController@index')->name('profile.index');
     Route::post('/users/update','UsersProfileController@update')->name('profile.update');
     Route::post('/users/changepass','UsersProfileController@changePass')->name('profile.changepass');
@@ -50,6 +51,9 @@ Route::group(['prefix' => 'admin','middleware'=>'adminLogin'], function () {
         return redirect('/admin/index');
     });
     Route::get('/index','AdminPages@index')->name('admin.index');
+
+    Route::get('users','UserController@index')->name('users.list');
+    Route::get('users/fetch','UserController@fetchAll')->name('users.fetch');
 
     Route::get('category','CategoryController@index')->name('category.list');
     Route::get('category/Search','CategoryController@Search')->name('category.search');
@@ -90,13 +94,13 @@ Route::group(['prefix' => 'admin','middleware'=>'adminLogin'], function () {
 
 
 Route::get('checkProduct',function(){
-    
-    $Product = DB::table('Product')
-                ->join('SubCategory','Product.id_sub','=','SubCategory.id')
-                ->join('categories','SubCategory.id_category','=','categories.id')
-                ->join('product_details','Product.id','=','product_details.id_product')
-                ->where('categories.id','2')->get();
-    dd($Product);
+    $data = User::all();
+    foreach($data as $usr){
+        $usr['SoBill'] = $usr->getCountBill($usr->id);
+        $usr['TotalMoney'] = $usr->getTotalMoney($usr->id);
+    }
+
+    return response()->json($data);
 });
 
 Route::get('checkProduct2',function(){
