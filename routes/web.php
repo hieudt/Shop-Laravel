@@ -54,6 +54,8 @@ Route::group(['prefix' => 'admin','middleware'=>'adminLogin'], function () {
 
     Route::get('users','UserController@index')->name('users.list');
     Route::get('users/fetch','UserController@fetchAll')->name('users.fetch');
+    Route::post('users/update','UserController@update')->name('users.update');
+    Route::post('users/store','UserController@store')->name('users.store');
 
     Route::get('category','CategoryController@index')->name('category.list');
     Route::get('category/Search','CategoryController@Search')->name('category.search');
@@ -104,9 +106,7 @@ Route::get('checkProduct',function(){
 });
 
 Route::get('checkProduct2',function(){
-    $data = DB::table('Product')->where('slug','ao-phong-1')->get()->toArray();
-    $data2 = Product::hydrate($data);
-    dd($data2);
+    return view('emails.send');
 });
 
 

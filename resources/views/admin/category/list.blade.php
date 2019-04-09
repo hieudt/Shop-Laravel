@@ -101,7 +101,6 @@
                     <div class="col-md-6">
                         <button type="button" id="OpenSubModal" class="btn btn-success btn-fw" data-toggle="modal" data-target="#SubcategoryModal"
                             data-whatever="@getbootstrap"><i class="mdi mdi-check"></i>Thêm mới</button>
-
                     </div>
                 </div><br/>
                 <table id="subcategory_table" class="table" cellspacing="0">

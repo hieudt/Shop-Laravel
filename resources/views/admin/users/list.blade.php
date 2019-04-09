@@ -55,7 +55,15 @@
 @section('content')
 <div class="card">
     <div class="card-body">
-        <h4 class="card-title">Quản lý khách hàng</h4>
+        <div class="row">
+            <div class="col-sm-6">
+                <h4 class="card-title">Quản lý khách hàng</h4>
+            </div>
+            <div class="col-sm-6">
+                <button type="button" id="OpenUserModal" class="btn btn-success btn-fw" data-toggle="modal" data-target="#UserModal" data-whatever="@getbootstrap"><i class="mdi mdi-check"></i>Thêm mới</button>
+            </div>
+        </div>
+
         <div class="row">
             <table id="order-listing" class="table" style="width:100%">
                 <thead>
@@ -76,12 +84,145 @@
     </div>
 </div>
 
+{{-- Modal --}}
+<div class="modal fade" id="UserModal" tabindex="-1" role="dialog" aria-labelledby="SubCategoryLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="UserModalLabel">Thêm mới danh mục con</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                      </button>
+            </div>
+            <div class="modal-body">
+                <form id="ModalForm">
+                    <div class="form-group">
+                        <label for="recipient-name" class="col-form-label">Tên : </label>
+                        <input type="text" class="form-control" id="txtTen" name="txtTen">
+                        <input type="hidden" id="txtId" name="txtId">
+                    </div>
+                    <div class="form-group">
+                        <label for="recipient-name" class="col-form-label">Email : </label>
+                        <input type="text" class="form-control" id="txtEmail" name="txtEmail">
+                    </div>
+                    <div class="form-group">
+                        <label for="recipient-name" class="col-form-label">Số Điện Thoại : </label>
+                        <input type="text" class="form-control" id="txtPhone" name="txtPhone">
+                    </div>
+                    <div class="form-group">
+                        <label for="recipient-name" class="col-form-label">Địa chỉ : </label>
+                        <input type="text" class="form-control" id="txtAddress" name="txtAddress">
+                    </div>
+
+                </form>
+            </div>
+            <div class="modal-footer" id="UserModalFooter">
+            </div>
+        </div>
+    </div>
+</div>
+{{--End modal--}}
 @endsection
  
 @section('javascript')
 
 
 <script>
+
+    //Func editUser
+    function editUser(data)
+    {
+        $.ajax({
+            headers: {
+                'X-CSRF-TOKEN':  $('meta[name="csrf-token"]').attr('content')
+            },
+            method: 'POST',
+            url: '{{route('users.update')}}',
+            data:data,
+            success: function(data) {
+                    ToastSuccess(data.success);
+                    $('#order-listing').DataTable().ajax.reload();
+                    $('#UserModal').modal('hide');
+                },
+                error: function(request, status) {
+                    $.each(request.responseJSON.errors,function(key,val){
+                    ToastError(val);
+                });
+            }
+        });
+    }
+
+    //Func editUser
+    function addUser(data)
+    {
+        $.ajax({
+            headers: {
+                'X-CSRF-TOKEN':  $('meta[name="csrf-token"]').attr('content')
+            },
+            method: 'POST',
+            url: '{{route('users.store')}}',
+            data:data,
+            success: function(data) {
+                    ToastSuccess(data.success);
+                    $('#order-listing').DataTable().ajax.reload();
+                },
+                error: function(request, status) {
+                    $.each(request.responseJSON.errors,function(key,val){
+                    ToastError(val);
+                });
+            }
+        });
+    }
+
+    // Nút edit category
+    $(document).on('click','.edited',function(){
+        $('#UserModal').modal('show');
+        $('#UserModalLabel').html('Sửa Thông tin');
+        $('#UserModalFooter').html('<button type="button" id="editUser" class="btn btn-success">Lưu</button><button type="button" class="btn btn-light" data-dismiss="modal">Đóng</button>');
+        
+        $('#txtTen').val($(this).attr('data-hoten'));
+        $('#txtEmail').val($(this).attr('data-email'));
+        $('#txtPhone').val($(this).attr('data-phone'));
+        $('#txtAddress').val($(this).attr('data-address'));
+        $('#txtId').val($(this).attr('data-id'));
+        $('#editUser').click(function(){
+            var data = $('#ModalForm').serialize();
+            editUser(data);
+        });
+    });
+
+    $('#OpenUserModal').click(function(){
+        $('#UserModalLabel').html('Thêm thông tin');
+        $('#UserModalFooter').html('<button type="button" id="addUser" class="btn btn-success">Thêm</button><button type="button" id="addUser2" class="btn btn-success">Thêm & Đóng</button><button type="button" class="btn btn-light" data-dismiss="modal">Đóng</button>');
+        $('#txtTen').val('');
+        $('#txtEmail').val('');
+        $('#txtPhone').val('');
+        $('#txtAddress').val('');
+        $('#txtId').val('');
+
+        $('#addUser').click(function(){
+            $('#txtTen').val();
+            $('#txtEmail').val();
+            $('#txtPhone').val();
+            $('#txtAddress').val();
+            $('#txtId').val();
+            var data = $('#ModalForm').serialize();
+            addUser(data);
+
+        });
+
+        $('#addUser2').click(function(){
+            $('#txtTen').val();
+            $('#txtEmail').val();
+            $('#txtPhone').val();
+            $('#txtAddress').val();
+            $('#txtId').val();
+            var data = $('#ModalForm').serialize();
+            addUser(data);
+            $('#UserModal').modal('hide');
+        });
+    });
+
     $(document).ready(function(){
         $('#order-listing').DataTable({
         "aLengthMenu": [[5, 10, 15, -1], [5, 10, 15, "All"]],
@@ -104,6 +245,7 @@
             }
         },
         "process" : true,
+        "stateSave": true,
         "serverSide" : true,
         "ajax" : '{!!route('users.fetch')!!}',
         "columns":[
@@ -127,10 +269,8 @@
         });
     });
 
-
 </script>
 
 <script src="{{asset('@styleadmin/node_modules/datatables.net/js/jquery.dataTables.js')}}"></script>
 <script src="{{asset('@styleadmin/node_modules/datatables.net-bs4/js/dataTables.bootstrap4.js')}}"></script>
-
 @endsection
