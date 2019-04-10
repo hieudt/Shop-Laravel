@@ -219,7 +219,7 @@
                     @endif
                     
                     <a href="{{url('/cart')}}" class="header-top-entry" id="notify">
-                        <div class="title"><i class="fa fa-shopping-cart"></i><span>Giỏ Hàng</span> <b id="carttotal">(0)</b></div>
+                        <div class="title"><i class="fa fa-shopping-cart open-cart-popup"></i><span>Giỏ Hàng</span> <b id="carttotal">(0)</b></div>
                     </a>
                 </div>
             </div>
@@ -262,7 +262,7 @@
                         <li class="simple-list"><a href="#Coupons" class="">Mã giảm giá</a>
                         </li>
                         <li class="fixed-header-visible">
-                            <a class="fixed-header-square-button"><i class="fa fa-shopping-cart"></i></a>
+                            <a class="fixed-header-square-button"><i class="fa fa-shopping-cart open-cart-popup"></i></a>
                             <a class="fixed-header-square-button open-search-popup"><i class="fa fa-search"></i></a>
                         </li>
                     </ul>

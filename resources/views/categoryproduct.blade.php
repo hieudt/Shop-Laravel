@@ -116,7 +116,7 @@
                                                 <img class="pic-1" src="{{url('/images/product')}}/{{$product->thumbnail}}">
                                             </a>
                                     <ul class="social">
-                                        <li><a href="#" data-tip="Xem Nhanh" data-toggle="modal" data-target="#quickViewProduct" data-product="{{$CountForm}}" id="quickviewBtn"><i class="fa fa-eye"></i></a></li>
+                                        <li><a href="{{url('/san-pham')}}/{{$product->id}}/{{$product->slug}}/" data-tip="Xem Nhanh" ><i class="fa fa-eye"></i></a></li>
                                         <li><a href="#" data-tip="Add to Wishlist"><i class="fa fa-shopping-bag"></i></a></li>
                                         <li><a href="#" data-tip="Add to Cart"><i class="fa fa-shopping-cart"></i></a></li>
                                     </ul>
@@ -131,17 +131,18 @@
                                         <span>{{$product->formatMoney($product->cost)}}₫</span> @else {{$product->formatMoney($product->cost)}}₫
                                         @endif
                                     </div>
-                                    <a class="add-to-cart" href="">Thêm vào giỏ</a>
+                                    <form id="product{{$CountForm}}">
+                                    <input type="hidden" name="title" value="{{$product->title}}">
+                                    <input type="hidden" name="img" value="{{$product->thumbnail}}">
+                                    <input type="hidden" name="description" value="{{$product->description}}">
+                                    <input type="hidden" name="discount" value={{$product->discount}}>
+                                    <input type="hidden" name="price" value="{{$product->formatMoney($product->priceDiscount($product->cost,$product->discount))}}">
+                                    <input type="hidden" name="idproduct" value="{{$product->id}}">
+                                    </form>
+                                    <span class="add-to-cart" data-toggle="modal" data-target="#quickViewProduct" data-product="{{$CountForm}}" id="quickviewBtn">Thêm vào giỏ</span>
                                 </div>
                             </div>
-                            <form id="product{{$CountForm}}">
-                            <input type="hidden" name="title" value="{{$product->title}}">
-                            <input type="hidden" name="img" value="{{$product->thumbnail}}">
-                            <input type="hidden" name="description" value="{{$product->description}}">
-                            <input type="hidden" name="discount" value={{$product->discount}}>
-                            <input type="hidden" name="price" value="{{$product->formatMoney($product->priceDiscount($product->cost,$product->discount))}}">
-                            <input type="hidden" name="idproduct" value="{{$product->id}}">
-                            </form>
+                            
                         </div>
                         @empty
                         <h3>Không có sản phẩm nào trong danh mục này</h3>
@@ -184,9 +185,10 @@
                                       </select>
                                     </div>
                                     <div class="detail-info-entry-title">Màu Sắc</div>
-                                    <div class="size-selector detail-info-entry" id="ListColor">
-                                           
-                                            
+                                    <div class="colorsProduct">
+                                        <ul id="ListSelectColor">
+                                                
+                                        </ul>
                                     </div>
                                     <div class="quantity-selector detail-info-entry">
                                         <div class="detail-info-entry-title">Số Lượng</div>
@@ -255,7 +257,7 @@
 
     var id = '';
     $(document).on('click','#quickviewBtn',function(){
-        $('#ListColor').html('');
+        $('#ListSelectColor').html('');
         var count = $(this).attr('data-product');
         var product = $('#product'+count).serializeArray();
         console.log(product);
@@ -304,8 +306,8 @@
         data:{idproduct:idproduct,idsize:idsize},
         dataType: 'json',
             success: function(data) {
-                $('#ListColor').html(data.table_data);
-                changeElementsCSS();
+                $('#ListSelectColor').html(data.table_data);
+              
             },
             error: function(html, status) {
                     console.log(html.responseText);

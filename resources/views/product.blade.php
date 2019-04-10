@@ -99,15 +99,16 @@
                             <div class="size-selector detail-info-entry">
                                 <div class="detail-info-entry-title">Kích cỡ</div>
                                 <div class="form-group">
-                                    <select class="form-control" name="selSize" id="selSize">
+                                    <select class="form-control" name="selSizeInProduct" id="selSizeInProduct">
                                     </select>
                                 </div>
                               
                             </div>
                             <div class="detail-info-entry-title">Màu Sắc</div>
-                            <div class="size-selector detail-info-entry" id="ListColor">
-                                       
-                                        
+                            <div class="colorsProduct">
+                                <ul id="ListSelectColor">
+                                    
+                                </ul>
                             </div>
                             <div class="quantity-selector detail-info-entry">
                                 <div class="detail-info-entry-title">Số Lượng</div>
@@ -118,19 +119,7 @@
 
                             <div class="detail-info-entry">
                                 <form id="cartfrom">
-                                    {{csrf_field()}}
-                                    @if(Session::has('uniqueid'))
-                                        <input type="hidden" name="uniqueid" value="{{Session::get('uniqueid')}}">
-                                    @else
-                                        <input type="hidden" name="uniqueid" value="{{str_random(7)}}">
-                                    @endif
-                                    <input type="hidden" name="title" value="{{$productdata->title}}">
-                                    <input type="hidden" name="product" value="{{$productdata->id}}">
-                                    <input type="hidden" id="size" name="size" value="">
-                                    <input type="hidden" id="cost" name="cost" value="{{$productdata->price}}">
-                                    <input type="hidden" id="quantity" name="quantity" value="1">
                                     <button type="button" class="button style-10 to-cart">Thêm giỏ hàng</button>
-
                                 </form>
                                 <div class="clear"></div>
                             </div>
@@ -269,7 +258,7 @@
             </div>
 
     </section>
-
+    <?php $CountForm = 0; ?>
     <section class="wow fadeInUp">
         <div class="container">
 
@@ -277,6 +266,7 @@
             <hr>
             <div class="row">
                     @foreach($relateds as $product)
+                    <?php $CountForm++; ?>
                     <div class="col-md-3 col-sm-6">
                         <div class="product-grid4">
                             <div class="product-image4">
@@ -284,7 +274,7 @@
                                     <img class="pic-1" src="{{url('/images/product')}}/{{$product->thumbnail}}">
                                 </a>
                                 <ul class="social">
-                                    <li><a href="#" data-tip="Quick View"><i class="fa fa-eye"></i></a></li>
+                                    <li><a href="{{url('/san-pham')}}/{{$product->id}}/{{$product->slug}}/" data-tip="Chi Tiết SP"><i class="fa fa-eye"></i></a></li>
                                     <li><a href="#" data-tip="Add to Wishlist"><i class="fa fa-shopping-bag"></i></a></li>
                                     <li><a href="#" data-tip="Add to Cart"><i class="fa fa-shopping-cart"></i></a></li>
                                 </ul>
@@ -303,7 +293,15 @@
                                     {{$product->formatMoney($product->cost)}}₫
                                     @endif
                                 </div>
-                                <a class="add-to-cart" href="">Thêm vào giỏ</a>
+                                <form id="product{{$CountForm}}">
+                                    <input type="hidden" name="title" value="{{$product->title}}">
+                                    <input type="hidden" name="img" value="{{$product->thumbnail}}">
+                                    <input type="hidden" name="description" value="{{$product->description}}">
+                                    <input type="hidden" name="discount" value={{$product->discount}}>
+                                    <input type="hidden" name="price" value="{{$product->formatMoney($product->priceDiscount($product->cost,$product->discount))}}">
+                                    <input type="hidden" name="idproduct" value="{{$product->id}}">
+                                    <span class="add-to-cart"  data-toggle="modal" data-target="#quickViewProduct" data-product="{{$CountForm}}" id="quickviewBtn">Thêm vào giỏ</span>
+                                </form>
                             </div>
                         </div>
                     </div>
@@ -313,13 +311,67 @@
     </section>
 
 
+<div class="modal fade" id="quickViewProduct" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-body">
+                <div class="information-blocks">
+                    <div class="row">
+                        <div class="col-sm-5 col-md-4 col-lg-5 information-entry">
+                            <div class="product-preview-box">
+                                <div class="product-zoom-image">
+                                    <img class="image-product" src="http://larvuejs.vn/images/product/r7zO_xc-nam.jpg" alt="" data-zoom="" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-7 col-md-7 information-entry">
+                            <div class="product-detail-box">
+                                <h1 class="product-title" id="ModalTitle">Tiêu đề PRoduct</h1>
+                                <div class="price detail-info-entry">
+                                    <span class="current" id="ModalTien">255000₫</span>
+                                </div>
+                                <div class="detail-info-entry-title">Kích cỡ</div>
+                                <div class="form-group">
+                                    <select class="form-control" name="selSize" id="selSize">
+                                            </select>
+                                </div>
+                                <div class="detail-info-entry-title">Màu Sắc</div>
+                                <div class="colorsProduct">
+                                    <ul id="ListSelectColor2">
 
+                                    </ul>
+                                </div>
+                                <div class="quantity-selector detail-info-entry">
+                                    <div class="detail-info-entry-title">Số Lượng</div>
+                                    <div class="entry number-minus">&nbsp;</div>
+                                    <div class="entry number">1</div>
+                                    <div class="entry number-plus">&nbsp;</div>
+                                </div>
+
+                                <div class="detail-info-entry">
+                                    <div class="clear"></div>
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="clear visible-xs visible-sm"></div>
+
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal" id="CloseModal">Đóng</button>
+                <button type="button" class="btn btn-primary">Thêm giỏ hàng</button>
+            </div>
+        </div>
+    </div>
+</div>
 @stop
 @section('javascript')
 
 <script>
     $(document).ready(function(){
-        changeElementsCSS();
+
         $('#related-products').owlCarousel( {
             loop: true,
             items: 4,
@@ -343,16 +395,26 @@
             }
         });
     });
-    function changeElementsCSS()
-    {
-        $('.colors').each(function(){
-            var att = $(this).attr("data-color");
-            $(this).css('background-color',att);
-        });
-    }
+
+    var id = '';
+    $(document).on('click','#quickviewBtn',function(){
+        $('#ListSelectColor2').html('');
+        var count = $(this).attr('data-product');
+        var product = $('#product'+count).serializeArray();
+        console.log(product);
+        $('#ModalTitle').text(product[0].value);
+        $('.image-product').attr("src","{{url('/images/product')}}/"+product[1].value);
+        $('#ModalTien').text(product[4].value+"đ");
+        id = product[5].value;
+        fetch_size2(id);  
+    });
+
+    $('#selSizeInProduct').change(function(){
+        fetch_color_forsize({{$productdata->id}},$(this).val());
+    });
 
     $('#selSize').change(function(){
-        fetch_color_forsize({{$productdata->id}},$(this).val());
+        fetch_color_forsize2(id,$(this).val());
     });
 
     fetch_size({{$productdata->id}});
@@ -368,8 +430,30 @@
         data:{idproduct:idproduct},
         dataType: 'json',
             success: function(data) {
+                $('#selSizeInProduct').html(data.table_data);
+                $('#selSizeInProduct').append('<option disabled selected value> -- Chọn kích cỡ -- </option>');
+                
+            },
+            error: function(html, status) {
+                console.log(html.responseText);
+            }
+        });
+    }
+
+    function fetch_size2(idproduct)
+    {
+        $.ajax({
+        headers: {
+            'X-CSRF-TOKEN':  $('meta[name="csrf-token"]').attr('content')
+        },
+        method: 'GET',
+        url: '{{route('front.fetchsize')}}',
+        data:{idproduct:idproduct},
+        dataType: 'json',
+            success: function(data) {
                 $('#selSize').html(data.table_data);
                 $('#selSize').append('<option disabled selected value> -- Chọn kích cỡ -- </option>');
+                
             },
             error: function(html, status) {
                 console.log(html.responseText);
@@ -388,11 +472,31 @@
         data:{idproduct:idproduct,idsize:idsize},
         dataType: 'json',
             success: function(data) {
-                $('#ListColor').html(data.table_data);
-                changeElementsCSS();
+                $('#ListSelectColor').html(data.table_data);
+               
             },
             error: function(html, status) {
-                    console.log(html.responseText);
+                console.log(html.responseText);
+            }
+        });
+    }
+
+    function fetch_color_forsize2(idproduct,idsize)
+    {
+        $.ajax({
+        headers: {
+            'X-CSRF-TOKEN':  $('meta[name="csrf-token"]').attr('content')
+        },
+        method: 'GET',
+        url: '{{route('front.fetchcolor')}}',
+        data:{idproduct:idproduct,idsize:idsize},
+        dataType: 'json',
+            success: function(data) {
+                $('#ListSelectColor2').html(data.table_data);
+               
+            },
+            error: function(html, status) {
+                console.log(html.responseText);
             }
         });
     }

@@ -226,7 +226,12 @@ class FrontEndController extends Controller
             if ($total_row > 0) {
                 foreach ($data as $row) {
                     $output .= '
-                        <span class="colors" data-color="'.$row->Color->codeColor.'"></span>
+                    <li>
+                    <label>
+                    <input type="radio" name="rdoColor" value="'.$row->Color->id.'">
+                    <span class="swatch" style="background-color:'.$row->Color->codeColor.'"></span>
+                    </label>
+                    </li>
                     ';
                 }
             } else {
