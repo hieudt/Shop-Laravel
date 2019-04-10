@@ -13,6 +13,7 @@
                         </div>
                         <div class="col-sm-7 col-md-7 information-entry">
                             <div class="product-detail-box">
+                                <input type="hidden" value="" id="modalIdProduct">
                                 <h1 class="product-title">Tiêu đề PRoduct</h1>
                                 <div class="price detail-info-entry">
                                     <span class="current">255000₫</span>
@@ -20,7 +21,7 @@
                                 <div class="detail-info-entry-title">Kích cỡ</div>
                                 <div class="form-group">
                                     <select class="form-control" name="selSize" id="selSize">
-                                          </select>
+                                    </select>
                                 </div>
                                 <div class="detail-info-entry-title">Màu Sắc</div>
                                 <div class="colorsProduct">
@@ -31,7 +32,7 @@
                                 <div class="quantity-selector detail-info-entry">
                                     <div class="detail-info-entry-title">Số Lượng</div>
                                     <div class="entry number-minus">&nbsp;</div>
-                                    <div class="entry number">1</div>
+                                    <div class="entry number" id="modalSoLuong">1</div>
                                     <div class="entry number-plus">&nbsp;</div>
                                 </div>
 
@@ -48,7 +49,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal" id="CloseModal">Đóng</button>
-                <button type="button" class="btn btn-primary">Thêm giỏ hàng</button>
+                <button type="button" class="btn btn-primary" id="btnAddProduct">Thêm giỏ hàng</button>
             </div>
         </div>
     </div>

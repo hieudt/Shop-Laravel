@@ -165,6 +165,7 @@ return [
         Illuminate\View\ViewServiceProvider::class,
         Way\Generators\GeneratorsServiceProvider::class,
         Xethron\MigrationsGenerator\MigrationsGeneratorServiceProvider::class,
+        Gloudemans\Shoppingcart\ShoppingcartServiceProvider::class,
 
         /*
          * Package Service Providers...
@@ -228,6 +229,7 @@ return [
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
         'Debugbar' => 'Barryvdh\Debugbar\Facade',
+        'Cart' => Gloudemans\Shoppingcart\Facades\Cart::class,
 
     ],
 

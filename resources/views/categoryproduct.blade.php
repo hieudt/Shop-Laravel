@@ -17,7 +17,8 @@
 @endsection
  
 @section('content')
-{{$CountForm = 0}}
+
+<?php $CountForm = 0; ?>
 <div id="wrapper" class="go-section">
     <section class="wow fadeInUp go-products">
         <div class="container">
@@ -175,6 +176,7 @@
                             </div>
                             <div class="col-sm-7 col-md-7 information-entry">
                                 <div class="product-detail-box">
+                                    <input type="hidden" value="" id="modalIdProduct">
                                     <h1 class="product-title">Tiêu đề PRoduct</h1>
                                     <div class="price detail-info-entry">
                                          <span class="current">255000₫</span>                                                    
@@ -193,7 +195,7 @@
                                     <div class="quantity-selector detail-info-entry">
                                         <div class="detail-info-entry-title">Số Lượng</div>
                                         <div class="entry number-minus">&nbsp;</div>
-                                        <div class="entry number">1</div>
+                                        <div class="entry number" id="modalSoLuong">1</div>
                                         <div class="entry number-plus">&nbsp;</div>
                                     </div>
         
@@ -210,7 +212,7 @@
         </div>
         <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-dismiss="modal" id="CloseModal">Đóng</button>
-            <button type="button" class="btn btn-primary">Thêm giỏ hàng</button>
+            <button type="button" class="btn btn-primary" id="btnAddProduct">Thêm giỏ hàng</button>
         </div>
         </div>
     </div>
@@ -265,6 +267,7 @@
         $('.image-product').attr("src","{{url('/images/product')}}/"+product[1].value);
         $('.current').text(product[4].value+"đ");
         id = product[5].value;
+        $('#modalIdProduct').val(id);
         fetch_size(id);
        
         

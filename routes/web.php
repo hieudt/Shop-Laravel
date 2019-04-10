@@ -6,6 +6,7 @@ use App\product_details;
 use Illuminate\Support\Collection;
 use App\User;
 use Carbon\Carbon;
+use Gloudemans\Shoppingcart\Facades\Cart;
 use Illuminate\Support\Facades\Input;
 /*
 |--------------------------------------------------------------------------
@@ -24,9 +25,12 @@ Route::get('san-pham','FrontEndController@category2')->name('front.category');
 Route::get('fetchdata/colorforsize','FrontEndController@fetchColor')->name('front.fetchcolor');
 Route::get('fetchdata/size','FrontEndController@fetchSize')->name('front.fetchsize');
 Route::get('/san-pham/{id}/{slug}','FrontEndController@productDetails');
-Route::get('cart','FrontEndController@cart')->name('front.cart');
-
-
+Route::get('cart','CartController@cart')->name('cart.index');
+Route::post('cart/store','CartController@store')->name('cart.store');
+Route::post('cart/destroy','CartController@destroy')->name('cart.destroy');
+Route::get('cart/load',function(){
+    return view('includes.listcart');
+});
 
 Route::post('/users/login','FrontEndController@loginPost')->name('user.login');
 Route::get('/users/logout','FrontEndController@logoutIndex')->name('front.logout');
@@ -106,20 +110,13 @@ Route::get('checkProduct',function(){
     return response()->json($data);
 });
 
-Route::get('checkProduct2',function(){
-    Carbon::setLocale('vi');
-    $date = '2019-04-21 16:00:00';
-    $dt = Carbon::parse($date);
-    $now = Carbon::now('Asia/Ho_Chi_Minh');
+Route::get('checkCart',function(){
 
-    $dt->diffInDays($now) == 0 ?
-    $dt->diffInHours($now) == 0 ?
-    $dt->diffInMinutes($now) == 0 ? 
-    $hi = "Hết hạn" :
-    $hi = $dt->diffInMinutes($now)." phút" :
-    $hi=$dt->diffInHours($now)." giờ"  :
-    $hi = $dt->diffInDays($now) . " ngày";
+    dd(Cart::content());
+});
 
+Route::get('distroyCart',function(){
+    Cart::destroy();
 });
 
 

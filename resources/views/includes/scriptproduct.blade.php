@@ -9,9 +9,9 @@
             $('.image-product').attr("src","{{url('/images/product')}}/"+product[1].value);
             $('.current').text(product[4].value+"đ");
             id = product[5].value;
+            $('#modalIdProduct').val(id);
             fetch_size(id);
            
-            
         });
     
         $('#selSize').change(function(){

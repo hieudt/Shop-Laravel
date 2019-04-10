@@ -27,4 +27,8 @@ class product_details extends Model
     {
         return $this->belongsTo('App\Size','id_size','id');
     }
+
+    public function Product(){
+        return $this->belongsTo('App\Product','id_product','id');
+    }
 }

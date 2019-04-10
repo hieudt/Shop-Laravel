@@ -171,6 +171,35 @@
                 effects: 'fade translateZ(-100px)'
             }
         });
+
+        $('#btnAddProduct').click(function(){
+            var cart_idProduct = $('#modalIdProduct').val();
+            var cart_number = $('#modalSoLuong').text();
+            var cart_idSize = $('#selSize').val();
+            var rdoColor = $("input[name=rdoColor]");
+            var rdoValue = rdoColor.filter(":checked").val();
+            dataString = "idProduct="+cart_idProduct+"&Number="+cart_number+"&idSize="+cart_idSize
+            +"&idColor="+rdoValue;
+
+            $.ajax({
+                headers: {
+                    'X-CSRF-TOKEN':  $('meta[name="csrf-token"]').attr('content')
+                },
+                method: "POST",
+                url: '{{route('cart.store')}}',
+                data:dataString,
+                success: function (data) {
+                    ToastSuccess(data.success); 
+
+                },
+                error: function (request, status) {
+                    console.log(request.responseJSON);
+                    $.each(request.responseJSON.errors,function(key,val){
+                        ToastError(val);
+                    });
+                }
+            });
+        });
     });
     jQuery(document).ready(function($) {
         "use strict";

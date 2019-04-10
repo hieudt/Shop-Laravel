@@ -106,4 +106,8 @@ function formatDateTime($dateTime){
 	$EndTime = $dt->diffInDays($now) . " ngày";
 	return $EndTime;
 }
+
+ function priceDiscount($Money,$Discount){
+    return  $Money - ($Money / 100 * $Discount);
+}
 ?>

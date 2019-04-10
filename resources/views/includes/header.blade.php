@@ -219,7 +219,7 @@
                     @endif
                     
                     <a href="{{url('/cart')}}" class="header-top-entry" id="notify">
-                        <div class="title"><i class="fa fa-shopping-cart open-cart-popup"></i><span>Giỏ Hàng</span> <b id="carttotal">(0)</b></div>
+                        <div class="title"><i class="fa fa-shopping-cart open-cart-popup"></i><span>Giỏ Hàng</span> <b id="carttotal">({{Cart::count()}})</b></div>
                     </a>
                 </div>
             </div>

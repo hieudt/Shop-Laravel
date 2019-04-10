@@ -490,16 +490,16 @@ $(function() {
     	$("#quantity").val(newVal);
     	var price = parseFloat($("#price").html()) * newVal;
         $("#cost").val(price);
-        var id = parseInt($(this).attr('id').replace ( /[^\d.]/g, '' ));
-        var prices = parseFloat($('#price'+id).html().replace ( /[^\d.]/g, '' ));
-        var quan = parseInt($('#number'+id).html().replace ( /[^\d.]/g, '' ));
+        var id = parseInt($(this).attr('id').replace( /[^\d.]/g, '' ));
+        var prices = parseFloat($('#price'+id).html().replace( /[^\d.]/g, '' ));
+        var quan = parseInt($('#number'+id).html().replace( /[^\d.]/g, '' ));
         var ttl = prices*quan;
         $('#cost'+id).val(ttl.toFixed(2));
         $('#quantity'+id).val(newVal);
         $('#subtotal'+id).html('$'+ttl.toFixed(2));
         var sum = 0;
         $('.subtotal').each(function(){
-            sum += parseFloat($(this).text().replace ( /[^\d.]/g, '' ));  // Or this.innerHTML, this.innerText
+            sum += parseFloat($(this).text().replace( /[^\d.]/g, '' ));  // Or this.innerHTML, this.innerText
         });
         $('#grandtotal').html('$'+sum);
 
