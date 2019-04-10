@@ -10,6 +10,7 @@
                     <li class="active"><a href="#info" data-toggle="tab">Lịch sử hóa đơn</a></li>
                     <li class=""><a href="#update" data-toggle="tab">Sửa thông tin</a></li>
                     <li class=""><a href="#change" data-toggle="tab">Thay đổi mật khẩu</a></li>
+                    <li class=""><a href="#magiamgia" data-toggle="tab">Mã giảm giá</a></li>
                     <li class="">
                         <a href="{{ route('front.logout') }}">
                                 <i class="fa fa-fw fa-power-off"></i> Đăng Xuất
@@ -22,8 +23,8 @@
         <div class="col-sm-9">
             <div class="tab-content">
                 <div class="tab-pane active text-style" id="info">
-                    <h4 class="pull-right">You Are Logged in As: {{Auth::user()->name}}</h4>
-                    <h2>Recent Orders</h2>
+                    <h4 class="pull-right">Bạn đã đăng nhập với tài khoản: {{Auth::user()->name}}</h4>
+                    <h2>Lịch sử hóa đơn</h2>
                     <table class="table table-striped">
                         <thead>
                             <tr class="info">
@@ -66,7 +67,8 @@
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <input name="phone" id="emailUpdate" value="{{$user->email}}" placeholder="Email" class="form-control" type="email" disabled required>
+                                    <input name="phone" id="emailUpdate" value="{{$user->email}}" placeholder="Email" class="form-control" type="email" disabled
+                                        required>
                                 </div>
                             </div>
                         </div>
@@ -79,7 +81,8 @@
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <input name="phone" id="phoneUpdate" value="{{$user->Phone}}" placeholder="Phone Number" class="form-control" type="text" required>
+                                    <input name="phone" id="phoneUpdate" value="{{$user->Phone}}" placeholder="Phone Number" class="form-control" type="text"
+                                        required>
                                 </div>
                             </div>
                         </div>
@@ -164,12 +167,58 @@
                         </div>
                     </form>
                 </div>
+                <div class="tab-pane text-style" id="magiamgia">
+                    <h2>Mã Giảm Giá</h2>
+                    <hr>
+                    <div class="row">
+                        @foreach($coupons as $cp)
+                        <div class="col-md-5">
+                            <div class="coupon">
+                                <img src="{{$cp->thumbnail}}" alt="Avatar">
+                                <div class="MaGiamGia" style="background-color:white">
+                                    <b>{{$cp->title}}</b>
+                                    <p>{{$cp->content}}</p>
+                                </div>
+                                <div class="MaGiamGia">
+                                    <p>Mã: <span class="promo code">{{$cp->code}}</span></p>
+                                    <p>Giảm: <span class="promo">{{$cp->Percent}}%</span></p>
+                                    <p>Đối với đơn hàng: > {{formatMoney($cp->RequireTotal)}}đ</p>
+                                    <p class="expire">HSD: Còn {{formatDateTime($cp->Date)}}</p>
+                                </div>
+                            </div>
+                        </div>
+                        @endforeach
+                    </div>
+                    <br><br/><br/>
+                    <h2>Mã Giảm Giá (VIP)</h2>
+                    <hr>
+                    <div class="row">
+                        @foreach($couponsVip as $cp)
+                        <div class="col-md-5">
+                            <div class="coupon">
+                                <img src="{{$cp->thumbnail}}" alt="Avatar">
+                                <div class="MaGiamGia" style="background-color:white">
+                                    <b>{{$cp->title}}</b>
+                                    <p>{{$cp->content}}</p>
+                                </div>
+                                <div class="MaGiamGia">
+                                    <p>Mã: <span class="promo code">{{$cp->code}}</span></p>
+                                    <p>Giảm: <span class="promo">{{$cp->Percent}}%</span></p>
+                                    <p>Đối với đơn hàng: > {{formatMoney($cp->RequireTotal)}}đ</p>
+                                    <p class="expire">HSD: Còn {{formatDateTime($cp->Date)}}</p>
+                                </div>
+                            </div>
+                        </div>
+                        @endforeach
+                    </div>
+                </div>
             </div>
 
 
         </div>
     </div>
 </section>
+
 
 @section('javascript')
 <script>

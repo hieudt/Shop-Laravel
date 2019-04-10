@@ -1,5 +1,5 @@
 <?php
-
+use Carbon\Carbon;
 // Mở composer.json
 // Thêm vào trong "autoload" chuỗi sau
 // "files": [
@@ -90,5 +90,20 @@ function formatMoney($number, $fractional=false) {
 		}  
 	}  
 	return $number;  
+}
+
+function formatDateTime($dateTime){
+	Carbon::setLocale('vi');
+    $dt = Carbon::parse($dateTime);
+    $now = Carbon::now('Asia/Ho_Chi_Minh');
+
+    $dt->diffInDays($now) == 0 ?
+    $dt->diffInHours($now) == 0 ?
+    $dt->diffInMinutes($now) == 0 ? 
+    $EndTime = "Hết hạn" :
+    $EndTime = $dt->diffInMinutes($now)." phút" :
+    $EndTime=$dt->diffInHours($now)." giờ"  :
+	$EndTime = $dt->diffInDays($now) . " ngày";
+	return $EndTime;
 }
 ?>

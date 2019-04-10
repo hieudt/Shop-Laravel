@@ -114,8 +114,8 @@
         </div>
     </div>
 </section>
-{{$CountForm = 0}}
 
+<?php $CountForm = 0; ?>
 <section class="wow fadeInUp go-products">
     <div class="container">
         <div class="row">
@@ -266,6 +266,39 @@
                             </div>
                             @endforeach
                         </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="wow fadeInUp testimonials hideme" id="Coupons">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6 col-md-offset-3">
+                <div class="section-title">
+                    <ul class="nav nav-tabs home-tab" role="tablist">
+                        <li class="active"><a>Mã giảm giá</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-sm-12">
+                <div id="coupons" class="owl-carousel">
+                    @foreach($coupons as $cp)
+                    <div class="coupon">
+                        <img src="{{$cp->thumbnail}}" alt="Avatar">
+                        <div class="MaGiamGia" style="background-color:white">
+                          <b>{{$cp->title}}</b>
+                          <p>{{$cp->content}}</p>
+                        </div>
+                        <div class="MaGiamGia">
+                          <p>Mã: <span class="promo code">{{$cp->code}}</span></p>
+                          <p>Giảm: <span class="promo">{{$cp->Percent}}%</span></p>
+                          <p>Đối với đơn hàng: > {{formatMoney($cp->RequireTotal)}}đ</p>
+                          <p class="expire">HSD: Còn {{formatDateTime($cp->Date)}}</p>
+                        </div>
+                      </div>
+                    @endforeach
                 </div>
             </div>
         </div>

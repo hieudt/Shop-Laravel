@@ -5,13 +5,23 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use App\Category;
+use App\coupons;
 use Illuminate\Support\Facades\Session;
 use App\User;
 class UsersProfileController extends Controller
 {
+    public function __construct()
+    {
+        $danhmuc = Category::all();
+        view()->share('danhmuc',$danhmuc);
+    }
+
     public function index(){
         $user = User::find(Auth::user()->id);
-        return view('account',compact('user'));
+        $coupons = coupons::where('Date','>',now())->where('typeEnable','1')->get();
+        $couponsVip = coupons::where('Date','>',now())->where('typeEnable','2')->get();
+        return view('account',compact('user','coupons','couponsVip'));
     }
 
     public function update(Request $req){

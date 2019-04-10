@@ -12,6 +12,8 @@ use App\Color;
 use App\Images;
 use App\Review;
 use App\product_details;
+use App\coupons;
+use Carbon\Carbon;
 use App\User;
 class FrontEndController extends Controller
 {
@@ -22,11 +24,17 @@ class FrontEndController extends Controller
         view()->share('danhmuc',$danhmuc);
     }
 
+    public function cart(){
+        $carts = array();
+        return view('cart',compact('carts'));
+    }
+
     public function index(){
         $features = Product::where('featured','1')->orderBy('id','desc')->take(8)->get();
         $lastes = Product::orderBy('id','desc')->take(8)->get();
         $discounts = Product::where('discount','>','0')->orderBy('id','desc')->take(8)->get();
-        return view('index2',compact('features','lastes','discounts'));
+        $coupons = coupons::where('Date','>',now())->where('typeEnable','0')->get();
+        return view('index2',compact('features','lastes','discounts','coupons'));
     }
 
     public function productDetails($id,$slug){

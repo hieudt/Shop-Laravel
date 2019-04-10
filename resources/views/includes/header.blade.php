@@ -259,6 +259,8 @@
                                 </a></li>
                         <li class="simple-list"><a href="{{url('/faq')}}" class="">Liên Hệ</a></li>
                         <li class="simple-list"><a href="{{url('/contact')}}" class="">CHÍNH SÁCH</a></li>
+                        <li class="simple-list"><a href="#Coupons" class="">Mã giảm giá</a>
+                        </li>
                         <li class="fixed-header-visible">
                             <a class="fixed-header-square-button"><i class="fa fa-shopping-cart"></i></a>
                             <a class="fixed-header-square-button open-search-popup"><i class="fa fa-search"></i></a>

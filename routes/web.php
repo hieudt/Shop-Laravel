@@ -5,6 +5,7 @@ use App\Category;
 use App\product_details;
 use Illuminate\Support\Collection;
 use App\User;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Input;
 /*
 |--------------------------------------------------------------------------
@@ -23,7 +24,7 @@ Route::get('san-pham','FrontEndController@category2')->name('front.category');
 Route::get('fetchdata/colorforsize','FrontEndController@fetchColor')->name('front.fetchcolor');
 Route::get('fetchdata/size','FrontEndController@fetchSize')->name('front.fetchsize');
 Route::get('/san-pham/{id}/{slug}','FrontEndController@productDetails');
-
+Route::get('cart','FrontEndController@cart')->name('front.cart');
 
 
 
@@ -106,7 +107,19 @@ Route::get('checkProduct',function(){
 });
 
 Route::get('checkProduct2',function(){
-    return view('emails.send');
+    Carbon::setLocale('vi');
+    $date = '2019-04-21 16:00:00';
+    $dt = Carbon::parse($date);
+    $now = Carbon::now('Asia/Ho_Chi_Minh');
+
+    $dt->diffInDays($now) == 0 ?
+    $dt->diffInHours($now) == 0 ?
+    $dt->diffInMinutes($now) == 0 ? 
+    $hi = "Hết hạn" :
+    $hi = $dt->diffInMinutes($now)." phút" :
+    $hi=$dt->diffInHours($now)." giờ"  :
+    $hi = $dt->diffInDays($now) . " ngày";
+
 });
 
 

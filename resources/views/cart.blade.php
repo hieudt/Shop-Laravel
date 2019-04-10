@@ -1,5 +1,6 @@
 @extends('includes.master')
-
+@section('css')
+@endsection
 @section('content')
 
     <section class="container" style="margin-top: 20px;">
@@ -20,50 +21,49 @@
                 <div class="table-responsive">
                     <table class="cart-table">
                         <tr>
-                            <th class="column-1">Product Name</th>
-                            <th class="column-2">Unit Price</th>
-                            <th class="column-3">Qty</th>
-                            <th class="column-4">Subtotal</th>
+                            <th class="column-1">Tên Sản Phẩm</th>
+                            <th class="column-2">Đơn Giá</th>
+                            <th class="column-3">Số Lượng</th>
+                            <th class="column-4">Tổng tiền</th>
                             <th class="column-5"></th>
                         </tr>
                         <tr id="cartempty"></tr>
                         @forelse($carts as $cart)
-                        <tr id="item{{$cart->product}}">
+                        <tr id="item">
                             <td>
                                 <div class="traditional-cart-entry">
-                                    <a href="#" class="image"><img src="{{url('/assets/images/products')}}/{{\App\Product::findOrFail($cart->product)->feature_image}}" alt=""></a>
+                                    <a href="#" class="image"></a>
                                     <div class="content">
                                         <div class="cell-view">
-                                            {{--<a href="#" class="tag">woman clothing</a>--}}
-                                            <a href="{{url('/product')}}/{{$cart->product}}/{{str_replace(' ','-',strtolower(\App\Product::findOrFail($cart->product)->title))}}" class="title">{{$cart->title}}</a>
-                                            {{--<div class="inline-description">S / Dirty Pink</div>--}}
-                                            {{--<div class="inline-description">Zigzag Clothing</div>--}}
+                                            
+                                            <a href="#"></a>
+                                            
                                         </div>
                                     </div>
                                 </div>
                             </td>
-                            <td id="price{{$cart->product}}" class="prices">${{\App\Product::findOrFail($cart->product)->price}}</td>
+                            <td id="price" class="prices"></td>
                             <td>
                                 <div class="quantity-selector detail-info-entry">
-                                    <div class="entry number-minus" id="minus{{$cart->product}}">&nbsp;</div>
-                                    <div class="entry number" id="number{{$cart->product}}">{{$cart->quantity}}</div>
-                                    <div class="entry number-plus" id="plus{{$cart->product}}">&nbsp;</div>
+                                    <div class="entry number-minus" id="minus">&nbsp;</div>
+                                    <div class="entry number" id="number"></div>
+                                    <div class="entry number-plus" id="plus">&nbsp;</div>
                                 </div>
                             </td>
-                            <td><div class="subtotal" id="subtotal{{$cart->product}}">${{$cart->cost}}</div></td>
-                            <td><a class="remove-button" onclick="getDelete({{$cart->product}})"><i class="fa fa-times"></i></a></td>
+                            <td><div class="subtotal" id="subtotal"></div></td>
+                            <td><a class="remove-button" onclick=""><i class="fa fa-times"></i></a></td>
 
-                            <form id="citem{{$cart->product}}">
+                            <form id="citem">
                                 {{csrf_field()}}
                                 @if(Session::has('uniqueid'))
                                     <input type="hidden" name="uniqueid" value="{{Session::get('uniqueid')}}">
                                 @else
                                     <input type="hidden" name="uniqueid" value="{{str_random(7)}}">
                                 @endif
-                                <input type="hidden" name="title" value="{{$cart->title}}">
-                                <input type="hidden" name="product" value="{{$cart->product}}">
-                                <input type="hidden" id="cost{{$cart->product}}" name="cost" value="{{$cart->cost}}">
-                                <input type="hidden" id="quantity{{$cart->product}}" name="quantity" value="{{$cart->quantity}}">
+                                <input type="hidden" name="title" value="">
+                                <input type="hidden" name="product" value="">
+                                <input type="hidden" id="cost" name="cost" value="">
+                                <input type="hidden" id="quantity" name="quantity" value="">
                             </form>
 
                         </tr>
@@ -71,7 +71,7 @@
                         @empty
                             <tr>
                                 <td>
-                                    <h3>Your Cart is Empty.</h3>
+                                    <h3>Giỏ hàng đang rỗng.</h3>
                                 </td>
                                 <td></td>
                                 <td></td>
@@ -83,14 +83,19 @@
                 </div>
                 <div class="cart-submit-buttons-box">
                     <div class="row" style="margin: 0">
-                    <div class="cart-summary-box pull-right col-md-6" style="margin: 0">
-                        <div class="grand-total">Total <span id="grandtotal">${{round($sum,2)}}</span></div>
-                        <a class="col-md-6 pull-right button style-10" href="{{route('user.checkout')}}">Proceed To Checkout</a>
-                        <a class="col-md-5 pull-right button style-10" href="{{url('/')}}">Continue Shopping</a>
-
+                        <div class="cart-summary-box pull-right col-md-6" style="margin: 0">
+                            <div class="grand-total">Thành Tiền  <span id="grandtotal"></span></div>
+                            <a class="col-md-6 pull-right button style-10" href="">Thanh Toán</a>
+                            <a class="col-md-5 pull-right button style-10" href="">Tiếp tục mua hàng</a>
+                        </div>
+                        <div class="cart-summary-box pull-left col-md-3" style="margin: 0">
+                            <div class="grand-total">Mã giảm giá  <span id="grandtotal"></span></div>
+                            
+                           <input type="text" class="form-control pull-left">
+                           <a class="col-md-6 pull-right button style-10" href="" style="margin-top:15px;">Xác nhận</a>
+                        </div>
                     </div>
-                    </div>
-                </div>
+                
 
             </div>
 
@@ -98,7 +103,8 @@
         </div>
 
     </section>
-
+@section('javascript')
+@endsection
 @stop
 
 @section('footer')

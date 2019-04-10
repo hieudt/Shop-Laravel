@@ -38,12 +38,12 @@ class User extends Authenticatable
     }
 
     public function getCountBill($id){
-        $Data = \App\Bill::where('id_user',$id)->get();
+        $Data = \App\Bill::where('id_user',$id)->where('statusPay',1)->where('status',2)->get();
         return count($Data);
     }
 
     public function getTotalMoney($id){
-        return $Data = \App\Bill::where('id_user',$id)->sum('TotalMoney');        
+        return $Data = \App\Bill::where('id_user',$id)->where('statusPay',1)->where('status',2)->sum('TotalMoney');        
     }
 
     public function getTitle($totalMoney,$id){

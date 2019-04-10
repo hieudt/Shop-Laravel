@@ -179,12 +179,10 @@ class CouponsController extends Controller
                      </tr>
                     ';
 
-                    $select_data .= '<option value="0">Công Khai</option>';
-                    $select_data .= '<option value="1">Riêng tư</option>';
-                    $select_data .= '<option value="2">Tiềm Năng</option>';
-            
-                  
                 }
+                $select_data .= '<option value="0">Công Khai</option>';
+                $select_data .= '<option value="1">Riêng tư</option>';
+                $select_data .= '<option value="2">Tiềm Năng</option>';
             } else {
                 $output .= '<tr><td colspan="5" align="center">
                     Không tìm thấy kết quả
