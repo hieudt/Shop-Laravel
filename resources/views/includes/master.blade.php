@@ -7,8 +7,11 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, shrink-to-fit=no, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <meta name="keywords" content="">
-    <meta name="author" content="GeniusOcean">
+    <meta property="og:url"                content="http://123.16.70.151/Shop-Laravel/public/" />
+    <meta property="og:type"               content="article" />
+    <meta property="og:title"              content="Cửa hàng thời trang Híu Mai =))" />
+    <meta property="og:description"        content="CĐG cũng có ở trong này hiiiii" />
+    <meta property="og:image"              content="https://scontent.fhan3-3.fna.fbcdn.net/v/t1.0-9/54800107_1321249651346428_4367508799708200960_n.jpg?_nc_cat=100&_nc_oc=AQnVLBBVPGrro6aS-3bhngAJG3lzOvP5fQaMW3tcw3gnSkY9h3y2Vq9YzsbOvHR7BVY&_nc_ht=scontent.fhan3-3.fna&oh=38254249396eb5c6d64c3fd76b24daae&oe=5D2E56AC" />
     <link rel="icon" type="image/png" href="{{url('/')}}/assets/images/logo/avatar_null_nonecircle.png" />
     <title>@yield('title')</title>
     <!-- Bootstrap Core CSS -->
