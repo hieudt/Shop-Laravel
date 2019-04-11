@@ -81,4 +81,88 @@ class CartController extends Controller
         }
         
     }
+
+    public function show(Request $request)
+    {
+        if ($request->ajax()) {
+            
+            $output = '';
+            $outputPopup = '';
+            if (Cart::content()->count() > 0) {
+                foreach (Cart::content() as $item) {
+                    $output .= '
+                    <tr id="item">
+                    <td>
+                        <div class="traditional-cart-entry">
+                            <a href="#" class="image">
+                                <img src="'.url('/').'/images/product/'.$item->model->Product->thumbnail.'">
+                            </a>
+                            <div class="content">
+                                <div class="cell-view">
+                                    <a class="title" href="/san-pham/'.$item->model->Product->id.'/'.$item->model->Product->slug.'">'.$item->name.' 
+                                        <ul id="ListSelectColor">
+                                            <span class="swatch" style="background-color:'.$item->model->Color->codeColor.'"></span> Size : '.$item->model->Size->name.'
+                                        </ul>
+                                        </a>
+                                 </div>
+                            </div>
+                        </div>
+                    </td>
+                    <td><div id="price" class="subtotal" style="">'.formatMoney($item->price).'</div></td>
+                    <td>
+                        <div class="quantity-selector detail-info-entry">
+                            <div class="entry number-minus" id="minus">&nbsp;</div>
+                            <div class="entry number" id="number">'.$item->qty.'</div>
+                            <div class="entry number-plus" id="plus">&nbsp;</div>
+                        </div>
+                    </td>
+                    <td><div class="subtotal" id="subtotal">'.formatMoney($item->price*$item->qty).'</div></td>
+                    <td><a class="remove-button" data-rowid="'.$item->rowId.'"><i class="fa fa-times"></i></a></td>
+                    </tr>
+                    ';
+                    
+                    $outputPopup .= '
+                    <div class="cart-entry">
+                        <div class="content">
+                        <a href="#" class="image">
+                                <img src="'.url('/').'/images/product/'.$item->model->Product->thumbnail.'">
+                        </a>
+                        </div>
+                        <div class="content"> 
+                            <a class="title" href="/san-pham/'.$item->model->Product->id.'/'.$item->model->Product->slug.'">&nbsp '.$item->name.'</a> 
+                            <div class="quantity" style="padding-left:10px;"> &nbsp SL: '.$item->qty.' | '.$item->model->Color->name.' | '.$item->model->Size->name.'</div>
+
+                            
+                                      
+                            <div class="price"> &nbsp '.formatMoney($item->price*$item->qty).'</div>
+                        </div>
+                        <div class="button-x remove-button" data-rowid="'.$item->rowId.'"><i class="fa fa-close"></i></div>
+                    </div>
+                    ';
+
+                }
+               
+            } else {
+                $output .= '<tr>
+                <td>
+                    <h3>Giỏ hàng đang rỗng.</h3>
+                </td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>';
+
+            $outputPopup .= 'Giỏ hàng bạn đang rỗng';
+            }
+
+            $data = array(
+                'list' => $output,
+                'total'=> Cart::total(),
+                'count'=> Cart::content()->count(),
+                'cartPopup'=>$outputPopup
+            );
+
+            echo json_encode($data);
+        }
+    }
 }

@@ -233,22 +233,7 @@
     });
 
    
-    $("#load-more").click(function () {
-        $("#load").show();
-        var slug = "";
-        var page = $("#page").val();
-        var sort = $("#sortby").val();
-        $.get("{{url('/')}}/loadcategory/"+slug+"/"+page+"?sort="+sort, function(data, status){
-            $("#load").fadeOut();
-            $("#products").append(data);
-            //alert("Data: " + data + "\nStatus: " + status);
-            $("#page").val(parseInt($("#page").val())+1);
-            if ($.trim(data) == ""){
-                $("#load-more").fadeOut();
-            }
 
-        });
-    });
     function changeElementsCSS()
     {
         $('.colors').each(function(){
@@ -262,7 +247,7 @@
         $('#ListSelectColor').html('');
         var count = $(this).attr('data-product');
         var product = $('#product'+count).serializeArray();
-        console.log(product);
+
         $('.product-title').text(product[0].value);
         $('.image-product').attr("src","{{url('/images/product')}}/"+product[1].value);
         $('.current').text(product[4].value+"đ");
@@ -293,7 +278,7 @@
                 $('#selSize').append('<option disabled selected value> -- Chọn kích cỡ -- </option>');
             },
             error: function(html, status) {
-                console.log(html.responseText);
+              
             }
         });
     }
@@ -313,7 +298,7 @@
               
             },
             error: function(html, status) {
-                    console.log(html.responseText);
+
             }
         });
     }

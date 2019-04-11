@@ -1,11 +1,11 @@
 <div class="cart-box popup">
     <div class="popup-container">
-        <div id="emptycart">
-            Giỏ hàng bạn đang rỗng
-        </div>
+        
         <div id="goCart">
+            
         </div>
         <div class="summary">
+            <br/>
             <div class="grandtotal">Tổng tiền <span id="grandttl">0.00</span></div>
         </div>
         <div class="cart-buttons">

@@ -1,4 +1,5 @@
 @extends('includes.master') 
+@section('title','Shop Quần Áo HieuMai')
 @section('css')
 <link rel="stylesheet" href="{{asset('@styleadmin/css/attribute.css')}}">
 @endsection

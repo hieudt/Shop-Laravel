@@ -1371,7 +1371,7 @@ header .line-entry{white-space: nowrap;}
 .cart-column-title{font-size: 16px; line-height: 20px; color: #000000232; font-weight: 600; border-top: 1px #e6e6e6 solid; border-bottom: 1px #e6e6e6 solid; padding: 20px 0; margin-bottom: 20px;}
 .cart-column-title.size-1{font-size: 18px; padding: 25px 0;}
 .cart-column-title.size-2{padding: 23px 0;}
-.cart-summary-box{border: 2px #e6e6e6 solid; padding: 40px 15px; text-align: right;}
+.cart-summary-box{ padding: 40px 15px; text-align: right;}
 .cart-summary-box .button{padding-left: 10px; padding-right: 10px; display: block; margin-bottom: 18px;}
 .cart-summary-box .sub-total{font-size: 15px; line-height: 20px; color: #878787; font-weight: 600; margin-bottom: 5px;}
 .cart-summary-box .grand-total{font-size: 22px; line-height: 30px; color: #343434; font-weight: 600; margin-bottom: 15px;}

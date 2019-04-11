@@ -28,9 +28,7 @@ Route::get('/san-pham/{id}/{slug}','FrontEndController@productDetails');
 Route::get('cart','CartController@cart')->name('cart.index');
 Route::post('cart/store','CartController@store')->name('cart.store');
 Route::post('cart/destroy','CartController@destroy')->name('cart.destroy');
-Route::get('cart/load',function(){
-    return view('includes.listcart');
-});
+Route::get('cart/load','CartController@show')->name('cart.show');
 
 Route::post('/users/login','FrontEndController@loginPost')->name('user.login');
 Route::get('/users/logout','FrontEndController@logoutIndex')->name('front.logout');

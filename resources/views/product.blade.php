@@ -113,13 +113,13 @@
                             <div class="quantity-selector detail-info-entry">
                                 <div class="detail-info-entry-title">Số Lượng</div>
                                 <div class="entry number-minus">&nbsp;</div>
-                                <div class="entry number">1</div>
+                                <div class="entry number" id="ProductNumber">1</div>
                                 <div class="entry number-plus">&nbsp;</div>
                             </div>
 
                             <div class="detail-info-entry">
                                 <form id="cartfrom">
-                                    <button type="button" class="button style-10 to-cart">Thêm giỏ hàng</button>
+                                    <button type="button" class="button style-10 to-cart" id="ProductAdd">Thêm giỏ hàng</button>
                                 </form>
                                 <div class="clear"></div>
                             </div>
@@ -326,6 +326,7 @@
                         </div>
                         <div class="col-sm-7 col-md-7 information-entry">
                             <div class="product-detail-box">
+                                <input type="hidden" value="" id="modalIdProduct">
                                 <h1 class="product-title" id="ModalTitle">Tiêu đề PRoduct</h1>
                                 <div class="price detail-info-entry">
                                     <span class="current" id="ModalTien">255000₫</span>
@@ -344,7 +345,7 @@
                                 <div class="quantity-selector detail-info-entry">
                                     <div class="detail-info-entry-title">Số Lượng</div>
                                     <div class="entry number-minus">&nbsp;</div>
-                                    <div class="entry number">1</div>
+                                    <div class="entry number" id="modalSoLuong">1</div>
                                     <div class="entry number-plus">&nbsp;</div>
                                 </div>
 
@@ -361,7 +362,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal" id="CloseModal">Đóng</button>
-                <button type="button" class="btn btn-primary">Thêm giỏ hàng</button>
+                <button type="button" class="btn btn-primary" id="btnAddProduct">Thêm giỏ hàng</button>
             </div>
         </div>
     </div>
@@ -401,12 +402,42 @@
         $('#ListSelectColor2').html('');
         var count = $(this).attr('data-product');
         var product = $('#product'+count).serializeArray();
-        console.log(product);
+       
         $('#ModalTitle').text(product[0].value);
         $('.image-product').attr("src","{{url('/images/product')}}/"+product[1].value);
         $('#ModalTien').text(product[4].value+"đ");
         id = product[5].value;
+        $('#modalIdProduct').val(id);
         fetch_size2(id);  
+    });
+
+    $('#ProductAdd').click(function(){
+        var cart_idProduct = '{{$productdata->id}}';
+        var cart_number = $('#ProductNumber').text();
+        var cart_idSize = $('#selSizeInProduct').val();
+        var rdoColor = $("input[name=rdoColor]");
+        var rdoValue = rdoColor.filter(":checked").val();
+        dataString = "idProduct="+cart_idProduct+"&Number="+cart_number+"&idSize="+cart_idSize
+        +"&idColor="+rdoValue;
+
+        $.ajax({
+            headers: {
+                'X-CSRF-TOKEN':  $('meta[name="csrf-token"]').attr('content')
+            },
+            method: "POST",
+            url: '{{route('cart.store')}}',
+            data:dataString,
+            success: function (data) {
+                ToastSuccess(data.success); 
+                loadCart();
+            },
+            error: function (request, status) {
+               
+                $.each(request.responseJSON.errors,function(key,val){
+                    ToastError(val);
+                });
+            }
+        });
     });
 
     $('#selSizeInProduct').change(function(){
@@ -435,7 +466,7 @@
                 
             },
             error: function(html, status) {
-                console.log(html.responseText);
+               
             }
         });
     }
@@ -456,7 +487,7 @@
                 
             },
             error: function(html, status) {
-                console.log(html.responseText);
+               
             }
         });
     }
@@ -476,7 +507,7 @@
                
             },
             error: function(html, status) {
-                console.log(html.responseText);
+               
             }
         });
     }
@@ -496,7 +527,7 @@
                
             },
             error: function(html, status) {
-                console.log(html.responseText);
+               
             }
         });
     }
