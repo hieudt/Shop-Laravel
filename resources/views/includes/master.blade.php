@@ -16,8 +16,7 @@
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
     <link href="{{ URL::asset('assets/css/owl.carousel.min.css')}}" rel="stylesheet">
     <link href="{{ URL::asset('assets/css/idangerous.swiper.css')}}" rel="stylesheet" type="text/css" />
-    <link href='http://fonts.googleapis.com/css?family=Raleway:300,400,500,600,700%7CDancing+Script%7CMontserrat:400,700%7CMerriweather:400,300italic%7CLato:400,700,900'
-        rel='stylesheet' type='text/css' />
+
     <link href="{{ URL::asset('assets/css/style.css')}}" rel="stylesheet" type="text/css" />
     <!-- Custom CSS -->
     <link href="{{URL::asset('assets/css/mycss.css')}}" rel="stylesheet">

@@ -1,5 +1,8 @@
 <script>
         var id = '';
+        $(document).ready(function(){
+            
+        });
         $(document).on('click','#quickviewBtn',function(){
             $('#ListSelectColor').html('');
             var count = $(this).attr('data-product');
@@ -11,6 +14,10 @@
             id = product[5].value;
             $('#modalIdProduct').val(id);
             fetch_size(id);
+
+            setTimeout(function() {
+                $('#quickViewProduct').modal();
+            }, 200);
            
         });
     
