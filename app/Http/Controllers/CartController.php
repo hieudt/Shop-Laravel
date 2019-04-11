@@ -6,6 +6,9 @@ use Illuminate\Http\Request;
 use App\Category;
 use App\product_details;
 use App\Product;
+use App\User;
+use Illuminate\Support\Facades\Auth;
+use App\coupons;
 use Gloudemans\Shoppingcart\Facades\Cart;
 
 class CartController extends Controller
@@ -154,15 +157,97 @@ class CartController extends Controller
 
             $outputPopup .= 'Giỏ hàng bạn đang rỗng';
             }
+            $total = 0;
+            $MaGiamGia = '';
+            if(session()->get('coupon')){
+                $total = formatMoney(priceDiscount(Cart::subtotal(),session()->get('coupon')['discount']));
+                $MaGiamGia = '<h4>Giá cũ '.formatMoney(Cart::subtotal()).'</h4>
+                <h4>Giảm giá theo mã : -'.session()->get('coupon')['discount'].'%</h4>';
+            } else {
+                $total = formatMoney(Cart::subtotal());
+                $MaGiamGia = '';
+            }
 
             $data = array(
                 'list' => $output,
-                'total'=> Cart::total(),
+                'total'=> $total,
                 'count'=> Cart::content()->count(),
-                'cartPopup'=>$outputPopup
+                'cartPopup'=>$outputPopup,
+                'MaGiamGia'=>$MaGiamGia
             );
 
             echo json_encode($data);
+        }
+    }
+
+    public function addCoupon(Request $req){
+        if($req->ajax()){
+            
+            if(session()->get('coupon')){
+                return response()->json(['errors'=>['errorcoupons'=>[0=>'Bạn đã có mã giảm giá rồi']]],422);
+            }
+            $coupon = coupons::where('code',$req->coupon)->where('Date','>',now())->first();
+            if(!$coupon){
+                return response()->json(['errors'=>['errorcoupons'=>[0=>'Mã giảm giá không hợp lệ']]],422);
+            }
+            
+            if(!$coupon->Match($coupon->typeEnable,AuthTitle())){
+                return response()->json(['errors'=>['errorcoupons'=>[0=>'Bạn không đủ quyền với mã này']]],422);
+            }
+            
+            
+            session()->put('coupon',[
+                'code' => $coupon->code,
+                'discount' => $coupon->Percent,
+                'require' => $coupon->RequireTotal
+            ]);
+
+            $outputCoupons = '<h4>Giá cũ : '.Cart::subtotal().'</h4>'.
+            '<h4>Giảm giá theo mã : -'.session()->get('coupon')['discount'].'%</h4>';
+            
+            $divCoupons = '<h4>'.session()->get('coupon')['code'].'</h4>
+            <button class="col-md-6 pull-right button style-10" style="margin-top:15px;" id="btnRemoveCoupon">Gỡ bỏ</button>';
+            $data = array(
+                'msg' => 'Đã thêm mã giảm giá',
+                'outputCoupons'=>$outputCoupons,
+                'divCoupons' => $divCoupons
+            );
+
+            echo json_encode($data);
+        }
+    }
+
+    public function removeCoupon(Request $req){
+        if($req->ajax()){
+            $outputCoupons = '';
+            $divCoupons = '';
+            if(session()->get('coupon')){
+                session()->remove('coupon');
+                $divCoupons = '<input type="text" class="form-control pull-left" id="Coupons">
+                <button class="col-md-6 pull-right button style-10" style="margin-top:15px;" id="btnAddCoupon">Xác Nhận</button>';
+            }
+            
+            
+            $data = array(
+                'msg' => 'Đã gỡ bỏ mã giảm giá',
+                'outputCoupons'=>$outputCoupons,
+                'divCoupons' => $divCoupons
+                
+            );
+
+            echo json_encode($data);
+        }
+    }
+
+    public function checkout(Request $req){
+        if($req->ajax()){
+           if(session()->get('coupon')){
+               if(deformatMoney(Cart::subtotal()) < session()->get('coupon')['require']){
+                return response()->json(['errors'=>['errorcoupons'=>[0=>'Để dùng mã giảm giá này hóa đơn của bạn tối thiểu phải từ '.formatMoney(session()->get('coupon')['require']).' trở lên']]],422);
+               }
+           }
+
+           return response()->json(['success'=>'Hợp lệ']);
         }
     }
 }

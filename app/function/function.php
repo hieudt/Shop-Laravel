@@ -108,6 +108,37 @@ function formatDateTime($dateTime){
 }
 
  function priceDiscount($Money,$Discount){
+	$Money = str_replace(',','',$Money);
     return  $Money - ($Money / 100 * $Discount);
 }
+
+function deformatMoney($Money){
+	return str_replace(',','',$Money);
+}
+
+
+function AuthTotalMoney(){
+	if(Auth::check())
+	return $Data = \App\Bill::where('id_user',Auth::user()->id)->where('statusPay',1)->where('status',2)->sum('TotalMoney');        
+}
+
+function AuthTitle(){
+	if(Auth::check()){
+		if(Auth::user()->id == 1){
+			return 0;
+		}
+		if(AuthTotalMoney() > 1000000){
+			return 2; // Tiềm Năng
+		}elseif(AuthTotalMoney() > 100000){
+			return 1; // Khách hàng
+		}else{
+			return 3; // Mới Đ Ký
+		}
+	}
+
+	return 4; // Công khai
+	
+}
+
+
 ?>

@@ -12,7 +12,7 @@
     <meta property="og:title"              content="Cửa hàng thời trang Híu Mai =))" />
     <meta property="og:description"        content="CĐG cũng có ở trong này hiiiii" />
     <meta property="og:image"              content="https://scontent.fhan3-3.fna.fbcdn.net/v/t1.0-9/54800107_1321249651346428_4367508799708200960_n.jpg?_nc_cat=100&_nc_oc=AQnVLBBVPGrro6aS-3bhngAJG3lzOvP5fQaMW3tcw3gnSkY9h3y2Vq9YzsbOvHR7BVY&_nc_ht=scontent.fhan3-3.fna&oh=38254249396eb5c6d64c3fd76b24daae&oe=5D2E56AC" />
-    <link rel="icon" type="image/png" href="{{url('/')}}/assets/images/logo/avatar_null_nonecircle.png" />
+    <link rel="icon" href="{{url('/')}}/assets/images/logo/avatar_null_nonecircle.png" />
     <title>@yield('title')</title>
     <!-- Bootstrap Core CSS -->
     <link href="{{ URL::asset('assets/css/bootstrap.min.css')}}" rel="stylesheet">
@@ -179,6 +179,7 @@
               $('#carttotal').html('('+data.count+')');
               $('#goCart').html(data.cartPopup);
               $('#grandttl').html(data.total);
+              $('#MaGiamGia').html(data.MaGiamGia);
             },
             error: function(html, status) {
                 $.each(request.responseJSON.errors,function(key,val){
@@ -312,7 +313,7 @@
                ToastSuccess(data.success);
                loadCart();
             },
-            error: function(html, status) {
+            error: function(request, status) {
                 $.each(request.responseJSON.errors,function(key,val){
                     ToastError(val);
                 });

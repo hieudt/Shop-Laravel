@@ -36,15 +36,28 @@
                 <div class="cart-submit-buttons-box">
                     <div class="row" style="margin: 0">
                         <div class="cart-summary-box pull-right col-md-6" style="margin: 0">
+                            <div id="MaGiamGia">
+                                @if(session()->get('coupon'))
+                                <h4>Giá cũ {{formatMoney(Cart::subtotal())}}</h4>
+                                <h4>Giảm giá theo mã : -{{session()->get('coupon')['discount']}}%</h4>
+                                @endif
+                            </div>
                             <div class="grand-total">Thành Tiền : <span id="grandtotal">{{Cart::total()}}</span></div>
-                            <a class="col-md-6 pull-right button style-10" href="">Thanh Toán</a>
-                            <a class="col-md-5 pull-right button style-10" href="">Tiếp tục mua hàng</a>
+                            <button class="col-md-6 pull-right button style-10" id="btnCheckOut">Thanh Toán</button>
+                            <a class="col-md-5 pull-right button style-10" href="san-pham">Tiếp tục mua hàng</a>
                         </div>
-                        <div class="cart-summary-box pull-left col-md-3" style="margin: 0">
+                        <div class="cart-summary-box pull-left col-md-3" style="margin: 0" >
                             <div class="grand-total">Mã giảm giá  <span id="grandtotal"></span></div>
-                            
-                           <input type="text" class="form-control pull-left">
-                           <a class="col-md-6 pull-right button style-10" href="" style="margin-top:15px;">Xác nhận</a>
+                            <div id="divCoupon">
+                                @if(session()->get('coupon'))
+                                <h4>{{session()->get('coupon')['code']}}</h4>
+                                <button class="col-md-6 pull-right button style-10" style="margin-top:15px;" id="btnRemoveCoupon">Gỡ bỏ</button>
+                                @else
+                                <input type="text" class="form-control pull-left" id="Coupons">
+                                <button class="col-md-6 pull-right button style-10" style="margin-top:15px;" id="btnAddCoupon">Xác Nhận</button>
+                                @endif
+                            </div>
+                           
                         </div>
                     </div>
                 </div>
@@ -61,5 +74,83 @@
         loadCart();
     });
 
+    $(document).on('click','#btnAddCoupon',function(){
+        addCoupon();
+    });
+
+    $(document).on('click','#btnRemoveCoupon',function(){
+        removeCoupon();
+    });
+
+    $('#btnCheckOut').click(function(){
+        btnCheckOut();
+    });
+
+    function addCoupon(){
+        var coupon = $('#Coupons').val();
+        $.ajax({
+        headers: {
+            'X-CSRF-TOKEN':  $('meta[name="csrf-token"]').attr('content')
+        },
+            method: 'POST',
+            url: '{{route('cart.addcoupon')}}',
+            data:{coupon:coupon},
+            dataType: 'json',
+            success: function(data) {
+                ToastSuccess(data.msg);
+                loadCart();
+                $('#MaGiamGia').html(data.outputCoupons);
+                $('#divCoupon').html(data.divCoupons);
+
+            },
+            error: function(request, status) {
+                $.each(request.responseJSON.errors,function(key,val){
+                    ToastError(val);
+                });
+            }
+        });
+    }
+
+    function btnCheckOut(){
+        $.ajax({
+        headers: {
+            'X-CSRF-TOKEN':  $('meta[name="csrf-token"]').attr('content')
+        },
+            method: 'POST',
+            url: '{{route('cart.checkout')}}',
+            dataType: 'json',
+            success: function(data) {
+                ToastSuccess(data.success);
+            },
+            error: function(request, status) {
+                $.each(request.responseJSON.errors,function(key,val){
+                    ToastError(val);
+                });
+            }
+        });
+    }
+
+    function removeCoupon(){
+        $.ajax({
+        headers: {
+            'X-CSRF-TOKEN':  $('meta[name="csrf-token"]').attr('content')
+        },
+            method: 'POST',
+            url: '{{route('cart.removecoupon')}}',
+            dataType: 'json',
+            success: function(data) {
+                ToastSuccess(data.msg);
+                loadCart();
+                $('#MaGiamGia').html(data.outputCoupons);
+                $('#divCoupon').html(data.divCoupons);
+                
+            },
+            error: function(request, status) {
+                $.each(request.responseJSON.errors,function(key,val){
+                    ToastError(val);
+                });
+            }
+        });
+    }
  </script>
 @stop

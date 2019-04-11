@@ -602,3 +602,8 @@ html {
   margin: 0 5px 0 0 ;
   border: 1px solid #d4d4d4;
 }
+
+a.disabled {
+  pointer-events: none;
+  cursor: default;
+}

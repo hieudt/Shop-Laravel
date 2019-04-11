@@ -29,6 +29,9 @@ Route::get('cart','CartController@cart')->name('cart.index');
 Route::post('cart/store','CartController@store')->name('cart.store');
 Route::post('cart/destroy','CartController@destroy')->name('cart.destroy');
 Route::get('cart/load','CartController@show')->name('cart.show');
+Route::post('cart/addcoupons','CartController@addCoupon')->name('cart.addcoupon');
+Route::post('cart/removecoupons','CartController@removeCoupon')->name('cart.removecoupon');
+Route::post('cart/checkout','CartController@checkout')->name('cart.checkout');
 
 Route::post('/users/login','FrontEndController@loginPost')->name('user.login');
 Route::get('/users/logout','FrontEndController@logoutIndex')->name('front.logout');
@@ -108,13 +111,22 @@ Route::get('checkProduct',function(){
     return response()->json($data);
 });
 
-Route::get('checkCart',function(){
-
-    dd(Cart::content());
+Route::get('reset',function(){
+    if(session()->get('coupon'))
+    {
+        echo "he";
+        session()->remove('coupon');
+    }else {
+        echo "not";
+    }
 });
 
-Route::get('distroyCart',function(){
-    Cart::destroy();
+Route::get('auth',function(){
+    echo deformatMoney(Cart::subtotal())."<br/>";
+    echo session()->get('coupon')['require'];
+   if(deformatMoney(Cart::subtotal()) < session()->get('coupon')['require']){
+       echo "Hi";
+   }
 });
 
 
