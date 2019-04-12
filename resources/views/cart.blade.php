@@ -43,7 +43,7 @@
                                 @endif
                             </div>
                             <div class="grand-total">Thành Tiền : <span id="grandtotal">{{Cart::total()}}</span></div>
-                            <button class="col-md-6 pull-right button style-10" id="btnCheckOut">Thanh Toán</button>
+                            <a class="col-md-6 pull-right button style-10" href="/checkout">Thanh Toán</a>
                             <a class="col-md-5 pull-right button style-10" href="san-pham">Tiếp tục mua hàng</a>
                         </div>
                         <div class="cart-summary-box pull-left col-md-3" style="margin: 0" >
@@ -115,24 +115,7 @@
         });
     }
 
-    function btnCheckOut(){
-        $.ajax({
-        headers: {
-            'X-CSRF-TOKEN':  $('meta[name="csrf-token"]').attr('content')
-        },
-            method: 'POST',
-            url: '{{route('cart.checkout')}}',
-            dataType: 'json',
-            success: function(data) {
-                ToastSuccess(data.success);
-            },
-            error: function(request, status) {
-                $.each(request.responseJSON.errors,function(key,val){
-                    ToastError(val);
-                });
-            }
-        });
-    }
+    
 
     function removeCoupon(){
         $.ajax({

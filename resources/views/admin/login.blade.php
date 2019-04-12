@@ -56,7 +56,7 @@
         }
 
         .content-wrapper {
-            background-image: url('/@styleadmin/images/mainbg.jpg');
+            background-image: url('{{url('/@styleadmin/images/mainbg.jpg')}}');
         }
 
         .loadbody {
@@ -370,7 +370,7 @@
                     boxTwo.addClass('horizTranslate');
                     showLoader();
                     setInterval(function(){
-                        $(location).attr('href', '/admin/index')
+                        $(location).attr('href', '{{url('/admin/index')}}');
                     }, 3000);
                 },
                 error: function(request, status) {

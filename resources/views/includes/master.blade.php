@@ -185,6 +185,7 @@
               $('#goCart').html(data.cartPopup);
               $('#grandttl').html(data.total);
               $('#MaGiamGia').html(data.MaGiamGia);
+              $('#cartCheckOut').html(data.cartCheckout);
             },
             error: function(html, status) {
                 $.each(request.responseJSON.errors,function(key,val){
@@ -294,6 +295,11 @@
     $(document).on('click','.remove-button',function(){
         var row_id = $(this).attr('data-rowId');
         deleteCart(row_id);
+        
+    });
+
+    $('.btnCheck').click(function(){
+       
     });
 
     function deleteCart(row_id){
@@ -316,6 +322,10 @@
                 });
             }
         });
+    }
+
+    function btnCheckOut(){
+       
     }
     </script>
 </body>

@@ -10,11 +10,11 @@
         </div>
         <div class="cart-buttons">
             <div class="column">
-                <a href="{{url('/cart')}}" class="button style-3">Xem Giỏ Hàng</a>
+                <a href="{{url('cart')}}" class="button style-3">Xem Giỏ Hàng</a>
                 <div class="clear"></div>
             </div>
             <div class="column">
-                <a href="" class="button style-4">Thanh Toán</a>
+                <a href="{{url('checkout')}}" class="button style-4 btnCheck">Thanh Toán</a>
                 <div class="clear"></div>
             </div>
             <div class="clear"></div>

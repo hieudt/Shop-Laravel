@@ -559,9 +559,11 @@ html {
   margin-top:20px; 
 }
 
-.MaGiamGia {
-  padding: 2px 16px;
 
+
+#MaGiamGia h4 {
+  background-color:white;
+  color:black;
 }
 
 .coupon img {

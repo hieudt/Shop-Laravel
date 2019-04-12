@@ -94,6 +94,7 @@ class CartController extends Controller
             
             $output = '';
             $outputPopup = '';
+            $outputcheckout = '';
             if (Cart::content()->count() > 0) {
                 foreach (Cart::content() as $item) {
                     $output .= '
@@ -137,15 +138,23 @@ class CartController extends Controller
                         <div class="content"> 
                             <a class="title" href="/san-pham/'.$item->model->Product->id.'/'.$item->model->Product->slug.'">&nbsp '.$item->name.'</a> 
                             <div class="quantity" style="padding-left:10px;"> &nbsp SL: '.$item->qty.' | '.$item->model->Color->name.' | '.$item->model->Size->name.'</div>
-
-                            
-                                      
+                                       
                             <div class="price"> &nbsp '.formatMoney($item->price*$item->qty).'</div>
                         </div>
                         <div class="button-x remove-button" data-rowid="'.$item->rowId.'"><i class="fa fa-close"></i></div>
                     </div>
                     ';
 
+                    $outputcheckout .= '
+                    <tr>
+                        <td><a href="/san-pham/'.$item->model->Product->id.'/'.$item->model->Product->slug.'">&nbsp '.$item->name.'</a> </td>
+                        <td><ul id="ListSelectColor">
+                        <span class="swatch" style="background-color:'.$item->model->Color->codeColor.'"></span></ul></td>
+                        <td>'.$item->model->Size->name.'</td>
+                        <td>'.$item->qty.'</td>
+                        <td>'.formatMoney($item->price*$item->qty).'</td>
+                     </tr>
+                    ';
                 }
                
             } else {
@@ -176,7 +185,8 @@ class CartController extends Controller
                 'total'=> $total,
                 'count'=> Cart::content()->count(),
                 'cartPopup'=>$outputPopup,
-                'MaGiamGia'=>$MaGiamGia
+                'MaGiamGia'=>$MaGiamGia,
+                'cartCheckout' => $outputcheckout
             );
 
             echo json_encode($data);
@@ -242,6 +252,7 @@ class CartController extends Controller
         }
     }
 
+
     public function checkout(Request $req){
         if($req->ajax()){
            if(session()->get('coupon')){
@@ -250,7 +261,7 @@ class CartController extends Controller
                }
            }
 
-           return response()->json(['success'=>'Hợp lệ']);
+           return view('checkout');
         }
     }
 

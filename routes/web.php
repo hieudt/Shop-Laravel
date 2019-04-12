@@ -33,6 +33,8 @@ Route::post('cart/addcoupons','CartController@addCoupon')->name('cart.addcoupon'
 Route::post('cart/removecoupons','CartController@removeCoupon')->name('cart.removecoupon');
 Route::post('cart/checkout','CartController@checkout')->name('cart.checkout');
 
+Route::get('checkout','CheckOutController@index')->name('checkout.index');
+
 Route::get('real',function(){
     return view('realtime');
 });

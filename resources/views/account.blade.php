@@ -193,6 +193,7 @@
                     <h2>Mã Giảm Giá (VIP)</h2>
                     <hr>
                     <div class="row">
+                        @if(AuthTitle() == 2 || AuthTitle() == 0)
                         @foreach($couponsVip as $cp)
                         <div class="col-md-5">
                             <div class="coupon">
@@ -210,6 +211,7 @@
                             </div>
                         </div>
                         @endforeach
+                        @endif
                     </div>
                 </div>
             </div>
