@@ -6,7 +6,7 @@
  */
 
 require('./bootstrap');
-import HomeAdmin from './components/HomeAdmin.vue';
+
 
 window.Vue = require('vue');
 
@@ -16,12 +16,8 @@ window.Vue = require('vue');
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
-Vue.component('example-component', require('./components/ExampleComponent.vue'));
-Vue.component('homeadmin', require('./components/HomeAdmin.vue').default);
+
 
 const app = new Vue({
-    el: '#app',
-    components: {
-        'homeadmin':HomeAdmin,
-    }
+
 });
