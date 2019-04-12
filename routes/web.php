@@ -33,6 +33,13 @@ Route::post('cart/addcoupons','CartController@addCoupon')->name('cart.addcoupon'
 Route::post('cart/removecoupons','CartController@removeCoupon')->name('cart.removecoupon');
 Route::post('cart/checkout','CartController@checkout')->name('cart.checkout');
 
+Route::get('real',function(){
+    return view('realtime');
+});
+
+
+
+
 Route::post('/users/login','FrontEndController@loginPost')->name('user.login');
 Route::get('/users/logout','FrontEndController@logoutIndex')->name('front.logout');
 Route::post('/users/signup','FrontEndController@signUpPost')->name('user.signup');

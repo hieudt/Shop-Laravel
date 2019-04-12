@@ -49,7 +49,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal" id="CloseModal">Đóng</button>
-                <button type="button" class="btn btn-primary" id="btnAddProduct">Thêm giỏ hàng</button>
+                <button type="button" class="btn btn-primary" id="btnAddProduct"  data-loading-text="<i class='fa fa-circle-o-notch fa-spin'></i> Đang xử lý">Thêm giỏ hàng</button>
             </div>
         </div>
     </div>

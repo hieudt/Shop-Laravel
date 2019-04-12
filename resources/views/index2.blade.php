@@ -163,7 +163,7 @@
                                             <input type="hidden" name="discount" value={{$product->discount}}>
                                             <input type="hidden" name="price" value="{{$product->formatMoney($product->priceDiscount($product->cost,$product->discount))}}">
                                             <input type="hidden" name="idproduct" value="{{$product->id}}">
-                                            <span class="add-to-cart" data-product="{{$CountForm}}" id="quickviewBtn">Thêm vào giỏ</span>
+                                            <button class="add-to-cart" type="button" data-product="{{$CountForm}}" >Thêm vào giỏ</button>
                                         </form>
                                         
                                     </div>
@@ -212,7 +212,7 @@
                                         <input type="hidden" name="discount" value={{$product->discount}}>
                                         <input type="hidden" name="price" value="{{$product->formatMoney($product->priceDiscount($product->cost,$product->discount))}}">
                                         <input type="hidden" name="idproduct" value="{{$product->id}}">
-                                        <span class="add-to-cart" data-toggle="modal" data-target="#quickViewProduct" data-product="{{$CountForm}}" id="quickviewBtn">Thêm vào giỏ</span>
+                                        <button class="add-to-cart" type="button" data-product="{{$CountForm}}">Thêm vào giỏ</button>
                                         </form>
                                         
                                     </div>
@@ -262,7 +262,7 @@
                                         <input type="hidden" name="discount" value={{$product->discount}}>
                                         <input type="hidden" name="price" value="{{$product->formatMoney($product->priceDiscount($product->cost,$product->discount))}}">
                                         <input type="hidden" name="idproduct" value="{{$product->id}}">
-                                        <span class="add-to-cart" data-toggle="modal" data-target="#quickViewProduct" data-product="{{$CountForm}}" id="quickviewBtn">Thêm vào giỏ</span>
+                                        <button type="button" class="add-to-cart"  data-product="{{$CountForm}}">Thêm vào giỏ</button>
                                         </form>
                                         
                                     </div>

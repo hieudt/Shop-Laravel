@@ -300,7 +300,7 @@
                                     <input type="hidden" name="discount" value={{$product->discount}}>
                                     <input type="hidden" name="price" value="{{$product->formatMoney($product->priceDiscount($product->cost,$product->discount))}}">
                                     <input type="hidden" name="idproduct" value="{{$product->id}}">
-                                    <span class="add-to-cart"  data-toggle="modal" data-target="#quickViewProduct" data-product="{{$CountForm}}" id="quickviewBtn">Thêm vào giỏ</span>
+                                    <button class="add-to-cart" type="button"  data-product="{{$CountForm}}">Thêm vào giỏ</span>
                                 </form>
                             </div>
                         </div>
@@ -362,7 +362,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal" id="CloseModal">Đóng</button>
-                <button type="button" class="btn btn-primary" id="btnAddProduct">Thêm giỏ hàng</button>
+                <button type="button" class="btn btn-primary" id="btnAddProduct" data-loading-text="<i class='fa fa-circle-o-notch fa-spin'></i> Đang xử lý">Thêm giỏ hàng</button>
             </div>
         </div>
     </div>
@@ -398,7 +398,7 @@
     });
 
     var id = '';
-    $(document).on('click','#quickviewBtn',function(){
+    $(document).on('click','.add-to-cart',function(){
         $('#ListSelectColor2').html('');
         var count = $(this).attr('data-product');
         var product = $('#product'+count).serializeArray();
@@ -408,7 +408,10 @@
         $('#ModalTien').text(product[4].value+"đ");
         id = product[5].value;
         $('#modalIdProduct').val(id);
-        fetch_size2(id);  
+        fetch_size2(id); 
+        setTimeout(function() {
+            $('#quickViewProduct').modal();
+        }, 200); 
     });
 
     $('#ProductAdd').click(function(){

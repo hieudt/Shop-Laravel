@@ -62,6 +62,7 @@
         var mainurl = '{{url('/')}}';
     </script>
     <!-- jQuery -->
+    
     <script src="{{ URL::asset('assets/js/jquery.js')}}"></script>
     <script src="{{ URL::asset('assets/js/owl.carousel.min.js')}}"></script>
     <script src="{{ URL::asset('assets/js/wow.min.js')}}"></script>
@@ -78,11 +79,13 @@
     <!-- custom scrollbar -->
     <script src="{{asset('@styleadmin/node_modules/jquery-toast-plugin/dist/jquery.toast.min.js')}}"></script>
     <script src="{{asset('@styleadmin/js/toastDemo.js')}}"></script>
-    <script src="{{asset('@styleadmin/js/myjs.js')}}"></script>
-    <script src="{{asset('@styleadmin/js/echo.js')}}"></script>
+    
+    
     <script src="{{asset('@styleadmin/js/pusher.min.js')}}"></script>
+    <script src="{{asset('@styleadmin/js/myjs.js')}}"></script>
     <script src="{{ URL::asset('assets/js/jquery.mousewheel.js')}}"></script>
     <script src="{{ URL::asset('assets/js/jquery.jscrollpane.min.js')}}"></script>
+    
     <!-- js Page -->
     @yield('javascript'); @yield('footer');
     <script>
@@ -200,6 +203,11 @@
         });
 
         $('#btnAddProduct').click(function(){
+            var $this = $(this);
+            $this.button('loading');
+                setTimeout(function() {
+                $this.button('reset');
+            }, 1000);
             var cart_idProduct = $('#modalIdProduct').val();
             var cart_number = $('#modalSoLuong').text();
             var cart_idSize = $('#selSize').val();
@@ -216,8 +224,9 @@
                 url: '{{route('cart.store')}}',
                 data:dataString,
                 success: function (data) {
-                    ToastSuccess(data.success); 
-                    loadCart();
+                    setTimeout(function(){
+                        ToastSuccess(data.success);
+                    }, 800);
                 },
                 error: function (request, status) {
           
@@ -280,22 +289,7 @@
 
     });
 
-    $(window).on("blur focus", function(e) {
-    var prevType = $(this).data("prevType");
-    //RealTime
-    if (prevType != e.type) {   //  reduce double fire issues
-        switch (e.type) {
-            case "blur":
-                
-                break;
-            case "focus":
-                loadCart();
-                break;
-        }
-    }
 
-        $(this).data("prevType", e.type);
-    })
 
     $(document).on('click','.remove-button',function(){
         var row_id = $(this).attr('data-rowId');
@@ -312,8 +306,9 @@
         data:{rowid:row_id},
         dataType: 'json',
             success: function(data) {
-               ToastSuccess(data.success);
-               loadCart();
+                setTimeout(function(){
+                    ToastSuccess(data.success);
+                }, 800);
             },
             error: function(request, status) {
                 $.each(request.responseJSON.errors,function(key,val){
@@ -324,5 +319,4 @@
     }
     </script>
 </body>
-
 </html>

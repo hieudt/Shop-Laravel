@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Category;
 use App\product_details;
 use App\Product;
+use Pusher\Pusher;
 use App\User;
 use Illuminate\Support\Facades\Auth;
 use App\coupons;
@@ -22,8 +23,10 @@ class CartController extends Controller
     public function destroy(Request $req){
         if($req->ajax()){
             Cart::remove($req->rowid);
+            $this->eventLoadCart();
             return response()->json(['success'=>'Xóa sản phẩm thành công']);
         }
+       
     }
 
     public function cart(){
@@ -79,7 +82,7 @@ class CartController extends Controller
 
             Cart::add($product->id,$pr->title,$req->Number,$price)
             ->associate('App\product_details');
-    
+            $this->eventLoadCart();
             return response()->json(['success'=>'Thêm giỏ hàng thành công'],200);
         }
         
@@ -212,7 +215,7 @@ class CartController extends Controller
                 'outputCoupons'=>$outputCoupons,
                 'divCoupons' => $divCoupons
             );
-
+            $this->eventLoadCart();
             echo json_encode($data);
         }
     }
@@ -234,7 +237,7 @@ class CartController extends Controller
                 'divCoupons' => $divCoupons
                 
             );
-
+            $this->eventLoadCart();
             echo json_encode($data);
         }
     }
@@ -249,5 +252,22 @@ class CartController extends Controller
 
            return response()->json(['success'=>'Hợp lệ']);
         }
+    }
+
+    public function eventLoadCart(){
+        // Truyền message lên server Pusher
+        $options = array(
+            'cluster' => 'ap1',
+            'useTLS' => true
+          );
+
+        $pusher = new Pusher(
+            'fbefcc8bb38866195ed2',
+            'ca8d13f7e7ec66461aed',
+            '757854',
+            $options
+        );
+        
+        $pusher->trigger('Cart', 'loadCart','');
     }
 }

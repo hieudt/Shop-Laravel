@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Input;
+use App\Events\DemoPusherEvent;
 use App\Product;
 use App\SubCategory;
 use App\Category;
@@ -15,6 +16,8 @@ use App\product_details;
 use App\coupons;
 use Carbon\Carbon;
 use App\User;
+use Pusher\Pusher;
+
 class FrontEndController extends Controller
 {
 
@@ -280,5 +283,23 @@ class FrontEndController extends Controller
 
             echo json_encode($data);
         }
+    }
+
+
+    public function eventLoadCart(){
+        // Truyền message lên server Pusher
+        $options = array(
+            'cluster' => 'ap1',
+            'useTLS' => true
+          );
+
+        $pusher = new Pusher(
+            'fbefcc8bb38866195ed2',
+            'ca8d13f7e7ec66461aed',
+            '757854',
+            $options
+        );
+        
+        $pusher->trigger('Cart', 'loadCart', $data);
     }
 }

@@ -3,7 +3,7 @@
         $(document).ready(function(){
             
         });
-        $(document).on('click','#quickviewBtn',function(){
+        $(document).on('click','.add-to-cart',function(){
             $('#ListSelectColor').html('');
             var count = $(this).attr('data-product');
             var product = $('#product'+count).serializeArray();

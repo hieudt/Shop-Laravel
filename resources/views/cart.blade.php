@@ -97,10 +97,14 @@
             data:{coupon:coupon},
             dataType: 'json',
             success: function(data) {
-                ToastSuccess(data.msg);
+                
                 loadCart();
                 $('#MaGiamGia').html(data.outputCoupons);
                 $('#divCoupon').html(data.divCoupons);
+                setTimeout(function(){
+                    ToastSuccess(data.msg);
+                }, 800);
+                
 
             },
             error: function(request, status) {
@@ -139,10 +143,13 @@
             url: '{{route('cart.removecoupon')}}',
             dataType: 'json',
             success: function(data) {
-                ToastSuccess(data.msg);
+                
                 loadCart();
                 $('#MaGiamGia').html(data.outputCoupons);
                 $('#divCoupon').html(data.divCoupons);
+                setTimeout(function(){
+                    ToastSuccess(data.msg);
+                }, 800);
                 
             },
             error: function(request, status) {

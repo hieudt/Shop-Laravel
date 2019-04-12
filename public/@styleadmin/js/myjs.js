@@ -91,3 +91,18 @@ function Pagi(){
         css('display','table-row').animate({opacity:1}, 300);
     });
 }
+
+
+
+
+
+
+var pusher = new Pusher('fbefcc8bb38866195ed2', {
+  cluster: 'ap1',
+  forceTLS: true
+});
+
+var channel = pusher.subscribe('Cart');
+channel.bind('loadCart', function(data) {
+    loadCart();
+});
