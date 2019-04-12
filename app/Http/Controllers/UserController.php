@@ -31,7 +31,7 @@ class UserController extends Controller
                     return '<div class="tool">' . $user->name . '<span class="tool2">'.$text.'</span></div>';
                 })
                 ->editColumn('TotalMoney',function($user){
-                    return formatMoney($user->TotalMoney)."₫";
+                    return formatMoney($user->TotalMoney);
                 })
                 ->editColumn('Title',function($user){
                     if($user->Title == 0)

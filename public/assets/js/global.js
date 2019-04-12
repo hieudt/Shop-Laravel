@@ -488,70 +488,14 @@ $(function() {
     	var divUpd = $(this).parent().find('.number'), newVal = parseInt(divUpd.text(), 10)+1;
     	divUpd.text(newVal);
     	$("#quantity").val(newVal);
-    	var price = parseFloat($("#price").html()) * newVal;
-        $("#cost").val(price);
-        var id = parseInt($(this).attr('id').replace( /[^\d.]/g, '' ));
-        var prices = parseFloat($('#price'+id).html().replace( /[^\d.]/g, '' ));
-        var quan = parseInt($('#number'+id).html().replace( /[^\d.]/g, '' ));
-        var ttl = prices*quan;
-        $('#cost'+id).val(ttl.toFixed(2));
-        $('#quantity'+id).val(newVal);
-        $('#subtotal'+id).html('$'+ttl.toFixed(2));
-        var sum = 0;
-        $('.subtotal').each(function(){
-            sum += parseFloat($(this).text().replace( /[^\d.]/g, '' ));  // Or this.innerHTML, this.innerText
-        });
-        $('#grandtotal').html('$'+sum);
 
-        if($("#citem"+id).length !== 0) {
-            var formData = $("#citem"+id).serializeArray();
-            $.ajax({
-                type: "POST",
-                url: mainurl+'/cartupdate',
-                data:formData,
-                success: function (data) {
-                    getCart();
-                },
-                error: function (data) {
-                    console.log('Error:', data);
-                }
-            });
-        }
     });
 
     $('.number-minus').on('click', function(){
     	var divUpd = $(this).parent().find('.number'), newVal = parseInt(divUpd.text(), 10)-1;
     	if(newVal>=1){ divUpd.text(newVal);
         $("#quantity").val(newVal);
-            var price = parseFloat($("#price").html()) * newVal;
-            $("#cost").val(price);
-            var id = parseInt($(this).attr('id').replace ( /[^\d.]/g, '' ));
-            var prices = parseFloat($('#price'+id).html().replace ( /[^\d.]/g, '' ));
-            var quan = parseInt($('#number'+id).html().replace ( /[^\d.]/g, '' ));
-            var ttl = prices*quan;
-            $('#cost'+id).val(ttl.toFixed(2));
-            $('#quantity'+id).val(newVal);
-            $('#subtotal'+id).html('$'+ttl.toFixed(2));
-            var sum = 0;
-            $('.subtotal').each(function(){
-                sum += parseFloat($(this).text().replace ( /[^\d.]/g, '' ));  // Or this.innerHTML, this.innerText
-            });
-            $('#grandtotal').html('$'+sum);
-
-            if($("#citem"+id).length !== 0) {
-                var formData = $("#citem"+id).serializeArray();
-                $.ajax({
-                    type: "POST",
-                    url: mainurl+'/cartupdate',
-                    data:formData,
-                    success: function (data) {
-                        getCart();
-                    },
-                    error: function (data) {
-                        console.log('Error:', data);
-                    }
-                });
-            }
+            
     	}
     });
 

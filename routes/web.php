@@ -9,6 +9,7 @@ use App\User;
 use Carbon\Carbon;
 use Gloudemans\Shoppingcart\Facades\Cart;
 use Illuminate\Support\Facades\Input;
+use Illuminate\Support\Facades\Hash;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -35,6 +36,8 @@ Route::post('cart/removecoupons','CartController@removeCoupon')->name('cart.remo
 Route::post('cart/checkout','CartController@checkout')->name('cart.checkout');
 
 Route::get('checkout','CheckOutController@index')->name('checkout.index');
+Route::post('checkout/order','CheckOutController@postOrder')->name('checkout.order');
+Route::get('checkout/bill/{token}','BillController@getDetailsbyId')->name('bill.detais');
 
 Route::get('session/idship/{id}','CartController@infoShiper');
 
@@ -135,11 +138,15 @@ Route::get('reset',function(){
 });
 
 Route::get('auth',function(){
-    echo deformatMoney(Cart::subtotal())."<br/>";
-    echo session()->get('coupon')['require'];
-   if(deformatMoney(Cart::subtotal()) < session()->get('coupon')['require']){
-       echo "Hi";
-   }
+   $random = str_random(10);
+   $value = 1;
+   $data = base64_encode($value).'-'.$random;
+   echo $data;
+   
+
+   return redirect()->route('bill.detais',['token'=>$data]);
+
+   
 });
 
 

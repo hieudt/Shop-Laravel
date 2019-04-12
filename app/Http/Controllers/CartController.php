@@ -175,19 +175,23 @@ class CartController extends Controller
             $MaGiamGia = '';
             if(session()->get('coupon')){
                 $total = formatMoney(priceDiscount(Cart::subtotal(),session()->get('coupon')['discount']));
-                $MaGiamGia = '<h4>Giá cũ '.formatMoney(Cart::subtotal()).'</h4>
-                <h4>Giảm giá theo mã : -'.session()->get('coupon')['discount'].'%</h4>';
+                $MaGiamGia = '<h4>Giá cũ : '.formatMoney(Cart::subtotal()).'</h4>
+                <h4>Giảm giá theo mã : <font color="red"><b>-'.session()->get('coupon')['discount'].'%</b></font></h4>';
             } else {
                 $total = formatMoney(Cart::subtotal());
                 $MaGiamGia = '<h4><a href="'.url('/cart').'" target="_blank">Tôi có mã giảm giá?</a>';
             }
+            
 
             if(session()->get('idShip')){
-                if($total > 0){
+                if(deformatMoney(Cart::subtotal()) > 0){
                     $dataShiper = Shipper::find(session()->get('idShip'));
-                    $Shiper .= "<h4>Thời gian Ship : ".$dataShiper->Time."</h4>";
-                    $Shiper .= "<h4>Phí ship :".$dataShiper->fee."</h4>"; 
-                    $total = formatMoney(deformatMoney($total) + $dataShiper->fee);
+                    if(!empty($dataShiper)){
+                        $Shiper .= "<h4>Thời gian vận chuyển : ".$dataShiper->Time."</h4>";
+                        $Shiper .= "<h4>Phí vận chuyển : ".formatMoney($dataShiper->fee)."</h4>"; 
+                        $total = formatMoney(deformatMoney($total) + $dataShiper->fee);
+                    }
+                    
                 } else {
                     session()->remove('idShip');
                 }
@@ -224,6 +228,7 @@ class CartController extends Controller
             
             
             session()->put('coupon',[
+                'id' => $coupon->id,
                 'code' => $coupon->code,
                 'discount' => $coupon->Percent,
                 'require' => $coupon->RequireTotal

@@ -300,7 +300,7 @@
                         <div class="MaGiamGia">
                           <p>Mã: <span class="promo code">{{$cp->code}}</span></p>
                           <p>Giảm: <span class="promo">{{$cp->Percent}}%</span></p>
-                          <p>Đối với đơn hàng: > {{formatMoney($cp->RequireTotal)}}đ</p>
+                          <p>Đối với đơn hàng: > <font color="green"><b>{{formatMoney($cp->RequireTotal,true)}}đ</b></font></p>
                           <p class="expire">HSD: Còn {{formatDateTime($cp->Date)}}</p>
                         </div>
                       </div>

@@ -77,10 +77,8 @@ function stripUnicode($str){
 	return $str;
 }
 
-function formatMoney($number, $fractional=false) {  
-	if ($fractional) {  
-		$number = sprintf('%d', $number);  
-	}  
+function formatMoney($number, $flag=false) {  
+	
 	while (true) {  
 		$replaced = preg_replace('/(-?\d+)(\d\d\d)/', '$1,$2', $number);  
 		if ($replaced != $number) {  
@@ -89,7 +87,10 @@ function formatMoney($number, $fractional=false) {
 			break;  
 		}  
 	}  
-	return $number;  
+	if ($flag) {  
+		return $number;
+	}  
+	return "<font color='green'><b>".$number." ₫</b></font>";  
 }
 
 function formatDateTime($dateTime){
@@ -113,7 +114,10 @@ function formatDateTime($dateTime){
 }
 
 function deformatMoney($Money){
-	return str_replace(',','',$Money);
+	$Money = str_replace(',','',$Money);
+	$Money = str_replace("<font color='green'><b>",'',$Money);
+	$Money = str_replace(" ₫</b></font>",'',$Money);
+	return $Money;
 }
 
 

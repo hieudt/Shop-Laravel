@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Bill;
 use Illuminate\Http\Request;
-
+use App\Category;
 class BillController extends Controller
 {
     /**
@@ -12,6 +12,12 @@ class BillController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    public function __construct()
+    {
+        $danhmuc = Category::all();
+        view()->share('danhmuc',$danhmuc);
+    }
+
     public function index()
     {
         //
@@ -81,5 +87,17 @@ class BillController extends Controller
     public function destroy(Bill $bill)
     {
         //
+    }
+
+    public function getDetailsbyId($token){
+        $getData = explode('-',$token);
+        $id = base64_decode($getData[0]);
+        $Bill = Bill::find($id);
+
+        if(!empty($Bill)){
+            return view('payreturn',compact('Bill'));
+        } else {
+            return redirect()->back();
+        }
     }
 }
