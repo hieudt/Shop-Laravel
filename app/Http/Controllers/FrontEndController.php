@@ -66,7 +66,10 @@ class FrontEndController extends Controller
 
     public function logoutIndex(){
         Auth::logout();
-        return redirect()->route('front.index');
+        if(session()->get('coupon')){
+            session()->remove('coupon');
+        }
+        return redirect()->back();
     }
 
     public function signUpPost(Request $req){

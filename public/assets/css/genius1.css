@@ -636,10 +636,10 @@ a.bordered-btn:hover {
 }
 
 .order-div{
-    border: 1px solid #000000;
+
 
     padding-left: 0;
-    padding-right: 0;
+    padding-right:50px;
 }
 .order-div h4{
     color: #FFFFFF;
@@ -657,10 +657,20 @@ a.bordered-btn:hover {
     padding-right: 0;
 }
 
+.order-right h4{
+    color: #FFFFFF;
+    background-color: #000000;
+    padding: 10px;
+    margin-top: 0;
+    padding-left: 0;
+    padding-right: 0;
+}
+
 .order-right{
     padding-bottom: 15px;
     padding-left: 0;
     padding-right: 0;
+    
 }
 .order-right p{
     text-align: left;

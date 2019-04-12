@@ -7,6 +7,7 @@ use App\Category;
 use App\product_details;
 use App\Product;
 use Pusher\Pusher;
+use App\Shipper;
 use App\User;
 use Illuminate\Support\Facades\Auth;
 use App\coupons;
@@ -169,6 +170,7 @@ class CartController extends Controller
 
             $outputPopup .= 'Giỏ hàng bạn đang rỗng';
             }
+            $Shiper = '';
             $total = 0;
             $MaGiamGia = '';
             if(session()->get('coupon')){
@@ -177,7 +179,19 @@ class CartController extends Controller
                 <h4>Giảm giá theo mã : -'.session()->get('coupon')['discount'].'%</h4>';
             } else {
                 $total = formatMoney(Cart::subtotal());
-                $MaGiamGia = '';
+                $MaGiamGia = '<h4><a href="'.url('/cart').'" target="_blank">Tôi có mã giảm giá?</a>';
+            }
+
+            if(session()->get('idShip')){
+                if($total > 0){
+                    $dataShiper = Shipper::find(session()->get('idShip'));
+                    $Shiper .= "<h4>Thời gian Ship : ".$dataShiper->Time."</h4>";
+                    $Shiper .= "<h4>Phí ship :".$dataShiper->fee."</h4>"; 
+                    $total = formatMoney(deformatMoney($total) + $dataShiper->fee);
+                } else {
+                    session()->remove('idShip');
+                }
+                
             }
 
             $data = array(
@@ -186,9 +200,9 @@ class CartController extends Controller
                 'count'=> Cart::content()->count(),
                 'cartPopup'=>$outputPopup,
                 'MaGiamGia'=>$MaGiamGia,
-                'cartCheckout' => $outputcheckout
+                'cartCheckout' => $outputcheckout,
+                'Shiper' => $Shiper
             );
-
             echo json_encode($data);
         }
     }
@@ -228,6 +242,12 @@ class CartController extends Controller
             $this->eventLoadCart();
             echo json_encode($data);
         }
+    }
+
+    public function infoShiper($id){
+        session()->put('idShip',$id);
+        $this->eventLoadCart();
+        return response()->json(['success'=>'ok']);
     }
 
     public function removeCoupon(Request $req){

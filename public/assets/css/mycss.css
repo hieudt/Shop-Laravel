@@ -566,6 +566,11 @@ html {
   color:black;
 }
 
+#infoShiper h4 {
+  background-color:white;
+  color:black;
+}
+
 .coupon img {
   width:250px;
   height: 150px;

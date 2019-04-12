@@ -8,6 +8,7 @@ use App\product_details;
 use App\Product;
 use Pusher\Pusher;
 use App\User;
+use App\Shipper;
 use Illuminate\Support\Facades\Auth;
 use App\coupons;
 use Gloudemans\Shoppingcart\Facades\Cart;
@@ -21,6 +22,7 @@ class CheckOutController extends Controller
     }
 
     public function index(){
-        return view('checkout');
+        $shipper = Shipper::where('Display',1)->get();
+        return view('checkout',compact('shipper'));
     }
 }

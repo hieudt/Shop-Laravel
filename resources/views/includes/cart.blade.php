@@ -1,8 +1,8 @@
 <div class="cart-box popup">
     <div class="popup-container">
-        
+
         <div id="goCart">
-            
+
         </div>
         <div class="summary">
             <br/>
@@ -21,3 +21,5 @@
         </div>
     </div>
 </div>
+
+

@@ -186,6 +186,7 @@
               $('#grandttl').html(data.total);
               $('#MaGiamGia').html(data.MaGiamGia);
               $('#cartCheckOut').html(data.cartCheckout);
+              $('#infoShiper').html(data.Shiper);
             },
             error: function(html, status) {
                 $.each(request.responseJSON.errors,function(key,val){

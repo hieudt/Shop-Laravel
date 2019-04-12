@@ -3,6 +3,7 @@ use juno_okyo\Chatfuel;
 use App\Product;
 use App\Category;
 use App\product_details;
+use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
 use App\User;
 use Carbon\Carbon;
@@ -35,8 +36,11 @@ Route::post('cart/checkout','CartController@checkout')->name('cart.checkout');
 
 Route::get('checkout','CheckOutController@index')->name('checkout.index');
 
-Route::get('real',function(){
-    return view('realtime');
+Route::get('session/idship/{id}','CartController@infoShiper');
+
+Route::get('check',function(){
+    session()->remove('idShip');
+    
 });
 
 
