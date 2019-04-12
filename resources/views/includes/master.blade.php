@@ -79,6 +79,8 @@
     <script src="{{asset('@styleadmin/node_modules/jquery-toast-plugin/dist/jquery.toast.min.js')}}"></script>
     <script src="{{asset('@styleadmin/js/toastDemo.js')}}"></script>
     <script src="{{asset('@styleadmin/js/myjs.js')}}"></script>
+    <script src="{{asset('@styleadmin/js/echo.js')}}"></script>
+    <script src="{{asset('@styleadmin/js/pusher.min.js')}}"></script>
     <script src="{{ URL::asset('assets/js/jquery.mousewheel.js')}}"></script>
     <script src="{{ URL::asset('assets/js/jquery.jscrollpane.min.js')}}"></script>
     <!-- js Page -->
