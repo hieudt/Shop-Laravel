@@ -32,7 +32,7 @@ class CheckOutController extends Controller
     public function postOrder(Request $req){
         if($req->ajax()){
             $total = 0;
-            $idcoupon = '';
+            $idcoupon = null;
             $total = deformatMoney(Cart::subtotal());
             if(session()->get('coupon')){
                 $idcoupon = session()->get('coupon')['id'];

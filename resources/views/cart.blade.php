@@ -43,7 +43,7 @@
                                 @endif
                             </div>
                             <div class="grand-total">Thành Tiền : <span id="grandtotal">{{Cart::total()}}</span></div>
-                            <a class="col-md-6 pull-right button style-10" href="/checkout">Thanh Toán</a>
+                            <a class="col-md-6 pull-right button style-10" href="{{url('/checkout')}}">Thanh Toán</a>
                             <a class="col-md-5 pull-right button style-10" href="san-pham">Tiếp tục mua hàng</a>
                         </div>
                         <div class="cart-summary-box pull-left col-md-3" style="margin: 0" >

@@ -73,6 +73,10 @@ Route::group(['prefix' => 'admin','middleware'=>'adminLogin'], function () {
         return redirect('/admin/index');
     });
     Route::get('/index','AdminPages@index')->name('admin.index');
+    Route::get('/bpc','AdminPages@bpc')->name('admin.bpc');
+    Route::get('/kanban','AdminPages@kanban');
+    Route::get('/erd','AdminPages@erd'); 
+    
 
     Route::get('users','UserController@index')->name('users.list');
     Route::get('users/fetch','UserController@fetchAll')->name('users.fetch');
@@ -93,7 +97,7 @@ Route::group(['prefix' => 'admin','middleware'=>'adminLogin'], function () {
     Route::get('chatlieu/Search','ChatLieuController@search')->name('chatlieu.search');
     Route::post('chatlieu','ChatLieuController@Store')->name('chatlieu.store');
 
-    Route::get('coupons/index','CouponsController@index')->name('coupons.list');
+    Route::get('coupons/','CouponsController@index')->name('coupons.list');
     Route::post('coupons/index','CouponsController@store')->name('coupons.store');
     Route::get('coupons/Search','CouponsController@search')->name('coupons.search');
 

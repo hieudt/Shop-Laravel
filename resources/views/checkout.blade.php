@@ -12,7 +12,7 @@
             </div>
             <div class="text-center services">
 
-                <div class="col-xs-12 col-md-7 order-div">
+                <div class="col-md-7 order-div">
                     <h4>Thông tin hóa đơn</h4>
                     <form class="" action="" method="post" id="OrderForm">
                         {{csrf_field()}}

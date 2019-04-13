@@ -8,7 +8,19 @@ class AdminPages extends Controller
 {
     function index()
     {
+        return view('admin.index');
+    }
+
+    function kanban(){
+        return view('admin.funcBPC');
+    }
+
+    function bpc(){
         return view('admin.home');
+    }
+
+    function erd(){
+        return view('admin.erd');
     }
 
     public function attIndex(){
