@@ -145,6 +145,7 @@
         }
         $(document).ready(function(){
             
+            
             fetch_category(); // Làm mới table dữ liệu
             fetch_Subcategory(); // Làm mới table
             
