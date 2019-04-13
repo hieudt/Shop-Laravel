@@ -286,11 +286,6 @@ class ProductDetailsController extends Controller
 
             for($i = 0;$i < count($IdSetArray);$i++){
                 $ProductDetails = product_details::find($IdSetArray[$i]->id);
-                $ProductDetails->delete();
-            }
-
-            for ($i = 0; $i < count($SkuArray); $i++) {
-                $ProductDetails = new product_details;
                 $ProductDetails->id_product = $Product->id;
                 $ProductDetails->id_color = $ColorArray[$i];
                 $ProductDetails->id_size = $SizeArray[$i];
@@ -298,6 +293,19 @@ class ProductDetailsController extends Controller
                 $ProductDetails->soluong = $request->input('number')[$i];
                 $ProductDetails->save();
             }
+            $CountMore = count($SkuArray) - count($IdSetArray);
+            if($CountMore > 0){
+                for ($i = count($IdSetArray); $i < count($SkuArray); $i++) {
+                    $ProductDetails = new product_details;
+                    $ProductDetails->id_product = $Product->id;
+                    $ProductDetails->id_color = $ColorArray[$i];
+                    $ProductDetails->id_size = $SizeArray[$i];
+                    $ProductDetails->sku = $SkuArray[$i];
+                    $ProductDetails->soluong = $request->input('number')[$i];
+                    $ProductDetails->save();
+                }
+            }
+            
 
             $Product->save();
             return response()->json(['success' => 'Cập nhật thành công']);
