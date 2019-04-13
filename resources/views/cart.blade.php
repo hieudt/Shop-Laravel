@@ -86,6 +86,37 @@
         btnCheckOut();
     });
 
+    $(document).on('click','.number-minus',function(){
+        var divUpd = $(this).parent().find('.number'), newVal = parseInt(divUpd.text(), 10)-1;
+        var rowID = $(this).attr('data-row');
+        updateNumber(newVal,rowID);
+    })
+
+    $(document).on('click','.number-plus',function(){
+        var divUpd = $(this).parent().find('.number'), newVal = parseInt(divUpd.text(), 10)+1;
+        var rowID = $(this).attr('data-row');
+        updateNumber(newVal,rowID);
+        
+    });
+
+    function updateNumber(number,rowid){
+        $.ajax({
+            headers: {
+                'X-CSRF-TOKEN':  $('meta[name="csrf-token"]').attr('content')
+            },
+            method: "POST",
+            url: '{{route('cart.update')}}',
+            data:{number:number,rowId:rowid},
+            success: function (data) {
+            },
+            error: function (request, status) {
+                $.each(request.responseJSON.errors,function(key,val){
+                    ToastError(val);
+                });
+            }
+        });
+    }
+
     function addCoupon(){
         var coupon = $('#Coupons').val();
         $.ajax({

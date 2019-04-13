@@ -52,6 +52,24 @@
           </ul>
         </div>
       </li>
+      <li class="nav-item">
+        <a class="nav-link collapsed" data-toggle="collapse" href="#bill" aria-expanded="false" aria-controls="products">
+            <i class="mdi mdi-file-document menu-icon"></i>
+            <span class="menu-title">Hóa Đơn</span>
+            <i class="menu-arrow"></i>
+          </a>
+          <div id="bill" class="collapse" style>
+            <ul class="nav flex-column sub-menu">
+              <li class="nav-item">
+                <a href="{{url('admin/bill/list')}}" class="nav-link">Danh sách</a>
+              </li>
+              <li class="nav-item">
+                  <a href="{{url('admin/bill/add')}}" class="nav-link">Lập Đơn Hàng</a>
+              </li>
+
+            </ul>
+          </div>
+        </li>
         <li class="nav-item">
         <a class="nav-link" href="{{url('admin/coupons/')}}">
             <i class="mdi mdi-barcode menu-icon"></i>

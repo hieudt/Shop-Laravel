@@ -119,9 +119,9 @@ class CartController extends Controller
                     <td><div id="price" class="subtotal" style="">'.formatMoney($item->price).'</div></td>
                     <td>
                         <div class="quantity-selector detail-info-entry">
-                            <div class="entry number-minus" id="minus">&nbsp;</div>
+                            <div class="entry number-minus" id="minus" data-row="'.$item->rowId.'">&nbsp;</div>
                             <div class="entry number" id="number">'.$item->qty.'</div>
-                            <div class="entry number-plus" id="plus">&nbsp;</div>
+                            <div class="entry number-plus" id="plus" data-row="'.$item->rowId.'">&nbsp;</div>
                         </div>
                     </td>
                     <td><div class="subtotal" id="subtotal">'.formatMoney($item->price*$item->qty).'</div></td>
@@ -287,6 +287,29 @@ class CartController extends Controller
            }
 
            return view('checkout');
+        }
+    }
+
+    public function updateNumber(Request $req){
+        if($req->ajax()){
+            $cart = "";
+            try {
+               $cart = Cart::get($req->rowId);
+            } catch (\Throwable $th) {
+               return response()->json(['errors'=>['errorcoupons'=>[0=>'Số lượng không hợp lệ']]],422);
+            }
+
+            $product = product_details::find($cart->id);
+            if($req->number > $product->soluong)
+            return response()->json(['errors'=>['failnumber'=>[0=>'Số lượng trong kho không đủ [ERROR102]']]],422);
+
+            if($req->number <= 0)
+            return response()->json(['errors'=>['failnumber'=>[0=>'Số lượng không hợp lệ']]],422);
+
+            Cart::update($req->rowId,$req->number);
+            $this->eventLoadCart();
+
+
         }
     }
 

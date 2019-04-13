@@ -7,11 +7,11 @@
             $('#ListSelectColor').html('');
             var count = $(this).attr('data-product');
             var product = $('#product'+count).serializeArray();
-            console.log(product);
             $('.product-title').text(product[0].value);
             $('.image-product').attr("src","{{url('/images/product')}}/"+product[1].value);
             $('.current').text(product[4].value+"đ");
             id = product[5].value;
+            $('#modalSoLuong').text(1);
             $('#modalIdProduct').val(id);
             fetch_size(id);
 

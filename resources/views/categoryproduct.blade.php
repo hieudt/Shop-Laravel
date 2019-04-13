@@ -253,6 +253,7 @@
         $('.current').text(product[4].value+"đ");
         id = product[5].value;
         $('#modalIdProduct').val(id);
+        $('#modalSoLuong').text(1);
         fetch_size(id);
         setTimeout(function() {
             $('#quickViewProduct').modal();

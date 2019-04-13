@@ -484,20 +484,20 @@ $(function() {
     	$(this).addClass('active');
     });
 
-    $('.number-plus').on('click', function(){
-    	var divUpd = $(this).parent().find('.number'), newVal = parseInt(divUpd.text(), 10)+1;
+	$(document).on('click','.number-plus',function(){
+		var divUpd = $(this).parent().find('.number'), newVal = parseInt(divUpd.text(), 10)+1;
     	divUpd.text(newVal);
     	$("#quantity").val(newVal);
+	})
 
-    });
-
-    $('.number-minus').on('click', function(){
-    	var divUpd = $(this).parent().find('.number'), newVal = parseInt(divUpd.text(), 10)-1;
+	$(document).on('click','.number-minus',function(){
+		var divUpd = $(this).parent().find('.number'), newVal = parseInt(divUpd.text(), 10)-1;
     	if(newVal>=1){ divUpd.text(newVal);
         $("#quantity").val(newVal);
-            
-    	}
-    });
+     	}
+	})
+
+    
 
     //accordeon
     $('.accordeon-title').on('click', function(){

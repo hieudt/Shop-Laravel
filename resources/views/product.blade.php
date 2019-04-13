@@ -407,6 +407,7 @@
         $('.image-product').attr("src","{{url('/images/product')}}/"+product[1].value);
         $('#ModalTien').text(product[4].value+"đ");
         id = product[5].value;
+        $('#modalSoLuong').text(1);
         $('#modalIdProduct').val(id);
         fetch_size2(id); 
         setTimeout(function() {

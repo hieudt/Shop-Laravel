@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
 use App\User;
 use Carbon\Carbon;
+use App\Bill;
 use Gloudemans\Shoppingcart\Facades\Cart;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Hash;
@@ -34,6 +35,7 @@ Route::get('cart/load','CartController@show')->name('cart.show');
 Route::post('cart/addcoupons','CartController@addCoupon')->name('cart.addcoupon');
 Route::post('cart/removecoupons','CartController@removeCoupon')->name('cart.removecoupon');
 Route::post('cart/checkout','CartController@checkout')->name('cart.checkout');
+Route::post('cart/updatenumber','CartController@updateNumber')->name('cart.update');
 
 Route::get('checkout','CheckOutController@index')->name('checkout.index');
 Route::post('checkout/order','CheckOutController@postOrder')->name('checkout.order');
@@ -67,8 +69,7 @@ Route::group(['prefix' => 'admin','middleware'=>'adminLogin'], function () {
     Route::get('/bpc',function(){
         return view('admin.funcBPC');
     });
-    //Voyager::routes();
-   
+
     Route::get('/',function(){
         return redirect('/admin/index');
     });
@@ -116,6 +117,11 @@ Route::group(['prefix' => 'admin','middleware'=>'adminLogin'], function () {
     Route::post('productdetails','ProductDetailsController@store')->name('productdetails.store');
     Route::post('productdetails/update/{id}','ProductDetailsController@update')->name('productdetails.update');
 
+    Route::get('bill/list','BillController@show')->name('bill.show');
+    Route::get('bill/fetch','BillController@fetchAll')->name('bill.fetch');
+    Route::post('bill/updateStatus','BillController@updateStatus')->name('bill.updateStatus');
+    Route::get('bill/details/{id}','BillController@showbillbyId');
+
     Route::get('getapi/minmax/{min}/{max}','ApiController@minmax')->name('getapi.minmax');
     Route::get('getapi/service/{msg}','ApiController@service')->name('getapi.service');
 });
@@ -142,15 +148,7 @@ Route::get('reset',function(){
 });
 
 Route::get('auth',function(){
-   $random = str_random(10);
-   $value = 1;
-   $data = base64_encode($value).'-'.$random;
-   echo $data;
-   
-
-   return redirect()->route('bill.detais',['token'=>$data]);
-
-   
+    dd(Datatables::of(User::all())->make(true));
 });
 
 

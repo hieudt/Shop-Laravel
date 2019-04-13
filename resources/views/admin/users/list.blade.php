@@ -246,7 +246,7 @@
         },
         "process" : true,
         "stateSave": true,
-        "serverSide" : true,
+        "serverSide" : false,
         "ajax" : '{!!route('users.fetch')!!}',
         "columns":[
             {data:'id',name:'id'},
