@@ -106,3 +106,5 @@ var channel = pusher.subscribe('Cart');
 channel.bind('loadCart', function(data) {
     loadCart();
 });
+
+

@@ -19,9 +19,7 @@
 
         <div class="app"> 
             <h3>Add New Note</h3>
-            <div class="input-single">
-                <textarea id="note-textarea" placeholder="Create a new note by typing or using voice recognition." rows="6"></textarea>
-            </div>         
+                    
             <button id="start-record-btn" title="Start Recording">Start Recognition</button>
             <button id="pause-record-btn" title="Pause Recording">Pause Recognition</button>
             <button id="save-note-btn" title="Save Note">Save Note</button>   
@@ -51,7 +49,9 @@
             <div class="modal-body">
                 <div class="form-group">
                     <label for="message-text" class="col-form-label">Hi Im Siri </label><br/>
-                    <textarea class="form-control" id="slugSub"></textarea>
+                    <div class="input-single">
+                        <textarea id="note-textarea" placeholder="Chào ngài ! " rows="6"></textarea>
+                    </div>  
                 </div>
             </div>
             <div class="modal-footer" id="submodalFooter">
@@ -66,8 +66,11 @@
     $('body').keyup(function (e) {
         if (e.keyCode == 32) {
             $('#SiriModal').modal('show');
+            
         }
     });
+
+
 </script>
 <script src="{{asset('@styleadmin/js/voice.js')}}"></script> 
 <script src="{{asset('@styleadmin/node_modules/datatables.net/js/jquery.dataTables.js')}}"></script>

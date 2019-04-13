@@ -80,11 +80,11 @@ class ProductController extends Controller
                     }
                     $text .= "</tbody></table>";
                     $text .= "Hình ảnh <br/>";
-                    $text .= " <img class='imgProduct' src='/images/product/".$row->thumbnail."'>"; 
+                    $text .= " <img class='imgProduct' src='".url('')."/images/product/".$row->thumbnail."'>"; 
                     if (!empty($row->Images[0])) 
-                    $text .= " <img class='imgProduct' src='/images/product/".$row->Images[0]->Link."'>";
+                    $text .= " <img class='imgProduct' src='".url('')."/images/product/".$row->Images[0]->Link."'>";
                     if(!empty($row->Images[1]))
-                    $text .= " <img class='imgProduct' src='/images/product/".$row->Images[1]->Link."'>";  
+                    $text .= " <img class='imgProduct' src='".url('')."/images/product/".$row->Images[1]->Link."'>";  
 
 
                     $output .= '

@@ -54,6 +54,28 @@
     </div>
     <!-- page-body-wrapper ends -->
   </div>
+  <div class="modal fade" id="SiriModal" tabindex="-1" role="dialog" aria-labelledby="SubCategoryLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="SubCategoryLabel">ROG Siri</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label for="message-text" class="col-form-label">Hi Im Siri </label><br/>
+                    <div class="input-single">
+                        <textarea id="note-textarea" placeholder="Chào ngài ! Ngài muốn làm gì?? " rows="6"></textarea>
+                    </div>  
+                </div>
+            </div>
+            <div class="modal-footer" id="submodalFooter">
+            </div>
+        </div>
+    </div>
+  </div>
   <!-- container-scroller -->
   <!-- plugins:js -->
   <script src="{{asset('@styleadmin/node_modules/jquery/dist/jquery.min.js')}}"></script>
@@ -79,5 +101,123 @@
   @yield('javascript')
   <!-- End custom js for this page-->
 </body>
+<script>
+  $('body').keyup(function (e) {
+      if (e.keyCode == 32) {
+          $('#SiriModal').modal('show');
+          if (noteContent.length) {
+          noteContent += '';
+          }
+          recognition.start();
+      }
+  });
+
+  try {
+  var SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+  var recognition = new SpeechRecognition();
+}
+catch(e) {
+  console.error(e);
+  $('.no-browser-support').show();
+  $('.app').hide();
+}
+
+
+var noteTextarea = $('#note-textarea');
+var instructions = $('#recording-instructions');
+var notesList = $('ul#notes');
+
+var noteContent = '';
+
+
+
+
+
+/*-----------------------------
+      Voice Recognition 
+------------------------------*/
+
+// If false, the recording will stop after a few seconds of silence.
+// When true, the silence period is longer (about 15 seconds),
+// allowing us to keep recording even when the user pauses. 
+recognition.continuous = true;
+
+// This block is called every time the Speech APi captures a line. 
+recognition.onresult = function(event) {
+
+  // event is a SpeechRecognitionEvent object.
+  // It holds all the lines we have captured so far. 
+  // We only need the current one.
+  var current = event.resultIndex;
+
+  // Get a transcript of what was said.
+  var transcript = event.results[current][0].transcript;
+
+  // Add the current transcript to the contents of our Note.
+  // There is a weird bug on mobile, where everything is repeated twice.
+  // There is no official solution so far so we have to handle an edge case.
+  var mobileRepeatBug = (current == 1 && transcript == event.results[0][0].transcript);
+
+  if(!mobileRepeatBug) {
+    noteContent += transcript;
+    var text = transcript.trim();
+
+    switch(text) {
+      case "danh mục":
+       window.location.href = "{{url('admin/category')}}";
+        break;
+      case "khách hàng":
+       window.location.href = "{{url('admin/users')}}";
+        break;
+      default:
+        ToastError("Không Hiểu");
+    }
+    noteTextarea.val(noteContent);
+  }
+};
+
+
+
+
+/*-----------------------------
+      App buttons and input 
+------------------------------*/
+
+
+
+$('#pause-record-btn').on('click', function(e) {
+  recognition.stop();
+  instructions.text('Voice recognition paused.');
+});
+
+// Sync the text inside the text area with the noteContent variable.
+noteTextarea.on('input', function() {
+  noteContent = $(this).val();
+})
+
+
+
+
+
+/*-----------------------------
+      Speech Synthesis 
+------------------------------*/
+
+function readOutLoud(message) {
+    var speech = new SpeechSynthesisUtterance();
+
+  // Set the text and voice attributes.
+    speech.text = message;
+    speech.volume = 1;
+    speech.rate = 1;
+    speech.pitch = 1;
+  
+    window.speechSynthesis.speak(speech);
+}
+
+
+
+
+</script>
 
 </html>

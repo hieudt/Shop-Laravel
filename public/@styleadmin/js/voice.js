@@ -48,6 +48,15 @@ try {
   
     if(!mobileRepeatBug) {
       noteContent += transcript;
+      var text = transcript.trim();
+
+      switch(text) {
+        case "danh mục":
+         window.location.href = "{{url('/category')}}";
+          break;
+        default:
+          console.log("Không hiểu");
+      }
       noteTextarea.val(noteContent);
     }
   };
@@ -74,7 +83,8 @@ try {
   
   $('#start-record-btn').on('click', function(e) {
     if (noteContent.length) {
-      noteContent += ' ';
+      noteContent += '';
+     
     }
     recognition.start();
   });
@@ -143,6 +153,8 @@ try {
       speech.volume = 1;
       speech.rate = 1;
       speech.pitch = 1;
+      speech.lang = 'en-US';
+      speech.voice = voices[50];
     
       window.speechSynthesis.speak(speech);
   }
