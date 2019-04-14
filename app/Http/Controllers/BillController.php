@@ -129,9 +129,11 @@ class BillController extends Controller
 
     public function showbillbyId($id){
         $Bill = Bill::find($id);
-        if($Bill)
-        return view('admin.bill.details',compact('Bill'));
-
+        if($Bill){
+            return view('admin.bill.details',compact('Bill'));
+        }
+        
+        
         return redirect()->back();
     }
 

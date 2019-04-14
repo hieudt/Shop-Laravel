@@ -8,6 +8,7 @@ use Illuminate\Support\Collection;
 use App\User;
 use Carbon\Carbon;
 use App\Bill;
+use App\Detailsbill;
 use Gloudemans\Shoppingcart\Facades\Cart;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Hash;
@@ -138,17 +139,27 @@ Route::get('checkProduct',function(){
 });
 
 Route::get('reset',function(){
-    if(session()->get('coupon'))
-    {
-        echo "he";
-        session()->remove('coupon');
-    }else {
-        echo "not";
-    }
+    $Bill = Bill::find(4);
+    dd($Bill->DetailsBill[1]->product_details);
 });
 
 Route::get('auth',function(){
-    dd(Datatables::of(User::all())->make(true));
+    $Bill = Bill::find(4);
+    $Somedata = "[";
+    foreach ($Bill->DetailsBill as $key) {
+        $Somedata .= "{
+            id: '".$key->id."',
+            product: '".$key->product_details->Product->title."',
+            number: '".$key->Number."',
+            price: '".$key->product_details->Product->cost."',
+        ";
+        $Somedata .= "},";
+    }
+    $Somedata .= "]";
+
+    echo $Somedata;
+  
+        
 });
 
 

@@ -77,7 +77,7 @@ function stripUnicode($str){
 	return $str;
 }
 
-function formatMoney($number, $flag=false) {  
+function formatMoney($number, $flag=false,$fee=false) {  
 	
 	while (true) {  
 		$replaced = preg_replace('/(-?\d+)(\d\d\d)/', '$1,$2', $number);  
@@ -90,6 +90,10 @@ function formatMoney($number, $flag=false) {
 	if ($flag) {  
 		return $number;
 	}  
+
+	if($fee){
+		return "<font color='red'><b>".$number." ₫</b></font>";  
+	}
 	return "<font color='green'><b>".$number." ₫</b></font>";  
 }
 
