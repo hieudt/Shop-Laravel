@@ -12,7 +12,7 @@ try {
   var noteTextarea = $('#note-textarea');
   var instructions = $('#recording-instructions');
   var notesList = $('ul#notes');
-  
+
   var noteContent = '';
   
   // Get all notes from previous sessions and display them.
@@ -128,7 +128,9 @@ try {
     // Listen to the selected note.
     if(target.hasClass('listen-note')) {
       var content = target.closest('.note').find('.content').text();
-      readOutLoud(content);
+      var voices = window.speechSynthesis.getVoices();
+      console.log(voices);
+      readOutLoud("Hiếu",voices[11],voices[11].lang);
     }
   
     // Delete note.
@@ -144,18 +146,18 @@ try {
   /*-----------------------------
         Speech Synthesis 
   ------------------------------*/
-  
-  function readOutLoud(message) {
+
+  function readOutLoud(message,voices,voiceslang) {
       var speech = new SpeechSynthesisUtterance();
-  
+      
     // Set the text and voice attributes.
       speech.text = message;
       speech.volume = 1;
       speech.rate = 1;
       speech.pitch = 1;
-      speech.lang = 'en-US';
-      speech.voice = voices[50];
-    
+      speech.lang = voiceslang;
+      speech.voice = voices;
+
       window.speechSynthesis.speak(speech);
   }
   

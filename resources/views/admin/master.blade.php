@@ -133,75 +133,74 @@ var noteContent = '';
 
 
 
-/*-----------------------------
-      Voice Recognition 
-------------------------------*/
-
-// If false, the recording will stop after a few seconds of silence.
-// When true, the silence period is longer (about 15 seconds),
-// allowing us to keep recording even when the user pauses. 
 recognition.continuous = true;
 
 // This block is called every time the Speech APi captures a line. 
 recognition.onresult = function(event) {
 
-  // event is a SpeechRecognitionEvent object.
-  // It holds all the lines we have captured so far. 
-  // We only need the current one.
   var current = event.resultIndex;
-
-  // Get a transcript of what was said.
   var transcript = event.results[current][0].transcript;
-
-  // Add the current transcript to the contents of our Note.
-  // There is a weird bug on mobile, where everything is repeated twice.
-  // There is no official solution so far so we have to handle an edge case.
   var mobileRepeatBug = (current == 1 && transcript == event.results[0][0].transcript);
-
+  var array = [/hóa đơn/g,/danh mục/g,/khách hàng/g,/sản phẩm/g];
+  var text = '';
+  var ID = '';
+  var action = '';
   if(!mobileRepeatBug) {
     noteContent += transcript;
-    var text = transcript.trim();
-
-    switch(text) {
+    noteTextarea.val(noteContent);
+    console.log(transcript);
+    
+    for (let index = 0; index < array.length; index++) {
+      text = noteContent.match(array[index]);
+      if(text) break;  
+    }
+    ID = noteContent.match(/[0-9]{1,3}/ig);
+    action = noteContent.match(/thêm/ig);
+    if(Array.isArray(text)){
+      switch(text[0]) {
       case "danh mục":
-       window.location.href = "{{url('admin/category')}}";
+        window.location.href = "{{url('admin/category')}}";
         break;
       case "khách hàng":
-       window.location.href = "{{url('admin/users')}}";
+        window.location.href = "{{url('admin/users')}}";
+        break;
+      case "hóa đơn":
+        if(!Array.isArray(ID)){
+          window.location.href = "{{url('admin/bill/list')}}";
+        }else {
+          window.location.href = "{{url('admin/bill/details')}}/"+ID[0];
+        }
+        break;
+      case "sản phẩm":
+        if(!Array.isArray(ID)){
+          if(!Array.isArray(action)){
+            window.location.href = "{{url('admin/product/home')}}";
+          } else {
+            window.location.href = "{{url('admin/product/add')}}";
+          }
+          
+        }else {
+          window.location.href = "{{url('admin/product/edit')}}/"+ID[0];
+        }
         break;
       default:
-        ToastError("Không Hiểu");
+        ToastError("KHÔNG HIỂU");
+      }
+    } else {
+      ToastError("KHÔNG HIỂU");
     }
-    noteTextarea.val(noteContent);
+    
+    
+    
   }
 };
 
-
-
-
-/*-----------------------------
-      App buttons and input 
-------------------------------*/
-
-
-
-$('#pause-record-btn').on('click', function(e) {
-  recognition.stop();
-  instructions.text('Voice recognition paused.');
-});
 
 // Sync the text inside the text area with the noteContent variable.
 noteTextarea.on('input', function() {
   noteContent = $(this).val();
 })
 
-
-
-
-
-/*-----------------------------
-      Speech Synthesis 
-------------------------------*/
 
 function readOutLoud(message) {
     var speech = new SpeechSynthesisUtterance();
@@ -211,6 +210,7 @@ function readOutLoud(message) {
     speech.volume = 1;
     speech.rate = 1;
     speech.pitch = 1;
+    
   
     window.speechSynthesis.speak(speech);
 }
