@@ -109,6 +109,7 @@ class CheckOutController extends Controller
                 session()->remove('coupon');
             }
             session()->remove('idShip');
+            eventLoadBill();
             return response()->json(['success'=>'Đặt hàng thành công','token'=>$token]);
          }
     }

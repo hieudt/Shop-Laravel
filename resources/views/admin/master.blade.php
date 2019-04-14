@@ -83,6 +83,7 @@
   <script src="{{asset('@styleadmin/node_modules/bootstrap/dist/js/bootstrap.min.js')}}"></script>
   <script src="{{asset('@styleadmin/node_modules/jquery-toast-plugin/dist/jquery.toast.min.js')}}"></script>
   <script src="{{asset('@styleadmin/js/toastDemo.js')}}"></script>
+  <script src="{{asset('@styleadmin/js/pusher.min.js')}}"></script>
   <script src="{{asset('@styleadmin/js/myjs.js')}}"></script>
   <script src="{{asset('@styleadmin/js/pace.min.js')}}"></script>
   <script src="{{asset('@styleadmin/node_modules/perfect-scrollbar/dist/perfect-scrollbar.min.js')}}"></script>
@@ -102,9 +103,17 @@
   <!-- End custom js for this page-->
 </body>
 <script>
+
+function refreshSiri(){
+  $('#SiriModal').modal('hide');
+  $('#note-textarea').val('');
+  recognition.stop();
+  noteContent = '';
+}
   $('body').keyup(function (e) {
       if (e.keyCode == 32) {
           $('#SiriModal').modal('show');
+          $('#note-textarea').val('');
           if (noteContent.length) {
           noteContent += '';
           }
@@ -142,9 +151,11 @@ recognition.onresult = function(event) {
   var transcript = event.results[current][0].transcript;
   var mobileRepeatBug = (current == 1 && transcript == event.results[0][0].transcript);
   var array = [/hóa đơn/g,/danh mục/g,/khách hàng/g,/sản phẩm/g];
+  var ArrayAction = [/xác thực/g,/đã giao hàng/g,/hủy/g,/thanh toán/g];
   var text = '';
   var ID = '';
   var action = '';
+
   if(!mobileRepeatBug) {
     noteContent += transcript;
     noteTextarea.val(noteContent);
@@ -154,8 +165,13 @@ recognition.onresult = function(event) {
       text = noteContent.match(array[index]);
       if(text) break;  
     }
+
+    for (let index = 0; index < ArrayAction.length; index++) {
+      action = noteContent.match(ArrayAction[index]);
+      if(action) break;  
+    }
+
     ID = noteContent.match(/[0-9]{1,3}/ig);
-    action = noteContent.match(/thêm/ig);
     if(Array.isArray(text)){
       switch(text[0]) {
       case "danh mục":
@@ -165,11 +181,56 @@ recognition.onresult = function(event) {
         window.location.href = "{{url('admin/users')}}";
         break;
       case "hóa đơn":
-        if(!Array.isArray(ID)){
-          window.location.href = "{{url('admin/bill/list')}}";
+        if(!Array.isArray(ID)){ // Không có id
+          if(!Array.isArray(action)){
+            window.location.href = "{{url('admin/bill/list')}}";
+          }else {
+            ToastError("Ngài bị thiếu ID hoặc Siri chưa nghe rõ");
+            refreshSiri();
+          }
         }else {
-          window.location.href = "{{url('admin/bill/details')}}/"+ID[0];
-        }
+            if(!Array.isArray(action)){ // Không có action
+              window.location.href = "{{url('admin/bill/details')}}/"+ID[0];
+              console.log("Not : "+action);
+            } else {
+              console.log("Is : "+action);
+              if(action[0] == "xác thực"){
+                if (typeof UpdateStatus === "function") { 
+                  UpdateStatus("status",ID[0],1);
+                } else {
+                  ToastError("Vui lòng quay lại Hóa Đơn rồi tiếp tục nha ngài");
+                }
+                
+                refreshSiri();
+              }
+              else if(action[0] == "đã giao hàng"){
+                if (typeof UpdateStatus === "function") { 
+                  UpdateStatus("status",ID[0],2);
+                } else {
+                  ToastError("Vui lòng quay lại Hóa Đơn rồi tiếp tục nha ngài");
+                }
+                refreshSiri();
+              }
+              else if(action[0] == "hủy"){
+                if (typeof UpdateStatus === "function") { 
+                  UpdateStatus("status",ID[0],3);
+                } else {
+                  ToastError("Vui lòng quay lại Hóa Đơn rồi tiếp tục nha ngài");
+                }
+                refreshSiri();
+              }
+              else if(action[0] == "thanh toán"){
+                if (typeof UpdateStatus === "function") { 
+                  UpdateStatus("statusPay",ID[0],1);
+                } else {
+                  ToastError("Vui lòng quay lại Hóa Đơn rồi tiếp tục nha ngài");
+                }
+                refreshSiri();
+              }
+              else
+              console.log("Module này chưa xây dựng");
+            }
+         }
         break;
       case "sản phẩm":
         if(!Array.isArray(ID)){
@@ -178,16 +239,18 @@ recognition.onresult = function(event) {
           } else {
             window.location.href = "{{url('admin/product/add')}}";
           }
-          
         }else {
           window.location.href = "{{url('admin/product/edit')}}/"+ID[0];
         }
         break;
       default:
-        ToastError("KHÔNG HIỂU");
+        ToastError("KHÔNG HIỂU !!");
       }
     } else {
-      ToastError("KHÔNG HIỂU");
+      ToastError("KHÔNG HIỂU !");
+      recognition.stop();
+      noteContent = '';
+      $('#SiriModal').modal('hide');
     }
     
     

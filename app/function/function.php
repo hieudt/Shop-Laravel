@@ -148,5 +148,22 @@ function AuthTitle(){
 	
 }
 
+// Real TIme
 
+function eventLoadBill(){
+	// Truyền message lên server Pusher
+	$options = array(
+		'cluster' => 'ap1',
+		'useTLS' => true
+	  );
+
+	$pusher = new Pusher(
+		'fbefcc8bb38866195ed2',
+		'ca8d13f7e7ec66461aed',
+		'757854',
+		$options
+	);
+	
+	$pusher->trigger('Bill', 'loadBill','');
+}
 ?>

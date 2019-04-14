@@ -107,4 +107,11 @@ channel.bind('loadCart', function(data) {
     loadCart();
 });
 
+var channel2 = pusher.subscribe('Bill');
+channel2.bind('loadBill',function(data){
+    $('#order-listing').DataTable().ajax.reload();
+});
+
+
+
 

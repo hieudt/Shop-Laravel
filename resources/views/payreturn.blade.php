@@ -27,8 +27,10 @@
                                             <b>Chờ xử lý</b>
                                             @elseif($Bill->status == 1)
                                             <b><font color="orange">Chờ nhận hàng</font></b>
-                                            @else
+                                            @elseif($Bill->status == 2)
                                             <b><font color="green">ĐÃ GIAO HÀNG</font></b>
+                                            @else
+                                            <b><font color="red">ĐƠN BỊ HỦY</font></b>
                                             @endif
                                         </td>
                                     </tr>
