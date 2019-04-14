@@ -1,5 +1,6 @@
 <?php
 use Carbon\Carbon;
+use App\Notification;
 // Mở composer.json
 // Thêm vào trong "autoload" chuỗi sau
 // "files": [
@@ -165,5 +166,61 @@ function eventLoadBill(){
 	);
 	
 	$pusher->trigger('Bill', 'loadBill','');
+}
+
+
+function eventLoadNotification(){
+	// Truyền message lên server Pusher
+	$options = array(
+		'cluster' => 'ap1',
+		'useTLS' => true
+	  );
+
+	$pusher = new Pusher(
+		'fbefcc8bb38866195ed2',
+		'ca8d13f7e7ec66461aed',
+		'757854',
+		$options
+	);
+	
+	$pusher->trigger('Notification', 'loadNotification','');
+}
+
+
+
+// Admin Function
+function seenAll(){
+		Notification::query()->update(['seen'=>1]);
+}
+
+function getCountNotifyByTask($task){
+	if(session()->get('notify')){
+		$count = 0;
+		foreach (session()->get('notify') as $key) {
+			 if($key['task'] == $task) $count++;
+		}
+		return $count;
+	}
+	return 0;
+}
+
+function getAllCountNotify(){
+	$data = Notification::all();
+	if(!empty($data)){
+		return count($data);
+	} else return 0;
+}
+
+function changeStatusSeenNotify(){
+	if(session()->get('notify')){
+		$oldAr = session()->get('notify');
+		foreach ($oldAr as $key) {
+			if($key['seen'] == 0){
+				$key['seen'] = 1;
+			}
+		}
+
+		dd($oldAr);
+	}
 }
 ?>

@@ -14,6 +14,7 @@ use Illuminate\Support\Facades\Auth;
 use App\coupons;
 use Gloudemans\Shoppingcart\Facades\Cart;
 use App\Bill;
+use App\Notification;
 use App\Detailsbill;
 
 class CheckOutController extends Controller
@@ -109,7 +110,20 @@ class CheckOutController extends Controller
                 session()->remove('coupon');
             }
             session()->remove('idShip');
+
+            $NewNotif = new Notification;
+            if(Auth::check()){
+                $NewNotif->nameUser = Auth::user()->name;
+            }else {
+                $NewNotif->nameUser = "Khách Vãng Lai";
+            }
+
+            $NewNotif->action = "Đặt";
+            $NewNotif->task = "Hóa Đơn";
+            $NewNotif->save();
+
             eventLoadBill();
+            eventLoadNotification();
             return response()->json(['success'=>'Đặt hàng thành công','token'=>$token]);
          }
     }

@@ -46,38 +46,14 @@
         <li class="nav-item dropdown">
           <a class="nav-link count-indicator dropdown-toggle" id="messageDropdown" href="#" data-toggle="dropdown">
             <i class="mdi mdi-email-outline"></i>
-            <span class="count bg-warning">5</span>
+            <span class="countMsg"></span>
           </a>
           <div class="dropdown-menu navbar-dropdown navbar-dropdown-large preview-list" aria-labelledby="messageDropdown">
-            <h6 class="p-3 mb-0 text-center">Messages</h6>
-            <a class="dropdown-item preview-item">
-              <div class="preview-item-content flex-grow">
-                <span class="badge badge-pill badge-success">Request</span>
-                <p class="text-small text-muted ellipsis mb-0">
-                  Suport needed for user123
-                </p>
-              </div>
-              <p class="text-small text-muted align-self-start">4:10 PM</p>
-            </a>
-            <a class="dropdown-item preview-item">
-              <div class="preview-item-content flex-grow">
-                <span class="badge badge-pill badge-warning">Invoices</span>
-                <p class="text-small text-muted ellipsis mb-0">
-                  Invoice for order is mailed
-                </p>
-              </div>
-              <p class="text-small text-muted align-self-start">4:10 PM</p>
-            </a>
-            <a class="dropdown-item preview-item">
-              <div class="preview-item-content flex-grow">
-                <span class="badge badge-pill badge-danger">Projects</span>
-                <p class="text-small text-muted ellipsis mb-0">
-                  New project will start tomorrow
-                </p>
-              </div>
-              <p class="text-small text-muted align-self-start">4:10 PM</p>
-            </a>
-            <h6 class="p-3 mb-0 text-center">See all activity</h6>
+            <h6 class="p-3 mb-0 text-center">Thông báo</h6>
+            <div id="notifyBox">
+
+            </div>
+            <h6 class="p-3 mb-0 text-center">Xem tất cả</h6>
           </div>
         </li>
       </ul>

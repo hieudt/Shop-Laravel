@@ -112,6 +112,12 @@ channel2.bind('loadBill',function(data){
     $('#order-listing').DataTable().ajax.reload();
 });
 
+var channel3 = pusher.subscribe('Notification');
+channel3.bind('loadNotification',function(data){
+    loadNotify();
+    var x = document.getElementById("notify");
+    x.play(); 
+});
 
 
 

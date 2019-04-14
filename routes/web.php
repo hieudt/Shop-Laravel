@@ -5,6 +5,7 @@ use App\Category;
 use App\product_details;
 use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
+use App\Notification;
 use App\User;
 use Carbon\Carbon;
 use App\Bill;
@@ -110,6 +111,10 @@ Route::group(['prefix' => 'admin','middleware'=>'adminLogin'], function () {
     Route::get('product/attribute','AdminPages@attIndex')->name('product.att.list');
 
 
+    Route::get('notification/getcount','NotificationController@getAllCountNotify')->name('notif.countall');
+    Route::get('notification/del',function(){
+        Notification::query()->update(['seen'=>1]);
+    })->name('notif.del');
     Route::get('color/Search','ColorController@search')->name('color.search');
     Route::post('color/Store','ColorController@store')->name('color.store');
 
@@ -139,27 +144,13 @@ Route::get('checkProduct',function(){
 });
 
 Route::get('reset',function(){
-    $Bill = Bill::find(4);
-    dd($Bill->DetailsBill[1]->product_details);
+    session()->remove('notify');
+
 });
 
 Route::get('auth',function(){
-    $Bill = Bill::find(4);
-    $Somedata = "[";
-    foreach ($Bill->DetailsBill as $key) {
-        $Somedata .= "{
-            id: '".$key->id."',
-            product: '".$key->product_details->Product->title."',
-            number: '".$key->Number."',
-            price: '".$key->product_details->Product->cost."',
-        ";
-        $Somedata .= "},";
-    }
-    $Somedata .= "]";
-
-    echo $Somedata;
-  
-        
+    addNotify(['content'=>'Created','seen'=>'0','task'=>'Bill']);
+    dd(session()->get('notify'));
 });
 
 
