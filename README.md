@@ -28,3 +28,5 @@ Laravel\Scout\ScoutServiceProvider::class,<br/>
 Cấu hình Scout bằng command:<br/>
 php artisan vendor:publish --provider="Laravel\Scout\ScoutServiceProvider"<br/>
 Thttps://viblo.asia/p/tim-hieu-ve-laravel-scout-DXOkRjBykdZ <br/>
+
+composer require paypal/rest-api-sdk-php<br/>
