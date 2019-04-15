@@ -3,10 +3,11 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
-
+use Laravel\Scout\Searchable;
 class Product extends Model
 {
     protected $table = "Product";
+    use Searchable;
 
     public function Color(){
         return $this->belongsToMany('App\Color','product_details','id_product','id_color');

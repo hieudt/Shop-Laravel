@@ -45,12 +45,6 @@ Route::get('checkout/bill/{token}','BillController@getDetailsbyId')->name('bill.
 
 Route::get('session/idship/{id}','CartController@infoShiper');
 
-Route::get('check',function(){
-    session()->remove('idShip');
-    
-});
-
-
 
 
 Route::post('/users/login','FrontEndController@loginPost')->name('user.login');
@@ -115,6 +109,7 @@ Route::group(['prefix' => 'admin','middleware'=>'adminLogin'], function () {
     Route::get('notification/del',function(){
         Notification::query()->update(['seen'=>1]);
     })->name('notif.del');
+    
     Route::get('color/Search','ColorController@search')->name('color.search');
     Route::post('color/Store','ColorController@store')->name('color.store');
 

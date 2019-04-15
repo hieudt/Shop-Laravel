@@ -9,20 +9,22 @@
     "type": "project",
     "require": {
         "php": ">=7.0.0",
+        "algolia/algoliasearch-client-php": "^2.2",
         "barryvdh/laravel-debugbar": "^3.2",
         "fideloper/proxy": "~3.3",
+        "filp/whoops": "~2.0",
+        "fzaninotto/faker": "~1.4",
         "gloudemans/shoppingcart": "^2.6",
         "juno_okyo/php-chatfuel-class": "^1.0",
         "laravel/framework": "5.5.*",
+        "laravel/scout": "^7.1",
         "laravel/tinker": "~1.0",
-        "pusher/pusher-php-server": "^3.4",
-        "yajra/laravel-datatables-oracle": "^8.0",
-        "filp/whoops": "~2.0",
-        "fzaninotto/faker": "~1.4",
         "mockery/mockery": "~1.0",
         "phpunit/phpunit": "~6.0",
+        "pusher/pusher-php-server": "^3.4",
         "symfony/thanks": "^1.0",
-        "xethron/migrations-generator": "^2.0"
+        "xethron/migrations-generator": "^2.0",
+        "yajra/laravel-datatables-oracle": "^8.0"
     },
     "require-dev": {
         
