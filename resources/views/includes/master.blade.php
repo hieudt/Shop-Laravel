@@ -79,6 +79,9 @@
     <!-- custom scrollbar -->
     <script src="{{asset('@styleadmin/node_modules/jquery-toast-plugin/dist/jquery.toast.min.js')}}"></script>
     <script src="{{asset('@styleadmin/js/toastDemo.js')}}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/algoliasearch@3.32.0"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-autocomplete/1.0.7/jquery.auto-complete.min.js"></script>
+    <script src="{{asset('js/algolia.js')}}"></script>
     
     
     <script src="{{asset('@styleadmin/js/pusher.min.js')}}"></script>
