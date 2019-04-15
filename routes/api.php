@@ -1,6 +1,17 @@
 <?php
 
+use PayPal\Api\Item;
+use PayPal\Api\Payer;
+use PayPal\Api\Amount;
+use PayPal\Api\Details;
+use PayPal\Api\Payment;
+use PayPal\Api\ItemList;
+use PayPal\Api\WebProfile;
+use PayPal\Api\InputFields;
+use PayPal\Api\Transaction;
 use Illuminate\Http\Request;
+use PayPal\Api\RedirectUrls;
+use PayPal\Api\PaymentExecution;
 use App\Category;
 use App\User;
 /*
@@ -19,6 +30,13 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 
+Route::post('create-payment',function(){
+
+});
+
+Route::post('execute-payment',function(Request $request){
+
+});
 
 Route::group(['prefix' => 'v1'], function(){
     Route::get('users', function() {
