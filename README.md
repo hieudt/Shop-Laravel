@@ -29,4 +29,9 @@ Cấu hình Scout bằng command:<br/>
 php artisan vendor:publish --provider="Laravel\Scout\ScoutServiceProvider"<br/>
 Thttps://viblo.asia/p/tim-hieu-ve-laravel-scout-DXOkRjBykdZ <br/>
 
+#Paypal<br/>
 composer require paypal/rest-api-sdk-php<br/>
+
+.. Convert Money<br/>
+composer require php-http/curl-client nyholm/psr7 php-http/message florianv/laravel-swap<br/>
+https://github.com/florianv/laravel-swap<br/>
