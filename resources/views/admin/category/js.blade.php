@@ -1,5 +1,26 @@
 <script>
+        $(function () {
+            if (window.location.hash === "#created") {
+                $('#exampleModalLabel').html('Thêm danh mục');
+                $('#modalFooter').html('<button type="button" id="addCategory" class="btn btn-success">Lưu</button><button type="button" id="addCategory2" class="btn btn-success">Lưu & Đóng</button><button type="button" class="btn btn-light" data-dismiss="modal">Đóng</button>');
+                $('#nameCategory').val('');
+                $('#slug').val('');
 
+                $('#CategoryModal').modal('show');
+                // Lưu
+                $('#addCategory').click(function(){
+                    addCategory();
+                });
+    
+                // Lưu và đóng
+                $('#addCategory2').click(function(){
+                    addCategory();
+                    $('#nameCategory').val('');
+                    $('#slug').val('');
+                    $('#CategoryModal').modal('hide');
+                });
+            }
+        });
         //Load SubCategory
         function fetch_Subcategory(query = '')
         {

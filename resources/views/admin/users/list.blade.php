@@ -128,7 +128,11 @@
 
 
 <script>
-
+    $(document).ready(function(){
+        if (window.location.hash === "#hihi") {
+            $('#order-listing').DataTable().search('4').draw();
+        }
+    });
     //Func editUser
     function editUser(data)
     {
@@ -244,6 +248,9 @@
                 "sLast":     "Cuối"
             }
         },
+        "paging": false,
+        
+        "retrieve": true,
         "process" : true,
         "stateSave": true,
         "serverSide" : false,

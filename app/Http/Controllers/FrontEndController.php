@@ -12,6 +12,7 @@ use App\Category;
 use App\Color;
 use App\Images;
 use App\Review;
+use App\Notification;
 use App\product_details;
 use App\coupons;
 use Carbon\Carbon;
@@ -99,7 +100,22 @@ class FrontEndController extends Controller
         $User->password = bcrypt($req->password);
 
         $User->save();
+        
         if(Auth::attempt(['email' => $req->email, 'password' => $req->password])){
+            $NewNotif = new Notification;
+            if(Auth::check()){
+                $NewNotif->nameUser = Auth::user()->name;
+            }else {
+                $NewNotif->nameUser = "Khách Vãng Lai";
+            }
+
+            $NewNotif->action = "Tạo tài khoản";
+            $NewNotif->task = "Khách Hàng";
+            $NewNotif->save();
+
+
+            eventLoadNotification();
+
             return response()->json(['success' => 'Đăng ký thành công']);
         }
     }
