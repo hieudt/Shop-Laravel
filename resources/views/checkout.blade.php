@@ -212,7 +212,6 @@
         url: '{{url('session/idship/')}}/'+id,
         dataType: 'json',
             success: function(data) {
-                loadCart();
             },
             error: function(request, status) {
                

@@ -65,3 +65,13 @@
             });
         }
     </script>
+    <script>
+        $(document).ready(function(){
+            $('.project_list').mixItUp({
+                animation: {
+                    effects: 'fade translateZ(-100px)'
+                }
+            });
+        });
+    </script>
+    <script src="{{ URL::asset('assets/js/jquery.mixitup.min.js')}}"></script>

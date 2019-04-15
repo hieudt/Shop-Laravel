@@ -18,7 +18,7 @@
             <div class="item active">
 
                 <!-- Slide Background -->
-                <img src="{{url('/images//sliders/BrUslider.jpg')}}" alt="Bootstrap Touch Slider" class="slide-image" />
+                <img src="{{url('/images//sliders/01.jpeg')}}" alt="Bootstrap Touch Slider" class="slide-image" />
                 <div class="bs-slider-overlay"></div>
 
                 <div class="container">
@@ -39,7 +39,7 @@
             <div class="item">
 
                 <!-- Slide Background -->
-                <img src="{{url('/images/sliders/8Nsslider3.jpg')}}" alt="Bootstrap Touch Slider" class="slide-image" />
+                <img src="{{url('/images/sliders/02.jpg')}}" alt="Bootstrap Touch Slider" class="slide-image" />
                 <div class="bs-slider-overlay"></div>
                 <!-- Slide Text Layer -->
                 <div class="slide-text slide_style_center">
@@ -52,7 +52,7 @@
             <div class="item">
 
                 <!-- Slide Background -->
-                <img src="{{url('/images/sliders/RWXslider1.jpg')}}" alt="Bootstrap Touch Slider" class="slide-image" />
+                <img src="{{url('/images/sliders/03.png')}}" alt="Bootstrap Touch Slider" class="slide-image" />
                 <div class="bs-slider-overlay"></div>
                 <!-- Slide Text Layer -->
                 <div class="slide-text slide_style_right">
@@ -137,9 +137,9 @@
                                             <img class="pic-1" src="{{url('/images/product')}}/{{$product->thumbnail}}">
                                         </a>
                                         <ul class="social">
-                                            <li><a href="{{url('/san-pham')}}/{{$product->id}}/{{$product->slug}}/" data-tip="Chi Tiết SP"><i class="fa fa-eye"></i></a></li>
-                                            <li><a href="#" data-tip="Add to Wishlist"><i class="fa fa-shopping-bag"></i></a></li>
-                                            <li><a href="#" data-tip="Add to Cart"><i class="fa fa-shopping-cart"></i></a></li>
+                                            <li><a href="{{url('/san-pham')}}/{{$product->id}}/{{$product->slug}}/" data-tip="Chi Tiết SP"><i class="fa fa-eye fa-fix"></i></a></li>
+                                            <li><a href="#" data-tip="Add to Wishlist"><i class="fa fa-shopping-bag fa-fix"></i></a></li>
+                                            <li><a href="#" data-tip="Add to Cart"><i class="fa fa-shopping-cart fa-fix"></i></a></li>
                                         </ul>
                                         
                                         @if($product->discount>0)
@@ -187,9 +187,9 @@
                                             <img class="pic-1" src="{{url('/images/product')}}/{{$product->thumbnail}}">
                                         </a>
                                         <ul class="social">
-                                            <li><a href="{{url('/san-pham')}}/{{$product->id}}/{{$product->slug}}/" data-tip="Xem Nhanh"><i class="fa fa-eye"></i></a></li>
-                                            <li><a href="#" data-tip="Add to Wishlist"><i class="fa fa-shopping-bag"></i></a></li>
-                                            <li><a href="#" data-tip="Add to Cart"><i class="fa fa-shopping-cart"></i></a></li>
+                                            <li><a href="{{url('/san-pham')}}/{{$product->id}}/{{$product->slug}}/" data-tip="Xem Nhanh"><i class="fa fa-eye fa-fix"></i></a></li>
+                                            <li><a href="#" data-tip="Add to Wishlist"><i class="fa fa-shopping-bag fa-fix"></i></a></li>
+                                            <li><a href="#" data-tip="Add to Cart"><i class="fa fa-shopping-cart fa-fix"></i></a></li>
                                         </ul>
                                         @if($product->discount>0)
                                         <span class="product-discount-label">-{{$product->discount}}%</span>
@@ -236,9 +236,9 @@
                                             <img class="pic-1" src="{{url('/images/product')}}/{{$product->thumbnail}}">
                                         </a>
                                         <ul class="social">
-                                            <li><a href="{{url('/san-pham')}}/{{$product->id}}/{{$product->slug}}/" data-tip="Chi Tiết SP" ><i class="fa fa-eye"></i></a></li>
-                                            <li><a href="#" data-tip="Add to Wishlist"><i class="fa fa-shopping-bag"></i></a></li>
-                                            <li><a href="#" data-tip="Add to Cart"><i class="fa fa-shopping-cart"></i></a></li>
+                                            <li><a href="{{url('/san-pham')}}/{{$product->id}}/{{$product->slug}}/" data-tip="Chi Tiết SP" ><i class="fa fa-eye fa-fix"></i></a></li>
+                                            <li><a href="#" data-tip="Add to Wishlist"><i class="fa fa-shopping-bag fa-fix"></i></a></li>
+                                            <li><a href="#" data-tip="Add to Cart"><i class="fa fa-shopping-cart fa-fix"></i></a></li>
                                         </ul>
                                         <span class="product-new-label">New</span>
                                         @if($product->discount>0)

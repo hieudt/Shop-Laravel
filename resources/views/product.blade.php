@@ -274,9 +274,9 @@
                                     <img class="pic-1" src="{{url('/images/product')}}/{{$product->thumbnail}}">
                                 </a>
                                 <ul class="social">
-                                    <li><a href="{{url('/san-pham')}}/{{$product->id}}/{{$product->slug}}/" data-tip="Chi Tiết SP"><i class="fa fa-eye"></i></a></li>
-                                    <li><a href="#" data-tip="Add to Wishlist"><i class="fa fa-shopping-bag"></i></a></li>
-                                    <li><a href="#" data-tip="Add to Cart"><i class="fa fa-shopping-cart"></i></a></li>
+                                    <li><a href="{{url('/san-pham')}}/{{$product->id}}/{{$product->slug}}/" data-tip="Chi Tiết SP"><i class="fa fa-eye fa-fix"></i></a></li>
+                                    <li><a href="#" data-tip="Add to Wishlist"><i class="fa fa-shopping-bag fa-fix"></i></a></li>
+                                    <li><a href="#" data-tip="Add to Cart"><i class="fa fa-shopping-cart fa-fix"></i></a></li>
                                 </ul>
                                 
                                 @if($product->discount>0)

@@ -15,7 +15,7 @@
     <title>@yield('title')</title>
     <!-- Bootstrap Core CSS -->
     <link href="{{ URL::asset('assets/css/bootstrap.min.css')}}" rel="stylesheet">
-    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <link href="{{ URL::asset('assets/css/font-awesome.css')}}" rel="stylesheet">
     <link href="{{ URL::asset('assets/css/owl.carousel.min.css')}}" rel="stylesheet">
     <link href="{{ URL::asset('assets/css/idangerous.swiper.css')}}" rel="stylesheet" type="text/css" />
 
@@ -24,7 +24,7 @@
     <link href="{{URL::asset('assets/css/mycss.css')}}" rel="stylesheet">
     <link href="{{ URL::asset('assets/css/genius1.css')}}" rel="stylesheet">
     <link href="{{ URL::asset('assets/css/genius-slider.css')}}" rel="stylesheet">
-    <link href="{{ URL::asset('assets/css/genius-gallery.css')}}" rel="stylesheet">
+    <link href="{{ URL::asset('assets/css/genius-gallery.css')}}" rel="stylesheet"> 
     <link rel="stylesheet" href="{{asset('@styleadmin/node_modules/jquery-toast-plugin/dist/jquery.toast.min.css')}}">
     <link href="{{ URL::asset('assets/css/lightbox.css')}}" rel="stylesheet">
     <link href="{{ URL::asset('@styleadmin/css/algolia.css')}}" rel="stylesheet">
@@ -68,25 +68,23 @@
     <script src="{{ URL::asset('assets/js/jquery.smooth-scroll.js')}}"></script>
     <!-- Bootstrap Core JavaScript -->
     <script src="{{ URL::asset('assets/js/bootstrap.min.js')}}"></script>
-    <script src="{{ URL::asset('assets/js/jquery.mixitup.min.js')}}"></script>
-    <script src="{{ URL::asset('assets/js/lightbox.min.js')}}"></script>
-    <script src="{{ URL::asset('assets/js/plugins.js')}}"></script>
+    {{--
+         <script src="{{ URL::asset('assets/js/lightbox.min.js')}}"></script>
+        <script src="{{ URL::asset('assets/js/plugins.js')}}"></script>--}}
     <script src="{{ URL::asset('assets/js/genius.js')}}"></script>
     <script src="{{ URL::asset('assets/js/genius-slider.js')}}"></script>
+   
+    
     <script src="{{ URL::asset('assets/js/idangerous.swiper.min.js')}}"></script>
     <script src="{{ URL::asset('assets/js/global.js')}}"></script>
     <!-- custom scrollbar -->
     <script src="{{asset('@styleadmin/node_modules/jquery-toast-plugin/dist/jquery.toast.min.js')}}"></script>
     <script src="{{asset('@styleadmin/js/toastDemo.js')}}"></script>
-    <script src="https://cdn.jsdelivr.net/algoliasearch/3/algoliasearch.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/autocomplete.js/0/autocomplete.min.js"></script>
-    <script src="{{asset('@styleadmin/js/algolia.js')}}"></script>
-
-    
+    <script src="{{ URL::asset('assets/js/algoliasearch.min.js')}}"></script>
+    <script src="{{ URL::asset('assets/js/autocomplete.min.js')}}"></script>
     <script src="{{asset('@styleadmin/js/pusher.min.js')}}"></script>
     <script src="{{asset('@styleadmin/js/myjs.js')}}"></script>
-    <script src="{{ URL::asset('assets/js/jquery.mousewheel.js')}}"></script>
-    <script src="{{ URL::asset('assets/js/jquery.jscrollpane.min.js')}}"></script>
+    
     
     <!-- js Page -->
     @yield('javascript'); @yield('footer');
@@ -96,8 +94,8 @@
     <script>
         $(window).load(function(){
             setTimeout(function(){
-                $('#cover').fadeOut(500);
-            },500)
+                $('#cover').fadeOut(100);
+            },100)
             loadCart();
         });
 
@@ -184,11 +182,7 @@
 
     $(document).ready(function(){
 
-        $('.project_list').mixItUp({
-            animation: {
-                effects: 'fade translateZ(-100px)'
-            }
-        });
+        
 
         $('#btnAddProduct').click(function(){
             var $this = $(this);

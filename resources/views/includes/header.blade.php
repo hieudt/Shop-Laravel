@@ -192,7 +192,7 @@
         <div class="header-product">
             <div class="logo-wrapper">
                 <a href="{{url('/')}}" id="logo">
-                    <img class="logoImg" alt="" src="{{ URL::asset('/assets/images/logo/avatar_null_nonecircle.png')}}/">
+                    <!--<img class="logoImg" alt="" src="/"> -->
                 </a>
             </div>
             <div class="product-header-content">
