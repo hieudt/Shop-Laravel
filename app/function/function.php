@@ -1,6 +1,7 @@
 <?php
 use Carbon\Carbon;
 use App\Notification;
+use Gloudemans\Shoppingcart\Facades\Cart;
 // Mở composer.json
 // Thêm vào trong "autoload" chuỗi sau
 // "files": [
@@ -224,5 +225,16 @@ function changeStatusSeenNotify(){
 	}
 }
 
+function GetTotal($Money){
+	$rate = Swap::latest('USD/VND');
+	return number_format($Money/$rate->getValue(),1);
+}
 
+function RemoveSession(){
+	Cart::destroy();
+	if(session()->get('coupon')){
+			session()->remove('coupon');
+	}
+	session()->remove('idShip');
+}
 ?>

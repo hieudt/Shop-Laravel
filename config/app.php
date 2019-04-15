@@ -167,6 +167,7 @@ return [
         Xethron\MigrationsGenerator\MigrationsGeneratorServiceProvider::class,
         Gloudemans\Shoppingcart\ShoppingcartServiceProvider::class,
         Laravel\Scout\ScoutServiceProvider::class,
+        Swap\Laravel\SwapServiceProvider::class,
 
         /*
          * Package Service Providers...
@@ -232,6 +233,7 @@ return [
         'Debugbar' => 'Barryvdh\Debugbar\Facade',
         'Cart' => Gloudemans\Shoppingcart\Facades\Cart::class,
         'Pusher' => Pusher\Pusher::class,
+        'Swap' => Swap\Laravel\Facades\Swap::class,
 
     ],
 

@@ -111,10 +111,7 @@
                                                     
                                                 </div>
                                                 <div id="show1" class="divMethod">
-                                                        <br/>
-                                                        <div class="links">
-                                                            <div id="paypal-button"></div>
-                                                        </div>
+                                                        
                                                 </div>
                                                 <div id="showThree" class="divMethod">
                                                    
@@ -243,6 +240,8 @@
         });
     }
 
+    
+
     function toggleIcon(e) {
         $(e.target)
             .prev('.panel-heading')
@@ -276,39 +275,5 @@
 
 
 </script>
-<script src="https://www.paypalobjects.com/api/checkout.js"></script>
-<script>
-      paypal.Button.render({
-        env: 'sandbox', // Or 'production'
-        style: {
-          size: 'large',
-          color: 'gold',
-          shape: 'pill',
-        },
-        // Set up the payment:
-        // 1. Add a payment callback
-        payment: function(data, actions) {
-          // 2. Make a request to your server
-          return actions.request.post('/api/create-payment')
-            .then(function(res) {
-              // 3. Return res.id from the response
-              // console.log(res);
-              return res.id;
-            });
-        },
-        // Execute the payment:
-        // 1. Add an onAuthorize callback
-        onAuthorize: function(data, actions) {
-          // 2. Make a request to your server
-          return actions.request.post('/api/execute-payment', {
-            paymentID: data.paymentID,
-            payerID:   data.payerID
-          })
-            .then(function(res) {
-              console.log(res);
-              
-            });
-        }
-      }, '#paypal-button');
-</script>
+
 @stop

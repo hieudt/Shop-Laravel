@@ -183,6 +183,7 @@ class BillController extends Controller
     }
 
     public function getDetailsbyId($token){
+
         $getData = explode('-',$token);
         $id = base64_decode($getData[0]);
         $Bill = Bill::find($id);
@@ -191,6 +192,15 @@ class BillController extends Controller
             return view('payreturn',compact('Bill'));
         } else {
             return redirect()->back();
+        }
+    }
+
+    public function verifyPaypal(Request $req){
+        if($req->ajax()){
+            $Bill = Bill::find($req->id);
+            $Bill->statusPay = 1;
+            $Bill->save();
+            return response()->json(['success'=>"OK"]);
         }
     }
 }

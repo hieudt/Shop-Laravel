@@ -119,15 +119,10 @@ class CheckOutController extends Controller
 
             eventLoadBill();
             eventLoadNotification();
+            RemoveSession();
             return response()->json(['success'=>'Đặt hàng thành công','token'=>$token]);
          }
     }
 
-    function RemoveSession(){
-        Cart::destroy();
-        if(session()->get('coupon')){
-            session()->remove('coupon');
-        }
-        session()->remove('idShip');
-    }
+    
 }

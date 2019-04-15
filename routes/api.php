@@ -30,7 +30,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 
-Route::post('create-payment',function(){
+Route::post('create-payment/{TotalMoney}',function($TotalMoney){
     $apiContext = new \PayPal\Rest\ApiContext(
         new \PayPal\Auth\OAuthTokenCredential(
             'AQG0uZcqTDVbflrhqHs33iBkXkhzVXEJhedkEGeAMHF0v7lhtKUDICAgjW7vOZoWZSnXO-5KLk-DkiXl',     // ClientID
@@ -40,20 +40,20 @@ Route::post('create-payment',function(){
     $payer = new Payer();
     $payer->setPaymentMethod("paypal");
     $item1 = new Item();
-    $item1->setName('Ground Coffee 40 oz')
+    $item1->setName('Mua Hang ShopROGTEAM')
         ->setCurrency('USD')
         ->setQuantity(1)
-        ->setPrice(7.5);
+        ->setPrice(GetTotal($TotalMoney));
     
     $itemList = new ItemList();
     $itemList->setItems(array($item1));
     $details = new Details();
     $details->setShipping(0)
         ->setTax(0)
-        ->setSubtotal(7.5);
+        ->setSubtotal(GetTotal($TotalMoney));
     $amount = new Amount();
     $amount->setCurrency("USD")
-        ->setTotal(7.5)
+        ->setTotal(GetTotal($TotalMoney))
         ->setDetails($details);
     $transaction = new Transaction();
     $transaction->setAmount($amount)
@@ -61,8 +61,8 @@ Route::post('create-payment',function(){
         ->setDescription("Payment description")
         ->setInvoiceNumber(uniqid());
     $redirectUrls = new RedirectUrls();
-    $redirectUrls->setReturnUrl(url('/checkout/billss/success'))
-        ->setCancelUrl(url('/checkout/billss/fail'));
+    $redirectUrls->setReturnUrl(url('/checkout/bill'))
+        ->setCancelUrl(url('/checkout/bill'));
     // Add NO SHIPPING OPTION
     $inputFields = new InputFields();
     $inputFields->setNoShipping(1);

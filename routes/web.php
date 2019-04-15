@@ -8,6 +8,7 @@ use Illuminate\Support\Collection;
 use App\Notification;
 use App\User;
 use Carbon\Carbon;
+use Swap\Laravel\Facades\Swap;
 use App\Bill;
 use App\Detailsbill;
 use Gloudemans\Shoppingcart\Facades\Cart;
@@ -42,6 +43,7 @@ Route::post('cart/updatenumber','CartController@updateNumber')->name('cart.updat
 Route::get('checkout','CheckOutController@index')->name('checkout.index');
 Route::post('checkout/order','CheckOutController@postOrder')->name('checkout.order');
 Route::get('checkout/bill/{token}','BillController@getDetailsbyId')->name('bill.detais');
+Route::post('checkout/verifyPaypal','BillController@verifyPaypal')->name('bill.verifypaypal');
 
 Route::get('session/idship/{id}','CartController@infoShiper');
 
@@ -149,8 +151,9 @@ Route::get('/checkout/billss/success',function(){
     echo "success";
 });
 
-Route::get('/checkout/billss/fail',function(){
-    echo "faile";
+Route::get('/cv',function(){
+    echo GetTotal(570000);
+
 });
 
 
