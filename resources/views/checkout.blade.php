@@ -108,13 +108,13 @@
                                                         <option value="Three">Nepal</option>
                                                     </select>
                                                 <div id="show0" class="divMethod">
-                                                    <br/>
-                                                    <div class="links">
-                                                        <div id="paypal-button"></div>
-                                                    </div>
+                                                    
                                                 </div>
                                                 <div id="show1" class="divMethod">
-                                                    
+                                                        <br/>
+                                                        <div class="links">
+                                                            <div id="paypal-button"></div>
+                                                        </div>
                                                 </div>
                                                 <div id="showThree" class="divMethod">
                                                    
@@ -306,8 +306,7 @@
           })
             .then(function(res) {
               console.log(res);
-              alert('PAYMENT WENT THROUGH!!');
-              // 3. Show the buyer a confirmation message.
+              
             });
         }
       }, '#paypal-button');

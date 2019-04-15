@@ -143,9 +143,15 @@ Route::get('reset',function(){
 
 });
 
-Route::get('auth',function(){
-    addNotify(['content'=>'Created','seen'=>'0','task'=>'Bill']);
-    dd(session()->get('notify'));
+Route::get('test','PayPalController@index');
+Route::get('test2','PayPalController@paymentList');
+Route::get('/checkout/billss/success',function(){
+    echo "success";
 });
+
+Route::get('/checkout/billss/fail',function(){
+    echo "faile";
+});
+
 
 

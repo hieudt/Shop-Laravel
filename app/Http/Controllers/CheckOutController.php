@@ -105,11 +105,6 @@ class CheckOutController extends Controller
             $value = $Bill->id;
             $token = base64_encode($value).'-'.$random;
             
-            Cart::destroy();
-            if(session()->get('coupon')){
-                session()->remove('coupon');
-            }
-            session()->remove('idShip');
 
             $NewNotif = new Notification;
             if(Auth::check()){
@@ -126,5 +121,13 @@ class CheckOutController extends Controller
             eventLoadNotification();
             return response()->json(['success'=>'Đặt hàng thành công','token'=>$token]);
          }
+    }
+
+    function RemoveSession(){
+        Cart::destroy();
+        if(session()->get('coupon')){
+            session()->remove('coupon');
+        }
+        session()->remove('idShip');
     }
 }
