@@ -19,6 +19,7 @@
         "juno_okyo/php-chatfuel-class": "^1.0",
         "laravel/framework": "5.5.*",
         "laravel/scout": "^7.1",
+        "laravel/socialite": "^3.3",
         "laravel/tinker": "~1.0",
         "mockery/mockery": "~1.0",
         "nyholm/psr7": "^0.2.3",
