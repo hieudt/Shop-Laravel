@@ -24,7 +24,7 @@
         }, {
           label: "Electronics",
           data: [
-              60, -40, 0, 80, 40, -20, 80
+              2022, -40, 0, 80, 40, -20, 80
           ],
           backgroundColor: '#20a8d8',
           borderColor: '#20a8d8',
@@ -55,7 +55,7 @@
           pointRadius: 5,
           pointHoverRadius: 5,
           borderWidth: 2
-      }]
+      },]
     };
     var businessSurveyOptions = {
       responsive: true,

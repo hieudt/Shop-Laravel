@@ -161,9 +161,7 @@
           noteContent = '';
           $('#SiriModal').modal('hide');
         }
-        
-        
-        
+
       }
     };
     

@@ -96,6 +96,6 @@
   @yield('javascript')
   <!-- End custom js for this page-->
 </body>
-@include('admin.elements.siri');
+@include('admin.elements.siri')
 
 </html>

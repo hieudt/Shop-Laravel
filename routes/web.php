@@ -163,9 +163,32 @@ Route::get('/checkout/billss/success',function(){
     echo "success";
 });
 
-Route::get('/cv',function(){
-    echo GetTotal(570000);
+Route::get('check',function(){
+    $arr = getInfoByCategoryId(1,'2019-04-15');
+    echo $arr;
+});
 
+Route::get('/cv',function(){
+    $array = array();
+    $count = 0;
+    $to = Carbon::now('Asia/Ho_Chi_Minh');
+    foreach (Category::all() as $key) {
+        $output[] = ['DanhMuc'=>$key->title,'id'=>$key->id];
+    }
+    foreach ($output as $key) {
+        $to = Carbon::now('Asia/Ho_Chi_Minh');
+        $to->addDay(1);
+        for ($i=0; $i <= 3; $i++) { 
+            $ar = $to->subDay(1)->toDateString();
+            $output[$count]['Ngay'.$ar] = getInfoByCategoryId($output[$count]['id'],$ar);
+        }
+        $count++;
+    }
+    
+    
+    dd($output);
+    
+    
 });
 
 

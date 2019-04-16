@@ -98,7 +98,6 @@
                 $('#cover').fadeOut(100);
             },100)
             loadCart();
-            
         });
 
 
@@ -183,9 +182,6 @@
     }
 
     $(document).ready(function(){
-
-        
-
         $('#btnAddProduct').click(function(){
             var $this = $(this);
             $this.button('loading');

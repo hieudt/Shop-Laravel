@@ -1,6 +1,9 @@
 <?php
 use Carbon\Carbon;
 use App\Notification;
+use App\Category;
+use App\Bill;
+use App\DetailsBill;
 use Gloudemans\Shoppingcart\Facades\Cart;
 // Mở composer.json
 // Thêm vào trong "autoload" chuỗi sau
@@ -236,5 +239,60 @@ function RemoveSession(){
 			session()->remove('coupon');
 	}
 	session()->remove('idShip');
+}
+
+function GetDataCategory(){
+		$to = Carbon::now('Asia/Ho_Chi_Minh');
+		$to->subDay(3);
+		$from = Carbon::now('Asia/Ho_Chi_Minh'); 
+
+		// Số Bill từ ngày n > n+ 
+	
+		$usr = DB::table('Bill')->whereBetween('created_at',[$to,$from])->get();
+		
+		// So luot san pham duoc ban theo id danh muc
+		$result = array();
+
+		$categoryId = 4;
+		$count = 0;
+		$totalMoney = 0;
+		
+		$data = Category::find(4)->Product()->get(); // List Product theo id category
+		foreach ($data as $key) {
+				$temp = $key->product_details()->get(); // List product_details theo product
+				foreach ($temp as $key2) {
+						$temp2 = $key2->DetailsBill()->get(); // List product_details trong hóa đơn theo product_details 
+						foreach ($temp2 as $key3) {
+							$count += $key3->Number; // Tổng sp đc bán theo danh mục
+							$totalMoney += (priceDiscount($key3->product_details->Product->cost,$key3->product_details->Product->discount) * $key3->Number);
+						}
+				}
+		}
+		return ['TenDanhMuc'=>$data->title,'TongSPDuocBan'=>$count,'TongTienBanDuoc'=>$totalMoney];
+		echo $totalMoney;
+
+		
+		// $data = $data[4]->product_details()->get();
+		// $data = $data[0]->DetailsBill()->get();
+		// $data = $data[0]->Bill()->whereDate('created_at','2019-04-13')->get();
+
+}
+
+function getInfoByCategoryId($id,$day){
+		$data = DB::table('categories')
+						->join('SubCategory','categories.id','=','SubCategory.id_category')
+						->join('Product','SubCategory.id','=','Product.id_sub')
+						->join('product_details','Product.id','=','product_details.id_product')
+						->join('DetailsBill','product_details.id','=','DetailsBill.id_products_details')
+						->join('Bill','Bill.id','=','DetailsBill.id_bill')
+						->select(DB::raw('categories.title,sum(DetailsBill.Number) as SL,sum(Product.cost - (Product.cost / 100 * Product.discount)) as TongTien'))
+						->where('categories.id',$id)
+						->whereDate('Bill.created_at',$day)
+						->groupBy('categories.id')
+						->get();
+		if(count($data) > 0)
+		return (int)$data[0]->TongTien;
+		else 
+		return 0;
 }
 ?>

@@ -229,7 +229,7 @@
             data:data,
             success: function (data) {
                 ToastSuccess(data.success); 
-               
+                window.location.href = "{{url('checkout/bill')}}/"+data.token;
             },
             error: function (request, status) {
                 $.each(request.responseJSON.errors,function(key,val){
