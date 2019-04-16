@@ -168,6 +168,7 @@ return [
         Gloudemans\Shoppingcart\ShoppingcartServiceProvider::class,
         Laravel\Scout\ScoutServiceProvider::class,
         Swap\Laravel\SwapServiceProvider::class,
+        Laravel\Socialite\SocialiteServiceProvider::class,
 
         /*
          * Package Service Providers...
@@ -234,6 +235,7 @@ return [
         'Cart' => Gloudemans\Shoppingcart\Facades\Cart::class,
         'Pusher' => Pusher\Pusher::class,
         'Swap' => Swap\Laravel\Facades\Swap::class,
+        'Socialite' => Laravel\Socialite\Facades\Socialite::class,
 
     ],
 

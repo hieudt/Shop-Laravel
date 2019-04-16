@@ -70,10 +70,6 @@
 
 @section('footer')
 <script>
-    $(document).ready(function(){
-        loadCart();
-    });
-
     $(document).on('click','#btnAddCoupon',function(){
         addCoupon();
     });
@@ -128,8 +124,6 @@
             data:{coupon:coupon},
             dataType: 'json',
             success: function(data) {
-                
-                loadCart();
                 $('#MaGiamGia').html(data.outputCoupons);
                 $('#divCoupon').html(data.divCoupons);
                 setTimeout(function(){
@@ -157,8 +151,6 @@
             url: '{{route('cart.removecoupon')}}',
             dataType: 'json',
             success: function(data) {
-                
-                loadCart();
                 $('#MaGiamGia').html(data.outputCoupons);
                 $('#divCoupon').html(data.divCoupons);
                 setTimeout(function(){

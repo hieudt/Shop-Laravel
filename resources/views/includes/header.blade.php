@@ -307,6 +307,12 @@
                                         <button type="button" class="button style-10" id="LoginButton"><strong>Đăng nhập</strong></button>
                                     </div>
                                 </div>
+                                <div class="control-group">
+                                    <label class="control-label" for="confirmsignup"></label>
+                                    <div class="controls">
+                                        <a href="{{url('/redirect/facebook')}}" class="button style-10" id="FBLogin"><strong>Đăng nhập với FB</strong></a>
+                                    </div>
+                                </div>
                             </fieldset>
                         </form>
                     </div>
@@ -337,7 +343,9 @@
                                     <div class="controls">
                                         <button type="button" class="button style-10" id="SignUpButton"><strong>Đăng ký</strong></button>
                                     </div>
+
                                 </div>
+                              
                             </fieldset>
                         </form>
                     </div>
