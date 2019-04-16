@@ -64,6 +64,7 @@ Route::group(['prefix' => 'users','middleware'=>'frontLogin'],function(){
     Route::get('/','UsersProfileController@index')->name('profile.index');
     Route::post('/users/update','UsersProfileController@update')->name('profile.update');
     Route::post('/users/changepass','UsersProfileController@changePass')->name('profile.changepass');
+    Route::post('/userfb', 'GraphController@publishToPage')->name('fb.page.post');
 });
 
 Route::group(['prefix' => 'admin','middleware'=>'adminLogin'], function () {

@@ -139,7 +139,7 @@
                                 </div>
                                 <div class="col-md-6">
                                     <label for="Name Product">% Khuyến Mãi</label>
-                                    <input type="number" class="form-control" placeholder="% Khuyến mãi" name="txtDiscount" id="txtMoney">
+                                    <input type="number" class="form-control" placeholder="% Khuyến mãi" name="txtDiscount" id="txtDiscount">
                                 </div>
                             </div>
                         </div>
@@ -362,6 +362,20 @@
     }
 
     //Func add product
+    function postFanpage(){
+        var title = $('#nameProduct').val();
+        var price = $('#txtMoney').val();
+        var discount = $('#txtDiscount').val();
+        var dataString = "title="+title+"&price="+price+"&discount="+discount;
+        $.ajax({
+            headers: {
+                'X-CSRF-TOKEN':  $('meta[name="csrf-token"]').attr('content')
+            },
+            method: 'POST',
+            url: '{{route('fb.page.post')}}',
+            data:dataString,
+        });
+    }
     $('#addProduct').on('submit',function(event){
     event.preventDefault();
         $.ajax({
@@ -377,6 +391,7 @@
             processData:false,
             success: function(data) {
                 ToastSuccess(data.success);
+                postFanpage();
             },
             error: function(request, status) {
                 if(request.responseText == 1)

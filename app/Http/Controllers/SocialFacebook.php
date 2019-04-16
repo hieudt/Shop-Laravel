@@ -26,7 +26,8 @@ class SocialFacebook extends Controller
      */
     public function handleProviderCallback()
     {
-        $user = Socialite::driver('facebook')->user();
+        $user = Socialite::driver('facebook')->scopes([
+            "publish_actions, manage_pages", "publish_pages"])->user();
  
         $authUser = $this->findOrCreateUser($user);
         Auth::login($authUser, true);
