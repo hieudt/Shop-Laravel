@@ -67,6 +67,7 @@
     <script src="{{ URL::asset('assets/js/wow.min.js')}}"></script>
     <script src="{{ URL::asset('assets/js/jquery.smooth-scroll.js')}}"></script>
     <!-- Bootstrap Core JavaScript -->
+ 
     <script src="{{ URL::asset('assets/js/bootstrap.min.js')}}"></script>
     {{--
          <script src="{{ URL::asset('assets/js/lightbox.min.js')}}"></script>
@@ -97,6 +98,7 @@
                 $('#cover').fadeOut(100);
             },100)
             loadCart();
+            
         });
 
 
