@@ -76,6 +76,12 @@
             <span class="menu-title">Mã Giảm Giá</span>
           </a>
         </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{{url('admin/shipper')}}">
+              <i class="mdi mdi-motorbike menu-icon"></i>
+              <span class="menu-title">Vận Chuyển</span>
+            </a>
+          </li>
       <li class="nav-item nav-doc">
         <a class="nav-link" href="#">
           <i class="mdi mdi-file-document-box menu-icon"></i>

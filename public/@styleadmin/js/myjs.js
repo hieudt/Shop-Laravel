@@ -92,7 +92,28 @@ function Pagi(){
     });
 }
 
-
+var pusher = new Pusher('fbefcc8bb38866195ed2', {
+    cluster: 'ap1',
+    forceTLS: true
+  });
+  
+  var channel = pusher.subscribe('Cart');
+  channel.bind('loadCart', function(data) {
+      loadCart();
+  });
+  
+  var channel2 = pusher.subscribe('Bill');
+  channel2.bind('loadBill',function(data){
+      $('#order-listing').DataTable().ajax.reload();
+  });
+  
+  var channel3 = pusher.subscribe('Notification');
+  channel3.bind('loadNotification',function(data){
+      loadNotify();
+      var x = document.getElementById("notify");
+      x.play(); 
+  });
+  
 
 
 (function() {
@@ -134,27 +155,6 @@ function Pagi(){
 
 
 
-var pusher = new Pusher('fbefcc8bb38866195ed2', {
-  cluster: 'ap1',
-  forceTLS: true
-});
-
-var channel = pusher.subscribe('Cart');
-channel.bind('loadCart', function(data) {
-    loadCart();
-});
-
-var channel2 = pusher.subscribe('Bill');
-channel2.bind('loadBill',function(data){
-    $('#order-listing').DataTable().ajax.reload();
-});
-
-var channel3 = pusher.subscribe('Notification');
-channel3.bind('loadNotification',function(data){
-    loadNotify();
-    var x = document.getElementById("notify");
-    x.play(); 
-});
 
 
 

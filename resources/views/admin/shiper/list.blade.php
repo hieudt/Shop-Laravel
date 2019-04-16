@@ -1,51 +1,10 @@
 @extends('admin.master') 
-@section('title','Quản lý khách hàng') 
+@section('title','Nhà Vận Chuyển') 
 @section('css')
 <link rel="stylesheet" href="{{asset('@styleadmin/node_modules/datatables.net-bs4/css/dataTables.bootstrap4.css')}}">
 
 
 <style>
-    
-    .tool {
-        position: relative;
-        display: inline-block;
-        border-bottom: 1px dotted black;
-        color: blue;
-
-    }
-
-    .imgProduct {
-        border-radius: 0% !important;
-        width: 200px !important;
-        height: auto !important;
-    }
-
-    .tool .tool2 {
-        visibility: hidden;
-        width: 100px;
-        height: auto;
-        background-color: gray;
-        color: black;
-        text-align: center;
-        border-radius: 6px;
-        font-size: 3pt;
-        padding: 5px;
-        box-shadow: 10px 10px 10px 10px rgba(0, 0, 0, 0.5);
-        -webkit-transition: font-size 1s, width 1s, height 1s, background-color 1s, -webkit-transform 1s;
-        /* Safari */
-        transition: font-size 1s, width 1s, height 1s, background-color 1s, transform 1s;
-        /* Position the tooltip */
-        position: absolute;
-        z-index: 1;
-    }
-
-    .tool:hover .tool2 {
-        background-color: white;
-        visibility: visible;
-        width: 800px;
-        height: auto;
-        font-size: 15pt;
-    }
 
     button {
         height: 40px;
@@ -58,10 +17,10 @@
     <div class="card-body">
         <div class="row">
             <div class="col-sm-6">
-                <h4 class="card-title">Quản lý khách hàng</h4>
+                <h4 class="card-title">Nhà Vận Chuyển</h4>
             </div>
             <div class="col-sm-6">
-                <button type="button" id="OpenUserModal" class="btn btn-success btn-xs" data-toggle="modal" data-target="#UserModal" data-whatever="@getbootstrap"><i class="mdi mdi-check"></i>Thêm mới</button>
+                <button type="button" id="OpenShipperModal" class="btn btn-success btn-xs" data-toggle="modal" data-target="#ShipperModal" data-whatever="@getbootstrap"><i class="mdi mdi-check"></i>Thêm mới</button>
                 
             </div>
         </div>
@@ -71,10 +30,10 @@
                 <thead>
                     <tr>
                         <th>ID</th>
-                        <th>Họ Tên</th>
-                        <th>Tổng Hóa Đơn</th>
-                        <th>Tổng Tiền</th>
-                        <th>Trạng Thái</th>
+                        <th>Tên Dịch vụ</th>
+                        <th>Chi Phí</th>
+                        <th>Thời gian trung bình</th>
+                        <th>Logo</th>
                         <th>Thao Tác</th>
                     </tr>
                 </thead>
@@ -87,11 +46,11 @@
 </div>
 
 {{-- Modal --}}
-<div class="modal fade" id="UserModal" tabindex="-1" role="dialog" aria-labelledby="SubCategoryLabel" aria-hidden="true">
+<div class="modal fade" id="ShipperModal" tabindex="-1" role="dialog" aria-labelledby="SubCategoryLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="UserModalLabel">Thêm mới danh mục con</h5>
+                <h5 class="modal-title" id="ShipperModalLabel">Thêm</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                       </button>
@@ -99,26 +58,26 @@
             <div class="modal-body">
                 <form id="ModalForm">
                     <div class="form-group">
-                        <label for="recipient-name" class="col-form-label">Tên : </label>
+                        <label for="recipient-name" class="col-form-label">Tên Dịch Vụ : </label>
                         <input type="text" class="form-control" id="txtTen" name="txtTen">
                         <input type="hidden" id="txtId" name="txtId">
                     </div>
                     <div class="form-group">
-                        <label for="recipient-name" class="col-form-label">Email : </label>
-                        <input type="text" class="form-control" id="txtEmail" name="txtEmail">
+                        <label for="recipient-name" class="col-form-label">Chi Phí : </label>
+                        <input type="text" class="form-control" id="txtFee" name="txtFee">
                     </div>
                     <div class="form-group">
-                        <label for="recipient-name" class="col-form-label">Số Điện Thoại : </label>
-                        <input type="text" class="form-control" id="txtPhone" name="txtPhone">
+                        <label for="recipient-name" class="col-form-label">Thời Gian : </label>
+                        <input type="text" class="form-control" id="txtTime" name="txtTime">
                     </div>
                     <div class="form-group">
-                        <label for="recipient-name" class="col-form-label">Địa chỉ : </label>
-                        <input type="text" class="form-control" id="txtAddress" name="txtAddress">
+                        <label for="recipient-name" class="col-form-label">Hình Ảnh (Link): </label>
+                        <input type="text" class="form-control" id="txtImg" name="txtImg">
                     </div>
 
                 </form>
             </div>
-            <div class="modal-footer" id="UserModalFooter">
+            <div class="modal-footer" id="ShipperModalFooter">
             </div>
         </div>
     </div>
@@ -130,25 +89,20 @@
 
 
 <script>
-    $(document).ready(function(){
-        if (window.location.hash === "#hihi") {
-            $('#order-listing').DataTable().search('4').draw();
-        }
-    });
-    //Func editUser
-    function editUser(data)
+    //Func editShipper
+    function editShipper(data)
     {
         $.ajax({
             headers: {
                 'X-CSRF-TOKEN':  $('meta[name="csrf-token"]').attr('content')
             },
             method: 'POST',
-            url: '{{route('users.update')}}',
+            url: '{{route('shipper.update')}}',
             data:data,
             success: function(data) {
                     ToastSuccess(data.success);
                     $('#order-listing').DataTable().ajax.reload();
-                    $('#UserModal').modal('hide');
+                    $('#ShipperModal').modal('hide');
                 },
                 error: function(request, status) {
                     $.each(request.responseJSON.errors,function(key,val){
@@ -158,15 +112,15 @@
         });
     }
 
-    //Func editUser
-    function addUser(data)
+    //Func editShipper
+    function addShipper(data)
     {
         $.ajax({
             headers: {
                 'X-CSRF-TOKEN':  $('meta[name="csrf-token"]').attr('content')
             },
             method: 'POST',
-            url: '{{route('users.store')}}',
+            url: '{{route('shipper.store')}}',
             data:data,
             success: function(data) {
                     ToastSuccess(data.success);
@@ -182,50 +136,52 @@
 
     // Nút edit category
     $(document).on('click','.edited',function(){
-        $('#UserModal').modal('show');
-        $('#UserModalLabel').html('Sửa Thông tin');
-        $('#UserModalFooter').html('<button type="button" id="editUser" class="btn btn-success">Lưu</button><button type="button" class="btn btn-light" data-dismiss="modal">Đóng</button>');
+        $('#ShipperModal').modal('show');
+        $('#ShipperModalLabel').html('Sửa Thông tin');
+        $('#ShipperModalFooter').html('<button type="button" id="editShipper" class="btn btn-success">Lưu</button><button type="button" class="btn btn-light" data-dismiss="modal">Đóng</button>');
         
-        $('#txtTen').val($(this).attr('data-hoten'));
-        $('#txtEmail').val($(this).attr('data-email'));
-        $('#txtPhone').val($(this).attr('data-phone'));
-        $('#txtAddress').val($(this).attr('data-address'));
+        $('#txtTen').val($(this).attr('data-name'));
+        $('#txtTime').val($(this).attr('data-time'));
+        $('#txtFee').val($(this).attr('data-fee'));
+        $('#txtImg').val($(this).attr('data-images'));
         $('#txtId').val($(this).attr('data-id'));
-        $('#editUser').click(function(){
+
+        $('#editShipper').click(function(){
             var data = $('#ModalForm').serialize();
-            editUser(data);
+            editShipper(data);
         });
     });
 
-    $('#OpenUserModal').click(function(){
-        $('#UserModalLabel').html('Thêm thông tin');
-        $('#UserModalFooter').html('<button type="button" id="addUser" class="btn btn-success">Thêm</button><button type="button" id="addUser2" class="btn btn-success">Thêm & Đóng</button><button type="button" class="btn btn-light" data-dismiss="modal">Đóng</button>');
+    $('#OpenShipperModal').click(function(){
+
+        $('#ShipperModalLabel').html('Thêm thông tin');
+        $('#ShipperModalFooter').html('<button type="button" id="addShipper" class="btn btn-success">Thêm</button><button type="button" id="addShipper2" class="btn btn-success">Thêm & Đóng</button><button type="button" class="btn btn-light" data-dismiss="modal">Đóng</button>');
         $('#txtTen').val('');
-        $('#txtEmail').val('');
-        $('#txtPhone').val('');
-        $('#txtAddress').val('');
+        $('#txtTime').val('');
+        $('#txtFee').val('');
+        $('#txtImg').val('');
         $('#txtId').val('');
 
-        $('#addUser').click(function(){
+        $('#addShipper').click(function(){
             $('#txtTen').val();
-            $('#txtEmail').val();
-            $('#txtPhone').val();
-            $('#txtAddress').val();
+            $('#txtTime').val();
+            $('#txtFee').val();
+            $('#txtImg').val();
             $('#txtId').val();
             var data = $('#ModalForm').serialize();
-            addUser(data);
+            addShipper(data);
 
         });
 
-        $('#addUser2').click(function(){
+        $('#addShipper2').click(function(){
             $('#txtTen').val();
-            $('#txtEmail').val();
-            $('#txtPhone').val();
-            $('#txtAddress').val();
+            $('#txtTime').val();
+            $('#txtFee').val();
+            $('#txtImg').val();
             $('#txtId').val();
             var data = $('#ModalForm').serialize();
-            addUser(data);
-            $('#UserModal').modal('hide');
+            addShipper(data);
+            $('#ShipperModal').modal('hide');
         });
     });
 
@@ -253,13 +209,13 @@
         "process" : true,
         "stateSave": true,
         "serverSide" : false,
-        "ajax" : '{!!route('users.fetch')!!}',
+        "ajax" : '{!!route('shipper.fetch')!!}',
         "columns":[
             {data:'id',name:'id'},
             {data:'name',name:'name'},
-            {data:'SoBill',name:'SoBill'},
-            {data:'TotalMoney',name:'TotalMoney'},
-            {data:'Title',name:'Title'},
+            {data:'fee',name:'fee'},
+            {data:'Time',name:'Time'},
+            {data:'image',name:'image'},
             {data:'action',name:'action'}
         ]
 

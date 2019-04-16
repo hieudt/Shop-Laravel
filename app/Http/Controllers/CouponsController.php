@@ -166,7 +166,7 @@ class CouponsController extends Controller
                      <td><div class="tool">' . $row->code . '<span class="tool2">'.$text.'</span></div></td>
                      <td>' . $row->Percent . ' %</td>
                      <td>' . date('d-m-Y', strtotime($row->Date)) . '</td>
-                     <td>' . formatMoney($row->RequireTotal) . ' Đ</td>';
+                     <td>' . formatMoney($row->RequireTotal) . '</td>';
                     if ($row->typeEnable == 0)
                         $output .= '<td><label class="badge badge-info badge-pill">Công Khai</label></td>';
                     elseif ($row->typeEnable == 1)

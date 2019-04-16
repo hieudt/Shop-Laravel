@@ -128,6 +128,11 @@ Route::group(['prefix' => 'admin','middleware'=>'adminLogin'], function () {
     Route::post('bill/updateStatus','BillController@updateStatus')->name('bill.updateStatus');
     Route::get('bill/details/{id}','BillController@showbillbyId');
 
+    Route::get('shipper','ShipperController@index')->name('shipper.list');
+    Route::get('shipper/fetch','ShipperController@fetchAll')->name('shipper.fetch');
+    Route::post('shipper/update','ShipperController@update')->name('shipper.update');
+    Route::post('shipper/store','ShipperController@store')->name('shipper.store');
+
     Route::get('getapi/minmax/{min}/{max}','ApiController@minmax')->name('getapi.minmax');
     Route::get('getapi/service/{msg}','ApiController@service')->name('getapi.service');
 });
