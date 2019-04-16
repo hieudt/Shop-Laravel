@@ -78,6 +78,7 @@
                 <tbody>
 
                 </tbody>
+
             </table>
         </div>
     </div>
@@ -128,7 +129,7 @@
             }
         });
     }
-
+    var totalMoney = 0;
     $(document).ready(function(){
         $('#order-listing').DataTable({
         "aLengthMenu": [[5, 10, 15, -1], [5, 10, 15, "All"]],
@@ -161,8 +162,12 @@
             {data:'status',name:'status'},
             {data:'statusPay',name:'statusPay'},
             {data:'TotalMoney',name:'TotalMoney'}
-        ]
+        ],
         });
+
+
+
+
         $('#order-listing').each(function(){
         var datatable = $(this);
         // SEARCH - Add the placeholder for Search and Turn this into in-line form control

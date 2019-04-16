@@ -2,9 +2,11 @@
 @section('title','Quản lý khách hàng') 
 @section('css')
 <link rel="stylesheet" href="{{asset('@styleadmin/node_modules/datatables.net-bs4/css/dataTables.bootstrap4.css')}}">
-
+<link rel="stylesheet" href="{{asset('@styleadmin/node_modules/select2/dist/css/select2.min.css')}}">
+<link rel="stylesheet" href="{{asset('@styleadmin/node_modules/select2-bootstrap-theme/dist/select2-bootstrap.min.css')}}">
 
 <style>
+    
     .tool {
         position: relative;
         display: inline-block;
@@ -60,7 +62,8 @@
                 <h4 class="card-title">Quản lý khách hàng</h4>
             </div>
             <div class="col-sm-6">
-                <button type="button" id="OpenUserModal" class="btn btn-success btn-fw" data-toggle="modal" data-target="#UserModal" data-whatever="@getbootstrap"><i class="mdi mdi-check"></i>Thêm mới</button>
+                <button type="button" id="OpenUserModal" class="btn btn-success btn-xs" data-toggle="modal" data-target="#UserModal" data-whatever="@getbootstrap"><i class="mdi mdi-check"></i>Thêm mới</button>
+                
             </div>
         </div>
 
@@ -248,9 +251,6 @@
                 "sLast":     "Cuối"
             }
         },
-        "paging": false,
-        
-        "retrieve": true,
         "process" : true,
         "stateSave": true,
         "serverSide" : false,
@@ -263,6 +263,7 @@
             {data:'Title',name:'Title'},
             {data:'action',name:'action'}
         ]
+        
         });
         $('#order-listing').each(function(){
         var datatable = $(this);
@@ -277,7 +278,8 @@
     });
 
 </script>
-
+<script src="{{asset('@styleadmin/node_modules/select2/dist/js/select2.min.js')}}"></script>
+<script src="{{asset('@styleadmin/js/select2.js')}}"></script>
 <script src="{{asset('@styleadmin/node_modules/datatables.net/js/jquery.dataTables.js')}}"></script>
 <script src="{{asset('@styleadmin/node_modules/datatables.net-bs4/js/dataTables.bootstrap4.js')}}"></script>
 @endsection

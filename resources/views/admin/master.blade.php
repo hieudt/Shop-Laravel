@@ -27,16 +27,10 @@
 
 <body>
   <div class="container-scroller">
-    <!-- partial:{{asset('@styleadmin/partials/_navbar.html')}} -->
   @include('admin.elements.header')
-    <!-- partial -->
     <div class="container-fluid page-body-wrapper">
-      <!-- partial:{{asset('@styleadmin/partials/_settings-panel.html')}} -->
   @include('admin.elements.themes')
-      <!-- partial -->
-      <!-- partial:{{asset('@styleadmin/partials/_sidebar.html')}} -->
   @include('admin.elements.sidebar')
-      <!-- partial -->
       <div class="main-panel">
         
           <div class="content-wrapper">

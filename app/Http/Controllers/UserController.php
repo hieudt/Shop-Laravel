@@ -28,6 +28,10 @@ class UserController extends Controller
                     $text .= "<td> " . $user->email . "</td></tr>";
                     $text .= "<tr><td>Địa chỉ</td><td>".$user->Address."</td></tr>";
                     $text .= "<tr><td>Số Điện Thoại</td><td>".$user->Phone."</td></tr>";
+                    if($user->provider == "")
+                    $text .= "<tr><td>Loại TK </td><td>Người Dùng</td></tr>";
+                    else 
+                    $text .= "<tr><td>Loại TK </td><td>".$user->provider."</td></tr>";
                     return '<div class="tool">' . $user->name . '<span class="tool2">'.$text.'</span></div>';
                 })
                 ->editColumn('TotalMoney',function($user){
