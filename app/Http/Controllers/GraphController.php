@@ -9,11 +9,11 @@ use Illuminate\Support\Facades\Auth;
 class GraphController extends Controller
 {
     private $api;
-    private $token = "EAASv7DwM85oBAL8H2JtiA8u0JwrV8By4rKbFjcBt4yxKpkbzti64aLK0De2Mn53PY3w4iL8ROfmZC6Q32T9z2s3QuF4pFxsOEKLQk7L6cDLOSvHaaqXAS71SLJJLXHHZA4mItuVHeZC1TZB7ZAj0bMXZAwuHW7bF8OvxjgyHtG49LGwY4Byq8ZC";
+    private $token = "EAASv7DwM85oBANky53DFCEXNpdiHgJ3BtYZAhujp8MSPmUkrXDjU0mdpUpmjKGOciNlOG5ubjPiqYukMn0J5T8SqW297xAIZCU8iIwSByMmpgDwsZBw1RIobmZB4ZBGwKghgoBP8168GuChrsI3HIALvZBSMcc6ZC7xpnK2Prn7qAZDZD";
     public function __construct(Facebook $fb)
     {
         $this->middleware(function ($request, $next) use ($fb) {
-            $fb->setDefaultAccessToken("EAASv7DwM85oBAL8H2JtiA8u0JwrV8By4rKbFjcBt4yxKpkbzti64aLK0De2Mn53PY3w4iL8ROfmZC6Q32T9z2s3QuF4pFxsOEKLQk7L6cDLOSvHaaqXAS71SLJJLXHHZA4mItuVHeZC1TZB7ZAj0bMXZAwuHW7bF8OvxjgyHtG49LGwY4Byq8ZC");
+            $fb->setDefaultAccessToken("EAASv7DwM85oBANky53DFCEXNpdiHgJ3BtYZAhujp8MSPmUkrXDjU0mdpUpmjKGOciNlOG5ubjPiqYukMn0J5T8SqW297xAIZCU8iIwSByMmpgDwsZBw1RIobmZB4ZBGwKghgoBP8168GuChrsI3HIALvZBSMcc6ZC7xpnK2Prn7qAZDZD");
             $this->api = $fb;
             return $next($request);
         });
@@ -55,6 +55,19 @@ class GraphController extends Controller
                 if ($key['id'] == $page_id) {
                     return $key['access_token'];
                 }
+            }
+        } catch (FacebookSDKException $e) {
+            dd($e); // handle exception
+        }
+    }
+
+    public function publishToProfile($msg){
+        try {
+            $response = $this->api->post('/me/feed', [
+                'message' => $msg
+            ])->getGraphNode()->asArray();
+            if($response['id']){
+               // post created
             }
         } catch (FacebookSDKException $e) {
             dd($e); // handle exception

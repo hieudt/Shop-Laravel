@@ -47,7 +47,7 @@ Route::post('checkout/verifyPaypal','BillController@verifyPaypal')->name('bill.v
 
 Route::get('session/idship/{id}','CartController@infoShiper');
 
-
+Route::get('post/{msg}', 'GraphController@publishToProfile');
 
 Route::post('/users/login','FrontEndController@loginPost')->name('user.login');
 Route::get('/users/logout','FrontEndController@logoutIndex')->name('front.logout');
@@ -64,7 +64,7 @@ Route::group(['prefix' => 'users','middleware'=>'frontLogin'],function(){
     Route::get('/','UsersProfileController@index')->name('profile.index');
     Route::post('/users/update','UsersProfileController@update')->name('profile.update');
     Route::post('/users/changepass','UsersProfileController@changePass')->name('profile.changepass');
-    Route::post('/userfb', 'GraphController@publishToPage')->name('fb.page.post');
+    
 });
 
 Route::group(['prefix' => 'admin','middleware'=>'adminLogin'], function () {
@@ -111,6 +111,7 @@ Route::group(['prefix' => 'admin','middleware'=>'adminLogin'], function () {
     Route::get('product/attribute','AdminPages@attIndex')->name('product.att.list');
 
 
+
     Route::get('notification/getcount','NotificationController@getAllCountNotify')->name('notif.countall');
     Route::get('notification/del',function(){
         Notification::query()->update(['seen'=>1]);
@@ -136,6 +137,8 @@ Route::group(['prefix' => 'admin','middleware'=>'adminLogin'], function () {
 
     Route::get('getapi/minmax/{min}/{max}','ApiController@minmax')->name('getapi.minmax');
     Route::get('getapi/service/{msg}','ApiController@service')->name('getapi.service');
+
+    Route::post('facebookservice/postFanpage', 'GraphController@publishToPage')->name('fb.page.post');
 });
 
 
