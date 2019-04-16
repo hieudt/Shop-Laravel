@@ -6,14 +6,16 @@ use Facebook\Exceptions\FacebookSDKException;
 use Facebook\Facebook;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use function GuzzleHttp\json_encode;
+
 class GraphController extends Controller
 {
     private $api;
-    private $token = "EAASv7DwM85oBANky53DFCEXNpdiHgJ3BtYZAhujp8MSPmUkrXDjU0mdpUpmjKGOciNlOG5ubjPiqYukMn0J5T8SqW297xAIZCU8iIwSByMmpgDwsZBw1RIobmZB4ZBGwKghgoBP8168GuChrsI3HIALvZBSMcc6ZC7xpnK2Prn7qAZDZD";
+    private $token = "EAASv7DwM85oBAL8H2JtiA8u0JwrV8By4rKbFjcBt4yxKpkbzti64aLK0De2Mn53PY3w4iL8ROfmZC6Q32T9z2s3QuF4pFxsOEKLQk7L6cDLOSvHaaqXAS71SLJJLXHHZA4mItuVHeZC1TZB7ZAj0bMXZAwuHW7bF8OvxjgyHtG49LGwY4Byq8ZC";
     public function __construct(Facebook $fb)
     {
         $this->middleware(function ($request, $next) use ($fb) {
-            $fb->setDefaultAccessToken("EAASv7DwM85oBANky53DFCEXNpdiHgJ3BtYZAhujp8MSPmUkrXDjU0mdpUpmjKGOciNlOG5ubjPiqYukMn0J5T8SqW297xAIZCU8iIwSByMmpgDwsZBw1RIobmZB4ZBGwKghgoBP8168GuChrsI3HIALvZBSMcc6ZC7xpnK2Prn7qAZDZD");
+            $fb->setDefaultAccessToken("EAASv7DwM85oBAL8H2JtiA8u0JwrV8By4rKbFjcBt4yxKpkbzti64aLK0De2Mn53PY3w4iL8ROfmZC6Q32T9z2s3QuF4pFxsOEKLQk7L6cDLOSvHaaqXAS71SLJJLXHHZA4mItuVHeZC1TZB7ZAj0bMXZAwuHW7bF8OvxjgyHtG49LGwY4Byq8ZC");
             $this->api = $fb;
             return $next($request);
         });
@@ -69,6 +71,28 @@ class GraphController extends Controller
             if($response['id']){
                // post created
             }
+        } catch (FacebookSDKException $e) {
+            dd($e); // handle exception
+        }
+    }
+
+    public function getFeed(){
+        try{
+            $response = $this->api->get('/me/feed')->getGraphEdge()->asArray();
+           
+            dd($response);
+        } catch (FacebookSDKException $e){
+            dd($e);
+        }
+    }
+
+    public function getPostPage(){
+        $page_id = '491152857694713';
+        try {
+            $post = $this->api->get('/' . $page_id . '/feed/?fields=reactions.type(LIKE).summary(total_count)')->getGraphEdge()->asArray();
+
+            dd($post);
+
         } catch (FacebookSDKException $e) {
             dd($e); // handle exception
         }
