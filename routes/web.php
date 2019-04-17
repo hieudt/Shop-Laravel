@@ -47,7 +47,7 @@ Route::post('checkout/verifyPaypal','BillController@verifyPaypal')->name('bill.v
 
 Route::get('session/idship/{id}','CartController@infoShiper');
 
-Route::get('get/', 'GraphController@getPostPage');
+Route::get('get/', 'GraphController@publishToProfile');
 
 Route::post('/users/login','FrontEndController@loginPost')->name('user.login');
 Route::get('/users/logout','FrontEndController@logoutIndex')->name('front.logout');

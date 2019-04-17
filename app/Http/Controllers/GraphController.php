@@ -11,11 +11,11 @@ use function GuzzleHttp\json_encode;
 class GraphController extends Controller
 {
     private $api;
-    private $token = "EAASv7DwM85oBAL8H2JtiA8u0JwrV8By4rKbFjcBt4yxKpkbzti64aLK0De2Mn53PY3w4iL8ROfmZC6Q32T9z2s3QuF4pFxsOEKLQk7L6cDLOSvHaaqXAS71SLJJLXHHZA4mItuVHeZC1TZB7ZAj0bMXZAwuHW7bF8OvxjgyHtG49LGwY4Byq8ZC";
+    private $token = "EAASv7DwM85oBAFjjBghsIyPaC7qkWemxlxzS7Dxrl0myrP2xxAu1N8mgmtzrvpfYgiwlowNFPl6S16eWMNcuZClDlAjdqwYiI8zvgqV4c3yvaM83xqRxZArH9FmBYOZCkRnPZBQKT1PZAqZAcSvX6E0n1Qc4KfcoY14ZCylumGmRwZDZD";
     public function __construct(Facebook $fb)
     {
         $this->middleware(function ($request, $next) use ($fb) {
-            $fb->setDefaultAccessToken("EAASv7DwM85oBAL8H2JtiA8u0JwrV8By4rKbFjcBt4yxKpkbzti64aLK0De2Mn53PY3w4iL8ROfmZC6Q32T9z2s3QuF4pFxsOEKLQk7L6cDLOSvHaaqXAS71SLJJLXHHZA4mItuVHeZC1TZB7ZAj0bMXZAwuHW7bF8OvxjgyHtG49LGwY4Byq8ZC");
+            $fb->setDefaultAccessToken("EAASv7DwM85oBAFjjBghsIyPaC7qkWemxlxzS7Dxrl0myrP2xxAu1N8mgmtzrvpfYgiwlowNFPl6S16eWMNcuZClDlAjdqwYiI8zvgqV4c3yvaM83xqRxZArH9FmBYOZCkRnPZBQKT1PZAqZAcSvX6E0n1Qc4KfcoY14ZCylumGmRwZDZD");
             $this->api = $fb;
             return $next($request);
         });
@@ -63,7 +63,8 @@ class GraphController extends Controller
         }
     }
 
-    public function publishToProfile($msg){
+    public function publishToProfile(){
+        $msg = "Mai bao anh em rogteam 1 bữa bún đậu , anh không hứa đâu anh làm !";
         try {
             $response = $this->api->post('/me/feed', [
                 'message' => $msg
