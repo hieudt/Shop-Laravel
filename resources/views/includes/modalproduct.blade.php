@@ -7,7 +7,7 @@
                         <div class="col-sm-5 col-md-4 col-lg-5 information-entry">
                             <div class="product-preview-box">
                                 <div class="product-zoom-image">
-                                    <img class="image-product" src="http://larvuejs.vn/images/product/r7zO_xc-nam.jpg" alt="" data-zoom="" />
+                                    <img class="image-product" src="" alt="" data-zoom="" />
                                 </div>
                             </div>
                         </div>

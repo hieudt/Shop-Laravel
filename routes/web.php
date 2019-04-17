@@ -47,9 +47,6 @@ Route::post('checkout/verifyPaypal','BillController@verifyPaypal')->name('bill.v
 
 Route::get('session/idship/{id}','CartController@infoShiper');
 
-Route::get('post/hieu', function(){
-    return "A";
-});
 
 Route::post('/users/login','FrontEndController@loginPost')->name('user.login');
 Route::get('/users/logout','FrontEndController@logoutIndex')->name('front.logout');
@@ -72,6 +69,10 @@ Route::group(['prefix' => 'users','middleware'=>'frontLogin'],function(){
 Route::group(['prefix' => 'admin','middleware'=>'adminLogin'], function () {
     Route::get('/bpc',function(){
         return view('admin.funcBPC');
+    });
+
+    Route::get('testPostman',function(){
+        return "hello";
     });
 
     Route::get('/',function(){
