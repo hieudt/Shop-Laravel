@@ -3,7 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 
-class CreateShipperTable extends Migration {
+class CreateSocialAccountsTable extends Migration {
 
 	/**
 	 * Run the migrations.
@@ -12,14 +12,11 @@ class CreateShipperTable extends Migration {
 	 */
 	public function up()
 	{
-		Schema::create('Shipper', function(Blueprint $table)
+		Schema::create('social_accounts', function(Blueprint $table)
 		{
-			$table->increments('id');
-			$table->string('name');
-			$table->integer('fee');
-			$table->string('Time');
-			$table->text('image', 65535);
-			$table->boolean('Display');
+			$table->integer('user_id');
+			$table->string('provider_user_id');
+			$table->string('provider');
 			$table->timestamps();
 		});
 	}
@@ -32,7 +29,7 @@ class CreateShipperTable extends Migration {
 	 */
 	public function down()
 	{
-		Schema::drop('Shipper');
+		Schema::drop('social_accounts');
 	}
 
 }

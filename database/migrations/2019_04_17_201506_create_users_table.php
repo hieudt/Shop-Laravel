@@ -16,12 +16,14 @@ class CreateUsersTable extends Migration {
 		{
 			$table->increments('id');
 			$table->string('name');
-			$table->string('email')->unique();
+			$table->string('email')->nullable()->unique();
 			$table->string('avatar')->nullable()->default('default.png');
-			$table->text('Address', 65535);
+			$table->text('Address', 65535)->nullable();
 			$table->text('Phone', 65535)->nullable();
 			$table->string('password');
 			$table->string('remember_token', 100)->nullable();
+			$table->text('provider', 65535);
+			$table->text('provider_id', 65535);
 			$table->text('settings', 65535)->nullable();
 			$table->timestamps();
 		});
