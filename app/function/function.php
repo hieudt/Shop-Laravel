@@ -267,8 +267,9 @@ function getInfoByCategoryId($id, $day)
 		->select(DB::raw('categories.title,sum(DetailsBill.Number) as SL,sum(Product.cost * DetailsBill.Number - ((Product.cost*DetailsBill.Number) / 100 * Product.discount)) as TongTien'))
 		->where('categories.id', $id)
 		->where('Bill.statusPay', 1)
+		->where('Bill.status', 2)
 		->whereDate('Bill.created_at', $day)
-		->groupBy('categories.id')
+		->groupBy('categories.title')
 		->get();
 	if (count($data) > 0)
 		return (int)$data[0]->TongTien;
@@ -276,7 +277,7 @@ function getInfoByCategoryId($id, $day)
 		return 0;
 }
 
-function getListCategoryTop()
+function getListCategoryTop($params = null)
 {
 	$data = DB::table('categories')
 		->join('SubCategory', 'categories.id', '=', 'SubCategory.id_category')
@@ -286,8 +287,10 @@ function getListCategoryTop()
 		->join('Bill', 'Bill.id', '=', 'DetailsBill.id_bill')
 		->select(DB::raw('categories.id,categories.title,sum(DetailsBill.Number) as SL,sum(Product.cost * DetailsBill.Number - ((Product.cost*DetailsBill.Number) / 100 * Product.discount)) as TongTien'))
 		->where('Bill.statusPay', 1)
+		->where('Bill.status', 2)
 		->groupBy('categories.id')
-		->orderBy('TongTien', 'desc')->take(4)->get();
+		->groupBy('categories.title')
+		->orderBy('TongTien', 'desc')->take(!empty($params) ? $params : 4)->get();
 
 	return $data;
 }
@@ -310,4 +313,19 @@ function ChartCategory()
 		$count++;
 	}
 	return $output;
+}
+
+function getProductTop()
+{
+	$data = DB::table('Product')
+		->join('product_details', 'Product.id', '=', 'product_details.id_product')
+		->join('DetailsBill', 'product_details.id', '=', 'DetailsBill.id_products_details')
+		->join('Bill', 'DetailsBill.id_bill', '=', 'Bill.id')
+		->select(DB::raw( 'Product.title,Product.id, sum(DetailsBill.Number) as SL, sum(Product.cost * DetailsBill.Number - ((Product.cost * DetailsBill.Number) / 100 * Product.discount)) as TongTien'))
+		->where('Bill.status', 2)
+		->where('Bill.statusPay', 1)
+		->groupBy('Product.title')
+		->groupBy('Product.id')
+		->orderBy('TongTien', 'desc')->get();
+	return $data;
 }

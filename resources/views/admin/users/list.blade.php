@@ -5,7 +5,6 @@
 
 
 <style>
-    
     .tool {
         position: relative;
         display: inline-block;
@@ -62,7 +61,7 @@
             </div>
             <div class="col-sm-6">
                 <button type="button" id="OpenUserModal" class="btn btn-success btn-xs" data-toggle="modal" data-target="#UserModal" data-whatever="@getbootstrap"><i class="mdi mdi-check"></i>Thêm mới</button>
-                
+
             </div>
         </div>
 

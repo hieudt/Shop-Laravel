@@ -81,7 +81,7 @@ Route::group(['prefix' => 'admin', 'middleware' => 'adminLogin'], function () {
     Route::get('/bpc', 'AdminPages@bpc')->name('admin.bpc');
     Route::get('/kanban', 'AdminPages@kanban');
     Route::get('/erd', 'AdminPages@erd');
-
+    Route::get('/fetchProduct', 'AdminPages@fetchTopProduct')->name('admin.fetchproduct');
 
     Route::get('users', 'UserController@index')->name('users.list');
     Route::get('users/fetch', 'UserController@fetchAll')->name('users.fetch');
@@ -191,5 +191,10 @@ Route::get('/cv', function () {
 });
 
 Route::get('/top', function () {
-    getListCategoryTop();
+    $data = getProductTop();
+    $money = 0;
+    foreach ($data as $key) {
+        $money += $key->TongTien;
+    }
+    echo $money;
 });

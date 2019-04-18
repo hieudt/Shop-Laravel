@@ -8,57 +8,61 @@ use App\User;
 use Illuminate\Support\Str;
 use Mail;
 use Yajra\Datatables\Datatables;
+
 class UserController extends Controller
 {
-    public function index(){
+    public function index()
+    {
         return view('admin.users.list');
     }
 
-    public function fetchAll(){
+    public function fetchAll()
+    {
         $data = User::all();
-        foreach($data as $usr){
+        foreach ($data as $usr) {
             $usr['SoBill'] = $usr->getCountBill($usr->id);
             $usr['TotalMoney'] = $usr->getTotalMoney($usr->id);
-            $usr['Title'] = $usr->getTitle($usr['TotalMoney'],$usr->id);
+            $usr['Title'] = $usr->getTitle($usr['TotalMoney'], $usr->id);
         }
-    
+
         return Datatables::of($data)
-                ->editColumn('name',function($user){
-                    $text = '<table class="table table-bordered"><tbody> <tr> <td>Email</td>';
-                    $text .= "<td> " . $user->email . "</td></tr>";
-                    $text .= "<tr><td>Địa chỉ</td><td>".$user->Address."</td></tr>";
-                    $text .= "<tr><td>Số Điện Thoại</td><td>".$user->Phone."</td></tr>";
-                    if($user->provider == "")
+            ->editColumn('name', function ($user) {
+                $text = '<table class="table table-bordered"><tbody> <tr> <td>Email</td>';
+                $text .= "<td> " . $user->email . "</td></tr>";
+                $text .= "<tr><td>Địa chỉ</td><td>" . $user->Address . "</td></tr>";
+                $text .= "<tr><td>Số Điện Thoại</td><td>" . $user->Phone . "</td></tr>";
+                if ($user->provider == "")
                     $text .= "<tr><td>Loại TK </td><td>Người Dùng</td></tr>";
-                    else 
-                    $text .= "<tr><td>Loại TK </td><td>".$user->provider."</td></tr>";
-                    return '<div class="tool">' . $user->name . '<span class="tool2">'.$text.'</span></div>';
-                })
-                ->editColumn('TotalMoney',function($user){
-                    return formatMoney($user->TotalMoney);
-                })
-                ->editColumn('Title',function($user){
-                    if($user->Title == 0)
+                else
+                    $text .= "<tr><td>Loại TK </td><td>" . $user->provider . "</td></tr>";
+                return '<div class="tool">' . $user->name . '<span class="tool2">' . $text . '</span></div>';
+            })
+            ->editColumn('TotalMoney', function ($user) {
+                return formatMoney($user->TotalMoney);
+            })
+            ->editColumn('Title', function ($user) {
+                if ($user->Title == 0)
                     return '404';
-                    elseif($user->Title == 1)
+                elseif ($user->Title == 1)
                     return '<div class="badge badge-primary">Khách Hàng</div>';
-                    elseif($user->Title == 2)
+                elseif ($user->Title == 2)
                     return '<div class="badge badge-warning">Tiềm Năng</div>';
-                    else
+                else
                     return '<div class="badge badge-success">Mới Đăng Ký</div>';
-                })
-                ->addColumn('action',function($user){
-                    return '<button class="btn btn-outline-primary edited md-trigger md-setperspective" data-modal="modal-18" data-id="'.$user->id.'" data-hoten="'.$user->name.'" data-email="'.$user->email.'" data-phone="'.$user->Phone.'" data-address="'.$user->Address.'">Sửa </button>&nbsp<button class="btn btn-outline-danger delete" data-id="'.$user->id.'">Xóa </button>';
-                })->rawColumns(['name','action','TotalMoney','Title'])->make(true);
+            })
+            ->addColumn('action', function ($user) {
+                return '<button class="btn btn-outline-primary edited md-trigger md-setperspective" data-modal="modal-18" data-id="' . $user->id . '" data-hoten="' . $user->name . '" data-email="' . $user->email . '" data-phone="' . $user->Phone . '" data-address="' . $user->Address . '">Sửa </button>&nbsp<button class="btn btn-outline-danger delete" data-id="' . $user->id . '">Xóa </button>';
+            })->rawColumns(['name', 'action', 'TotalMoney', 'Title'])->make(true);
     }
 
-    public function store(Request $req){
-        if($req->ajax()){
+    public function store(Request $req)
+    {
+        if ($req->ajax()) {
             $this->validate(
-            $req,
+                $req,
                 [
                     'txtTen' => 'required|min:3|max:150', /* không trùng tiêu đề khác */
-                    'txtEmail' => 'required|email|unique:users,email,'.$req->txtId,
+                    'txtEmail' => 'required|email|unique:users,email,' . $req->txtId,
                     'txtAddress' => 'required',
                 ],
                 [
@@ -69,7 +73,7 @@ class UserController extends Controller
                     'txtEmail.email' => 'Định dạng email không hợp lệ',
                     'txtEmail.unique' => 'Email đã có người sử dụng',
                     'txtAddress.required' => 'Địa chỉ không được để trống'
-                   
+
                 ]
             );
 
@@ -79,26 +83,27 @@ class UserController extends Controller
             $User->email = $req->txtEmail;
             $User->Address = $req->txtAddress;
             $User->Phone = $req->txtPhone;
-            $pw = "SHOPROG".Str::random(6);
+            $pw = "SHOPROG" . Str::random(6);
             $User->password = bcrypt($pw);
-            
-            Mail::send('emails.send',['title'=>'Thông tin tài khoản tại cửa hàng ShopHieuMai','content'=>'Email : '.$req->txtEmail.' Mật khẩu : '.$pw],function($message) use ($req){
-                $message->from('hieumai@rog.vn','Trung Hieu');
+
+            Mail::send('emails.send', ['title' => 'Thông tin tài khoản tại cửa hàng ShopHieuMai', 'content' => 'Email : ' . $req->txtEmail . ' Mật khẩu : ' . $pw], function ($message) use ($req) {
+                $message->from('hieumai@rog.vn', 'Trung Hieu');
                 $message->to($req->txtEmail);
             });
             $User->save();
 
-            return response()->json(['success'=>'Thêm tài khoản thành công, thông tin đã được gửi vào mail khách hàng'],200);
+            return response()->json(['success' => 'Thêm tài khoản thành công, thông tin đã được gửi vào mail khách hàng'], 200);
         }
     }
 
-    public function update(Request $req){
-        if($req->ajax()){
+    public function update(Request $req)
+    {
+        if ($req->ajax()) {
             $this->validate(
-            $req,
+                $req,
                 [
                     'txtTen' => 'required|min:3|max:150', /* không trùng tiêu đề khác */
-                    'txtEmail' => 'required|email|unique:users,email,'.$req->txtId,
+                    'txtEmail' => 'required|email|unique:users,email,' . $req->txtId,
                     'txtAddress' => 'required',
                 ],
                 [
@@ -109,7 +114,7 @@ class UserController extends Controller
                     'txtEmail.email' => 'Định dạng email không hợp lệ',
                     'txtEmail.unique' => 'Email đã có người sử dụng',
                     'txtAddress.required' => 'Địa chỉ không được để trống'
-                   
+
                 ]
             );
 
@@ -122,7 +127,7 @@ class UserController extends Controller
 
             $data->save();
 
-            return response()->json(['success'=>'Cập nhật thành công'],200);
+            return response()->json(['success' => 'Cập nhật thành công'], 200);
         }
     }
 }

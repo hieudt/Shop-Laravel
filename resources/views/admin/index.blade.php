@@ -1,6 +1,7 @@
 @extends('admin.master') 
 @section('title','Tổng Quan Hệ Thống') 
 @section('css')
+<link rel="stylesheet" href="{{asset('@styleadmin/node_modules/datatables.net-bs4/css/dataTables.bootstrap4.css')}}">
 @endsection
  
 @section('content')
@@ -21,7 +22,7 @@
                   </p>
                 </div>
                 <div class="ml-auto">
-                  <i class="mdi mdi-account-switch mdi-36px"></i>
+                  <i class="mdi mdi-signal-variant mdi-36px"></i>
                 </div>
               </div>
             </div>
@@ -34,13 +35,13 @@
             <div class="card-body">
               <div class="d-flex align-items-center">
                 <div class="mr-auto">
-                  <h1 class="mb-0">4200</h1>
+                  <h1 class="mb-0">{{count(App\User::all())}}</h1>
                   <p>
-                    Sales
+                    Khách Hàng
                   </p>
                 </div>
                 <div class="ml-auto">
-                  <i class="mdi mdi-clipboard-text mdi-36px"></i>
+                  <i class="mdi mdi-account mdi-36px"></i>
                 </div>
               </div>
             </div>
@@ -53,13 +54,13 @@
             <div class="card-body">
               <div class="d-flex align-items-center">
                 <div class="mr-auto">
-                  <h1 class="mb-0">7874</h1>
+                  <h1 class="mb-0">{{count(App\Bill::where('status',2)->where('statusPay',1)->get())}}</h1>
                   <p>
-                    Orders
+                    Hóa Đơn
                   </p>
                 </div>
                 <div class="ml-auto">
-                  <i class="mdi mdi-cube-outline mdi-36px"></i>
+                  <i class="mdi mdi-file-document mdi-36px"></i>
                 </div>
               </div>
             </div>
@@ -72,13 +73,13 @@
             <div class="card-body">
               <div class="d-flex align-items-center">
                 <div class="mr-auto">
-                  <h1 class="mb-0">1500</h1>
+                  <h1 class="mb-0">{{formatMoney(App\Bill::where('status',2)->where('statusPay',1)->sum('TotalMoney'),true)}}</h1>
                   <p>
-                    Revenue
+                    Doanh Thu (Cả phí ship)
                   </p>
                 </div>
                 <div class="ml-auto">
-                  <i class="mdi mdi-scale-balance mdi-36px"></i>
+                  <i class="mdi mdi-coin mdi-36px"></i>
                 </div>
               </div>
             </div>
@@ -103,162 +104,27 @@
       <!--purchase table-->
       <div class="card">
         <div class="card-body">
-          <h4 class="card-title">Purchase History</h4>
+          <h4 class="card-title">Sản phẩm được nhiều người mua</h4>
           <div class="table-responsive">
-            <table class="table">
+            <table class="table" id="order-listing">
               <thead>
                 <tr>
                   <th>
-                    User
+                    Tên sản phẩm
                   </th>
                   <th>
-                    First name
+                    Tỉ lệ doanh thu
                   </th>
                   <th>
-                    Progress
+                    Tổng doanh thu
                   </th>
                   <th>
-                    Amount
-                  </th>
-                  <th>
-                    Deadline
+                    Tổng SL Đã bán
                   </th>
                 </tr>
               </thead>
               <tbody>
-                <tr>
-                  <td class="py-1">
-                    <img src="" />
-                  </td>
-                  <td>
-                    Herman Beck
-                  </td>
-                  <td>
-                    <div class="progress">
-                      <div class="progress-bar bg-success" role="progressbar" style="width: 25%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
-                    </div>
-                  </td>
-                  <td>
-                    $ 77.99
-                  </td>
-                  <td>
-                    May 15, 2015
-                  </td>
-                </tr>
-                <tr>
-                  <td class="py-1">
-                    <img src="" />
-                  </td>
-                  <td>
-                    Messsy Adam
-                  </td>
-                  <td>
-                    <div class="progress">
-                      <div class="progress-bar bg-danger" role="progressbar" style="width: 75%" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"></div>
-                    </div>
-                  </td>
-                  <td>
-                    $245.30
-                  </td>
-                  <td>
-                    July 1, 2015
-                  </td>
-                </tr>
-                <tr>
-                  <td class="py-1">
-                    <img src="" />
-                  </td>
-                  <td>
-                    John Richards
-                  </td>
-                  <td>
-                    <div class="progress">
-                      <div class="progress-bar bg-warning" role="progressbar" style="width: 90%" aria-valuenow="90" aria-valuemin="0" aria-valuemax="100"></div>
-                    </div>
-                  </td>
-                  <td>
-                    $138.00
-                  </td>
-                  <td>
-                    Apr 12, 2015
-                  </td>
-                </tr>
-                <tr>
-                  <td class="py-1">
-                    <img src="" />
-                  </td>
-                  <td>
-                    Peter Meggik
-                  </td>
-                  <td>
-                    <div class="progress">
-                      <div class="progress-bar bg-primary" role="progressbar" style="width: 50%" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
-                    </div>
-                  </td>
-                  <td>
-                    $ 77.99
-                  </td>
-                  <td>
-                    May 15, 2015
-                  </td>
-                </tr>
-                <tr>
-                  <td class="py-1">
-                    <img src="" />
-                  </td>
-                  <td>
-                    Edward
-                  </td>
-                  <td>
-                    <div class="progress">
-                      <div class="progress-bar bg-danger" role="progressbar" style="width: 35%" aria-valuenow="35" aria-valuemin="0" aria-valuemax="100"></div>
-                    </div>
-                  </td>
-                  <td>
-                    $ 160.25
-                  </td>
-                  <td>
-                    May 03, 2015
-                  </td>
-                </tr>
-                <tr>
-                  <td class="py-1">
-                    <img src="" />
-                  </td>
-                  <td>
-                    John Doe
-                  </td>
-                  <td>
-                    <div class="progress">
-                      <div class="progress-bar bg-info" role="progressbar" style="width: 65%" aria-valuenow="65" aria-valuemin="0" aria-valuemax="100"></div>
-                    </div>
-                  </td>
-                  <td>
-                    $ 123.21
-                  </td>
-                  <td>
-                    April 05, 2015
-                  </td>
-                </tr>
-                <tr>
-                  <td class="py-1">
-                    <img src="" />
-                  </td>
-                  <td>
-                    Henry Tom
-                  </td>
-                  <td>
-                    <div class="progress">
-                      <div class="progress-bar bg-warning" role="progressbar" style="width: 20%" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100"></div>
-                    </div>
-                  </td>
-                  <td>
-                    $ 150.00
-                  </td>
-                  <td>
-                    June 16, 2015
-                  </td>
-                </tr>
+
               </tbody>
             </table>
           </div>
@@ -270,83 +136,21 @@
       <!--user list-->
       <div class="card">
         <div class="card-body">
-          <h4 class="card-title">User List</h4>
+          <h4 class="card-title">Chi tiết danh mục</h4>
           <div class="preview-list">
+            @forelse ($categoryTop as $catTop)
             <div class="preview-item">
-              <div class="preview-thumbnail">
-                <img src="" class="profile-pic" />
-                <span class="badge badge-online"></span>
-              </div>
               <div class="preview-item-content">
-                <p class="preview-subject font-weight-medium">Fabish David</p>
+                <p class="preview-subject font-weight-medium">{{$catTop->title}}</p>
                 <p class="text-muted">
-                  Web-designer
+                  <div class="badge badge-pill badge-outline-info">Doanh thu mang lại : {!!formatMoney((int)$catTop->TongTien)!!}</div>
                 </p>
               </div>
               <div class="preview-actions ml-auto">
-                <button class="btn btn-light btn-sm">Follow</button>
+                <div class="badge badge-success badge-pill">Đã Bán {{$catTop->SL}} SP</div>
               </div>
             </div>
-            <div class="preview-item">
-              <div class="preview-thumbnail">
-                <img src="" class="profile-pic" />
-                <span class="badge badge-offline"></span>
-              </div>
-              <div class="preview-item-content">
-                <h6 class="preview-subject">Praveen Kumar</h6>
-                <p class="text-muted">
-                  Project Manager
-                </p>
-              </div>
-              <div class="preview-actions ml-auto">
-                <button class="btn btn-light btn-sm">Follow</button>
-              </div>
-            </div>
-            <div class="preview-item">
-              <div class="preview-thumbnail">
-                <img src="" class="profile-pic" />
-                <span class="badge badge-busy"></span>
-              </div>
-              <div class="preview-item-content">
-                <p class="preview-subject font-weight-medium">Mexwell Peter</p>
-                <p class="text-muted">
-                  Frontend Eng
-                </p>
-              </div>
-              <div class="preview-actions ml-auto">
-                <button class="btn btn-primary btn-sm">Follow</button>
-              </div>
-            </div>
-            <div class="preview-item">
-              <div class="preview-thumbnail">
-                <img src="" class="profile-pic" />
-                <span class="badge badge-offline"></span>
-              </div>
-              <div class="preview-item-content">
-                <p class="preview-subject font-weight-medium">David R. Jones</p>
-                <p class="text-muted">
-                  Content Writer
-                </p>
-              </div>
-              <div class="preview-actions ml-auto">
-                <button class="btn btn-light btn-sm">Follow</button>
-              </div>
-            </div>
-            <div class="preview-item">
-              <div class="preview-thumbnail">
-                <img src="" class="profile-pic" />
-                <span class="badge badge-busy"></span>
-              </div>
-              <div class="preview-item-content">
-                <p class="preview-subject font-weight-medium">Danny Mell</p>
-                <p class="text-muted">
-                  Graphic designer
-                </p>
-              </div>
-              <div class="preview-actions ml-auto">
-                <button class="btn btn-light btn-sm">Follow</button>
-              </div>
-            </div>
+            @empty Không có dữ liệu @endforelse
           </div>
         </div>
       </div>
@@ -656,9 +460,56 @@
 @endsection
  
 @section('javascript')
+<script>
+  $(document).ready(function(){
+      $('#order-listing').DataTable({
+      "bLengthChange" : false, //thought this line could hide the LengthMenu
+      "iDisplayLength": 5,
+      "language": { 
+          "sProcessing":   "Đang xử lý...",
+          "sLengthMenu":   "Xem _MENU_ mục",
+          "sZeroRecords":  "Không tìm thấy dòng nào phù hợp",
+          "sInfo":         "Đang xem _START_ đến _END_ trong tổng số _TOTAL_ mục",
+          "sInfoEmpty":    "Đang xem 0 đến 0 trong tổng số 0 mục",
+          "sInfoFiltered": "(được lọc từ _MAX_ mục)",
+          "sInfoPostFix":  "",
+          "sSearch":       "Tìm:",
+          "sUrl":          "",
+          "oPaginate": {
+              "sFirst":    "Đầu",
+              "sPrevious": "Trước",
+              "sNext":     "Tiếp",
+              "sLast":     "Cuối"
+          }
+      },
+      "process" : true,
+      "serverSide" : false,
+      "ajax" : '{!!route('admin.fetchproduct')!!}',
+      "columns":[
+          {data:'title',name:'title'},
+          {data:'progress',name:'progress'},
+          {data:'TongTien',name:'TongTien'},
+          {data:'SL',name:'SL'}
+      ]
 
+      });
+      $('#order-listing').each(function(){
+      var datatable = $(this);
+      // SEARCH - Add the placeholder for Search and Turn this into in-line form control
+      var search_input = datatable.closest('.dataTables_wrapper').find('div[id$=_filter] input');
+      search_input.attr('placeholder', 'Search');
+      search_input.removeClass('form-control-sm');
+      // LENGTH - Inline-Form control
+      var length_sel = datatable.closest('.dataTables_wrapper').find('div[id$=_length] select');
+      length_sel.removeClass('form-control-sm');
+      });
+  });
+
+</script>
 <script src="{{asset('@styleadmin/node_modules/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js')}}"></script>
 <script src="{{asset('@styleadmin/js/dashboard.js')}}"></script>
+<script src="{{asset('@styleadmin/node_modules/datatables.net/js/jquery.dataTables.js')}}"></script>
+<script src="{{asset('@styleadmin/node_modules/datatables.net-bs4/js/dataTables.bootstrap4.js')}}"></script>
 {{--
 <script type="text/javascript" src="https://cdn.rawgit.com/Mikhus/canvas-gauges/gh-pages/download/2.1.2/all/gauge.min.js"></script>
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/chartist/0.10.1/chartist.min.js"></script>

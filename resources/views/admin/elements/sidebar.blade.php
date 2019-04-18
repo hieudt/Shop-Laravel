@@ -1,92 +1,98 @@
 <nav class="sidebar sidebar-offcanvas" id="sidebar">
-    <ul class="nav">
-      <li class="nav-item">
-        <a class="nav-link collapsed" data-toggle="collapse" href="#project" aria-expanded="false" aria-controls="products">
+  <ul class="nav">
+    <li class="nav-item">
+      <a class="nav-link" href="{{url('admin')}}">
+        <i class="mdi mdi mdi-home menu-icon"></i>
+        <span class="menu-title">Tổng Quan</span>
+      </a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link collapsed" data-toggle="collapse" href="#project" aria-expanded="false" aria-controls="products">
             <i class="mdi mdi-compass menu-icon"></i>
             <span class="menu-title">PROJECT</span>
             <i class="menu-arrow"></i>
           </a>
-          <div id="project" class="collapse" style>
-            <ul class="nav flex-column sub-menu">
-              <li class="nav-item">
-                <a href="{{url('admin/bpc')}}" class="nav-link">Sơ Đồ BPC</a>
-              </li>
-              <li class="nav-item">
-                  <a href="{{url('admin/kanban')}}" class="nav-link">Sơ Đồ C. Việc</a>
-              </li>
-              <li class="nav-item">
-                <a href="{{url('admin/erd')}}" class="nav-link">Sơ Đồ ERD</a>
-              </li>
-            </ul>
-          </div>
-        </li>
-      <li class="nav-item">
-        <a class="nav-link" href="{{url('admin/users')}}">
+      <div id="project" class="collapse" style>
+        <ul class="nav flex-column sub-menu">
+          <li class="nav-item">
+            <a href="{{url('admin/bpc')}}" class="nav-link">Sơ Đồ BPC</a>
+          </li>
+          <li class="nav-item">
+            <a href="{{url('admin/kanban')}}" class="nav-link">Sơ Đồ C. Việc</a>
+          </li>
+          <li class="nav-item">
+            <a href="{{url('admin/erd')}}" class="nav-link">Sơ Đồ ERD</a>
+          </li>
+        </ul>
+      </div>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="{{url('admin/users')}}">
             <i class="mdi mdi mdi-account menu-icon"></i>
             <span class="menu-title">Khách Hàng</span>
           </a>
-        </li>
-      <li class="nav-item">
+    </li>
+    <li class="nav-item">
       <a class="nav-link" href="{{url('admin/category')}}">
           <i class="mdi mdi-format-list-bulleted menu-icon"></i>
           <span class="menu-title">Danh mục</span>
         </a>
-      </li>
-      <li class="nav-item">
+    </li>
+    <li class="nav-item">
       <a class="nav-link collapsed" data-toggle="collapse" href="#products" aria-expanded="false" aria-controls="products">
           <i class="mdi mdi-shopping menu-icon"></i>
           <span class="menu-title">Sản Phẩm</span>
           <i class="menu-arrow"></i>
         </a>
-        <div id="products" class="collapse" style>
-          <ul class="nav flex-column sub-menu">
-            <li class="nav-item">
-              <a href="{{url('admin/product/home')}}" class="nav-link">Danh sách</a>
-            </li>
-            <li class="nav-item">
-                <a href="{{url('admin/product/add')}}" class="nav-link">Thêm Mới</a>
-            </li>
-            <li class="nav-item">
-              <a href="{{url('admin/product/attribute')}}" class="nav-link">Thuộc tính</a>
-            </li>
-          </ul>
-        </div>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link collapsed" data-toggle="collapse" href="#bill" aria-expanded="false" aria-controls="products">
+      <div id="products" class="collapse" style>
+        <ul class="nav flex-column sub-menu">
+          <li class="nav-item">
+            <a href="{{url('admin/product/home')}}" class="nav-link">Danh sách</a>
+          </li>
+          <li class="nav-item">
+            <a href="{{url('admin/product/add')}}" class="nav-link">Thêm Mới</a>
+          </li>
+          <li class="nav-item">
+            <a href="{{url('admin/product/attribute')}}" class="nav-link">Thuộc tính</a>
+          </li>
+        </ul>
+      </div>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link collapsed" data-toggle="collapse" href="#bill" aria-expanded="false" aria-controls="products">
             <i class="mdi mdi-file-document menu-icon"></i>
             <span class="menu-title">Hóa Đơn</span>
             <i class="menu-arrow"></i>
           </a>
-          <div id="bill" class="collapse" style>
-            <ul class="nav flex-column sub-menu">
-              <li class="nav-item">
-                <a href="{{url('admin/bill/list')}}" class="nav-link">Danh sách</a>
-              </li>
-              <li class="nav-item">
-                  <a href="{{url('admin/bill/add')}}" class="nav-link">Lập Đơn Hàng</a>
-              </li>
+      <div id="bill" class="collapse" style>
+        <ul class="nav flex-column sub-menu">
+          <li class="nav-item">
+            <a href="{{url('admin/bill/list')}}" class="nav-link">Danh sách</a>
+          </li>
+          <li class="nav-item">
+            <a href="{{url('admin/bill/add')}}" class="nav-link">Lập Đơn Hàng</a>
+          </li>
 
-            </ul>
-          </div>
-        </li>
-        <li class="nav-item">
-        <a class="nav-link" href="{{url('admin/coupons/')}}">
+        </ul>
+      </div>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="{{url('admin/coupons/')}}">
             <i class="mdi mdi-barcode menu-icon"></i>
             <span class="menu-title">Mã Giảm Giá</span>
           </a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="{{url('admin/shipper')}}">
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="{{url('admin/shipper')}}">
               <i class="mdi mdi-motorbike menu-icon"></i>
               <span class="menu-title">Vận Chuyển</span>
             </a>
-          </li>
-      <li class="nav-item nav-doc">
-        <a class="nav-link" href="#">
+    </li>
+    <li class="nav-item nav-doc">
+      <a class="nav-link" href="#">
           <i class="mdi mdi-file-document-box menu-icon"></i>
           <span class="menu-title">Documentation</span>
         </a>
-      </li>
-    </ul>
-  </nav>
+    </li>
+  </ul>
+</nav>

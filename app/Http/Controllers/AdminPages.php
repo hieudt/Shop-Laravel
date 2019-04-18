@@ -6,7 +6,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use ConsoleTVs\Charts\Facades\Charts;
 use Carbon\Carbon;
-
+use Yajra\Datatables\Datatables;
 class AdminPages extends Controller
 {
     function index()
@@ -24,18 +24,18 @@ class AdminPages extends Controller
             ->title('Biểu đồ doanh thu theo top 4 danh mục trong 7 ngày gần nhất')
             ->elementLabel('Biểu đồ doanh thu theo top 4 danh mục trong 7 ngày gần nhất')
             ->colors(['#ff0000', 'green', 'gray', 'blue'])
-            ->labels($dayArr)
-            ->dataset($data[0]['DanhMuc'], [$data[0]['Ngay' . $dayArr[0]], $data[0]['Ngay' . $dayArr[1]], $data[0]['Ngay' . $dayArr[2]], $data[0]['Ngay' . $dayArr[3]], $data[0]['Ngay' . $dayArr[4]], $data[0]['Ngay' . $dayArr[5]], $data[0]['Ngay' . $dayArr[6]]])
-            ->dataset($data[1]['DanhMuc'],  [$data[1]['Ngay' . $dayArr[0]], $data[1]['Ngay' . $dayArr[1]], $data[1]['Ngay' . $dayArr[2]], $data[1]['Ngay' . $dayArr[3]], $data[1]['Ngay' . $dayArr[4]], $data[1]['Ngay' . $dayArr[5]], $data[1]['Ngay' . $dayArr[6]]])
-            ->dataset($data[2]['DanhMuc'],  [$data[2]['Ngay' . $dayArr[0]], $data[2]['Ngay' . $dayArr[2]], $data[2]['Ngay' . $dayArr[2]], $data[2]['Ngay' . $dayArr[3]], $data[2]['Ngay' . $dayArr[4]], $data[2]['Ngay' . $dayArr[5]], $data[2]['Ngay' . $dayArr[6]]])
-            ->dataset($data[3]['DanhMuc'],  [$data[3]['Ngay' . $dayArr[0]], $data[3]['Ngay' . $dayArr[2]], $data[3]['Ngay' . $dayArr[2]], $data[3]['Ngay' . $dayArr[3]], $data[3]['Ngay' . $dayArr[4]], $data[3]['Ngay' . $dayArr[5]], $data[3]['Ngay' . $dayArr[6]]])
+            ->labels($dayArr);
+        foreach ($data as $key) {
+            $charts->dataset($key['DanhMuc'], [$key['Ngay' . $dayArr[0]], $key['Ngay' . $dayArr[1]], $key['Ngay' . $dayArr[2]], $key['Ngay' . $dayArr[3]], $key['Ngay' . $dayArr[4]], $key['Ngay' . $dayArr[5]], $key['Ngay' . $dayArr[6]]]);
+        }
+        $charts
             ->responsive(false)
             ->height(600)
             ->width(0);
 
+        $categoryTop = getListCategoryTop(1000);
 
-
-        return view('admin.index', ['chart' => $charts]);
+        return view('admin.index', ['chart' => $charts], compact('categoryTop'));
     }
 
     function kanban()
@@ -84,5 +84,26 @@ class AdminPages extends Controller
     {
         Auth::logout();
         return view('admin.login');
+    }
+
+    public function fetchTopProduct(){
+        $data = getProductTop();
+        $money = 0;
+        foreach ($data as $key) {
+            $money += $key->TongTien;
+        }
+
+        return Datatables::of($data)
+        ->editColumn('TongTien',function($data){
+            return formatMoney((int)$data->TongTien,false);
+        })
+        ->addColumn('progress', function ($data) use ($money){
+        $number = (int)$data->TongTien;
+        $new = ($number / $money) * 100;
+            $output = '<div class="progress">
+                    <div class="progress-bar bg-success" role="progressbar" style="width: '. $new.'%" aria-valuenow="'.$new.'" aria-valuemin="0" aria-valuemax="100"></div>
+                </div>';
+            return $output;
+        })->rawColumns(['progress','TongTien'])->make(true);
     }
 }
