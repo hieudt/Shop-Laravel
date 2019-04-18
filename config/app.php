@@ -169,7 +169,7 @@ return [
         Laravel\Scout\ScoutServiceProvider::class,
         Swap\Laravel\SwapServiceProvider::class,
         Laravel\Socialite\SocialiteServiceProvider::class,
-
+        ConsoleTVs\Charts\ChartsServiceProvider::class,
         /*
          * Package Service Providers...
          */
@@ -236,6 +236,7 @@ return [
         'Pusher' => Pusher\Pusher::class,
         'Swap' => Swap\Laravel\Facades\Swap::class,
         'Socialite' => Laravel\Socialite\Facades\Socialite::class,
+        'Charts' => ConsoleTVs\Charts\Facades\Charts::class,
 
     ],
 
