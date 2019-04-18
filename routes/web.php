@@ -189,6 +189,6 @@ Route::get('/cv', function () {
 });
 
 Route::get('/top', function () {
-    $manuals = Storage::allFiles('public');
+    $manuals = File::files(public_path()."/db");
     dd($manuals);
 });
