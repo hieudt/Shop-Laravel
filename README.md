@@ -40,5 +40,8 @@ https://github.com/florianv/laravel-swap<br/>
 composer require laravel/socialite<br/>
 composer require facebook/graph-sdk<br/>
 
-#Chart
+#Chart <br/>
 composer require "consoletvs/charts:5.*"<br/>
+
+#VisitCounter <br/>
+composer require awssat/laravel-visits <br/>
