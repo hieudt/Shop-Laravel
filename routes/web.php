@@ -8,6 +8,7 @@ use Illuminate\Support\Collection;
 use App\Notification;
 use App\User;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Storage;
 use Swap\Laravel\Facades\Swap;
 use App\Bill;
 use App\Detailsbill;
@@ -70,10 +71,6 @@ Route::group(['prefix' => 'admin', 'middleware' => 'adminLogin'], function () {
         return view('admin.funcBPC');
     });
 
-    Route::get('testPostman', function () {
-        return "hello";
-    });
-
     Route::get('/', function () {
         return redirect('/admin/index');
     });
@@ -82,6 +79,7 @@ Route::group(['prefix' => 'admin', 'middleware' => 'adminLogin'], function () {
     Route::get('/kanban', 'AdminPages@kanban');
     Route::get('/erd', 'AdminPages@erd');
     Route::get('/fetchProduct', 'AdminPages@fetchTopProduct')->name('admin.fetchproduct');
+    Route::get('/database','DatabaseController@index')->name('admin.db.index');
 
     Route::get('users', 'UserController@index')->name('users.list');
     Route::get('users/fetch', 'UserController@fetchAll')->name('users.fetch');
@@ -191,10 +189,6 @@ Route::get('/cv', function () {
 });
 
 Route::get('/top', function () {
-    $data = getProductTop();
-    $money = 0;
-    foreach ($data as $key) {
-        $money += $key->TongTien;
-    }
-    echo $money;
+    $manuals = Storage::allFiles('public');
+    dd($manuals);
 });

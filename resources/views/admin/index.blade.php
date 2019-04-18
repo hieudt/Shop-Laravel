@@ -136,7 +136,7 @@
       <!--user list-->
       <div class="card">
         <div class="card-body">
-          <h4 class="card-title">Chi tiết danh mục</h4>
+          <h4 class="card-title">Danh mục ưa chuộng</h4>
           <div class="preview-list">
             @forelse ($categoryTop as $catTop)
             <div class="preview-item">

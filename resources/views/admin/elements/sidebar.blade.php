@@ -88,11 +88,25 @@
               <span class="menu-title">Vận Chuyển</span>
             </a>
     </li>
-    <li class="nav-item nav-doc">
-      <a class="nav-link" href="#">
-          <i class="mdi mdi-file-document-box menu-icon"></i>
-          <span class="menu-title">Documentation</span>
-        </a>
+    <li class="nav-item">
+      <a class="nav-link collapsed" data-toggle="collapse" href="#setting" aria-expanded="false" aria-controls="products">
+                <i class="mdi mdi-settings menu-icon"></i>
+                <span class="menu-title">Hệ Thống</span>
+                <i class="menu-arrow"></i>
+              </a>
+      <div id="setting" class="collapse" style>
+        <ul class="nav flex-column sub-menu">
+          <li class="nav-item">
+            <a href="{{url('admin/config')}}" class="nav-link">Cấu hình chung</a>
+          </li>
+          <li class="nav-item">
+            <a href="{{url('admin/database')}}" class="nav-link">Dữ Liệu</a>
+          </li>
+          <li class="nav-item">
+            <a href="{{url('admin/social')}}" class="nav-link">Kênh Bán Hàng</a>
+          </li>
+        </ul>
+      </div>
     </li>
   </ul>
 </nav>

@@ -33,7 +33,7 @@ class AdminPages extends Controller
             ->height(600)
             ->width(0);
 
-        $categoryTop = getListCategoryTop(1000);
+        $categoryTop = getListCategoryTop(5);
 
         return view('admin.index', ['chart' => $charts], compact('categoryTop'));
     }
