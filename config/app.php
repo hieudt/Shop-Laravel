@@ -170,6 +170,7 @@ return [
         Swap\Laravel\SwapServiceProvider::class,
         Laravel\Socialite\SocialiteServiceProvider::class,
         ConsoleTVs\Charts\ChartsServiceProvider::class,
+        Sarfraznawaz2005\VisitLog\VisitLogServiceProvider::class,
         /*
          * Package Service Providers...
          */
@@ -237,6 +238,7 @@ return [
         'Swap' => Swap\Laravel\Facades\Swap::class,
         'Socialite' => Laravel\Socialite\Facades\Socialite::class,
         'Charts' => ConsoleTVs\Charts\Facades\Charts::class,
+        'VisitLog' => Sarfraznawaz2005\VisitLog\Facades\VisitLog::class,
 
     ],
 

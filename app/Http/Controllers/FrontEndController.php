@@ -19,6 +19,7 @@ use App\coupons;
 use Carbon\Carbon;
 use App\User;
 use Pusher\Pusher;
+use VisitLog;
 
 class FrontEndController extends Controller
 {
@@ -26,8 +27,8 @@ class FrontEndController extends Controller
     public function __construct()
     {
         $danhmuc = Category::all();
-        visits('App\Category')->increment();
         view()->share('danhmuc', $danhmuc);
+        VisitLog::save();
     }
 
     public function cart()
