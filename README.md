@@ -44,4 +44,4 @@ composer require facebook/graph-sdk<br/>
 composer require "consoletvs/charts:5.*"<br/>
 
 #VisitCounter <br/>
-composer require awssat/laravel-visits <br/>
+composer require pragmarx/tracker <br/>
