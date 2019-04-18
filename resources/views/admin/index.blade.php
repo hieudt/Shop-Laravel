@@ -15,9 +15,9 @@
             <div class="card-body">
               <div class="d-flex align-items-center">
                 <div class="mr-auto">
-                  <h1 class="mb-0">9500</h1>
+                  <h1 class="mb-0">{{count(VisitLog::all())}}</h1>
                   <p>
-                    Visitors
+                    Lượt Truy Cập
                   </p>
                 </div>
                 <div class="ml-auto">
@@ -128,7 +128,7 @@
               <tbody>
                 <tr>
                   <td class="py-1">
-                    <img src="images/faces-clipart/pic-1.png" />
+                    <img src="" />
                   </td>
                   <td>
                     Herman Beck
@@ -147,7 +147,7 @@
                 </tr>
                 <tr>
                   <td class="py-1">
-                    <img src="images/faces-clipart/pic-2.png" />
+                    <img src="" />
                   </td>
                   <td>
                     Messsy Adam
@@ -166,7 +166,7 @@
                 </tr>
                 <tr>
                   <td class="py-1">
-                    <img src="images/faces-clipart/pic-3.png" />
+                    <img src="" />
                   </td>
                   <td>
                     John Richards
@@ -185,7 +185,7 @@
                 </tr>
                 <tr>
                   <td class="py-1">
-                    <img src="images/faces-clipart/pic-4.png" />
+                    <img src="" />
                   </td>
                   <td>
                     Peter Meggik
@@ -204,7 +204,7 @@
                 </tr>
                 <tr>
                   <td class="py-1">
-                    <img src="images/faces-clipart/pic-1.png" />
+                    <img src="" />
                   </td>
                   <td>
                     Edward
@@ -223,7 +223,7 @@
                 </tr>
                 <tr>
                   <td class="py-1">
-                    <img src="images/faces-clipart/pic-2.png" />
+                    <img src="" />
                   </td>
                   <td>
                     John Doe
@@ -242,7 +242,7 @@
                 </tr>
                 <tr>
                   <td class="py-1">
-                    <img src="images/faces-clipart/pic-3.png" />
+                    <img src="" />
                   </td>
                   <td>
                     Henry Tom
@@ -274,7 +274,7 @@
           <div class="preview-list">
             <div class="preview-item">
               <div class="preview-thumbnail">
-                <img src="images/faces/face1.jpg" class="profile-pic" />
+                <img src="" class="profile-pic" />
                 <span class="badge badge-online"></span>
               </div>
               <div class="preview-item-content">
@@ -289,7 +289,7 @@
             </div>
             <div class="preview-item">
               <div class="preview-thumbnail">
-                <img src="images/faces/face3.jpg" class="profile-pic" />
+                <img src="" class="profile-pic" />
                 <span class="badge badge-offline"></span>
               </div>
               <div class="preview-item-content">
@@ -304,7 +304,7 @@
             </div>
             <div class="preview-item">
               <div class="preview-thumbnail">
-                <img src="images/faces/face4.jpg" class="profile-pic" />
+                <img src="" class="profile-pic" />
                 <span class="badge badge-busy"></span>
               </div>
               <div class="preview-item-content">
@@ -319,7 +319,7 @@
             </div>
             <div class="preview-item">
               <div class="preview-thumbnail">
-                <img src="images/faces/face5.jpg" class="profile-pic" />
+                <img src="" class="profile-pic" />
                 <span class="badge badge-offline"></span>
               </div>
               <div class="preview-item-content">
@@ -334,7 +334,7 @@
             </div>
             <div class="preview-item">
               <div class="preview-thumbnail">
-                <img src="images/faces/face6.jpg" class="profile-pic" />
+                <img src="" class="profile-pic" />
                 <span class="badge badge-busy"></span>
               </div>
               <div class="preview-item-content">
@@ -539,7 +539,7 @@
               <tbody>
                 <tr>
                   <td class="py-3">
-                    <img src="images/browser-logo/opera-logo.png" alt="image" />
+                    <img src="" alt="image" />
                   </td>
                   <td>
                     Opera mini
@@ -550,7 +550,7 @@
                 </tr>
                 <tr>
                   <td class="py-3">
-                    <img src="images/browser-logo/safari-logo.png" alt="image" />
+                    <img src="" alt="image" />
                   </td>
                   <td>
                     Safari
@@ -561,7 +561,7 @@
                 </tr>
                 <tr>
                   <td class="py-3">
-                    <img src="images/browser-logo/chrome-logo.png" alt="image" />
+                    <img src="" alt="image" />
                   </td>
                   <td>
                     Chrome
@@ -572,7 +572,7 @@
                 </tr>
                 <tr>
                   <td class="py-3">
-                    <img src="images/browser-logo/firefox-logo.png" alt="image" />
+                    <img src="" alt="image" />
                   </td>
                   <td>
                     Firefox
@@ -583,7 +583,7 @@
                 </tr>
                 <tr>
                   <td class="py-3">
-                    <img src="images/browser-logo/explorer-logo.png" alt="image" />
+                    <img src="" alt="image" />
                   </td>
                   <td>
                     Explorer
@@ -594,7 +594,7 @@
                 </tr>
                 <tr>
                   <td class="py-3">
-                    <img src="images/browser-logo/netscape-logo.png" alt="image" />
+                    <img src="" alt="image" />
                   </td>
                   <td>
                     Netscape

@@ -28,7 +28,6 @@ class FrontEndController extends Controller
     {
         $danhmuc = Category::all();
         view()->share('danhmuc', $danhmuc);
-        VisitLog::save();
     }
 
     public function cart()

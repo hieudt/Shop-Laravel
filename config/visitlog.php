@@ -84,7 +84,7 @@ return array(
     */
 
     'visitlog_page' => true,
-    'delete_log_button' => false,
-    'delete_all_logs_button' => false,
+    'delete_log_button' => true,
+    'delete_all_logs_button' => true,
     'http_authentication' => false
 );
