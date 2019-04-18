@@ -41,4 +41,4 @@ composer require laravel/socialite<br/>
 composer require facebook/graph-sdk<br/>
 
 #Chart
-composer require consoletvs/charts<br/>
+composer require "consoletvs/charts:5.*"<br/>
