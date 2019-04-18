@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
@@ -25,71 +26,78 @@ class FrontEndController extends Controller
     public function __construct()
     {
         $danhmuc = Category::all();
-        view()->share('danhmuc',$danhmuc);
+        visits('App\Category')->increment();
+        view()->share('danhmuc', $danhmuc);
     }
 
-    public function cart(){
+    public function cart()
+    {
         $carts = array();
-        return view('cart',compact('carts'));
+        return view('cart', compact('carts'));
     }
 
-    public function index(){
-        $features = Product::where('featured','1')->orderBy('id','desc')->take(8)->get();
-        $lastes = Product::orderBy('id','desc')->take(8)->get();
-        $discounts = Product::where('discount','>','0')->orderBy('id','desc')->take(8)->get();
-        $coupons = coupons::where('Date','>',now())->where('typeEnable','0')->get();
-        return view('index2',compact('features','lastes','discounts','coupons'));
+    public function index()
+    {
+        $features = Product::where('featured', '1')->orderBy('id', 'desc')->take(8)->get();
+        $lastes = Product::orderBy('id', 'desc')->take(8)->get();
+        $discounts = Product::where('discount', '>', '0')->orderBy('id', 'desc')->take(8)->get();
+        $coupons = coupons::where('Date', '>', now())->where('typeEnable', '0')->get();
+        return view('index2', compact('features', 'lastes', 'discounts', 'coupons'));
     }
 
-    public function productDetails($id,$slug){
+    public function productDetails($id, $slug)
+    {
         $productdata = Product::findOrFail($id);
-        $gallery = Images::where('id_product',$id)->get();
-        $reviews = Review::where('id_product',$id)->get();
-        $relateds = Product::where('id_sub',$productdata->id_sub)->where('id','!=',$productdata->id)->take(8)->get();
-        return view('product',compact('productdata','gallery','reviews','relateds'));
+        $gallery = Images::where('id_product', $id)->get();
+        $reviews = Review::where('id_product', $id)->get();
+        $relateds = Product::where('id_sub', $productdata->id_sub)->where('id', '!=', $productdata->id)->take(8)->get();
+        return view('product', compact('productdata', 'gallery', 'reviews', 'relateds'));
     }
 
-    public function loginPost(Request $req){
-        $this->validate($req,[
-            'email'=>'required',
-            'password'=>'required',
-        ],[
-            'email.required'=>'Vui lòng nhập email',
-            'password.required'=>'Vui lòng nhập password'
+    public function loginPost(Request $req)
+    {
+        $this->validate($req, [
+            'email' => 'required',
+            'password' => 'required',
+        ], [
+            'email.required' => 'Vui lòng nhập email',
+            'password.required' => 'Vui lòng nhập password'
         ]);
 
-        if(Auth::attempt(['email' => $req->email, 'password' => $req->password])){
+        if (Auth::attempt(['email' => $req->email, 'password' => $req->password])) {
             return response()->json(['success' => 'Đăng nhập thành công']);
         } else {
-            return response()->json(['errors'=>['faillogin'=>[0=>'Sai tên tài khoản hoặc mật khẩu']]],422);
+            return response()->json(['errors' => ['faillogin' => [0 => 'Sai tên tài khoản hoặc mật khẩu']]], 422);
         }
     }
 
-    public function logoutIndex(){
+    public function logoutIndex()
+    {
         Auth::logout();
-        if(session()->get('coupon')){
+        if (session()->get('coupon')) {
             session()->remove('coupon');
         }
         return redirect()->back();
     }
 
-    public function signUpPost(Request $req){
-        $this->validate($req,[
-            'name'=>'required|max:40',
-            'email'=>'email|required|unique:users,email',
-            'Address'=>'required',
-            'Phone'=>'required|numeric',
-            'password'=>'required',
-        ],[
-            'email.required'=>'Vui lòng nhập email',
-            'email.email'=>'Email không đúng định dạng',
-            'email.unique'=>'Email đã có người sử dụng',
-            'name.required'=>'Vui lòng nhập họ và tên',
+    public function signUpPost(Request $req)
+    {
+        $this->validate($req, [
+            'name' => 'required|max:40',
+            'email' => 'email|required|unique:users,email',
+            'Address' => 'required',
+            'Phone' => 'required|numeric',
+            'password' => 'required',
+        ], [
+            'email.required' => 'Vui lòng nhập email',
+            'email.email' => 'Email không đúng định dạng',
+            'email.unique' => 'Email đã có người sử dụng',
+            'name.required' => 'Vui lòng nhập họ và tên',
             'name.max' => 'Tên tối đa 40 ký tự',
-            'Address.required'=>'Vui lòng nhập địa chỉ',
+            'Address.required' => 'Vui lòng nhập địa chỉ',
             'Phone.required' => 'Vui lòng nhập số điện thoại',
-            'Phone.numeric'=>'Số điện thoại phải là số',
-            'password.required'=>'Vui lòng nhập mật khẩu'
+            'Phone.numeric' => 'Số điện thoại phải là số',
+            'password.required' => 'Vui lòng nhập mật khẩu'
         ]);
 
         $User = new User;
@@ -100,12 +108,12 @@ class FrontEndController extends Controller
         $User->password = bcrypt($req->password);
 
         $User->save();
-        
-        if(Auth::attempt(['email' => $req->email, 'password' => $req->password])){
+
+        if (Auth::attempt(['email' => $req->email, 'password' => $req->password])) {
             $NewNotif = new Notification;
-            if(Auth::check()){
+            if (Auth::check()) {
                 $NewNotif->nameUser = Auth::user()->name;
-            }else {
+            } else {
                 $NewNotif->nameUser = "Khách Vãng Lai";
             }
 
@@ -120,47 +128,50 @@ class FrontEndController extends Controller
         }
     }
 
-    public function list(){
+    public function list()
+    {
         return view('list');
     }
 
-    public function category($slug){
+    public function category($slug)
+    {
         $Category = Category::all();
         $sort = "";
-        if(Input::get('sort') != ""){
+        if (Input::get('sort') != "") {
             $sort = Input::get('sort');
         }
         $desc = "";
-        if(Input::get('desc') != ""){
+        if (Input::get('desc') != "") {
             $desc = Input::get('desc');
         }
-        if($slug == "sanpham"){
-            $Product = Product::orderBy(!empty($sort) ? $sort:'id',!empty($desc) ? $desc:'Asc')->paginate(10);
-            } else {
-            $subCate = explode("_",$slug);
-            if($subCate[0] == "sub"){
-                $SubCategory = SubCategory::where('slug',$subCate[1])->first();
-                if(empty($SubCategory)){
+        if ($slug == "sanpham") {
+            $Product = Product::orderBy(!empty($sort) ? $sort : 'id', !empty($desc) ? $desc : 'Asc')->paginate(10);
+        } else {
+            $subCate = explode("_", $slug);
+            if ($subCate[0] == "sub") {
+                $SubCategory = SubCategory::where('slug', $subCate[1])->first();
+                if (empty($SubCategory)) {
                     $Product = Product::paginate(10);
                 } else {
                     $Product = SubCategory::find($SubCategory['id'])->Product()->paginate(10);
                 }
             } else {
-                $TempCategory = Category::where('slug',$slug)->first();
-                if(empty($TempCategory)){
+                $TempCategory = Category::where('slug', $slug)->first();
+                if (empty($TempCategory)) {
                     $Product = Product::paginate(10);
                 } else {
                     $Product = Category::find($TempCategory['id'])->Product()->paginate(10);
                 }
             }
         }
-        
 
-        
-        return view('categoryproduct',compact('Product','Category'));
+
+
+        return view('categoryproduct', compact('Product', 'Category'));
     }
 
-    public function category2(){
+    public function category2()
+    {
         $Category = Category::all();
         $Color = Color::all();
         $CategoryName = "";
@@ -168,81 +179,77 @@ class FrontEndController extends Controller
         $SubCategoryName = "";
         $SubCategorySlug = "";
 
-        if(request()->category){
-            $TempCategory = Category::where('slug',request()->category)->first();
+        if (request()->category) {
+            $TempCategory = Category::where('slug', request()->category)->first();
             $CategoryName = $TempCategory->title;
             $CategorySlug = $TempCategory->slug;
-            if(empty($TempCategory)){
+            if (empty($TempCategory)) {
                 $Product = Product::take(1000);
             } else {
                 $Product = Category::find($TempCategory['id'])->Product();
-                
-                
             }
         } else {
             $Product = Product::take(1000);
         }
 
-        if(request()->subcategory){
-            $TempCategory = SubCategory::where('slug',request()->subcategory)->first();
+        if (request()->subcategory) {
+            $TempCategory = SubCategory::where('slug', request()->subcategory)->first();
             $CategoryName = $TempCategory->Category->title;
             $CategorySlug = $TempCategory->Category->slug;
             $SubCategoryName = $TempCategory->name_sub;
             $SubCategorySlug = $TempCategory->slug;
-            if(empty($TempCategory)){
+            if (empty($TempCategory)) {
                 $Product = Product::take(1000);
             } else {
                 $Product = SubCategory::find($TempCategory['id'])->Product();
-                
             }
         }
 
-        if(request()->sort == 'low_high'){
+        if (request()->sort == 'low_high') {
             $Product = $Product->orderBy('cost');
         } elseif (request()->sort == 'high_low') {
-            $Product = $Product->orderBy('cost','desc');
-        } else {
-            
-        }
+            $Product = $Product->orderBy('cost', 'desc');
+        } else { }
 
-        if(request()->color){
+        if (request()->color) {
             $color = request()->color;
             $TempProduct = $Product->get();
             $arrayListMatchColor = array();
-           
-            foreach($TempProduct as $key){
-                foreach($key->product_details as $key2){
-                    if($key2->Color->slug == $color){
-                        $arrayListMatchColor[] = $key->id;break; 
+
+            foreach ($TempProduct as $key) {
+                foreach ($key->product_details as $key2) {
+                    if ($key2->Color->slug == $color) {
+                        $arrayListMatchColor[] = $key->id;
+                        break;
                     }
                 }
             }
-    
-            $Product = $Product->whereIn('Product.id',$arrayListMatchColor); 
-            
+
+            $Product = $Product->whereIn('Product.id', $arrayListMatchColor);
         }
 
-        
+
         $Product = $Product->paginate(10);
-        
-        
-        return view('categoryproduct',compact('Product','Color','Category','CategoryName','CategorySlug','SubCategoryName','SubCategorySlug'));
+
+
+        return view('categoryproduct', compact('Product', 'Color', 'Category', 'CategoryName', 'CategorySlug', 'SubCategoryName', 'SubCategorySlug'));
     }
 
-    public function fetchColor(Request $request){
+    public function fetchColor(Request $request)
+    {
         if ($request->ajax()) {
             $idproduct = $request->get('idproduct');
             $idsize = $request->get('idsize');
             if ($idproduct != '') {
-                $data = product_details::where('id_product','=',$idproduct)
-                        ->where('id_size','=',$idsize)
-                        ->get();
+                $data = product_details::where('id_product', '=', $idproduct)
+                    ->where('id_size', '=', $idsize)
+                    ->get();
                 //$data = DB::table('SubCategory')
-                  //  ->where('title', 'like', '%' . $query . '%')
-                    //->orWhere('slug', 'like', '%' . $query . '%')
-                    //->orderBy('id', 'asc')
-                    //->get();
-            } 
+                //  ->where('title', 'like', '%' . $query . '%')
+                //->orWhere('slug', 'like', '%' . $query . '%')
+                //->orderBy('id', 'asc')
+                //->get();
+            }
             $total_row = $data->count();
             $output = '';
             if ($total_row > 0) {
@@ -250,8 +257,8 @@ class FrontEndController extends Controller
                     $output .= '
                     <li>
                     <label>
-                    <input type="radio" name="rdoColor" value="'.$row->Color->id.'">
-                    <span class="swatch" style="background-color:'.$row->Color->codeColor.'"></span>
+                    <input type="radio" name="rdoColor" value="' . $row->Color->id . '">
+                    <span class="swatch" style="background-color:' . $row->Color->codeColor . '"></span>
                     </label>
                     </li>
                     ';
@@ -270,25 +277,25 @@ class FrontEndController extends Controller
         }
     }
 
-    public function fetchSize(Request $request){
+    public function fetchSize(Request $request)
+    {
         if ($request->ajax()) {
             $idproduct = $request->get('idproduct');
             if ($idproduct != '') {
-                $data = product_details::where('id_product','=',$idproduct)
-                        ->get();
-
-            } 
+                $data = product_details::where('id_product', '=', $idproduct)
+                    ->get();
+            }
             $total_row = $data->count();
             $output = '';
             $array = array();
             if ($total_row > 0) {
                 foreach ($data as $row) {
-                   $array[] = $row->id_size."-".$row->Size->name;
+                    $array[] = $row->id_size . "-" . $row->Size->name;
                 }
                 $arr = array_unique($array);
-                foreach($arr as $ar){
-                    $tempArr = explode('-',$ar);
-                    $output .= '<option value="'.$tempArr[0].'">'.$tempArr[1].'</option>';
+                foreach ($arr as $ar) {
+                    $tempArr = explode('-', $ar);
+                    $output .= '<option value="' . $tempArr[0] . '">' . $tempArr[1] . '</option>';
                 }
             } else {
                 $output .= '<tr><td colspan="5" align="center">
@@ -305,12 +312,13 @@ class FrontEndController extends Controller
     }
 
 
-    public function eventLoadCart(){
+    public function eventLoadCart()
+    {
         // Truyền message lên server Pusher
         $options = array(
             'cluster' => 'ap1',
             'useTLS' => true
-          );
+        );
 
         $pusher = new Pusher(
             'fbefcc8bb38866195ed2',
@@ -318,7 +326,7 @@ class FrontEndController extends Controller
             '757854',
             $options
         );
-        
+
         $pusher->trigger('Cart', 'loadCart', $data);
     }
 }
