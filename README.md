@@ -43,5 +43,5 @@ composer require facebook/graph-sdk<br/>
 #Chart <br/>
 composer require "consoletvs/charts:5.*"<br/>
 
-#VisitCounter <br/>
-composer require pragmarx/tracker <br/>
+#VisitLog <br/>
+composer require sarfraznawaz2005/visitlog<br/>
