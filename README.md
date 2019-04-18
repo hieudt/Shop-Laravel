@@ -39,3 +39,6 @@ https://github.com/florianv/laravel-swap<br/>
 #Login With Social<br/>
 composer require laravel/socialite<br/>
 composer require facebook/graph-sdk<br/>
+
+#Chart
+composer require "consoletvs/charts:5.*"<br/>
