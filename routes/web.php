@@ -86,6 +86,7 @@ Route::group(['prefix' => 'admin', 'middleware' => 'adminLogin'], function () {
     Route::get('/erd', 'AdminPages@erd');
     Route::get('/fetchProduct', 'AdminPages@fetchTopProduct')->name('admin.fetchproduct');
     Route::get('/database','DatabaseController@index')->name('admin.db.index');
+    Route::get('/social/zalo', 'ZaloSocial@index')->name('admin.zalo.index');
 
     Route::get('users', 'UserController@index')->name('users.list');
     Route::get('users/fetch', 'UserController@fetchAll')->name('users.fetch');

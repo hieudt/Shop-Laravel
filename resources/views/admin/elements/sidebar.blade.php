@@ -89,6 +89,24 @@
             </a>
     </li>
     <li class="nav-item">
+      <a class="nav-link collapsed" data-toggle="collapse" href="#social" aria-expanded="false" aria-controls="products">
+                <i class="mdi mdi-file-document menu-icon"></i>
+                <span class="menu-title">Kênh Bán Hàng</span>
+                <i class="menu-arrow"></i>
+              </a>
+      <div id="social" class="collapse" style>
+        <ul class="nav flex-column sub-menu">
+          <li class="nav-item">
+            <a href="{{url('admin/social/zalo')}}" class="nav-link">Zalo</a>
+          </li>
+          <li class="nav-item">
+            <a href="{{url('admin/bill/add')}}" class="nav-link">Facebook</a>
+          </li>
+    
+        </ul>
+      </div>
+    </li>
+    <li class="nav-item">
       <a class="nav-link collapsed" data-toggle="collapse" href="#setting" aria-expanded="false" aria-controls="products">
                 <i class="mdi mdi-settings menu-icon"></i>
                 <span class="menu-title">Hệ Thống</span>

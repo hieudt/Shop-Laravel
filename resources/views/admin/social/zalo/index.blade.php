@@ -1,17 +1,18 @@
 @extends('admin.master') 
-@section('title','Cấu hình Dữ Liệu') 
+@section('title','Kênh bán Zalo') 
 @section('css')
 <link rel="stylesheet" href="{{asset('@styleadmin/node_modules/datatables.net-bs4/css/dataTables.bootstrap4.css')}}">
 @endsection
+ 
 @section('content')
 <div class="card">
     <div class="card-body">
         <div class="row">
             <div class="col-sm-6">
-                <h4 class="card-title">Quản lý khách hàng</h4>
+                <h4 class="card-title">List Bạn Bè</h4>
             </div>
             <div class="col-sm-6">
-                <button type="button" id="OpenUserModal" class="btn btn-success btn-xs" data-toggle="modal" data-target="#UserModal" data-whatever="@getbootstrap"><i class="mdi mdi-check"></i>Thêm mới</button>
+                <button type="button" id="OpenUserModal" class="btn btn-success btn-xs" data-toggle="modal" data-target="#ZaloModal" data-whatever="@getbootstrap"><i class="mdi mdi-check"></i>Thêm mới</button>
 
             </div>
         </div>
@@ -33,11 +34,65 @@
         </div>
     </div>
 </div>
+
+<div class="modal fade" id="ZaloModal" tabindex="-1" role="dialog" aria-labelledby="SubCategoryLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="SubCategoryLabel">Thêm mới danh mục con</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+            </div>
+            <div class="modal-body">
+                <form id="FormSend">
+                    <div class="form-group">
+                        <label for="recipient-name" class="col-form-label">ID </label>
+                        <input type="text" class="form-control" name="to">
+                    </div>
+                    <div class="form-group">
+                        <label for="recipient-name" class="col-form-label">Access Token </label>
+                        <input type="text" class="form-control" name="access_token">
+                    </div>
+                    <div class="form-group">
+                        <label for="recipient-name" class="col-form-label">MSG</label>
+                        <input type="text" class="form-control" name="message">
+                    </div>
+                    <div class="form-group">
+                        <label for="recipient-name" class="col-form-label">Link :  </label>
+                        <input type="text" class="form-control" name="link">
+                    </div>
+
+                </form>
+            </div>
+            <div class="modal-footer" id="submodalFooter">
+                <button type="button" class="btn btn-primary" id="SendBTN">Send</button>
+            </div>
+        </div>
+    </div>
+</div>
 @endsection
+ 
 @section('javascript')
 <script src="https://zjs.zdn.vn/zalo/Zalo.Extensions.min.js"></script>
 <script>
-    
+    $('#SendBTN').click(function(){
+        var list = $('#FormSend').serialize();
+        $.ajax({
+            method: "POST",
+            url: 'https://graph.zalo.me/v2.0/me/feed',
+            data:list,
+            success: function (data) {
+               ToastSuccess("ok");
+            },
+            error: function (request, status) {
+                $.each(request.responseJSON.errors,function(key,val){
+                    ToastError(val);
+                });
+            }
+        });  
+    });
+
     function callZaloService(){
         $.ajax({
             headers: {

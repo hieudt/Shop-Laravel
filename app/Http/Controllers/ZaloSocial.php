@@ -8,6 +8,8 @@ use Yajra\Datatables\Datatables;
 use Psy\Util\Json;
 use function GuzzleHttp\json_decode;
 use Config;
+use PhpParser\Node\Stmt\TryCatch;
+use App\Zalo;
 class ZaloSocial extends Controller
 {
     private $token= "";
@@ -16,33 +18,39 @@ class ZaloSocial extends Controller
     private $state = 'getLogin';
     private $code = '';
     private $app_serect = '';
-    public function __construct(){
-        $config = config('zalo');
-        $this->token = $config['app_token'];
-        $this->app_id = $config['app_id'];
-        $this->redirect_uri = $config['app_callback'];
-        $this->code = $config['app_code'];
-        $this->app_serect = $config['app_serect'];
+
+
+    public function index(){
+        return view('admin.social.zalo.index');
     }
 
     public function getFriends(){
-        $token = $this->getAccesstoken();
+        
+        $zalo = Zalo::all()->count();
+        if($zalo == 0){
+            return response()->json(['errors'=>['fail'=>['Bạn chưa cấu hình zalo vui lòng cấu hình app id và app serect']]],422);
+        }
+        $zalo2 = Zalo::find(1);
         $client = new Client();
-        $res = $client->request('GET', 'https://graph.zalo.me/v2.0/me/invitable_friends?access_token='.$token.'&fields=id,name,birthday,picture,gender&limit=1000');
+        $res = $client->request('GET','https://graph.zalo.me/v2.0/me/invitable_friends?access_token='.$zalo2->app_token.'&fields=id,name,birthday,picture,gender&limit=1000');
         $response_data = "rooxng";
         if ($res->getStatusCode() == 200) { // 200 OK
             $response_data = $res->getBody()->getContents();
         }
-        $response_data = json_decode($response_data,true);
-       
-        $new = array();
-        $new = $response_data['data'];
-        return Datatables::of($new)
-            ->editColumn('picture.data.url', function ($new) {
-                return "<img src='" . $new['picture']['data']['url'] . "'>";
-            })
-            ->rawColumns(['picture.data.url'])
-            ->make(true);
+        try {
+            $response_data = json_decode($response_data, true);
+            $new = array();
+            $new = $response_data['data'];
+            return Datatables::of($new)
+                ->editColumn('picture.data.url', function ($new) {
+                    return "<img src='" . $new['picture']['data']['url'] . "'>";
+                })
+                ->rawColumns(['picture.data.url'])
+                ->make(true);
+        } catch (\Throwable $th) {
+            $this->getAccesstoken();
+            return response()->json(['errors' => ['fail' => ['Hệ thống đã cập nhật token của bạn vui lòng tải lại trang']]], 422);
+        }
     }
 
     function reload_code(){
@@ -55,12 +63,16 @@ class ZaloSocial extends Controller
     }
 
     function getAccesstoken(){
+        $zalo = Zalo::find(1);
         $client = new Client();
-        $res = $client->request('GET', 'https://oauth.zaloapp.com/v3/access_token?app_id='.$this->app_id.'&app_secret='.$this->app_serect.'&code='.$this->code);
+        $res = $client->request('GET', 'https://oauth.zaloapp.com/v3/access_token?app_id='.$zalo->app_id.'&app_secret='.$zalo->app_secrect.'&code='.$zalo->app_code);
         if ($res->getStatusCode() == 200) { // 200 OK
             $response_data = $res->getBody()->getContents();
         }
         $response_data = json_decode($response_data,true);
-        setEnv('ZALO_APP_TOKEN',$response_data['access_token']);
+        $zalo->app_token = $response_data['access_token'];
+        $zalo->save();
+        //$response_data['access_token']
+        
     }
 }
