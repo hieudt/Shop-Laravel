@@ -41,14 +41,14 @@
                         <ul id="menu-group-1" class="nav menu">
                             @foreach($Category as $cat)
                             <li class="item-1 deeper parent">
-                                <a class="" href="{{route('front.category',['category'=>$cat->slug,'color'=>request()->color,'sort'=>request()->sort])}}">
+                                <a class="" href="{{route('front.category',['brands'=>request()->brands,'category'=>$cat->slug,'color'=>request()->color,'sort'=>request()->sort])}}">
                                             <span data-toggle="collapse" data-parent="#menu-group-1" href="#{{$cat->slug}}-1" class="sign"><i class="fa fa-plus"></i></span>
                                             <span class="lbl">{{$cat->title}}</span>
                                         </a>
                                 <ul class="children nav-child unstyled small collapse" id="{{$cat->slug}}-1">
                                     @foreach($cat->SubCategory as $submenu)
                                     <li class="item-2 deeper parent">
-                                        <a class="" href="{{route('front.category',['subcategory'=>$submenu->slug,'color'=>request()->color,'sort'=>request()->sort])}}">
+                                        <a class="" href="{{route('front.category',['brands'=>request()->brands,'subcategory'=>$submenu->slug,'color'=>request()->color,'sort'=>request()->sort])}}">
                                             <span data-toggle="collapse" data-parent="#menu-group-1" href="#{{$submenu->slug}}-1" class="sign"><i class="fa fa-plus"></i></span>
                                             <span class="lbl">{{$submenu->name_sub}}</span>
                                         </a>
@@ -70,13 +70,13 @@
                                     </a>
                                     <ul class="children nav-child unstyled small collapse" id="giatien-2">
                                         <li class="item-2 deeper parent">
-                                            <a class="" href="{{route('front.category',['category'=>request()->category,'subcategory'=>request()->subcategory,'color'=>request()->color,'sort'=>'low_high'])}}">
+                                            <a class="" href="{{route('front.category',['brands'=>request()->brands,'category'=>request()->category,'subcategory'=>request()->subcategory,'color'=>request()->color,'sort'=>'low_high'])}}">
                                                 <span data-toggle="collapse" data-parent="#menu-group-2" class="sign"><i class="fa fa-sort"></i></span>
                                                 <span class="lbl">Từ thấp tới cao</span>
                                             </a>
                                         </li>
                                         <li class="item-2 deeper parent">
-                                            <a class="" href="{{route('front.category',['category'=>request()->category,'subcategory'=>request()->subcategory,'color'=>request()->color,'sort'=>'high_low'])}}">
+                                            <a class="" href="{{route('front.category',['brands'=>request()->brands,'category'=>request()->category,'subcategory'=>request()->subcategory,'color'=>request()->color,'sort'=>'high_low'])}}">
                                                 <span data-toggle="collapse" data-parent="#menu-group-2" class="sign"><i class="fa fa-sort"></i></span>
                                                 <span class="lbl">Từ cao tới thấp</span>
                                             </a>
@@ -91,10 +91,29 @@
                                     <ul class="children nav-child unstyled small collapse" id="mausac-2">
                                     @foreach($Color as $colors)
                                         <li class="item-2 deeper parent">
-                                            <a class="" href="{{route('front.category',['category'=>request()->category,'subcategory'=>request()->subcategory,'sort'=>request()->sort,'color'=>$colors->slug])}}">
+                                            <a class="" href="{{route('front.category',['brands'=>request()->brands,'category'=>request()->category,'subcategory'=>request()->subcategory,'sort'=>request()->sort,'color'=>$colors->slug])}}">
                                                 <span data-toggle="collapse" data-parent="#menu-group-2" class="sign"></span>
                                                 <span class="colors" data-color="{{$colors->codeColor}}"></span>
                                                 <span class="lbl">{{$colors->name}}</span>
+                                            </a>
+                                        </li>
+                                    @endforeach
+                                    </ul>
+                                </li>
+                            </ul>
+                        </div>
+
+                    </div>
+                    <div class="row" style="margin-bottom: 20px;">
+                        <h3 class="allcats">Thương Hiệu</h3>
+                        <div id="left" class="span3">
+                            <ul id="menu-group-3" class="nav menu">
+                                <li class="item-1 deeper parent">
+                                    <ul class="children nav-child unstyled small">
+                                    @foreach($Brand as $brands)
+                                        <li class="deeper parent">
+                                            <a class="" href="{{route('front.category',['category'=>request()->category,'subcategory'=>request()->subcategory,'sort'=>request()->sort,'color'=>request()->color,'brands'=>$brands->slug])}}">
+                                                <span class="lbl">{{$brands->title}}</span>
                                             </a>
                                         </li>
                                     @endforeach

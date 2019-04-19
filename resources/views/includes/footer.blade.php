@@ -63,22 +63,22 @@
                                 </li>
                             </ul>
                         </div>
-                        <div class="section">
+                        <div class="col-md-4 col-sm-6 col-xs-6 full-xs">
                             <h4 class="v2_bnc_footer_title">Sản phẩm</h4>
-                            <div class="section__item">
-                                <a href="#" class="lienket sm-link sm-link_padding-all sm-link1">
-                                            <span class="sm-link__label">Phụ kiện</span>
-                                        </a>
-                                <a href="#" class="lienket sm-link sm-link_padding-all sm-link1">
-                                            <span class="sm-link__label">Quần áo nam</span>
-                                        </a>
-                                <a href="#" class="lienket sm-link sm-link_padding-all sm-link1">
-                                            <span class="sm-link__label">Bộ sưu tập</span>
-                                        </a>
-                                <a href="#" class="lienket sm-link sm-link_padding-all sm-link1">
-                                            <span class="sm-link__label">Mùa hè</span>
-                                        </a>
-                            </div>
+                            <ul class="v2_bnc_footer_links">
+                                <li><a href="#" class="lienket sm-link sm-link_padding-all sm-link1">
+                                    <span class="sm-link__label">Phụ kiện</span>
+                                </a></li>
+                                <li><a href="#" class="lienket sm-link sm-link_padding-all sm-link1">
+                                    <span class="sm-link__label">Quần áo nam</span>
+                                </a></li>
+                                <li><a href="#" class="lienket sm-link sm-link_padding-all sm-link1">
+                                    <span class="sm-link__label">Bộ sưu tập</span>
+                                </a></li>
+                                <li><a href="#" class="lienket sm-link sm-link_padding-all sm-link1">
+                                    <span class="sm-link__label">Mùa hè</span>
+                                </a></li>
+                            </ul>
                         </div>
                     </div>
                     <div class="v2_bnc_footer_right_bottom">

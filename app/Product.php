@@ -32,6 +32,11 @@ class Product extends Model
         return $this->belongsTo('App\ChatLieu','id_chatlieu','id');
     }
 
+    public function Brand()
+    {
+        return $this->belongsTo('App\Brand', 'id_brand', 'id');
+    }
+
     public function SubCategory()
     {
         return $this->belongsTo('App\SubCategory','id_sub','id');

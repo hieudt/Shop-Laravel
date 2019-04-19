@@ -5,6 +5,8 @@ use App\Category;
 use App\product_details;
 use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\Schema;
+use Illuminate\Database\Schema\Blueprint;
 use App\Notification;
 use App\User;
 use Carbon\Carbon;
@@ -111,12 +113,17 @@ Route::group(['prefix' => 'admin', 'middleware' => 'adminLogin'], function () {
     Route::post('coupons/index', 'CouponsController@store')->name('coupons.store');
     Route::get('coupons/Search', 'CouponsController@search')->name('coupons.search');
 
-    Route::get('product/add', 'ProductController@create')->name('product.create');
+    Route::get('product/add-product', 'ProductController@create')->name('product.create');
     Route::get('product/home', 'ProductController@index')->name('product.list');
     Route::get('product/search', 'ProductController@search')->name('product.search');
     Route::get('product/edit/{id}', 'ProductController@edit')->name('product.edit');
     Route::get('product/attribute', 'AdminPages@attIndex')->name('product.att.list');
-
+    Route::get('product/brand', 'BrandController@index')->name('brand.home');
+    Route::get('product/brand/list','BrandController@show')->name('brand.show');
+    Route::post('product/brand', 'BrandController@store')->name('brand.store');
+    Route::post('product/brand/update','BrandController@update')->name('brand.update');
+    Route::get('product/brand/fetch','BrandController@fetch')->name('brand.fetch');
+    
 
 
     Route::get('notification/getcount', 'NotificationController@getAllCountNotify')->name('notif.countall');
@@ -197,6 +204,5 @@ Route::get('/cv', function () {
 });
 
 Route::get('/top', function () {
-    $manuals = File::files(public_path()."/db");
-    dd($manuals);
+   
 });

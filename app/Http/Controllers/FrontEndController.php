@@ -11,6 +11,7 @@ use App\Product;
 use App\SubCategory;
 use App\Category;
 use App\Color;
+use App\Brand;
 use App\Images;
 use App\Review;
 use App\Notification;
@@ -42,7 +43,8 @@ class FrontEndController extends Controller
         $lastes = Product::orderBy('id', 'desc')->take(8)->get();
         $discounts = Product::where('discount', '>', '0')->orderBy('id', 'desc')->take(8)->get();
         $coupons = coupons::where('Date', '>', now())->where('typeEnable', '0')->get();
-        return view('index2', compact('features', 'lastes', 'discounts', 'coupons'));
+        $brands = Brand::all();
+        return view('index2', compact('features', 'lastes', 'discounts', 'coupons','brands'));
     }
 
     public function productDetails($id, $slug)
@@ -174,6 +176,7 @@ class FrontEndController extends Controller
     {
         $Category = Category::all();
         $Color = Color::all();
+        $Brand = Brand::all();
         $CategoryName = "";
         $CategorySlug = "";
         $SubCategoryName = "";
@@ -211,6 +214,11 @@ class FrontEndController extends Controller
             $Product = $Product->orderBy('cost', 'desc');
         } else { }
 
+        if(request()->brands){
+            $brands = Brand::where('slug',request()->brands)->first();
+            $Product = $Product->where('id_brand',$brands->id);
+        }
+
         if (request()->color) {
             $color = request()->color;
             $TempProduct = $Product->get();
@@ -232,7 +240,7 @@ class FrontEndController extends Controller
         $Product = $Product->paginate(10);
 
 
-        return view('categoryproduct', compact('Product', 'Color', 'Category', 'CategoryName', 'CategorySlug', 'SubCategoryName', 'SubCategorySlug'));
+        return view('categoryproduct', compact('Product', 'Color','Brand', 'Category', 'CategoryName', 'CategorySlug', 'SubCategoryName', 'SubCategorySlug'));
     }
 
     public function fetchColor(Request $request)

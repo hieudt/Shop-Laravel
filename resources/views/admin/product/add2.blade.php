@@ -97,6 +97,12 @@
                                 </select>
                                 <button type="button" id="OpenChatLieuModal" class="btn btn-success" data-toggle="modal" data-target="#ChatLieuModal" data-whatever="@getbootstrap">+</button>
                             </div>
+                            <div class="form-group">
+                                <label>Thương Hiệu</label>
+                                <select class="js-example-basic-single" id="SelBrand" name="SelBrand" style="width:80%">    
+                                </select>
+                                <button type="button" id="OpenBrandModal" class="btn btn-success" data-toggle="modal" data-target="#BrandModal" data-whatever="@getbootstrap">+</button>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -257,6 +263,40 @@
     </div>
 </div>
 {{--EndModal--}}
+<div class="modal fade" id="BrandModal" tabindex="-1" role="dialog" aria-labelledby="SubCategoryLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="BrandLabel">Thêm mới thương hiệu</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+            </div>
+            <div class="modal-body">
+                <form id="BrandForm">
+                    <div class="form-group">
+                        <label for="recipient-name" class="col-form-label">Tiêu đề </label>
+                        <input type="text" class="form-control" id="title" name="title">
+                    </div>
+                    <div class="form-group">
+                        <label for="recipient-name" class="col-form-label">URL (Có thể để trống) </label>
+                        <input type="text" class="form-control" id="slug" name="slug">
+                    </div>
+                    <div class="form-group">
+                        <label for="recipient-name" class="col-form-label">Hình Ảnh (Link): </label>
+                        <input type="text" class="form-control" id="thumbnail" name="thumbnail">
+                    </div>
+
+                </form>
+            </div>
+            <div class="modal-footer" id="BrandFooter">
+                <button type="button" class="btn btn-primary" id="btnBrandPost">Send</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
 @endsection
  
 @section('javascript')
@@ -266,6 +306,24 @@
     fetch_chatlieu();
     fetch_color();
     fetch_size();
+    fetch_brand();
+
+    $('#OpenBrandModal').click(function(){
+            $('#BrandLabel').html('Thêm thương hiệu');
+            $('#BrandFooter').html('<button type="button" id="addBrand2" class="btn btn-success">Lưu & Đóng</button><button type="button" class="btn btn-light" data-dismiss="modal">Đóng</button>');
+            $('#title').val('');
+            $('#slug').val('');
+            $('#thumbnail').val('');
+            // Lưu và đóng
+            $('#addBrand2').click(function(){
+                addBrand();
+                $('#title').val('');
+                $('#slug').val('');
+                $('#thumbnail').val('');
+                $('#BrandModal').modal('hide');
+            });
+        
+        });
     //Open modal SubCategory
     $('#OpenSubModal').click(function(){
             $('#SubCategoryLabel').html('Thêm danh mục con');
@@ -305,6 +363,27 @@
         });
             
     });
+
+    function addBrand(){
+        var datastr = $('#BrandForm').serialize();
+        $.ajax({
+            headers: {
+                'X-CSRF-TOKEN':  $('meta[name="csrf-token"]').attr('content')
+            },
+                method: 'POST',
+                url: '{{route('brand.store')}}',
+                data:datastr,
+                success: function(data) {
+                    ToastSuccess(data.success);
+                    fetch_brand();
+                },
+                error: function(request, status) {
+                    $.each(request.responseJSON.errors,function(key,val){
+                        ToastError(val);
+                    });
+                }
+        });
+    }
 
     //Func Add SubCategory
     function addSubcategory()
@@ -486,6 +565,25 @@
         dataType: 'json',
             success: function(data) {
                 $('#selColor').html(data.select_data);
+            },
+            error: function(html, status) {
+                console.log(html.responseText);
+            }
+        });
+    }
+
+    function fetch_brand(query = '')
+    {
+        $.ajax({
+        headers: {
+            'X-CSRF-TOKEN':  $('meta[name="csrf-token"]').attr('content')
+        },
+        method: 'GET',
+        url: '{{route('brand.fetch')}}',
+        data:{query:query},
+        dataType: 'json',
+            success: function(data) {
+                $('#SelBrand').html(data.select_data);
             },
             error: function(html, status) {
                 console.log(html.responseText);

@@ -1,16 +1,23 @@
 @extends('includes.master') 
 @section('title','Shop Quần Áo HieuMai')
 @section('css')
+<style>
+.item-details img {
+    width:220px;
+    height:220px;
+}
+.item-details:hover {
+  box-shadow: 0 10px 50px rgba(33,33,33,.2); 
+}
+
+
+</style>
 <link rel="stylesheet" href="{{asset('@styleadmin/css/attribute.css')}}">
 @endsection
 @section('content')
 <section class="go-slider">
-    <div id="bootstrap-touch-slider" class="carousel bs-slider fade  control-round indicators-line" data-ride="carousel" data-pause="hover"
+    <div id="bootstrap-touch-slider" class="carousel bs-slider fade control-round indicators-line" data-ride="carousel" data-pause="hover"
         data-interval="5000">
-
-        <!-- Indicators -->
-
-
         <!-- Wrapper For Slides -->
         <div class="carousel-inner" role="listbox">
 
@@ -25,12 +32,10 @@
                     <div class="row">
                         <!-- Slide Text Layer -->
                         <div class="slide-text slide_style_left">
-
-                            <h1 data-animation="animated fadeInDown">Slider Title 1</h1>
-                            <p data-animation="animated fadeInUp">Lorem Ipsum is simply dummy text of the printing and typesetting industry</p>
-
+                            <h1 data-animation="animated wobble">Sale 50%</h1>
+                            <p data-animation="animated zoomInUp">Giảm giá 50% mặt hàng</p>
+                            <button data-animation="animated zoomInUp" type="button" class="button style-10">XEM NGAY</button>
                         </div>
-
                     </div>
                 </div>
             </div>
@@ -43,8 +48,9 @@
                 <div class="bs-slider-overlay"></div>
                 <!-- Slide Text Layer -->
                 <div class="slide-text slide_style_center">
-                    <h1 data-animation="animated fadeInDown">Slider Title 2</h1>
-                    <p data-animation="animated fadeInUp">Lorem Ipsum is simply dummy text of the printing and typesetting industry</p>
+                   <h1 data-animation="animated wobble">Sale 50%</h1>
+                    <p data-animation="animated zoomInUp">Giảm giá 50% mặt hàng</p>
+                    <button data-animation="animated zoomInUp" type="button" class="button style-10">XEM NGAY</button>
                 </div>
             </div>
             <!-- End of Slide -->
@@ -56,8 +62,9 @@
                 <div class="bs-slider-overlay"></div>
                 <!-- Slide Text Layer -->
                 <div class="slide-text slide_style_right">
-                    <h1 data-animation="animated fadeInDown">Slider Title 3</h1>
-                    <p data-animation="animated fadeInUp">Lorem Ipsum is simply dummy text of the printing and typesetting industry</p>
+                    <h1 data-animation="animated wobble">Sale 50%</h1>
+                    <p data-animation="animated zoomInUp">Giảm giá 50% mặt hàng</p>
+                    <button data-animation="animated zoomInUp" type="button" class="button style-10">XEM NGAY</button>
                 </div>
             </div>
             <!-- End of Slide -->
@@ -317,24 +324,31 @@
         <div class="row">
             <div class="col-md-6 col-md-offset-3">
                 <div class="section-title">
-                    <h2>Testiamonaltion</h2>
-                    <p>Testiamonaltion</p>
+                    <ul class="nav nav-tabs home-tab" role="tablist">
+                        <li class="active"><a>Thương Hiệu</a></li>
+                    </ul>
                 </div>
             </div>
             <div class="col-sm-12">
                 <div id="customers-testimonials" class="owl-carousel">
-
-                    <div class="item">
-                        <div class="shadow-effect">
-                            <i class="fa fa-quote-right"></i>
-                            <div class="item-details">
-                                <p class="ctext">hgfhg</p>
-                                <h5>hgfhgf</h5>
-                                <p>gfdgfdgfd</p>
+                    @forelse ($brands as $item)
+                        <div class="item">
+                            <div class="shadow-effect">
+                                <div class="item-details">
+                                   <a href="san-pham?brands={{$item->slug}}"><img src="{{$item->thumbnail}}"></a>
+                                </div>
                             </div>
                         </div>
-                    </div>
-
+                    @empty
+                        <div class="item">
+                            <div class="shadow-effect">
+                                <i class="fa fa-quote-right"></i>
+                                <div class="item-details">
+                                    <p>Không có dữ liệu</p>
+                                </div>
+                            </div>
+                        </div>
+                    @endforelse
                 </div>
             </div>
         </div>
@@ -348,8 +362,6 @@
 <script src="https://zjs.zdn.vn/zalo/sdk.js"></script>
 <script src="https://zjs.zdn.vn/zalo/Zalo.Extensions.min.js"></script>
 <script>
-
-
     $('#ZaloTest').click(function(){
         $.ajax({
             headers: {
@@ -366,7 +378,6 @@
                 }
             },
             error: function (request, status) {
-               
                 $.each(request.responseJSON.errors,function(key,val){
                     ToastError(val);
                 });

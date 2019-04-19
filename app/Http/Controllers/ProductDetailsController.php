@@ -49,10 +49,12 @@ class ProductDetailsController extends Controller
                     'SelCat' => 'required',
                     'SelSubCat' => 'required',
                     'SelChatLieu' => 'required',
+                    'SelBrand' => 'required',
                     'txtMoney' => 'numeric|required|min:1000',
                     'txtDiscount' => 'numeric|min:0|max:100'
                 ],
                 [
+                    'SelBrand.required' => 'Vui lòng chọn thương hiệu',
                     'txtNameProduct.required' => 'Vui lòng điền tên sản phẩm',
                     'txtSlugProduct.unique' => 'Tên đường dẫn bị trùng',
                     'editordata.required' => 'Vui lòng ghi mô tả',
@@ -79,6 +81,7 @@ class ProductDetailsController extends Controller
             $Product = new Product;
             $Product->id_sub = $request->SelSubCat;
             $Product->id_chatlieu = $request->SelChatLieu;
+            $Product->id_brand = $request->SelBrand;
             $Product->featured = $request->rdoNoiBat;
             if ($request->txtSlugProduct == '') {
                 $slug = changeTitle($request->txtNameProduct);
@@ -167,7 +170,7 @@ class ProductDetailsController extends Controller
             if (count($arr) != count($arr2)) {
                 return response('1', 422);
             }
-
+    
             $this->validate(
                 $request,
                 [
@@ -183,12 +186,14 @@ class ProductDetailsController extends Controller
                     'SelCat' => 'required',
                     'SelSubCat' => 'required',
                     'SelChatLieu' => 'required',
+                    'SelBrand' => 'required',
                     'txtMoney' => 'numeric|required|min:1000',
                     'txtDiscount' => 'numeric|min:0|max:100'
                 ],
                 [
+                    'SelBrand.required' => 'Vui lòng chọn thương hiệu',
                     'txtNameProduct.required' => 'Vui lòng điền tên sản phẩm',
-                    'txtSlugProduct.unique' => 'Tên đường dẫn bị trùng',
+                    'txtSlugProduct.unique' => 'Tên đường dẫnss bị trùng',
                     'editordata.required' => 'Vui lòng ghi mô tả',
                     'Image1.mimes' => 'File tải lên phải là hình ảnh',
                     'sku.*.required' => 'Vui lòng nhập SKU',
@@ -212,6 +217,7 @@ class ProductDetailsController extends Controller
             $Product->id_sub = $request->SelSubCat;
             $Product->featured = $request->rdoNoiBat;
             $Product->id_chatlieu = $request->SelChatLieu;
+            $Product->id_brand = $request->SelBrand;
             if ($request->txtSlugProduct == '') {
                 $slug = changeTitle($request->txtNameProduct);
                 $Product->slug = $slug;
