@@ -392,6 +392,37 @@
   <ol class="kanban To-do">
     <div class="kanban__title">
       Công Việc
+      <li class="dd-item" data-id="5">
+        <h3 class="title dd-handle">Pages</h3>
+        <div class="text" contenteditable="true">
+          Pages dynamic front end
+      </li>
+      <li class="dd-item" data-id="5">
+        <h3 class="title dd-handle">Review Module</h3>
+        <div class="text" contenteditable="true">
+          Review Frontend<br/>
+          Manager Backend
+      </li>
+      <li class="dd-item" data-id="5">
+        <h3 class="title dd-handle">News Module</h3>
+        <div class="text" contenteditable="true">
+          News Post BackEnd
+      </li>
+      <li class="dd-item" data-id="5">
+        <h3 class="title dd-handle">Chat system</h3>
+        <div class="text" contenteditable="true">
+          Service live chat 
+      </li>
+      <li class="dd-item" data-id="5">
+        <h3 class="title dd-handle">Database Func</h3>
+        <div class="text" contenteditable="true">
+          Backup and Restore
+      </li>
+      <li class="dd-item" data-id="5">
+        <h3 class="title dd-handle">SEO Settings</h3>
+        <div class="text" contenteditable="true">
+          Setting Seo for product
+    </li>
     </div>
 
 
@@ -399,54 +430,77 @@
   <ol class="kanban progress">
     Đang Tiến hành
     <li class="dd-item" data-id="5">
-        <h3 class="title dd-handle">Tạo Hóa Đơn</h3>
+        <h3 class="title dd-handle">Virtual assistant</h3>
         <div class="text" contenteditable="true">
-          Phía backend :
-          Quản lý hóa đơn
-          Tạo Hóa Đơn
-
+          Training : <br/>
+          Bill : view , verirfy status <br/>
+          Product : view , edit , add<br/>
+          Category : view , add<br/>
+          Customer : view <br/>
     </li>
+    <li class="dd-item" data-id="5">
+        <h3 class="title dd-handle">Delete data</h3>
+        <div class="text" contenteditable="true">
+          Soft Delete ??? <br/>
+          Hard Delete ????
+      </li>
   </ol>
   <ol class="kanban  Done">
     Hoàn Thành
     <li class="dd-item" data-id="5">
-      <h3 class="title dd-handle"> Cập Nhật danh mục</h3>
-      <div class="text" contenteditable="true">Paul 
-          Xây dựng module 
-          cập nhật khách hàng
-          Cập Nhật mã giảm giá
-          phía backend
+      <h3 class="title dd-handle"> Virtual assistant</h3>
+      <div class="text" contenteditable="true">
+          Virtual assistant Backend : OK 
     </li>
       <li class="dd-item" data-id="5">
-          <h3 class="title dd-handle">Sản Phẩm</h3>
+          <h3 class="title dd-handle">Notification</h3>
           <div class="text" contenteditable="true">
-            Phía client :
-            Tìm kiếm
-            Lọc theo giá
-            Lọc theo Màu
-            Lọc theo danh mục
+            Notif : Bill Backend [Realtime]
       </li>
       <li class="dd-item" data-id="5">
-          <h3 class="title dd-handle">Tạo Hóa Đơn</h3>
+          <h3 class="title dd-handle">Search name products</h3>
           <div class="text" contenteditable="true">
-            Phía client :
-            Tạo giỏ hàng
-            Tạo Hóa Đơn
+           Front End
 
       </li>
       <li class="dd-item" data-id="5">
-          <h3 class="title dd-handle">NGười dùng</h3>
+          <h3 class="title dd-handle">Pay Method</h3>
           <div class="text" contenteditable="true">
-            Phía client :
-            Đăng nhập / Đăng Xuất
-            Xem thông tin
-            Mã giảm giá theo loại người dùng
-
+            Paypal : OK<br/>
+      </li>
+      <li class="dd-item" data-id="5">
+        <h3 class="title dd-handle">Social</h3>
+        <div class="text" contenteditable="true">
+          Facebook : <br/>
+          - Login : OK<br/>
+          - Post Fanpage Auto : OK<br/>
+          Zalo :<br/>
+          - Get Friends : OK<br/>
+          - Post in Shop OAUTH : Test . . .<br/>
+          - Post in timeline : OK<br/>
+      </li>
+      <li class="dd-item" data-id="5">
+        <h3 class="title dd-handle">Brands</h3>
+        <div class="text" contenteditable="true">
+         Update Brands : OK
+      </li>
+      <li class="dd-item" data-id="5">
+        <h3 class="title dd-handle">More</h3>
+        <div class="text" contenteditable="true">
+          100% realtime Cart | Bill<br/>
+          Visit Log Manager<br/>
+          Report Dashboard<br/>
+          Mail Send <br/>
       </li>
   </ol>
   <ol class="kanban Gone">
     C Việc Hủy bỏ
-
+<li class="dd-item" data-id="5">
+  <h3 class="title dd-handle">Multi Language</h3>
+  <div class="text" contenteditable="true">
+    Multi Language site
+    Reason : Not optimize with google translate
+</li>
   </ol>
 
 </div>
