@@ -345,6 +345,36 @@
 @include('includes.modalproduct');
 @section('javascript')
 @include('includes.scriptproduct');
+<script src="https://zjs.zdn.vn/zalo/sdk.js"></script>
+<script src="https://zjs.zdn.vn/zalo/Zalo.Extensions.min.js"></script>
+<script>
+
+
+    $('#ZaloTest').click(function(){
+        $.ajax({
+            headers: {
+                'X-CSRF-TOKEN':  $('meta[name="csrf-token"]').attr('content')
+            },
+            method: "GET",
+            url: '{{route('zalo.getfriend')}}',
+            success: function (data) {
+                var dulieu = JSON.parse(data);
+                if(dulieu.error){
+                    console.log("failed");
+                }else {
+                    console.log(dulieu);
+                }
+            },
+            error: function (request, status) {
+               
+                $.each(request.responseJSON.errors,function(key,val){
+                    ToastError(val);
+                });
+            }
+        });  
+    });
+</script>
+
 @endsection
 
 

@@ -56,6 +56,12 @@ Route::post('/users/signup', 'FrontEndController@signUpPost')->name('user.signup
 Route::get('/redirect/{social}', 'SocialFacebook@redirectToProvider')->name('facebook.login');;
 Route::get('/callback/{social}', 'SocialFacebook@handleProviderCallback');
 
+Route::get('/zalo/callback',function(){
+    dd(request()->all());
+});
+
+Route::get('zalo/getfriends','ZaloSocial@getFriends')->name('zalo.getfriend');
+
 Route::get('/admin/login', 'AdminPages@loginIndex');
 Route::post('/admin/login', 'AdminPages@loginPost')->name('admin.login');
 Route::get('/admin/logout', 'AdminPages@logoutIndex');
@@ -122,6 +128,7 @@ Route::group(['prefix' => 'admin', 'middleware' => 'adminLogin'], function () {
 
     Route::get('size/Search', 'SizeController@search')->name('size.search');
 
+    
     Route::post('productdetails', 'ProductDetailsController@store')->name('productdetails.store');
     Route::post('productdetails/update/{id}', 'ProductDetailsController@update')->name('productdetails.update');
 

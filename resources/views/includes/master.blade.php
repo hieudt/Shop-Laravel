@@ -86,7 +86,7 @@
     <script src="{{ URL::asset('assets/js/autocomplete.min.js')}}"></script>
     <script src="{{asset('@styleadmin/js/pusher.min.js')}}"></script>
     <script src="{{asset('@styleadmin/js/myjs.js')}}"></script>
-
+    
 
     <!-- js Page -->
     @yield('javascript'); @yield('footer');
@@ -313,6 +313,7 @@
     data-width="350" data-height="420"></div>
 
 <script src="https://sp.zalo.me/plugins/sdk.js"></script>
+
 {{VisitLog::save()}}
 
 </html>
