@@ -2,7 +2,7 @@
 @section('title','Quản lý Hóa Đơn') 
 @section('css')
 <link rel="stylesheet" href="{{asset('@styleadmin/node_modules/datatables.net-bs4/css/dataTables.bootstrap4.css')}}">
-
+<link rel="stylesheet" href="https://cdn.datatables.net/plug-ins/preview/searchPane/dataTables.searchPane.min.css">
 <style>
     .tool {
         position: relative;
@@ -50,7 +50,7 @@
     }
 </style>
 @endsection
-
+ 
 @section('content')
 <div class="card">
     <div class="card-body">
@@ -62,13 +62,25 @@
                 <button type="button" id="OpenUserModal" class="btn btn-success btn-fw" data-toggle="modal" data-target="#UserModal" data-whatever="@getbootstrap"><i class="mdi mdi-check"></i>Thêm mới</button>
             </div>
         </div>
-
+        <table border="0" cellspacing="5" cellpadding="5">
+            <tbody>
+                <tr>
+                    <td>Tổng tiền thấp nhất:</td>
+                    <td><input type="text" id="min" name="min"></td>
+                </tr>
+                <tr>
+                    <td>Tổng tiền cao nhất:</td>
+                    <td><input type="text" id="max" name="max"></td>
+                </tr>
+            </tbody>
+        </table>
         <div class="row">
-            <table id="order-listing" class="table"  style="width:100%">
+            <table id="order-listing" class="table" style="width:100%">
                 <thead>
                     <tr>
                         <th>Mã Hóa Đơn</th>
-                        <th>Ngày Đặt</th>
+                        <th class="dayorder">Ngày Đặt</th>
+                        <th>P.Thức T.Toán</th>
                         <th>Khách Hàng</th>
                         <th>Trạng Thái</th>
                         <th>Thanh Toán</th>
@@ -84,6 +96,7 @@
     </div>
 </div>
 @endsection
+ 
 @section('javascript')
 
 
@@ -152,12 +165,12 @@
             }
         },
         "process" : true,
-        "stateSave": true,
         "serverSide" : false,
         "ajax" : '{!!route('bill.fetch')!!}',
         "columns":[
             {data:'id',name:'id'},
             {data:'created_at',name:'created_at'},
+            {data:'PayMethod'},
             {data:'id_user',name:'id_user'},
             {data:'status',name:'status'},
             {data:'statusPay',name:'statusPay'},
@@ -172,11 +185,39 @@
         var datatable = $(this);
         // SEARCH - Add the placeholder for Search and Turn this into in-line form control
         var search_input = datatable.closest('.dataTables_wrapper').find('div[id$=_filter] input');
-        search_input.attr('placeholder', 'Search');
+        search_input.attr('placeholder', 'Tìm Kiếm');
         search_input.removeClass('form-control-sm');
         // LENGTH - Inline-Form control
         var length_sel = datatable.closest('.dataTables_wrapper').find('div[id$=_length] select');
         length_sel.removeClass('form-control-sm');
+        });
+        $('#order-listing').DataTable().columns('.dayorder').order('desc').draw();
+
+        $.fn.dataTable.ext.search.push(
+            function(settings,data,dataIndex ) {
+                var min = $('#min').val();
+                var max = $('#max').val();
+                min = parseInt(min.replace(/,/g,''));
+                max = parseInt(max.replace(/,/,''));
+                var money = data[6];
+                money = money.replace(/,/g,'');
+                money = parseInt(money.replace(" ₫",''));
+                console.log(min+" max : "+max)
+                
+                console.log(money)// use data for the money column
+                if ((isNaN( min ) && isNaN( max )) ||
+                    (isNaN(min) && money <= max) ||
+                    (min <= money   && isNaN( max )) ||
+                    (min <= money   && money <= max ))
+                {
+                    return true;
+                }
+                return false;
+            }
+        );
+       
+        $('#min, #max').mask('000,000,000,000', {reverse: true}).keyup( function() {
+            $('#order-listing').DataTable().draw();
         });
     });
 
@@ -184,4 +225,6 @@
 
 <script src="{{asset('@styleadmin/node_modules/datatables.net/js/jquery.dataTables.js')}}"></script>
 <script src="{{asset('@styleadmin/node_modules/datatables.net-bs4/js/dataTables.bootstrap4.js')}}"></script>
+<script src="https://cdn.datatables.net/plug-ins/preview/searchPane/dataTables.searchPane.min.js"></script>
+<script src="{{asset('@styleadmin/js/jquery.mask.js')}}"></script>
 @endsection

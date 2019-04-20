@@ -94,7 +94,7 @@ function Pagi(){
 
 var pusher = new Pusher('fbefcc8bb38866195ed2', {
     cluster: 'ap1',
-    forceTLS: true
+    // forceTLS: false
   });
   
   var channel = pusher.subscribe('Cart');

@@ -317,7 +317,7 @@ class CartController extends Controller
         // Truyền message lên server Pusher
         $options = array(
             'cluster' => 'ap1',
-            'useTLS' => true
+            // 'useTLS' => true
           );
 
         $pusher = new Pusher(

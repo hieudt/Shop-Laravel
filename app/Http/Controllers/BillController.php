@@ -37,6 +37,14 @@ class BillController extends Controller
     public function fetchAll(){
         $data = Bill::all();
         return Datatables::of($data)
+        ->editColumn('PayMethod',function($data){
+            if($data->PayMethod == 0)
+            return "Ship COD";
+            if($data->PayMethod == 1)
+            return "Paypal";
+            if($data->PayMethod == 2)
+            return "RogCoin";
+        })
         ->editColumn('statusPay',function($data){
             if($data->statusPay == 0)
             return '
@@ -56,7 +64,7 @@ class BillController extends Controller
             return formatMoney($data->TotalMoney);
         })
         ->editColumn('id',function($data){
-            return '<a href="'.url('/admin/bill/details').'/'.$data->id.'">#'.$data->id.'</a>';
+            return '<a href="'.url('/admin/bill/details').'/'.$data->id.'">'.$data->id.'</a>';
         })
         ->editColumn('id_user',function($data){
             $text = '<table class="table table-bordered"><tbody> <tr> <td>Email</td>';

@@ -22,6 +22,7 @@ class CheckOutController extends Controller
     public function __construct()
     {
         $danhmuc = Category::all();
+        
         view()->share('danhmuc',$danhmuc);
     }
 

@@ -313,13 +313,6 @@
                                         <a href="{{url('/redirect/facebook')}}" class="button style-10" id="FBLogin"><strong>Đăng nhập với FB</strong></a>
                                     </div>
                                 </div>
-                                <div class="control-group">
-                                    <label class="control-label" for="confirmsignup"></label>
-                                    <div class="controls">
-                                        <a href="https://oauth.zaloapp.com/v3/auth?app_id=3880164948819230085&redirect_uri=https://larvuejs.vn/zalo/callback&state=543543" class="button style-10" id="ZaloLogin"><strong>Đăng nhập với Zalo</strong></a>
-                                        <button type="button" class="btn btn-primary" id="ZaloTest">Test</button>
-                                    </div>
-                                </div>
                             </fieldset>
                         </form>
                     </div>

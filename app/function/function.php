@@ -287,6 +287,8 @@ function getInfoByCategoryId($id, $day)
 		return 0;
 }
 
+
+
 function getListCategoryTop($params = null)
 {
 	$data = DB::table('categories')
