@@ -235,7 +235,7 @@
                     <ul>
                         <li class="simple-list"><a href="{{url('/')}}" class="">TRANG CHỦ</a></li>
                         <li class="full-width-columns">
-                            <a href="{{url('/san-pham')}}">DANH MỤC</a>
+                            <a href="{{url('/san-pham?')}}">DANH MỤC</a>
                             <i class="fa fa-chevron-down"></i>
                             <div class="submenu">
                                 @foreach($danhmuc as $cat)

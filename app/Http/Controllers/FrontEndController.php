@@ -236,9 +236,24 @@ class FrontEndController extends Controller
             $Product = $Product->whereIn('Product.id', $arrayListMatchColor);
         }
 
-
+        if(request()->km){
+            $Product = $Product->where('discount', '>', '0')->orderBy('id', 'desc');
+        }
+        if(request()->noibat){
+            $Product = $Product->where('featured', '1')->orderBy('id', 'desc');
+        }
+        if(request()->moinhat){
+            $Product = $Product->orderBy('id', 'desc');
+        }
+        
+        if(request()->giamin){
+            $Product = $Product->where('cost','>=',request()->giamin);
+        }
+        if(request()->giamax) {
+            $Product = $Product->where('cost', '<=',request()->giamax);
+        }
         $Product = $Product->paginate(10);
-
+        
 
         return view('categoryproduct', compact('Product', 'Color','Brand', 'Category', 'CategoryName', 'CategorySlug', 'SubCategoryName', 'SubCategorySlug'));
     }
@@ -320,21 +335,5 @@ class FrontEndController extends Controller
     }
 
 
-    public function eventLoadCart()
-    {
-        // Truyền message lên server Pusher
-        $options = array(
-            'cluster' => 'ap1',
-            'useTLS' => true
-        );
-
-        $pusher = new Pusher(
-            'fbefcc8bb38866195ed2',
-            'ca8d13f7e7ec66461aed',
-            '757854',
-            $options
-        );
-
-        $pusher->trigger('Cart', 'loadCart', $data);
-    }
+ 
 }

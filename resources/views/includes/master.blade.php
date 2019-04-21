@@ -17,6 +17,7 @@
     <!-- Bootstrap Core CSS -->
     <link href="{{ URL::asset('assets/css/bootstrap.min.css')}}" rel="stylesheet">
     <link href="{{ URL::asset('assets/css/font-awesome.css')}}" rel="stylesheet">
+    
     <link href="{{ URL::asset('assets/css/owl.carousel.min.css')}}" rel="stylesheet">
     <link href="{{ URL::asset('assets/css/idangerous.swiper.css')}}" rel="stylesheet" type="text/css" />
 
@@ -93,6 +94,7 @@
     <script>
         new WOW().init();
     </script>
+   
     <script>
         $(window).load(function(){
             setTimeout(function(){

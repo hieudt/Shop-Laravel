@@ -3,6 +3,7 @@
 @section('css')
 
 <link rel="stylesheet" href="{{asset('@styleadmin/css/attribute.css')}}">
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 <style>
     .pagination>.active>span {
         background-color: black !important;
@@ -13,6 +14,7 @@
     .pagination>li>a {
         color: black !important;
     }
+    
 </style>
 @endsection
  
@@ -41,14 +43,14 @@
                         <ul id="menu-group-1" class="nav menu">
                             @foreach($Category as $cat)
                             <li class="item-1 deeper parent">
-                                <a class="" href="{{route('front.category',['brands'=>request()->brands,'category'=>$cat->slug,'color'=>request()->color,'sort'=>request()->sort])}}">
+                                <a class="" href="{{route('front.category',['brands'=>request()->brands,'category'=>$cat->slug,'color'=>request()->color,'sort'=>request()->sort,'km'=>request()->km,'noibat'=>request()->noibat,'moinhat'=>request()->moinhat,'giamin'=>request()->giamin,'giamax'=>request()->giamax])}}">
                                             <span data-toggle="collapse" data-parent="#menu-group-1" href="#{{$cat->slug}}-1" class="sign"><i class="fa fa-plus"></i></span>
                                             <span class="lbl">{{$cat->title}}</span>
                                         </a>
                                 <ul class="children nav-child unstyled small collapse" id="{{$cat->slug}}-1">
                                     @foreach($cat->SubCategory as $submenu)
                                     <li class="item-2 deeper parent">
-                                        <a class="" href="{{route('front.category',['brands'=>request()->brands,'subcategory'=>$submenu->slug,'color'=>request()->color,'sort'=>request()->sort])}}">
+                                        <a class="" href="{{route('front.category',['brands'=>request()->brands,'subcategory'=>$submenu->slug,'color'=>request()->color,'sort'=>request()->sort,'km'=>request()->km,'noibat'=>request()->noibat,'moinhat'=>request()->moinhat,'giamin'=>request()->giamin,'giamax'=>request()->giamax])}}">
                                             <span data-toggle="collapse" data-parent="#menu-group-1" href="#{{$submenu->slug}}-1" class="sign"><i class="fa fa-plus"></i></span>
                                             <span class="lbl">{{$submenu->name_sub}}</span>
                                         </a>
@@ -59,7 +61,9 @@
                             @endforeach
                         </ul>
                     </div>
+                   
                     <div class="row" style="margin-bottom: 20px;">
+                       
                         <h3 class="allcats">Bộ Lọc</h3>
                         <div id="left" class="span3">
                             <ul id="menu-group-2" class="nav menu">
@@ -70,13 +74,13 @@
                                     </a>
                                     <ul class="children nav-child unstyled small collapse" id="giatien-2">
                                         <li class="item-2 deeper parent">
-                                            <a class="" href="{{route('front.category',['brands'=>request()->brands,'category'=>request()->category,'subcategory'=>request()->subcategory,'color'=>request()->color,'sort'=>'low_high'])}}">
+                                            <a class="" href="{{route('front.category',['brands'=>request()->brands,'category'=>request()->category,'subcategory'=>request()->subcategory,'color'=>request()->color,'sort'=>'low_high','km'=>request()->km,'noibat'=>request()->noibat,'moinhat'=>request()->moinhat,'giamin'=>request()->giamin,'giamax'=>request()->giamax])}}">
                                                 <span data-toggle="collapse" data-parent="#menu-group-2" class="sign"><i class="fa fa-sort"></i></span>
                                                 <span class="lbl">Từ thấp tới cao</span>
                                             </a>
                                         </li>
                                         <li class="item-2 deeper parent">
-                                            <a class="" href="{{route('front.category',['brands'=>request()->brands,'category'=>request()->category,'subcategory'=>request()->subcategory,'color'=>request()->color,'sort'=>'high_low'])}}">
+                                            <a class="" href="{{route('front.category',['brands'=>request()->brands,'category'=>request()->category,'subcategory'=>request()->subcategory,'color'=>request()->color,'sort'=>'high_low','km'=>request()->km,'noibat'=>request()->noibat,'moinhat'=>request()->moinhat,'giamin'=>request()->giamin,'giamax'=>request()->giamax])}}">
                                                 <span data-toggle="collapse" data-parent="#menu-group-2" class="sign"><i class="fa fa-sort"></i></span>
                                                 <span class="lbl">Từ cao tới thấp</span>
                                             </a>
@@ -91,7 +95,7 @@
                                     <ul class="children nav-child unstyled small collapse" id="mausac-2">
                                     @foreach($Color as $colors)
                                         <li class="item-2 deeper parent">
-                                            <a class="" href="{{route('front.category',['brands'=>request()->brands,'category'=>request()->category,'subcategory'=>request()->subcategory,'sort'=>request()->sort,'color'=>$colors->slug])}}">
+                                            <a class="" href="{{route('front.category',['brands'=>request()->brands,'category'=>request()->category,'subcategory'=>request()->subcategory,'sort'=>request()->sort,'color'=>$colors->slug,'km'=>request()->km,'noibat'=>request()->noibat,'moinhat'=>request()->moinhat,'giamin'=>request()->giamin,'giamax'=>request()->giamax])}}">
                                                 <span data-toggle="collapse" data-parent="#menu-group-2" class="sign"></span>
                                                 <span class="colors" data-color="{{$colors->codeColor}}"></span>
                                                 <span class="lbl">{{$colors->name}}</span>
@@ -105,6 +109,35 @@
 
                     </div>
                     <div class="row" style="margin-bottom: 20px;">
+                        <h3 class="allcats">Khoảng Giá</h3>
+                        <br/><br/>
+                        <div id="left" class="span3">
+                            <ul id="menu-group-3" class="nav menu">
+                                <li class="item-1 deeper parent">
+                                    <h3>
+                                        <span id="giaMin">
+                                            @if(request()->giamin)
+                                            {!!formatMoney(request()->giamin,true)!!} ₫
+                                            @else
+                                            0
+                                            @endif
+                                        </span>
+                                     -
+                                        <span id="giaMax">
+                                            @if(request()->giamax)
+                                            {!!formatMoney(request()->giamax,true)!!} ₫
+                                            @else
+                                            0
+                                            @endif
+                                        </span>
+                                     </h3><br/>
+                                    <div name="rangeslider" id="rangeslider" style=" height: 6px; " step="1000">
+                                </li>
+                            </ul>
+                        </div>
+                    
+                    </div>
+                    <div class="row" style="margin-bottom: 20px;">
                         <h3 class="allcats">Thương Hiệu</h3>
                         <div id="left" class="span3">
                             <ul id="menu-group-3" class="nav menu">
@@ -112,7 +145,7 @@
                                     <ul class="children nav-child unstyled small">
                                     @foreach($Brand as $brands)
                                         <li class="deeper parent">
-                                            <a class="" href="{{route('front.category',['category'=>request()->category,'subcategory'=>request()->subcategory,'sort'=>request()->sort,'color'=>request()->color,'brands'=>$brands->slug])}}">
+                                            <a class="" href="{{route('front.category',['category'=>request()->category,'subcategory'=>request()->subcategory,'sort'=>request()->sort,'color'=>request()->color,'brands'=>$brands->slug,'km'=>request()->km,'noibat'=>request()->noibat,'moinhat'=>request()->moinhat,'giamin'=>request()->giamin,'giamax'=>request()->giamax])}}">
                                                 <span class="lbl">{{$brands->title}}</span>
                                             </a>
                                         </li>
@@ -126,9 +159,28 @@
                 </div>
 
                 <div class="col-md-9">
+                    <div class="row p-3">
+                        <label class="checkbox-inline"><input type="checkbox" value="km" name="km"
+                        @if(request()->km) 
+                        checked 
+                        @endif
+                        >Khuyến Mãi</label>
+                        <label class="checkbox-inline"><input type="checkbox" value="noibat" name="noibat" 
+                        @if(request()->noibat) 
+                        checked 
+                        @endif
+                        >Nổi bật</label>
+                        <label class="checkbox-inline"><input type="checkbox" value="moinhat" name="moinhat" 
+                        @if(request()->moinhat) 
+                        checked 
+                        @endif
+                        >Mới Nhất</label>
+                    </div>
                     <div class="row">
+                        
                         @forelse($Product as $product)
                         <?php $CountForm++; ?>
+                        
                         <div class="col-md-4 col-sm-6">
                             <div class="product-grid4">
                                 <div class="product-image4">
@@ -151,7 +203,7 @@
                                         <span>{{$product->formatMoney($product->cost)}}₫</span> @else {{$product->formatMoney($product->cost)}}₫
                                         @endif
                                     </div>
-                                    <form id="product{{$CountForm}}">
+                                    <form class="product{{$CountForm}}">
                                     <input type="hidden" name="title" value="{{$product->title}}">
                                     <input type="hidden" name="img" value="{{$product->thumbnail}}">
                                     <input type="hidden" name="description" value="{{$product->description}}">
@@ -265,7 +317,7 @@
     $(document).on('click','.add-to-cart',function(){
         $('#ListSelectColor').html('');
         var count = $(this).attr('data-product');
-        var product = $('#product'+count).serializeArray();
+        var product = $('.product'+count).serializeArray();
 
         $('.product-title').text(product[0].value);
         $('.image-product').attr("src","{{url('/images/product')}}/"+product[1].value);
@@ -324,6 +376,95 @@
             }
         });
     }
+
+    $("input:checkbox[name=km],input:checkbox[name=noibat],input:checkbox[name=moinhat]").click(function(){
+        if(this.checked == false){
+            // window.location = window.location.href
+            //console.log(this.value);
+           window.location = removeURLParameter(window.location.href,this.value);
+        }
+        if(this.checked == true){
+            insertParam(this.value,1);
+        }
+    });
+
+    function removeURLParameter(url, parameter) {
+        //prefer to use l.search if you have a location/link object
+        var urlparts = url.split('?');   
+        if (urlparts.length >= 2) {
+
+            var prefix = encodeURIComponent(parameter) + '=';
+            var pars = urlparts[1].split(/[&;]/g);
+
+            //reverse iteration as may be destructive
+            for (var i = pars.length; i-- > 0;) {    
+                //idiom for string.startsWith
+                if (pars[i].lastIndexOf(prefix, 0) !== -1) {  
+                    pars.splice(i, 1);
+                }
+            }
+
+            return urlparts[0] + (pars.length > 0 ? '?' + pars.join('&') : '');
+        }
+        return url;
+    }
+
+    function insertParam(key, value) {
+        key = escape(key); value = escape(value);
+
+        var kvp = document.location.search.substr(1).split('&');
+        if (kvp == '') {
+            document.location.search = '?' + key + '=' + value;
+        }
+        else {
+
+            var i = kvp.length; var x; while (i--) {
+                x = kvp[i].split('=');
+
+                if (x[0] == key) {
+                    x[1] = value;
+                    kvp[i] = x.join('=');
+                    break;
+                }
+            }
+
+            if (i < 0) { kvp[kvp.length] = [key, value].join('='); }
+
+            //this will reload the page, it's likely better to store this until finished
+            document.location.search = kvp.join('&');
+        }
+    }
+    
+
 </script>
 
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/numeral.js/2.0.6/numeral.min.js"></script>
+<script>
+    var url = new URL(window.location.href);
+    var query_string = url.search;
+    var search_params = new URLSearchParams(query_string); 
+    var priceMax = search_params.get('giamax');
+    var priceMin = search_params.get('giamin');
+    $('#rangeslider').slider({
+    range: true,
+    min: 0,
+    values:[priceMin,priceMax],
+    max: 5000000,
+    step:20000,
+    slide: function(event,ui) {
+    $('#giaMin').html(numeral(ui.values[0]).format('0,0') +" ₫");
+    $('#giaMax').html(numeral(ui.values[1]).format('0,0') +" ₫");
+    },
+    stop: function(event, ui) {
+       if(priceMin && priceMax){
+            var uri = window.location.href;
+            uri = uri.replace("giamin="+priceMin,"giamin="+ui.values[0]).replace("giamax="+priceMax,"giamax="+ui.values[1]);
+            window.location = uri;
+       }else {
+           window.location = window.location.href+"&giamin="+ui.values[0]+"&giamax="+ui.values[1];
+       }
+    },
+  });
+</script>
 @stop
