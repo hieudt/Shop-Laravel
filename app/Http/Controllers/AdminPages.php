@@ -19,19 +19,23 @@ class AdminPages extends Controller
             $dayArr[] = $ar;
         }
         $data = ChartCategory();
-
-        $charts = Charts::multi('line', 'highcharts')
-            ->title('Biểu đồ doanh thu theo top 4 danh mục trong 7 ngày gần nhất')
-            ->elementLabel('Biểu đồ doanh thu theo top 4 danh mục trong 7 ngày gần nhất')
-            ->colors(['#ff0000', 'green', 'gray', 'blue'])
-            ->labels($dayArr);
-        foreach ($data as $key) {
-            $charts->dataset($key['DanhMuc'], [$key['Ngay' . $dayArr[0]], $key['Ngay' . $dayArr[1]], $key['Ngay' . $dayArr[2]], $key['Ngay' . $dayArr[3]], $key['Ngay' . $dayArr[4]], $key['Ngay' . $dayArr[5]], $key['Ngay' . $dayArr[6]]]);
+        if(!empty($data)){
+            $charts = Charts::multi('line', 'highcharts')
+                ->title('Biểu đồ doanh thu theo top 4 danh mục trong 7 ngày gần nhất')
+                ->elementLabel('Biểu đồ doanh thu theo top 4 danh mục trong 7 ngày gần nhất')
+                ->colors(['#ff0000', 'green', 'gray', 'blue'])
+                ->labels($dayArr);
+            foreach ($data as $key) {
+                $charts->dataset($key['DanhMuc'], [$key['Ngay' . $dayArr[0]], $key['Ngay' . $dayArr[1]], $key['Ngay' . $dayArr[2]], $key['Ngay' . $dayArr[3]], $key['Ngay' . $dayArr[4]], $key['Ngay' . $dayArr[5]], $key['Ngay' . $dayArr[6]]]);
+            }
+            $charts
+                ->responsive(false)
+                ->height(600)
+                ->width(0);
+        }else {
+            $charts = '';
         }
-        $charts
-            ->responsive(false)
-            ->height(600)
-            ->width(0);
+       
 
         $categoryTop = getListCategoryTop(5);
 

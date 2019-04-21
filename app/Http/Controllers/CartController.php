@@ -78,10 +78,14 @@ class CartController extends Controller
                 }
                 
             }
-            
-
-
-            Cart::add($product->id,$pr->title,$req->Number,$price)
+            $typeDiscount = ['discount'=>0,'coupon'=>0];
+            if($pr->discount > 0){
+                $typeDiscount = ['discount'=>$pr->discount,'coupon'=>0];
+            }
+            if (session()->get('coupon') && $pr->discount == 0) {
+                $typeDiscount = ['discount'=>session()->get('coupon')['discount'],'coupon'=>1];
+            } 
+            Cart::add($product->id,$pr->title,$req->Number,$pr->cost,$typeDiscount)
             ->associate('App\product_details');
             $this->eventLoadCart();
             return response()->json(['success'=>'Thêm giỏ hàng thành công'],200);
@@ -96,6 +100,7 @@ class CartController extends Controller
             $output = '';
             $outputPopup = '';
             $outputcheckout = '';
+            $giaCu = 0;
             if (Cart::content()->count() > 0) {
                 foreach (Cart::content() as $item) {
                     $output .= '
@@ -116,15 +121,21 @@ class CartController extends Controller
                             </div>
                         </div>
                     </td>
-                    <td><div id="price" class="subtotal" style="">'.formatMoney($item->price).'</div></td>
+                    <td><div id="price" class="subtotal" style="">';
+                    if($item->options['discount'] > 0){
+                       $output.=  formatMoney(priceDiscount($item->price,$item->options['discount']),false,false,$item->options['discount']);
+                    } else {
+                        $output .=  formatMoney($item->price);
+                    }
+                    $output.='</div></td>
                     <td>
                         <div class="quantity-selector detail-info-entry">
                             <div class="entry number-minus" id="minus" data-row="'.$item->rowId.'">&nbsp;</div>
                             <div class="entry number" id="number">'.$item->qty.'</div>
-                            <div class="entry number-plus" id="plus" data-row="'.$item->rowId.'">&nbsp;</div>
+                            <div class="entry number-plus" id="plus" data-row="'.$item->rowId. '">&nbsp;</div>
                         </div>
                     </td>
-                    <td><div class="subtotal" id="subtotal">'.formatMoney($item->price*$item->qty).'</div></td>
+                    <td><div class="subtotal" id="subtotal">' . formatMoney(priceDiscount($item->price * $item->qty, $item->options['discount'])) . '</div></td>
                     <td><a class="remove-button" data-rowid="'.$item->rowId.'"><i class="fa fa-times"></i></a></td>
                     </tr>
                     ';
@@ -138,9 +149,9 @@ class CartController extends Controller
                         </div>
                         <div class="content"> 
                             <a class="title" href="/san-pham/'.$item->model->Product->id.'/'.$item->model->Product->slug.'">&nbsp '.$item->name.'</a> 
-                            <div class="quantity" style="padding-left:10px;"> &nbsp SL: '.$item->qty.' | '.$item->model->Color->name.' | '.$item->model->Size->name.'</div>
+                            <div class="quantity" style="padding-left:10px;"> &nbsp SL: '.$item->qty.' | '.$item->model->Color->name.' | '.$item->model->Size->name. '</div>
                                        
-                            <div class="price"> &nbsp '.formatMoney($item->price*$item->qty).'</div>
+                            <div class="price"> &nbsp ' . formatMoney($item->options['discount'] > 0 ? priceDiscount($item->price, $item->options['discount']) : $item->price * $item->qty) . '</div>
                         </div>
                         <div class="button-x remove-button" data-rowid="'.$item->rowId.'"><i class="fa fa-close"></i></div>
                     </div>
@@ -152,10 +163,16 @@ class CartController extends Controller
                         <td><ul id="ListSelectColor">
                         <span class="swatch" style="background-color:'.$item->model->Color->codeColor.'"></span></ul></td>
                         <td>'.$item->model->Size->name.'</td>
-                        <td>'.$item->qty.'</td>
-                        <td>'.formatMoney($item->price*$item->qty).'</td>
+                        <td>'.$item->qty. '</td>
+                        <td>'.formatMoney(priceDiscount($item->price*$item->qty, $item->options['discount'])).'</td>
                      </tr>
                     ';
+                    if($item->options['coupon'] == 0){
+                        $giaCu += priceDiscount($item->price * $item->qty, $item->options['discount']);
+                    } else {
+                        $giaCu += priceDiscount($item->price * $item->qty, 0);
+                    }
+                   
                 }
                
             } else {
@@ -174,11 +191,22 @@ class CartController extends Controller
             $total = 0;
             $MaGiamGia = '';
             if(session()->get('coupon')){
-                $total = formatMoney(priceDiscount(Cart::subtotal(),session()->get('coupon')['discount']));
-                $MaGiamGia = '<h4>Giá cũ : '.formatMoney(Cart::subtotal()).'</h4>
+                $noDiscount = 0;
+                $priceDiscount = 0;
+                foreach (Cart::content() as $item) {
+                    if($item->options['discount'] == 0)
+                    $total += priceDiscount($item->price*$item->qty,session()->get('coupon')['discount']);
+                    else
+                    $total += priceDiscount($item->price*$item->qty,$item->options['discount']);
+                }
+                $total = formatMoney($total);
+                $MaGiamGia = '<h4>Giá cũ : '.formatMoney($giaCu).'</h4>
                 <h4>Giảm giá theo mã : <font color="red"><b>-'.session()->get('coupon')['discount'].'%</b></font></h4>';
             } else {
-                $total = formatMoney(Cart::subtotal());
+                foreach (Cart::content() as $item) {
+                    $total += priceDiscount($item->price*$item->qty,$item->options['discount']);
+                }
+                $total = formatMoney($total);
                 $MaGiamGia = '<h4><a href="'.url('/cart').'" target="_blank">Tôi có mã giảm giá?</a>';
             }
             
@@ -233,15 +261,20 @@ class CartController extends Controller
                 'discount' => $coupon->Percent,
                 'require' => $coupon->RequireTotal
             ]);
-
-            $outputCoupons = '<h4>Giá cũ : '.Cart::subtotal().'</h4>'.
-            '<h4>Giảm giá theo mã : -'.session()->get('coupon')['discount'].'%</h4>';
+          
+            foreach (Cart::content() as $item) {
+                if($item->options['discount'] == 0){
+                    $item->options['discount'] = $coupon->Percent;
+                    $item->options['coupon'] = 1;
+                }
+                
+            }
+           
             
             $divCoupons = '<h4>'.session()->get('coupon')['code'].'</h4>
             <button class="col-md-6 pull-right button style-10" style="margin-top:15px;" id="btnRemoveCoupon">Gỡ bỏ</button>';
             $data = array(
                 'msg' => 'Đã thêm mã giảm giá',
-                'outputCoupons'=>$outputCoupons,
                 'divCoupons' => $divCoupons
             );
             $this->eventLoadCart();
@@ -272,6 +305,13 @@ class CartController extends Controller
                 'divCoupons' => $divCoupons
                 
             );
+
+            foreach (Cart::content() as $item) {
+                if($item->options['coupon'] == 1){
+                    $item->options['coupon'] = 0;
+                    $item->options['discount'] = 0;
+                }
+            }
             $this->eventLoadCart();
             echo json_encode($data);
         }

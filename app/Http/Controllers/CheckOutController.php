@@ -35,13 +35,13 @@ class CheckOutController extends Controller
         if($req->ajax()){
             $total = 0;
             $idcoupon = null;
-            $total = deformatMoney(Cart::subtotal());
+            foreach(Cart::content() as $item){
+                $total += priceDiscount($item->price*$item->qty,$item->options['discount']);
+            }
             if(session()->get('coupon')){
                 $idcoupon = session()->get('coupon')['id'];
                 if(deformatMoney(Cart::subtotal()) < session()->get('coupon')['require']){
-                    return response()->json(['errors'=>['errorcoupons'=>[0=>'Để dùng mã giảm giá này hóa đơn của bạn tối thiểu phải từ '.formatMoney(session()->get('coupon')['require'],true).' trở lên']]],422);
-                } else {
-                    $total = deformatMoney(priceDiscount(Cart::subtotal(),session()->get('coupon')['discount']));
+                    return response()->json(['errors'=>['errorcoupons'=>[0=>'Để dùng mã giảm giá này hóa đơn của bạn giá trị gốc tối thiểu phải từ '.formatMoney(session()->get('coupon')['require'],true).' trở lên']]],422);
                 }
             }
             
@@ -62,10 +62,11 @@ class CheckOutController extends Controller
             ]);
 
             $shiper = '';
+            $feeship = 0;
             if(session()->get('idShip')){
                 $shiper = Shipper::find(session()->get('idShip'));
                 if(!empty($shiper)){
-                    $total = deformatMoney($total) + $shiper->fee;
+                    $feeship = $shiper->fee;
                 }
             }else {
                 return response()->json(['errors'=>['errorcoupons'=>[0=>'Vui lòng chọn phương thức vận chuyển']]],422);
@@ -92,6 +93,7 @@ class CheckOutController extends Controller
             $Bill->id_infoship = $InfoShip->id;
             $Bill->id_shipper = $shiper->id;
             $Bill->TotalMoney = $total;
+            $Bill->feeship = $feeship;
             $Bill->save();
 
             foreach (Cart::content() as $Item) {
@@ -99,6 +101,8 @@ class CheckOutController extends Controller
                 $Details->id_bill = $Bill->id;
                 $Details->id_products_details = $Item->id;
                 $Details->Number = $Item->qty;
+                $Details->price = $Item->price;
+                $Details->discount = $Item->options['discount'];
                 $Details->save();
             }
 

@@ -203,6 +203,13 @@ Route::get('/cv', function () {
     dd($output);
 });
 
-Route::get('/top', function () {
-   
+Route::get('/top/{remove}', function ($remove) {
+    if($remove == 1){
+        Cart::destroy();
+    }else {
+    //    foreach (Cart::content() as $key) {
+    //        echo $key->options['discount'];
+    //    }
+    dd(Cart::content());
+    }
 });

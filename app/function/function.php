@@ -84,7 +84,7 @@ function stripUnicode($str)
 	return $str;
 }
 
-function formatMoney($number, $flag = false, $fee = false)
+function formatMoney($number, $flag = false, $fee = false,$discount = null)
 {
 
 	while (true) {
@@ -97,6 +97,10 @@ function formatMoney($number, $flag = false, $fee = false)
 	}
 	if ($flag) {
 		return $number;
+	}
+
+	if($discount != null){
+		return "<font color='green'><b>" . $number . " ₫</b></font><font color='red'>(-".$discount."%)</font>";
 	}
 
 	if ($fee) {
@@ -274,7 +278,7 @@ function getInfoByCategoryId($id, $day)
 		->join('product_details', 'Product.id', '=', 'product_details.id_product')
 		->join('DetailsBill', 'product_details.id', '=', 'DetailsBill.id_products_details')
 		->join('Bill', 'Bill.id', '=', 'DetailsBill.id_bill')
-		->select(DB::raw('categories.title,sum(DetailsBill.Number) as SL,sum(Product.cost * DetailsBill.Number - ((Product.cost*DetailsBill.Number) / 100 * Product.discount)) as TongTien'))
+		->select(DB::raw('categories.title,sum(DetailsBill.Number) as SL,sum(DetailsBill.price * DetailsBill.Number - ((DetailsBill.price*DetailsBill.Number) / 100 * DetailsBill.discount)) as TongTien'))
 		->where('categories.id', $id)
 		->where('Bill.statusPay', 1)
 		->where('Bill.status', 2)
@@ -297,7 +301,7 @@ function getListCategoryTop($params = null)
 		->join('product_details', 'Product.id', '=', 'product_details.id_product')
 		->join('DetailsBill', 'product_details.id', '=', 'DetailsBill.id_products_details')
 		->join('Bill', 'Bill.id', '=', 'DetailsBill.id_bill')
-		->select(DB::raw('categories.id,categories.title,sum(DetailsBill.Number) as SL,sum(Product.cost * DetailsBill.Number - ((Product.cost*DetailsBill.Number) / 100 * Product.discount)) as TongTien'))
+		->select(DB::raw('categories.id,categories.title,sum(DetailsBill.Number) as SL,sum(DetailsBill.price * DetailsBill.Number - ((DetailsBill.price*DetailsBill.Number) / 100 * DetailsBill.discount)) as TongTien'))
 		->where('Bill.statusPay', 1)
 		->where('Bill.status', 2)
 		->groupBy('categories.id')
@@ -309,22 +313,29 @@ function getListCategoryTop($params = null)
 
 function ChartCategory()
 {
-	$array = array();
+
+	$output = array();
 	$count = 0;
 	$to = Carbon::now('Asia/Ho_Chi_Minh');
-	foreach (getListCategoryTop() as $key) {
-		$output[] = ['DanhMuc' => $key->title, 'id' => $key->id];
-	}
-	foreach ($output as $key) {
-		$to = Carbon::now('Asia/Ho_Chi_Minh');
-		$to->addDay(1);
-		for ($i = 0; $i <= 6; $i++) {
-			$ar = $to->subDay(1)->toDateString();
-			$output[$count]['Ngay' . $ar] = getInfoByCategoryId($output[$count]['id'], $ar);
+	$List = getListCategoryTop();
+	if(empty($List)) {
+		return "";
+	}else {
+		foreach ($List as $key) {
+			$output[] = ['DanhMuc' => $key->title, 'id' => $key->id];
 		}
-		$count++;
+		foreach ($output as $key) {
+			$to = Carbon::now('Asia/Ho_Chi_Minh');
+			$to->addDay(1);
+			for ($i = 0; $i <= 6; $i++) {
+				$ar = $to->subDay(1)->toDateString();
+				$output[$count]['Ngay' . $ar] = getInfoByCategoryId($output[$count]['id'], $ar);
+			}
+			$count++;
+		}
+		return $output;
 	}
-	return $output;
+	
 }
 
 function getProductTop()

@@ -361,6 +361,7 @@
 @include('includes.scriptproduct');
 <script src="https://zjs.zdn.vn/zalo/sdk.js"></script>
 <script src="https://zjs.zdn.vn/zalo/Zalo.Extensions.min.js"></script>
+
 <script>
     $('#ZaloTest').click(function(){
         $.ajax({
@@ -384,6 +385,11 @@
             }
         });  
     });
+
+
+ 
+
+
 </script>
 
 @endsection

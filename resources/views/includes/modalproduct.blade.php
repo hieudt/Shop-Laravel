@@ -6,9 +6,11 @@
                     <div class="row">
                         <div class="col-sm-5 col-md-4 col-lg-5 information-entry">
                             <div class="product-preview-box">
+                                <section class="items">
                                 <div class="product-zoom-image">
                                     <img class="image-product" src="" alt="" data-zoom="" />
                                 </div>
+                                </section>
                             </div>
                         </div>
                         <div class="col-sm-7 col-md-7 information-entry">

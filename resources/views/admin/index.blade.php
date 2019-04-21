@@ -75,7 +75,7 @@
                 <div class="mr-auto">
                   <h1 class="mb-0">{{formatMoney(App\Bill::where('status',2)->where('statusPay',1)->sum('TotalMoney'),true)}}</h1>
                   <p>
-                    Doanh Thu (Cả phí ship)
+                    Doanh Thu (0 Bao gồm phí ship)
                   </p>
                 </div>
                 <div class="ml-auto">
@@ -93,7 +93,9 @@
       <div class="card">
         <div class="card-body">
           <h4 class="card-title">Biểu đồ thống kê</h4>
+          @if(!empty($chart))
           {!! $chart->html() !!}
+          @endif
         </div>
       </div>
       <!--business survey chart ends-->
@@ -541,5 +543,8 @@
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/amcharts/3.21.2/amcharts.js"></script>
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/amcharts/3.21.2/serial.js"></script>
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/amcharts/3.21.2/plugins/export/export.min.js"></script>
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/amcharts/3.21.2/themes/light.js"></script> --}} {!! $chart->script() !!}
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/amcharts/3.21.2/themes/light.js"></script> --}} 
+@if($chart)
+{!! $chart->script() !!}
+@endif
 @endsection

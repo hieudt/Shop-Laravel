@@ -52,9 +52,9 @@
                                 <td class="text-left">{{$item->product_details->Product->title}}</td>
                                 <td class="text-left">{{$item->product_details->Color->name}} | {{$item->product_details->Size->name}}</td>
                                 <td>{{$item->Number}}</td>
-                                <td>{!!$item->product_details->Product->cost!!}</td>
-                                <td>{{$item->product_details->Product->discount}}%</td>
-                                <td>{!!formatMoney($item->Number * priceDiscount($item->product_details->Product->cost,$item->product_details->Product->discount))!!}</td>
+                                <td>{!!$item->price!!}</td>
+                                <td>{{$item->discount}}%</td>
+                                <td>{!!formatMoney($item->Number * priceDiscount($item->price,$item->discount))!!}</td>
                               </tr>
                             @endforeach
                             </tbody>
