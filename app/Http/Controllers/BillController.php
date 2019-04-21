@@ -6,6 +6,7 @@ use App\Bill;
 use Illuminate\Http\Request;
 use App\Category;
 use Yajra\Datatables\Datatables;
+use Cache;
 class BillController extends Controller
 {
     /**
@@ -15,8 +16,7 @@ class BillController extends Controller
      */
     public function __construct()
     {
-        $danhmuc = Category::all();
-        view()->share('danhmuc',$danhmuc);
+        parent::__construct();
     }
 
     public function index()

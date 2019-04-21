@@ -21,14 +21,14 @@ use Carbon\Carbon;
 use App\User;
 use Pusher\Pusher;
 use VisitLog;
+use Cache;
 
 class FrontEndController extends Controller
 {
 
     public function __construct()
     {
-        $danhmuc = Category::all();
-        view()->share('danhmuc', $danhmuc);
+        parent::__construct();
     }
 
     public function cart()

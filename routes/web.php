@@ -12,6 +12,7 @@ use App\User;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Storage;
 use Swap\Laravel\Facades\Swap;
+use Illuminate\Support\Facades\Cache;
 use App\Bill;
 use App\Detailsbill;
 use Gloudemans\Shoppingcart\Facades\Cart;
@@ -212,4 +213,19 @@ Route::get('/top/{remove}', function ($remove) {
     //    }
     dd(Cart::content());
     }
+});
+Route::get('test', function () {
+    if (Cache::has('categorycache')) {
+        $danhmuc = Cache::get('categorycache');
+        view()->share('danhmuc', $danhmuc);
+    } else {
+        $danhmuc = Category::all();
+        Cache::put('categorycache', $danhmuc, 15);
+        view()->share('danhmuc', $danhmuc);
+    }
+    return View::make('test', compact('danhmuc'));
+});
+
+Route::get('deletecache',function(){
+    Cache::pull('categorycache');
 });

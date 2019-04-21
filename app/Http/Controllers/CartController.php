@@ -11,14 +11,14 @@ use App\Shipper;
 use App\User;
 use Illuminate\Support\Facades\Auth;
 use App\coupons;
+use Cache;
 use Gloudemans\Shoppingcart\Facades\Cart;
 
 class CartController extends Controller
 {
     public function __construct()
     {
-        $danhmuc = Category::all();
-        view()->share('danhmuc',$danhmuc);
+        parent::__construct();
     }
 
     public function destroy(Request $req){

@@ -9,12 +9,12 @@ use App\Category;
 use App\coupons;
 use Illuminate\Support\Facades\Session;
 use App\User;
+use Cache;
 class UsersProfileController extends Controller
 {
     public function __construct()
     {
-        $danhmuc = Category::all();
-        view()->share('danhmuc',$danhmuc);
+        parent::__construct();
     }
 
     public function index(){

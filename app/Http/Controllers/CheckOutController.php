@@ -15,15 +15,23 @@ use App\coupons;
 use Gloudemans\Shoppingcart\Facades\Cart;
 use App\Bill;
 use App\Notification;
+use Illuminate\Support\Facades\Cache;
 use App\Detailsbill;
 
 class CheckOutController extends Controller
 {
     public function __construct()
     {
-        $danhmuc = Category::all();
-        
-        view()->share('danhmuc',$danhmuc);
+        if (Cache::has('categorycache')) {
+            $danhmuc = Cache::get('categorycache');
+            view()->share('danhmuc', $danhmuc);
+        } else {
+            $categorycache = Cache::remember('categorycache', 180, function () {
+                return Category::all();
+            });
+            $danhmuc = Cache::get('categorycache');
+            view()->share('danhmuc', $danhmuc);
+        }
     }
 
     public function index(){
