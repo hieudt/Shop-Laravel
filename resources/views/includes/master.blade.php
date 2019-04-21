@@ -69,7 +69,7 @@
     <script src="{{ URL::asset('assets/js/wow.min.js')}}"></script>
     <script src="{{ URL::asset('assets/js/jquery.smooth-scroll.js')}}"></script>
     <!-- Bootstrap Core JavaScript -->
-
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
     <script src="{{ URL::asset('assets/js/bootstrap.min.js')}}"></script>
     {{--
     <script src="{{ URL::asset('assets/js/lightbox.min.js')}}"></script>
@@ -188,9 +188,6 @@
         $('#btnAddProduct').click(function(){
             var $this = $(this);
             $this.button('loading');
-                setTimeout(function() {
-                $this.button('reset');
-            }, 1000);
             var cart_idProduct = $('#modalIdProduct').val();
             var cart_number = $('#modalSoLuong').text();
             var cart_idSize = $('#selSize').val();
@@ -212,12 +209,16 @@
                     }, 800);
                 },
                 error: function (request, status) {
-          
+        
                     $.each(request.responseJSON.errors,function(key,val){
                         ToastError(val);
                     });
                 }
             });
+            setTimeout(function() {
+                $this.button('reset');
+            }, 1200);
+            
         });
     });
     jQuery(document).ready(function($) {
