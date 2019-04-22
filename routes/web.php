@@ -148,6 +148,9 @@ Route::group(['prefix' => 'admin', 'middleware' => 'adminLogin'], function () {
     Route::get('bill/details/{id}', 'BillController@showbillbyId');
 
     Route::get('menu','PagesController@index')->name('pages.index');
+    Route::get('menu/fetch','PagesController@fetch')->name('pages.fetch');
+    Route::get('menu/fetchdb','PagesController@fetchDb')->name('pages.fetchdb');
+    Route::post('menu/update','PagesController@update')->name('pages.update');
 
     Route::get('shipper', 'ShipperController@index')->name('shipper.list');
     Route::get('shipper/fetch', 'ShipperController@fetchAll')->name('shipper.fetch');
