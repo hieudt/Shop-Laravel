@@ -121,6 +121,9 @@
             <a href="{{url('admin/config')}}" class="nav-link">Cấu hình chung</a>
           </li>
           <li class="nav-item">
+            <a href="{{url('admin/menu')}}" class="nav-link">Menu</a>
+          </li>
+          <li class="nav-item">
             <a href="{{url('admin/database')}}" class="nav-link">Dữ Liệu</a>
           </li>
           <li class="nav-item">

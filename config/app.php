@@ -171,6 +171,7 @@ return [
         Laravel\Socialite\SocialiteServiceProvider::class,
         ConsoleTVs\Charts\ChartsServiceProvider::class,
         Sarfraznawaz2005\VisitLog\VisitLogServiceProvider::class,
+        Nestable\NestableServiceProvider::class,
         /*
          * Package Service Providers...
          */
@@ -239,6 +240,7 @@ return [
         'Socialite' => Laravel\Socialite\Facades\Socialite::class,
         'Charts' => ConsoleTVs\Charts\Facades\Charts::class,
         'VisitLog' => Sarfraznawaz2005\VisitLog\Facades\VisitLog::class,
+        'Nestable' => Nestable\Facades\NestableService::class,
 
     ],
 

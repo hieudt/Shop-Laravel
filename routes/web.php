@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use App\Notification;
 use App\User;
+use App\Pages;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Storage;
 use Swap\Laravel\Facades\Swap;
@@ -146,6 +147,8 @@ Route::group(['prefix' => 'admin', 'middleware' => 'adminLogin'], function () {
     Route::post('bill/updateStatus', 'BillController@updateStatus')->name('bill.updateStatus');
     Route::get('bill/details/{id}', 'BillController@showbillbyId');
 
+    Route::get('menu','PagesController@index')->name('pages.index');
+
     Route::get('shipper', 'ShipperController@index')->name('shipper.list');
     Route::get('shipper/fetch', 'ShipperController@fetchAll')->name('shipper.fetch');
     Route::post('shipper/update', 'ShipperController@update')->name('shipper.update');
@@ -204,15 +207,10 @@ Route::get('/cv', function () {
     dd($output);
 });
 
-Route::get('/top/{remove}', function ($remove) {
-    if($remove == 1){
-        Cart::destroy();
-    }else {
-    //    foreach (Cart::content() as $key) {
-    //        echo $key->options['discount'];
-    //    }
-    dd(Cart::content());
-    }
+Route::get('/top', function () {
+
+    $pages = Pages::nested()->get();
+    dd($pages);
 });
 Route::get('test', function () {
     if (Cache::has('categorycache')) {

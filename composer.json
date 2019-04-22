@@ -10,6 +10,7 @@
     "require": {
         "php": ">=7.0.0",
         "algolia/algoliasearch-client-php": "^2.2",
+        "atayahmet/laravel-nestable": "^0.8.9",
         "barryvdh/laravel-debugbar": "^3.2",
         "consoletvs/charts": "5.*",
         "facebook/graph-sdk": "^5.7",
