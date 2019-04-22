@@ -19,8 +19,8 @@ class Controller extends BaseController
             $danhmuc = Cache::get('categorycache');
             view()->share('danhmuc', $danhmuc);
         } else {
-            $danhmuc = Category::all();
-            Cache::put('categorycache', $danhmuc, 15);
+            $danhmuc = Category::with('SubCategory')->get();
+            Cache::put('categorycache', $danhmuc, 3);
             view()->share('danhmuc', $danhmuc);
         }
     }

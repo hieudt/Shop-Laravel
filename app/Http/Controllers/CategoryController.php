@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use DB;
@@ -59,11 +59,14 @@ class CategoryController extends Controller
                 return response('Tồn tại danh mục con', 422);
             } else {
                 $Category->delete();
+                Cache::pull('categorycache');
+                return response()->json(['success'=>'Xóa thành công']);
                 
             }
         } else {
             return response('Thất bại', 422);
         }
+        
     }
 
     public function store(Request $request)
@@ -96,8 +99,11 @@ class CategoryController extends Controller
                 $Category->slug = $request->slug;
             }
             $Category->save();
+            Cache::pull('categorycache');
             return response()->json(['success' => 'Thêm mới thành công']);
         }
+
+        
     }
 
     public function Search(Request $request)
