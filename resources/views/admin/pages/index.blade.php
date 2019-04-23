@@ -3,6 +3,9 @@
 @section('css')
 <link rel="stylesheet" href="{{asset('@styleadmin/node_modules/datatables.net-bs4/css/dataTables.bootstrap4.css')}}">
 <style type="text/css">
+        button {
+                height: 40px;
+            }
         .cf:after {
             visibility: hidden;
             display: block;
@@ -347,33 +350,90 @@
     </style>
 @endsection
 @section('content')
-
-<div class="row">
-    <div class="col-md-10">
-        <div class="dd">
-            <ol class="dd-list">
-
-            </ol>
-        </div>
-    </div>
-    <div class="col-md-10">
+<div class="card">
+    <div class="card-body">
         <div class="row">
-            <table id="order-listing" class="table" style="width:100%">
-                <thead>
-                    <tr>
-                        <th>ID</th>
-                        <th>Mô tả</th>
-                        <th>Menu Cha</th>
-                    </tr>
-                </thead>
-                <tbody>
-            
-                </tbody>
-            </table>
+            <div class="col-md-10">
+                <div class="dd">
+                    <ol class="dd-list">
+
+                    </ol>
+                </div>
             </div>
+            <div class="col-md-10">
+                <div class="row">
+                    <table id="order-listing" class="table" style="width:100%">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Mô tả</th>
+                                <th>Đường dẫn</th>
+                                <th>Menu Cha</th>
+                                <th>Trạng thái</th>
+                                <th>Thao tác</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                    
+                        </tbody>
+                    </table>
+                    </div>
+            </div>
+        </div>
+        <div class="row">
+            <button type="button" id="OpenPagesModal" class="btn btn-success btn-xs" data-toggle="modal" data-target="#PagesModal" data-whatever="@getbootstrap"><i class="mdi mdi-check"></i>Thêm mới</button>
+        </div>
     </div>
 </div>
 
+{{-- Modal --}}
+<div class="modal fade" id="PagesModal" tabindex="-1" role="dialog" aria-labelledby="PagesLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="PagesLabel">Thêm mới danh mục con</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="ModalForm">
+                    <div class="form-group">
+                        <label for="recipient-name" class="col-form-label">Tiêu đề : </label>
+                        <input type="text" class="form-control" id="name" name="name">
+                        <input type="hidden" id="txtId" name="txtId">
+                    </div>
+                    <div class="form-group">
+                        <label for="recipient-name" class="col-form-label">đường dẫn : </label>
+                        <input type="text" class="form-control" id="slug" name="slug">
+                    </div>
+                    <div class="form-group">
+                        <div class="form-group">
+                          <label for="">Hiển thị dưới cùng</label>
+                          <select class="form-control" name="selFooter" id="selFooter">
+                            <option value='1'>Có</option>
+                            <option value='0'>Không</option>
+                          </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="form-group">
+                            <label for="">Hiển thị trên cùng</label>
+                            <select class="form-control" name="selMenu" id="selMenu">
+                                <option value='1'>Có</option>
+                                <option value='0'>Không</option>
+                            </select>
+                        </div>
+                    </div>
+
+                </form>
+            </div>
+            <div class="modal-footer" id="PagesModalFooter">
+            </div>
+        </div>
+    </div>
+</div>
+{{--End modal--}}
 @endsection
 @section('javascript')
 
@@ -427,7 +487,10 @@
         "columns":[
             {data:'id',name:'id'},
             {data:'name',name:'name'},
+            {data:'slug'},
             {data:'parent_id',name:'parent_id'},
+            {data:'status'},
+            {data:'action'}
         ]
 
         });
@@ -464,6 +527,112 @@
                 }
             });
     });
+    $('#OpenPagesModal').click(function(){
+        $('#PagesLabel').html('Thêm mới trang');
+        $('#PagesModalFooter').html('<button type="button" id="addPages" class="btn btn-success">Lưu</button><button type="button" id="addPages2" class="btn btn-success">Lưu & Đóng</button><button type="button" class="btn btn-light" data-dismiss="modal">Đóng</button>');
+        $('#name').val('');
+        $('#slug').val('');
+        // Lưu
+        $('#addPages').click(function(){
+            addPages();
+        });
+
+        // Lưu và đóng
+        $('#addPages2').click(function(){
+            addPages();
+            $('#name').val('');
+            $('#slug').val('');
+            $('#PagesModal').modal('hide');
+        });
+    
+    });
+    function addPages()
+    {
+        var datas = $('#ModalForm').serialize();
+        $.ajax({
+            headers: {
+                'X-CSRF-TOKEN':  $('meta[name="csrf-token"]').attr('content')
+            },
+                method: 'POST',
+                url: '{{route('pages.store')}}',
+                data:datas,
+                success: function(data) {
+                    ToastSuccess(data.success);
+                    $('#order-listing').DataTable().ajax.reload(); 
+                    fetch_page();
+                },
+                error: function(request, status) {
+                    $.each(request.responseJSON.errors,function(key,val){
+                        ToastError(val);
+                    });
+                }
+        });
+    }
+
+    function addPages2()
+    {
+        var datas = $('#ModalForm').serialize();
+        $.ajax({
+            headers: {
+                'X-CSRF-TOKEN':  $('meta[name="csrf-token"]').attr('content')
+            },
+                method: 'POST',
+                url: '{{route('pages.store')}}',
+                data:datas,
+                success: function(data) {
+                    ToastSuccess(data.success);
+                    $('#order-listing').DataTable().ajax.reload(); 
+                    fetch_page();
+                },
+                error: function(request, status) {
+                    $.each(request.responseJSON.errors,function(key,val){
+                        ToastError(val);
+                    });
+                }
+        });
+    }
+
+    $(document).on('click','.edited',function(){
+        $('#PagesModal').modal('show');
+        $('#PagesLabel').html('Sửa menu');
+        $('#PagesModalFooter').html('<button type="button" id="editPages" class="btn btn-success">Lưu</button><button type="button" class="btn btn-light" data-dismiss="modal">Đóng</button>');
+        var id = $(this).attr("data-id");
+        var name = $(this).attr("data-name");
+        var slug = $(this).attr("data-slug");
+        var selFooter = $(this).attr("data-selfooter");
+        var selMenu = $(this).attr("data-selmenu");
+        $('#name').val(name);
+        $('#slug').val(slug);
+        $('#selFooter').val(selFooter);
+        $('#selMenu').val(selMenu);
+
+        $('#editPages').click(function(){
+            editPages(id);
+        });
+    });
+
+    function editPages(id)
+    {
+        var datas = 'name='+$('#name').val()+'&slug='+$('#slug').val()+'&selFooter='+$('#selFooter').val()+'&selMenu='+$('#selMenu').val()+'&id='+id;
+        $.ajax({
+            headers: {
+                'X-CSRF-TOKEN':  $('meta[name="csrf-token"]').attr('content')
+            },
+            method: 'POST',
+            url: '{{route('pages.updaterecord')}}',
+            data:datas,
+            success: function(data) {
+                    ToastSuccess(data.success);
+                    $('#order-listing').DataTable().ajax.reload(); 
+                    fetch_page();
+                },
+                error: function(request, status) {
+                    $.each(request.responseJSON.errors,function(key,val){
+                    ToastError(val);
+                });
+            }
+        });
+    }
 </script>
 <script src="{{asset('@styleadmin/node_modules/datatables.net/js/jquery.dataTables.js')}}"></script>
 <script src="{{asset('@styleadmin/node_modules/datatables.net-bs4/js/dataTables.bootstrap4.js')}}"></script>

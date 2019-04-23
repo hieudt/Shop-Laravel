@@ -253,13 +253,43 @@
                                 @endforeach
                             </div>
                         </li>
-                        <li class="simple-list">
-                            <a href="#" class="">
-                                 Điều Khoản
-                                </a></li>
-                        <li class="simple-list"><a href="{{url('/faq')}}" class="">Liên Hệ</a></li>
-                        <li class="simple-list"><a href="{{url('/contact')}}" class="">CHÍNH SÁCH</a></li>
-                        <li class="simple-list"><a href="#Coupons" class="">Mã giảm giá</a>
+                        @forelse ($pages as $item)
+                            @if(enable($item['id'],1))
+                                @if(count($item['child']) > 0)
+                                    <li class="full-width-columns">
+                                        <a href="#">{{$item['name']}}</a>
+                                        <i class="fa fa-chevron-down"></i>
+                                        <div class="submenu">
+                                            <div class="product-column-entry">
+                                                <div class="submenu-list-title"><a href="#">{{$item['name']}}</a><span class="toggle-list-button"></span></div>
+                                                <div class="description toggle-list-container">
+                                                    <ul class="list-type-1">
+                                                        @foreach($item['child'] as $items)
+                                                        <li><a href="{{url('/')}}/{{$items['slug']}}"><i class="fa fa-angle-right"></i>{{$items['name']}}</a></li>
+                                                        @endforeach
+                                                    </ul>
+                                                </div>
+                                                <div class="hot-mark yellow">sale</div>
+                                            </div>
+                                        </div>
+                                    </li>
+                                @else
+                                    <li class="simple-list">
+                                        <a href="{{url('/')}}/{{$item['slug']}}" class="">
+                                            {{$item['name']}}
+                                        </a>
+                                    </li>
+                                @endif
+                            @endif
+                        @empty
+                            <li class="simple-list">
+                                <a href="#" class="">
+                                    Không Có Dữ Liệu
+                                </a>
+                            </li>
+                        @endforelse
+
+
                         </li>
                         <li class="fixed-header-visible">
                             <a class="fixed-header-square-button"><i class="fa fa-shopping-cart open-cart-popup"></i></a>

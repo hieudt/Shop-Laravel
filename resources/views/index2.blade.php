@@ -356,9 +356,9 @@
 </section>
 <!-- END OF TESTIMONIALS -->
 <!-- MODAL -->
-@include('includes.modalproduct');
+@include('includes.modalproduct')
 @section('javascript')
-@include('includes.scriptproduct');
+@include('includes.scriptproduct')
 <script src="https://zjs.zdn.vn/zalo/sdk.js"></script>
 <script src="https://zjs.zdn.vn/zalo/Zalo.Extensions.min.js"></script>
 

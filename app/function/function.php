@@ -3,8 +3,10 @@ use Carbon\Carbon;
 use App\Notification;
 use App\Category;
 use App\Bill;
+use Cache;
 use App\DetailsBill;
 use Gloudemans\Shoppingcart\Facades\Cart;
+use App\Pages;
 // Mở composer.json
 // Thêm vào trong "autoload" chuỗi sau
 // "files": [
@@ -352,3 +354,14 @@ function getProductTop()
 		->orderBy('TongTien', 'desc')->get();
 	return $data;
 }
+
+function enable($id,$state = null){
+	// Sate : check menu, state null check footer
+	if($state){
+		return Pages::find($id)->enableMenu == 1 ? true : false;
+	}else {
+		return Pages::find($id)->enableFooter == 1 ? true : false;
+	}
+}
+
+

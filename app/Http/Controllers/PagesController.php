@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Pages;
 use Yajra\Datatables\Datatables;
+use Cache;
 class PagesController extends Controller
 {
     public function index(){
@@ -66,8 +67,37 @@ class PagesController extends Controller
            }
 
         }
+        Cache::pull('pagescache');
 
         return response()->json(['success' => 'Cập nhật thành công'], 200);
+    }
+
+    public function updaterecord(Request $req){
+        if($req->ajax()){
+            $this->validate($req, [
+                'name' => 'required',
+                'slug' => 'required',
+                'selFooter' => 'required',
+                'selMenu' => 'required'
+            ], [
+                'name.required' => 'Chưa nhập tiêu đề',
+                'slug.required' => 'Chưa nhập đường dẫn',
+                'selFooter.required' => 'Vui lòng chọn hiển thị dưới trang',
+                'selMenu.required' => 'Vui lòng chọn hiển thị trên menu'
+            ]);
+
+            $pages = Pages::find($req->id);
+            if(empty($pages)){
+                return response()->json(['errors'=>['fail'=>['Không tồn tại menu này vui lòng tải lại trang']]],422);
+            }
+            $pages->name = $req->name;
+            $pages->slug = $req->slug;
+            $pages->enableFooter = $req->selFooter;
+            $pages->enableMenu = $req->selMenu;
+            $pages->save();
+            Cache::pull('pagescache');
+            return response()->json(['success' => 'Cập nhật thành công']);
+        }
     }
 
     public function fetchDb(){
@@ -82,7 +112,51 @@ class PagesController extends Controller
             }
             
         })
-        ->rawColumns(['parent_id'])
+        ->editColumn('slug',function($data){
+            return "<a href='".url('/')."/".$data->slug."'>Đường Dẫn</a>";
+        })
+        ->addColumn('action', function ($data) {
+            return '<button class="btn btn-outline-primary edited md-trigger md-setperspective" data-modal="modal-18" data-id="' . $data->id . '" data-name="' . $data->name . '" data-slug="' . $data->slug . '" data-selfooter="' . $data->enableFooter . '" data-selMenu="' . $data->enableMenu . '">Sửa </button>&nbsp<button class="btn btn-outline-danger delete" data-id="' . $data->id . '">Xóa </button>';
+        })
+        ->addColumn('status', function ($data) {
+            if($data->parent_id == 0){
+                $output = '';
+                if($data->enableFooter == 1) $output .= '<div class="badge badge-success">Footer</div>';
+                else $output .= '<div class="badge badge-danger">Footer</div>';
+                if($data->enableMenu == 1) $output .= '<div class="badge badge-success">Menu</div>';
+                else $output .= '<div class="badge badge-danger">Menu</div>';
+
+                return $output;
+            }else {
+                return "";
+            }
+        })
+        ->rawColumns(['parent_id','slug','action','status'])
         ->make(true);
+    }
+
+    public function store(Request $req){
+        if($req->ajax()){
+            $this->validate($req,[
+                'name' => 'required',
+                'slug' => 'required',
+                'selFooter' => 'required',
+                'selMenu' => 'required'
+            ],[
+                'name.required' => 'Chưa nhập tiêu đề',
+                'slug.required' => 'Chưa nhập đường dẫn',
+                'selFooter.required' => 'Vui lòng chọn hiển thị dưới trang',
+                'selMenu' => 'Vui lòng chọn hiển thị trên menu'
+            ]);
+
+            $pages = new Pages;
+            $pages->name = $req->name;
+            $pages->slug = $req->slug;
+            $pages->enableFooter = $req->selFooter;
+            $pages->enableMenu = $req->selMenu;
+            $pages->save();
+            Cache::pull('pagescache');
+            return response()->json(['success'=>'Thêm mới thành công']);
+        }
     }
 }

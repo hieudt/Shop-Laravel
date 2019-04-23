@@ -9,6 +9,7 @@ use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Cache;
 use App\Category;
+use App\Pages;
 class Controller extends BaseController
 {
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
@@ -22,6 +23,15 @@ class Controller extends BaseController
             $danhmuc = Category::with('SubCategory')->get();
             Cache::put('categorycache', $danhmuc, 3);
             view()->share('danhmuc', $danhmuc);
+        }
+
+        if (Cache::has('pagescache')) {
+            $pages = Cache::get('pagescache');
+            view()->share('pages', $pages);
+        } else {
+            $pages = Pages::nested()->get();;
+            Cache::put('pagescache', $pages, 3);
+            view()->share('pages', $pages);
         }
     }
 

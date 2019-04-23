@@ -13,73 +13,27 @@
             <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8">
                 <div class="v2_bnc_footer_right">
                     <div class="v2_bnc_footer_right_top">
-                        <div class="col-md-4 col-sm-6 col-xs-6 full-xs">
-                            <h4 class="v2_bnc_footer_title">Giới thiệu</h4>
-                            <ul class="v2_bnc_footer_links">
-                                <li>
-                                    <a href="#" class="lienket sm-link sm-link_padding-all sm-link5">
-                                            <span class="sm-link__label">Dịch vụ</span>
-                                        </a>
-                                </li>
-                                <li>
-                                    <a href="#" class="lienket sm-link sm-link_padding-all sm-link5">
-                                                <span class="sm-link__label">Liên hệ chúng tôi</span>
+                        @forelse ($pages as $item)
+                            @if(enable($item['id']))
+                            <div class="col-md-4 col-sm-6 col-xs-6 full-xs">
+                                <h4 class="v2_bnc_footer_title">{{$item['name']}}</h4>
+                                @if(count($item['child']) > 0)
+                                <ul class="v2_bnc_footer_links">
+                                    @foreach ($item['child'] as $items)
+                                        <li>
+                                            <a href="{{$items['slug']}}" class="lienket sm-link sm-link_padding-all sm-link5">
+                                                <span class="sm-link__label">{{$items['name']}}</span>
                                             </a>
-                                </li>
-                                <li>
-                                    <a href="#" class="lienket sm-link sm-link_padding-all sm-link5">
-                                                    <span class="sm-link__label">Giới thiệu công ty</span>
-                                                </a>
-                                </li>
-                                <li>
-                                    <a href="#" class="lienket sm-link sm-link_padding-all sm-link5">
-                                            <span class="sm-link__label">Giới thiệu sản phẩm</span>
-                                        </a>
-                                </li>
-                            </ul>
-                        </div>
-                        <div class="col-md-4 col-sm-6 col-xs-6 full-xs">
-                            <h4 class="v2_bnc_footer_title">Chính sách</h4>
-                            <ul class="v2_bnc_footer_links">
-                                <li>
-                                    <a href="#" class="lienket sm-link sm-link_padding-all sm-link1">
-                                                    <span class="sm-link__label">Vận chuyển và trả hàng</span>
-                                                </a>
-                                </li>
-                                <li>
-                                    <a href="#" class="lienket sm-link sm-link_padding-all sm-link1">
-                                                        <span class="sm-link__label">Câu hỏi thường gặp</span>
-                                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#" class="lienket sm-link sm-link_padding-all sm-link1">
-                                                            <span class="sm-link__label">Quy chế hoạt động</span>
-                                                        </a>
-                                </li>
-                                <li>
-                                    <a href="#" class="lienket sm-link sm-link_padding-all sm-link1">
-                                            <span class="sm-link__label">Chính sách bảo mật</span>
-                                        </a>
-                                </li>
-                            </ul>
-                        </div>
-                        <div class="col-md-4 col-sm-6 col-xs-6 full-xs">
-                            <h4 class="v2_bnc_footer_title">Sản phẩm</h4>
-                            <ul class="v2_bnc_footer_links">
-                                <li><a href="#" class="lienket sm-link sm-link_padding-all sm-link1">
-                                    <span class="sm-link__label">Phụ kiện</span>
-                                </a></li>
-                                <li><a href="#" class="lienket sm-link sm-link_padding-all sm-link1">
-                                    <span class="sm-link__label">Quần áo nam</span>
-                                </a></li>
-                                <li><a href="#" class="lienket sm-link sm-link_padding-all sm-link1">
-                                    <span class="sm-link__label">Bộ sưu tập</span>
-                                </a></li>
-                                <li><a href="#" class="lienket sm-link sm-link_padding-all sm-link1">
-                                    <span class="sm-link__label">Mùa hè</span>
-                                </a></li>
-                            </ul>
-                        </div>
+                                        </li>
+                                    @endforeach
+                                </ul>
+                                @endif
+                            </div>
+                            @endif
+                        @empty
+                            <h4>Không có dữ liệu</h4>
+                        @endforelse
+                        
                     </div>
                     <div class="v2_bnc_footer_right_bottom">
                         <div class="v2_bnc_footer_follow_me"></div>

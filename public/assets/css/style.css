@@ -296,7 +296,7 @@ nav .simple-list .submenu a .fa{color: #cacaca; display: inline-block; position:
 
     /*buttons*/
     header.fixed-header .fixed-header-visible{display: block;}
-    header.fixed-header nav>ul>li>a{font-weight: 600;}
+    header.fixed-header nav>ul>li>a{font-weight: 600;color: #fff;text-decoration: none;}
     .fixed-header-visible .header-functionality-entry{text-transform: none; margin-top: 27px; float: left; border: none; text-decoration: none!important;}
     .fixed-header-visible .header-functionality-entry:first-child{padding-left: 0;}
     .fixed-header-square-button{float: left; margin-top: 20px; line-height: 30px; width: 30px; text-align: center; text-decoration: none!important; margin-left: 20px; white-space: nowrap;}
