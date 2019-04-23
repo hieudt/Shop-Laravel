@@ -90,6 +90,8 @@ Route::group(['prefix' => 'admin', 'middleware' => 'adminLogin'], function () {
     Route::get('/erd', 'AdminPages@erd');
     Route::get('/fetchProduct', 'AdminPages@fetchTopProduct')->name('admin.fetchproduct');
     Route::get('/database','DatabaseController@index')->name('admin.db.index');
+    Route::get('/config','SettingsController@index');
+    Route::post('/config/ui','SettingsController@updateui')->name('admin.config.update.ui');
     Route::get('/social/zalo', 'ZaloSocial@index')->name('admin.zalo.index');
 
     Route::get('users', 'UserController@index')->name('users.list');
