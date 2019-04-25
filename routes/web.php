@@ -45,6 +45,12 @@ Route::post('cart/removecoupons', 'CartController@removeCoupon')->name('cart.rem
 Route::post('cart/checkout', 'CartController@checkout')->name('cart.checkout');
 Route::post('cart/updatenumber', 'CartController@updateNumber')->name('cart.update');
 
+Route::get('wishlist','WishlistController@wishlist')->name('wishlist.index');
+Route::post('wishlist/store', 'WishlistController@store')->name('wishlist.store');
+Route::get('wishlist/load', 'WishlistController@show')->name('wishlist.show');
+Route::post('wishlist/destroy', 'WishlistController@destroy')->name('wishlist.destroy');
+
+
 Route::get('checkout', 'CheckOutController@index')->name('checkout.index');
 Route::post('checkout/order', 'CheckOutController@postOrder')->name('checkout.order');
 Route::get('checkout/bill/{token}', 'BillController@getDetailsbyId')->name('bill.detais');
@@ -179,7 +185,7 @@ Route::get('checkProduct', function () {
 });
 
 Route::get('reset', function () {
-    session()->remove('notify');
+    dd(Cart::instance('wishlist')->content());
 });
 
 Route::get('test', 'PayPalController@index');
@@ -216,8 +222,12 @@ Route::get('/cv', function () {
 
 Route::get('/top', function () {
 
-    $pages = Pages::nested()->get();
-    dd($pages);
+    Cart::destroy();
+    
+});
+Route::get('/check',function(){
+   $da = Cart::instance('wishlist')->get("9495baa865c5f5de28e060aeaea8dd4a");
+    dd($da);
 });
 Route::get('test', function () {
     if (Cache::has('categorycache')) {

@@ -52,6 +52,7 @@
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal" id="CloseModal">Đóng</button>
                 <button type="button" class="btn btn-primary" id="btnAddProduct"  data-loading-text="<i class='fa fa-circle-o-notch fa-spin'></i> Đang xử lý">Thêm giỏ hàng</button>
+                <button type="button" class="btn btn-danger" id="btnAddWishlist" data-loading-text="<i class='fa fa-circle-o-notch fa-spin'></i> Đang xử lý">Yêu thích</button>
             </div>
         </div>
     </div>

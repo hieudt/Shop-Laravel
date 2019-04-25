@@ -6,7 +6,7 @@ width: 100%;
 z-index: 9999;
 }
 body{
-    background-color: #862f98;
+    background-color: #000000;
 }
 
 #cover {
@@ -47,13 +47,13 @@ body{
     width: 100%;
 }
 .tabs li a{
-    color: #862f98;
+    color: #000000;
     line-height: 20px;
 }
 
 .tabs > li.active{
     color: #FFF;
-    background-color:  #862f98;
+    background-color:  #000000;
 }
 
 .tabs > li.active a{
@@ -65,7 +65,7 @@ body{
 }
 
 .tabs > li:hover{
-    background-color:  #862f98;
+    background-color:  #000000;
     color: #FFF;
 }
 .tabs > li:hover a{
@@ -92,7 +92,7 @@ margin-top:70px;
     transition:all 0.4s ease-in-out;
 }
 .service-list:hover{
-    border: 1px solid #862f98;
+    border: 1px solid #000000;
 }
 .service-list img {
     padding: 10px;
@@ -101,7 +101,7 @@ margin-top:70px;
     -webkit-border-radius: 50%;
     -moz-border-radius: 50%;
     border-radius: 50%;
-    background-color: #862f98;
+    background-color: #000000;
 }
 .service-list .fa {
     border: none;
@@ -111,7 +111,7 @@ margin-top:70px;
     margin: 0 0 10px;
     vertical-align: middle;
     width: 80px;
-    color:#862f98;
+    color:#000000;
     background:#fff;
     -webkit-border-radius: 50%;
     -moz-border-radius: 50%;
@@ -123,7 +123,7 @@ margin-top:70px;
     transition:all 0.4s ease-in-out;
 }
 .service-list:hover .fa{
-    background:#862f98;
+    background:#000000;
     color:#fff;
 }
 .service-list h3{
@@ -185,7 +185,7 @@ margin-top:70px;
     transition:all 0.4s ease-in-out;
 }
 #customers-testimonials .item:hover {
-    border: 1px solid #862f98;
+    border: 1px solid #000000;
 }
 
 #customers-testimonials .item .fa{
@@ -215,8 +215,8 @@ margin-top:70px;
     position: absolute;
     top: 30%;
     font-size: 30px;
-    color: #862f98;
-    /*border: 1px solid #862f98;*/
+    color: #000000;
+    /*border: 1px solid #000000;*/
     text-align: center;
 }
 
@@ -257,7 +257,7 @@ margin-top:70px;
     border-radius: 50%;
 }
 .go-top i {
-    background: #862f98 repeat scroll 0 0;
+    background: #000000 repeat scroll 0 0;
     color: #fff;
     border-radius: 50%;
     font-size: 24px;
@@ -275,7 +275,7 @@ a:hover { text-decoration: none; }
     text-align: center;
     margin-bottom: 50px;
 }
-.section-title h2 span {color: #862f98;}
+.section-title h2 span {color: #000000;}
 .single-pricing-box {
     border: 1px solid #ddd;
     padding: 20px;
@@ -311,43 +311,43 @@ a:hover { text-decoration: none; }
     line-height: 30px;
 }
 .pricing-list ul li .fa{
-    color: #862f98;
+    color: #000000;
 }
 
 a.bordered-btn {
-    border: 1px solid #862f98;
+    border: 1px solid #000000;
     padding: 10px 30px;
     border-radius: 50px;
     display: inline-block;
-    color: #862f98;
+    color: #000000;
     -webkit-transition: .3s;
     transition: .3s;
 }
 .addtocart-btn {
-    border: 1px solid #862f98;
+    border: 1px solid #000000;
     padding: 10px 30px;
     display: inline-block;
     color: #FFF;
-    background-color: #862f98;
+    background-color: #000000;
     -webkit-transition: .3s;
     transition: .3s;
 }
 .addtocart-btn:hover {
-    background-color: #862f98;
+    background-color: #000000;
     color: #fff;
 }
 
 .single-pricing-box:hover {
-    border-color: #862f98;
+    border-color: #000000;
     box-shadow: 0 0 50px #f1f1f1;
 }
 .single-pricing-box {-webkit-transition: .2s;transition: .2s;}
 a.bordered-btn:hover {
-    background-color: #862f98;
+    background-color: #000000;
     color: #fff;
 }
 .single-pricing-box:hover .pricing-icon {
-    color: #862f98;
+    color: #000000;
 }
 .single-pricing-box:hover .pricing-icon img {
     opacity: .7;
@@ -371,7 +371,7 @@ a.bordered-btn:hover {
 
 .genius-btn:hover {
     text-decoration: none;
-    background-color: #862f98;
+    background-color: #000000;
     color: #FFF;
     font-weight: 600;
     -webkit-transition: .3s;
@@ -379,11 +379,11 @@ a.bordered-btn:hover {
 }
 
 .genius-btn {
-    border: 1px solid #862f98;
+    border: 1px solid #000000;
     padding: 10px 30px;
     border-radius: 50px;
     display: inline-block;
-    color: #862f98;
+    color: #000000;
     font-weight: 600;
     -webkit-transition: .3s;
     transition: .3s;
@@ -394,8 +394,8 @@ a.bordered-btn:hover {
 .nav-tabs { border-bottom: 2px solid #DDD; margin-bottom: 15px;}
 .nav-tabs > li.active > a, .nav-tabs > li.active > a:focus, .nav-tabs > li.active > a:hover { border-width: 0; }
 .nav-tabs > li > a { padding: 8px 15px;border: none; color: #666; font-size: 20px;}
-.nav-tabs > li.active > a, .nav-tabs > li > a:hover { border: none; border-radius: 0; color: #FFF !important; background: #862f98; }
-.nav-tabs > li.active > a:hover, .nav-tabs > li.active > a:focus { border: none; border-radius: 0; color: #FFF !important; background: #862f98; }
+.nav-tabs > li.active > a, .nav-tabs > li > a:hover { border: none; border-radius: 0; color: #FFF !important; background: #000000; }
+.nav-tabs > li.active > a:hover, .nav-tabs > li.active > a:focus { border: none; border-radius: 0; color: #FFF !important; background: #000000; }
 /*.nav-tabs > li > a::after { content: ""; background: #4285F4; height: 2px; position: absolute; width: 100%; left: 0px; bottom: -1px; transition: all 250ms ease 0s; transform: scale(0); }*/
 .nav-tabs > li.active > a::after, .nav-tabs > li:hover > a::after { transform: scale(1); }
 .tab-nav > li > a::after { background: #21527d none repeat scroll 0% 0%; color: #fff; }
@@ -470,7 +470,7 @@ a.bordered-btn:hover {
 }
 
 .col-item:hover{
-    border: 1px solid #862f98;
+    border: 1px solid #000000;
 }
 
 .col-item .options-cart {
@@ -607,11 +607,11 @@ a.bordered-btn:hover {
     margin-top: 20px;
 }
 .services p{
-    color: #862f98;
+    color: #000000;
     font-size: 18px;
 }
 .services h1{
-    color: #862f98;
+    color: #000000;
     margin-bottom: 0;
 }
 
@@ -626,12 +626,12 @@ a.bordered-btn:hover {
     text-align: center;
 }
 .single-box:hover {
-    border-color: #862f98;
+    border-color: #000000;
     box-shadow: 0 0 50px #f1f1f1;
 }
 
 .services-div{
-    border: 1px solid #862f98;
+    border: 1px solid #000000;
     padding: 0px 10px 15px 10px;
 }
 
@@ -643,7 +643,7 @@ a.bordered-btn:hover {
 }
 .order-div h4{
     color: #FFFFFF;
-    background-color: #862f98;
+    background-color: #000000;
     padding: 10px;
     margin-top: 0;
     padding-left: 0;
@@ -651,7 +651,7 @@ a.bordered-btn:hover {
 }
 
 .order-left{
-    border-right:1px solid #862f98;
+    border-right:1px solid #000000;
     padding-bottom: 15px;
     padding-left: 0;
     padding-right: 0;
@@ -659,7 +659,7 @@ a.bordered-btn:hover {
 
 .order-right h4{
     color: #FFFFFF;
-    background-color: #862f98;
+    background-color: #000000;
     padding: 10px;
     margin-top: 0;
     padding-left: 0;
@@ -726,7 +726,7 @@ a.bordered-btn:hover {
     margin:0;
 }
 .navbar-bootsnipp {
-    background-color: #862f98;
+    background-color: #000000;
     border-radius: 0px;
     margin-bottom: 0px;
     z-index: 100;
@@ -739,7 +739,7 @@ a.bordered-btn:hover {
     z-index: 50
 }
 .nav > li > a:focus, .nav > li > a:hover{
-    background-color: #862f98;
+    background-color: #000000;
     color: #FFF;
 }
 .navbar-bootsnipp.affix-top {
@@ -869,13 +869,13 @@ a.bordered-btn:hover {
 }
 .listing{
     padding:10px 10px 10px 10px;
-    color: #862f98;
+    color: #000000;
 }
 .single{
     margin-top: 20px;
 }
 .group{
-    border: 2px solid #862f98;
+    border: 2px solid #000000;
     border-radius: 5px 5px 0px 0px;
 }
 .group a{
@@ -889,7 +889,7 @@ a.bordered-btn:hover {
     margin: 0;
 }
 .single:hover .listing{
-    background-color: #862f98;
+    background-color: #000000;
     color: #FFF;
 }
 .go-bold{
@@ -1006,7 +1006,7 @@ a.bordered-btn:hover {
 }
 /*Footer Styles*/
 footer{
-    background-color: #862f98;
+    background-color: #000000;
     padding: 20px 50px;
     color: #FFF;
 }
@@ -1086,7 +1086,7 @@ footer{
 .btn-ocean{
     border:1px solid #ddd;
     background-color: #ddd;
-    color: #862f98;
+    color: #000000;
     font-weight: 700;
     font-size: 15px;
 }

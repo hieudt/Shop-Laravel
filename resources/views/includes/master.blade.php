@@ -42,12 +42,13 @@
         <div id="content-block">
             <div class="content-center fixed-header-margin">
                 <!-- HEADER -->
-    @include('includes.header')
+        @include('includes.header')
             </div>
             <div class="clear"></div>
             @yield('content')
         </div>
     @include('includes.footer')
+    
     @include('includes.cart')
         <div class="search-box popup">
             <div class="aa-input-container" id="aa-input-container">
@@ -102,6 +103,7 @@
                 $('#cover').fadeOut(100);
             },100)
             loadCart();
+            loadWish();
         });
 
 
@@ -158,7 +160,26 @@
             }
         });
     });
-
+    function loadWish(){
+            $.ajax({
+            headers: {
+                'X-CSRF-TOKEN':  $('meta[name="csrf-token"]').attr('content')
+            },
+            method: 'GET',
+            url: '{{route('wishlist.show')}}',
+            dataType: 'json',
+                success: function(data) {
+                $('#ListWishlist').html(data.list);
+                // $('#grandtotal').html(data.total);
+                $('#wishlistcount').html('('+data.count+')');
+                },
+                error: function(html, status) {
+                    $.each(request.responseJSON.errors,function(key,val){
+                        ToastError(val);
+                    });
+                }
+            });
+        }
     function loadCart(){
         $.ajax({
         headers: {
@@ -185,6 +206,8 @@
         });
     }
 
+
+    
     $(document).ready(function(){
         $('#btnAddProduct').click(function(){
             var $this = $(this);
@@ -203,6 +226,43 @@
                 },
                 method: "POST",
                 url: '{{route('cart.store')}}',
+                data:dataString,
+                success: function (data) {
+                    setTimeout(function(){
+                        ToastSuccess(data.success);
+                    }, 800);
+                },
+                error: function (request, status) {
+        
+                    $.each(request.responseJSON.errors,function(key,val){
+                        ToastError(val);
+                    });
+                }
+            });
+            setTimeout(function() {
+                $this.button('reset');
+            }, 1200);
+            
+        });
+
+
+        $('#btnAddWishlist').click(function(){
+            var $this = $(this);
+            $this.button('loading');
+            var cart_idProduct = $('#modalIdProduct').val();
+            var cart_number = $('#modalSoLuong').text();
+            var cart_idSize = $('#selSize').val();
+            var rdoColor = $("input[name=rdoColor]");
+            var rdoValue = rdoColor.filter(":checked").val();
+            dataString = "idProduct="+cart_idProduct+"&Number="+cart_number+"&idSize="+cart_idSize
+            +"&idColor="+rdoValue;
+
+            $.ajax({
+                headers: {
+                    'X-CSRF-TOKEN':  $('meta[name="csrf-token"]').attr('content')
+                },
+                method: "POST",
+                url: '{{route('wishlist.store')}}',
                 data:dataString,
                 success: function (data) {
                     setTimeout(function(){
@@ -279,7 +339,11 @@
     $(document).on('click','.remove-button',function(){
         var row_id = $(this).attr('data-rowId');
         deleteCart(row_id);
-        
+    });
+
+    $(document).on('click','.remove-wishlist-button',function(){
+        var row_id = $(this).attr('data-rowId');
+        deleteWish(row_id);
     });
 
     $('.btnCheck').click(function(){
@@ -308,13 +372,33 @@
         });
     }
 
+    function deleteWish(row_id){
+        $.ajax({
+        headers: {
+            'X-CSRF-TOKEN':  $('meta[name="csrf-token"]').attr('content')
+        },
+        method: 'POST',
+        url: '{{route('wishlist.destroy')}}',
+        data:{rowid:row_id},
+        dataType: 'json',
+            success: function(data) {
+                setTimeout(function(){
+                    ToastSuccess(data.success);
+                }, 800);
+            },
+            error: function(request, status) {
+                $.each(request.responseJSON.errors,function(key,val){
+                    ToastError(val);
+                });
+            }
+        });
+    }
+
     function btnCheckOut(){
        
     }
     </script>
 </body>
-<div class="zalo-chat-widget" data-oaid="3261362199566416167" data-welcome-message="Rất vui khi được hỗ trợ bạn!" data-autopopup="0"
-    data-width="350" data-height="420"></div>
 
 
 

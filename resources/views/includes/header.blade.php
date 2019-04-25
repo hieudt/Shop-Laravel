@@ -1,192 +1,3 @@
-<style>
-    .tab-style {
-        font-size: 20px;
-        width: 50%;
-        background-color: #f2f2f2;
-        text-align: center;
-
-
-    }
-
-    .nav-tabs>li>a {
-        margin-right: 0px;
-        color: grey;
-    }
-
-
-
-    .group2 {
-        position: relative;
-        margin-top: 16px;
-    }
-
-    .btn-block {
-        margin-top: 20px;
-        margin-bottom: 20px;
-        font-size: 18px;
-    }
-
-
-    .login-shadow {
-        -webkit-box-shadow: 5px -5px 6px 0px rgba(82, 82, 82, 0.52);
-        -moz-box-shadow: 5px -5px 6px 0px rgba(82, 82, 82, 0.52);
-        box-shadow: 5px -5px 6px 0px rgba(82, 82, 82, 0.52);
-        z-index: 1;
-
-    }
-
-    .signup-shadow {
-        -webkit-box-shadow: -5px 0px 6px 0px rgba(82, 82, 82, 0.52);
-        -moz-box-shadow: -5px -5px 6px 0px rgba(82, 82, 82, 0.52);
-        box-shadow: -5px 0px 6px 0px rgba(82, 82, 82, 0.52);
-
-    }
-
-
-    .modal-header {
-        background-color: #e5ecf4;
-    }
-
-    .group {
-        border: none !important;
-        position: relative;
-        margin-top: 30px;
-    }
-
-
-    .input {
-        font-size: 18px;
-        padding: 10px 10px 10px 5px;
-        -webkit-appearance: none;
-        display: block;
-        background: none;
-        color: #636363;
-        width: 100%;
-        border: none;
-        border-radius: 0;
-        border-bottom: 1px solid #757575;
-    }
-
-    .input:focus {
-        outline: none;
-    }
-
-
-    /* Label */
-
-    .label {
-        color: #757575;
-        font-size: 18px;
-        font-weight: normal;
-        position: absolute;
-        pointer-events: none;
-        left: -10px;
-        top: 10px;
-        transition: all 0.2s ease;
-    }
-
-
-    /* active */
-
-    .input:focus~.label,
-    .input.used~.label {
-        top: -20px;
-        transform: scale(.75);
-        left: -15px;
-        /* font-size: 14px; */
-        color: #000;
-    }
-
-
-    /* Underline */
-
-    .bar {
-        position: relative;
-        display: block;
-        width: 100%;
-    }
-
-    .bar:before,
-    .bar:after {
-        content: '';
-        height: 2px;
-        width: 0;
-        bottom: 1px;
-        position: absolute;
-        background: #000;
-        transition: all 0.2s ease;
-    }
-
-    .bar:before {
-        left: 50%;
-    }
-
-    .bar:after {
-        right: 50%;
-    }
-
-
-    /* active */
-
-    .input:focus~.bar:before,
-    .input:focus~.bar:after {
-        width: 50%;
-    }
-
-
-    /* Highlight */
-
-    .highlight {
-        position: absolute;
-        height: 60%;
-        width: 100px;
-        top: 25%;
-        left: 0;
-        pointer-events: none;
-        opacity: 0.5;
-    }
-
-
-    /* active */
-
-    .input:focus~.highlight {
-        animation: inputHighlighter 0.3s ease;
-    }
-
-
-    @media screen and (max-width: 767px) and (min-width: 576px) {
-        #myModal {
-            margin-left: 20%;
-            margin-right: 20%;
-        }
-
-        #forgot-password {
-            margin-left: 20%;
-            margin-right: 20%;
-        }
-    }
-
-
-    @media screen and (min-width: 768px) {
-
-        #myModal .modal-dialog {
-            width: 500px;
-        }
-
-        #forgot-password .modal-dialog {
-            width: 500px;
-        }
-
-        .modal-body {
-            padding-left: 50px;
-            padding-right: 50px;
-        }
-    }
-
-    em {
-        display: none;
-    }
-</style>
 <div class="header-wrapper style-10">
     <header class="type-1">
         <div class="header-product">
@@ -221,19 +32,22 @@
                     <a href="{{url('/cart')}}" class="header-top-entry" id="notify">
                         <div class="title"><i class="fa fa-shopping-cart open-cart-popup"></i><span>Giỏ Hàng</span> <b id="carttotal">(0)</b></div>
                     </a>
+                    <a href="{{url('/wishlist')}}" class="header-top-entry" id="notify">
+                        <div class="title"><i class="fa fa-heart"></i><span>Yêu Thích</span> <b id="wishlistcount">(0)</b></div>
+                    </a>
                 </div>
             </div>
         </div>
         <div class="close-header-layer"></div>
         <div class="navigation">
             <div class="navigation-header responsive-menu-toggle-class">
-                <div class="title">Navigation</div>
+                <div class="title">Menu</div>
                 <div class="close-menu"></div>
             </div>
             <div class="nav-overflow">
                 <nav>
                     <ul>
-                        <li class="simple-list"><a href="{{url('/')}}" class="">TRANG CHỦ</a></li>
+                        <li class="simple-list"><a href="{{url('/')}}" class="botred">TRANG CHỦ</a></li>
                         <li class="full-width-columns">
                             <a href="{{url('/san-pham?')}}">DANH MỤC</a>
                             <i class="fa fa-chevron-down"></i>
@@ -275,7 +89,7 @@
                                     </li>
                                 @else
                                     <li class="simple-list">
-                                        <a href="{{url('/')}}/{{$item['slug']}}" class="">
+                                        <a href="{{url('/')}}/{{$item['slug']}}" class="botred">
                                             {{$item['name']}}
                                         </a>
                                     </li>

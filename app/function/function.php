@@ -171,7 +171,7 @@ function eventLoadBill()
 	// Truyền message lên server Pusher
 	$options = array(
 		'cluster' => 'ap1',
-		'useTLS' => true
+
 	);
 
 	$pusher = new Pusher(
@@ -190,7 +190,7 @@ function eventLoadNotification()
 	// Truyền message lên server Pusher
 	$options = array(
 		'cluster' => 'ap1',
-		'useTLS' => true
+
 	);
 
 	$pusher = new Pusher(

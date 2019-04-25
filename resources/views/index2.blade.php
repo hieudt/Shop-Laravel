@@ -93,6 +93,7 @@
     <div class="row" style="margin-top:70px;">
         <div class="container">
             <div class="col-md-6 col-md-offset-3">
+                <div id="scrollvaoday"></div>
                 <div class="section-title">
                     <h2>Dịch vụ của chúng tôi</h2>
                     <p>ShopTMĐT</p>
@@ -384,10 +385,8 @@
                 });
             }
         });  
-    });
+    });     
 
-
- 
 
 
 </script>

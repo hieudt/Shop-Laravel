@@ -100,6 +100,7 @@ var pusher = new Pusher('fbefcc8bb38866195ed2', {
   var channel = pusher.subscribe('Cart');
   channel.bind('loadCart', function(data) {
       loadCart();
+      
   });
   
   var channel2 = pusher.subscribe('Bill');
@@ -107,6 +108,12 @@ var pusher = new Pusher('fbefcc8bb38866195ed2', {
       $('#order-listing').DataTable().ajax.reload();
   });
   
+var channel5 = pusher.subscribe('Wish');
+channel5.bind('loadWish', function (data) {
+    loadWish();
+});
+
+
   var channel3 = pusher.subscribe('Notification');
   channel3.bind('loadNotification',function(data){
       loadNotify();
