@@ -51,7 +51,7 @@ class FrontEndController extends Controller
     {
         $productdata = Product::findOrFail($id);
         $gallery = Images::where('id_product', $id)->get();
-        $reviews = Review::where('id_product', $id)->get();
+        $reviews = Review::where('id_product', $id)->orderBy('created_at','DESC')->get();
         $relateds = Product::where('id_sub', $productdata->id_sub)->where('id', '!=', $productdata->id)->take(8)->get();
         return view('product', compact('productdata', 'gallery', 'reviews', 'relateds'));
     }

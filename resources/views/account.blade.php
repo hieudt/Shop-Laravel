@@ -73,7 +73,7 @@
                                             @else 
                                                 <i class="fa fa-star-o"></i> @endif @endfor
                                         @else
-                                        <a class="title" href="/san-pham/{{$item->product_details->Product->id}}/{{$item->product_details->Product->slug}}"><button class="button style-10">Review</button></a>
+                                        <a class="title" href="/san-pham/{{$item->product_details->Product->id}}/{{$item->product_details->Product->slug}}"><button class="button style-4">Review</button></a>
                                         @endif
                                     </span>
                                     </td>

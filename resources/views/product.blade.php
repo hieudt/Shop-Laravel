@@ -84,7 +84,7 @@
                                     @endif
                                 @endfor
 
-                                <div class="rating-number">{{\App\Review::where('id_product',$productdata->id)->count()}} Reviews</div>
+                                <div class="rating-number">{{\App\Review::where('id_product',$productdata->id)->count()}} Đánh giá</div>
                             </div>
                             <div class="product-description detail-info-entry">{{substr(strip_tags($productdata->description), 0, 600)}}... <a id="showmore">Xem Tiếp</a></div>
                             <div class="price detail-info-entry">
@@ -169,7 +169,8 @@
                             {!! $productdata->policy !!}
                         </div>
                         <div role="tabpanel" class="tab-pane" id="reviews">
-                            <h3>Write a Review</h3>
+                            @if(Auth::user())
+                            <h3>Viết đánh giá</h3>
                             <hr>
                             <div class="row" style="margin-bottom: 20px">
                                 <div class="col-md-6">
@@ -181,77 +182,35 @@
                                     </div>
                                 </div>
                             </div>
-                            <form method="POST" action="">
+                           
+                            <form id="FormReview">
                                 {{ csrf_field() }}
                                 <input type="hidden" name="rating" id="rate" value="5">
-                                <input type="hidden" name="id_product" value="{{$productdata->id}}">
-                                <div class="row">
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <input name="name" placeholder="Full Name" class="form-control" type="text" required>
-
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <input name="email" placeholder="Your Email" class="form-control" type="email" required>
-
-                                        </div>
-                                    </div>
-                                </div>
+                                <input type="hidden" name="idproduct" value="{{$productdata->id}}">
                                 <!-- Text input-->
                                 <div class="row">
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            <textarea name="review" rows="6" placeholder="Review Description" class="form-control"></textarea>
+                                            <textarea name="content" rows="6" placeholder="Nội Dung" class="form-control"></textarea>
                                         </div>
                                     </div>
-                                </div>
-
-                                <div id="resp" class="col-md-6">
-                                    @if ($errors->has('error'))
-                                        <span class="help-block">
-                                <strong>{{ $errors->first('password') }}</strong>
-                            </span>
-                                    @endif
                                 </div>
                                 <!-- Button -->
                                 <div class="row">
                                     <div class="form-group">
-                                        <label class="col-md-3 control-label"></label>
                                         <div class="col-md-4 col-md-offset-2">
-                                            <button type="submit" class="button style-10" id="LoginButton"><strong>Submit Review</strong></button>
+                                            <button type="button" class="button style-10" id="btnReview"><strong>Gửi Đánh Giá</strong></button>
                                         </div>
                                     </div>
                                 </div>
                             </form>
+                            @endif
                             <hr>
-                            <h3>Reviews:</h3>
+                            <h3>Đánh giá:</h3>
                             <hr>
-                            @forelse($reviews as $review)
-                                <div class="row rating-row">
-                                    <div class="col-md-3">
-                                        <strong>{{$review->name}}</strong>
-                                        <div class="rating-box">
-                                            @for($i=1;$i<=5;$i++)
-                                                @if($i <= $review->rating)
-                                                    <div class="star"><i class="fa fa-star"></i></div>
-                                                @else
-                                                    <div class="star"><i class="fa fa-star-o"></i></div>
-                                                @endif
-                                            @endfor
-                                        </div>
-                                        <div class="rating-date">{{$review->review_date}}</div>
-                                    </div>
-                                    <div class="col-md-8">
-                                        {{$review->review}}
-                                    </div>
-                                </div>
-                            @empty
-                                <h4>No review has given yet.</h4>
-                            @endforelse
+                            <section id="listReview">
+
+                            </section>
                         </div>
                     </div>
                 </div>
@@ -453,7 +412,7 @@
     });
 
     fetch_size({{$productdata->id}});
-
+    fetch_review({{$productdata->id}});
     function fetch_size(idproduct)
     {
         $.ajax({
@@ -516,6 +475,25 @@
         });
     }
 
+    function fetch_review(idproduct)
+    {
+        $.ajax({
+        headers: {
+            'X-CSRF-TOKEN':  $('meta[name="csrf-token"]').attr('content')
+        },
+        method: 'GET',
+        url: '{{route('review.fetch')}}',
+        data:{idproduct:idproduct},
+        dataType: 'json',
+            success: function(data) {
+                $('#listReview').html(data.load);
+               
+            },
+            error: function(html, status) {
+            }
+        });
+    }
+
     function fetch_color_forsize2(idproduct,idsize)
     {
         $.ajax({
@@ -535,6 +513,28 @@
             }
         });
     }
+
+    $("#btnReview").click(function(){
+        var datas = $('#FormReview').serialize();
+        $.ajax({
+            headers: {
+                'X-CSRF-TOKEN':  $('meta[name="csrf-token"]').attr('content')
+            },
+            method: "POST",
+            url: '{{route('review.store')}}',
+            data:datas,
+            success: function (data) {
+                ToastSuccess(data.success); 
+                fetch_review({{$productdata->id}});
+            },
+            error: function (request, status) {
+                $.each(request.responseJSON.errors,function(key,val){
+                    ToastError(val);
+                });
+            }
+        });
+    });
+
 </script>
 @endsection
 @section('footer')

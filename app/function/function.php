@@ -123,6 +123,8 @@ function formatDateTime($dateTime)
 	return $EndTime;
 }
 
+
+
 function priceDiscount($Money, $Discount)
 {
 	$Money = str_replace(',', '', $Money);

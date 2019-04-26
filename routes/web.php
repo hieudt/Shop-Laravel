@@ -31,11 +31,15 @@ use Illuminate\Support\Facades\Hash;
 */
 
 Route::get('/', 'FrontEndController@index')->name('front.index');
-Route::get('list', 'FrontEndController@list')->name('front.list');
+
+/* MODULE PRODUCT */
 Route::get('san-pham', 'FrontEndController@category2')->name('front.category');
 Route::get('fetchdata/colorforsize', 'FrontEndController@fetchColor')->name('front.fetchcolor');
 Route::get('fetchdata/size', 'FrontEndController@fetchSize')->name('front.fetchsize');
 Route::get('/san-pham/{id}/{slug}', 'FrontEndController@productDetails');
+
+
+/* MODULE CART  */
 Route::get('cart', 'CartController@cart')->name('cart.index');
 Route::post('cart/store', 'CartController@store')->name('cart.store');
 Route::post('cart/destroy', 'CartController@destroy')->name('cart.destroy');
@@ -45,34 +49,37 @@ Route::post('cart/removecoupons', 'CartController@removeCoupon')->name('cart.rem
 Route::post('cart/checkout', 'CartController@checkout')->name('cart.checkout');
 Route::post('cart/updatenumber', 'CartController@updateNumber')->name('cart.update');
 
+/* MODULE WISHLIST */
 Route::get('wishlist','WishlistController@wishlist')->name('wishlist.index');
 Route::post('wishlist/store', 'WishlistController@store')->name('wishlist.store');
 Route::get('wishlist/load', 'WishlistController@show')->name('wishlist.show');
 Route::post('wishlist/destroy', 'WishlistController@destroy')->name('wishlist.destroy');
 Route::post('wishlist/tocart','WishlistController@tocart')->name('wishlist.tocart');
 
-
+/* MODULE CHECKOUT */
 Route::get('checkout', 'CheckOutController@index')->name('checkout.index');
 Route::post('checkout/order', 'CheckOutController@postOrder')->name('checkout.order');
 Route::get('checkout/bill/{token}', 'BillController@getDetailsbyId')->name('bill.detais');
 Route::post('checkout/verifyPaypal', 'BillController@verifyPaypal')->name('bill.verifypaypal');
 
+/* CHECK SESSION */
 Route::get('session/idship/{id}', 'CartController@infoShiper');
 
+/* MODULE REVIEW */
+Route::get('reviews','ReviewController@fetch')->name('review.fetch');
+Route::post('reviews','ReviewController@store')->name('review.store');
 
+/* MODULE USER */
 Route::post('/users/login', 'FrontEndController@loginPost')->name('user.login');
 Route::get('/users/logout', 'FrontEndController@logoutIndex')->name('front.logout');
 Route::post('/users/signup', 'FrontEndController@signUpPost')->name('user.signup');
 
+/* MODULE SOCIAL */
 Route::get('/redirect/{social}', 'SocialFacebook@redirectToProvider')->name('facebook.login');;
 Route::get('/callback/{social}', 'SocialFacebook@handleProviderCallback');
-
-Route::get('/zalo/callback',function(){
-    dd(request()->all());
-});
-
 Route::get('zalo/getfriends','ZaloSocial@getFriends')->name('zalo.getfriend');
 
+/* AUTH LOGIN BACKEND */
 Route::get('/admin/login', 'AdminPages@loginIndex');
 Route::post('/admin/login', 'AdminPages@loginPost')->name('admin.login');
 Route::get('/admin/logout', 'AdminPages@logoutIndex');
@@ -230,17 +237,6 @@ Route::get('/top', function () {
 Route::get('/check',function(){
    $da = Cart::instance('wishlist')->get("9495baa865c5f5de28e060aeaea8dd4a");
     dd($da);
-});
-Route::get('test', function () {
-    if (Cache::has('categorycache')) {
-        $danhmuc = Cache::get('categorycache');
-        view()->share('danhmuc', $danhmuc);
-    } else {
-        $danhmuc = Category::with('SubCategory')->get();
-        Cache::put('categorycache', $danhmuc, 3);
-        view()->share('danhmuc', $danhmuc);
-    }
-    return View::make('test', compact('danhmuc'));
 });
 
 Route::get('deletecache',function(){
