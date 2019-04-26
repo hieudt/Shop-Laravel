@@ -4,7 +4,8 @@ namespace App;
 
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-
+use App\Review;
+use Illuminate\Support\Facades\Auth;
 class User extends Authenticatable
 {
     use Notifiable;
@@ -34,7 +35,12 @@ class User extends Authenticatable
 
     public function DetailsBill()
     {
-        return $this->hasManyThrough('App\DetailsBill','App\Bill','id_bill','id_user','id');
+        return $this->hasManyThrough('App\Detailsbill','App\Bill','id_user','id_bill','id');
+    }
+
+    public function Review()
+    {
+        return $this->hasMany('App\Review', 'id_users', 'id');
     }
 
     public function getCountBill($id){
@@ -44,6 +50,16 @@ class User extends Authenticatable
 
     public function getTotalMoney($id){
         return $Data = \App\Bill::where('id_user',$id)->where('statusPay',1)->where('status',2)->sum('TotalMoney');        
+    }
+
+    public static function getReview($idproduct){
+        $star = 0;
+        $data = Review::where('id_product', $idproduct)->where('id_users',Auth::user()->id)->take(1)->get();
+        if($data->count() == 0){
+            return $star;
+        }else {
+            return $data[0]->rating;
+        }
     }
 
     public function getTitle($totalMoney,$id){

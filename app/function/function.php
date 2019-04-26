@@ -3,7 +3,6 @@ use Carbon\Carbon;
 use App\Notification;
 use App\Category;
 use App\Bill;
-use Cache;
 use App\DetailsBill;
 use Gloudemans\Shoppingcart\Facades\Cart;
 use App\Pages;

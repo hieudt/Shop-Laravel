@@ -28,15 +28,66 @@
                     <table class="table table-striped">
                         <thead>
                             <tr class="info">
-                                <th>Order ID</th>
-                                <th>Product</th>
-                                <th>Quantity</th>
-                                <th>Date</th>
-                                <th>Status</th>
+                                <th>#HD</th>
+                                <th>Sản Phẩm</th>
+                                <th>Thuộc Tính</th>
+                                <th>SL</th>
+                                <th>Giá</th>
+                                <th>Đánh Giá</th>
+                                <th>Thời gian</th>
                             </tr>
                         </thead>
                         <tbody>
-
+                            @forelse ($listproduct as $item)
+                                <tr>
+                                    <td>{{$item->id_bill}}</td>
+                                    <td>
+                                        <div class="traditional-cart-entry">
+                                            <a href="#" class="image">
+                                                <img src="{{url('/')}}/images/product/{{$item->product_details->Product->thumbnail}}">
+                                            </a>
+                                            <div class="content">
+                                                <div class="cell-view">
+                                                    <a class="title" href="/san-pham/{{$item->product_details->Product->id}}/{{$item->product_details->Product->slug}}">{{$item->product_details->Product->title}}</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <ul id="ListSelectColor">
+                                            <span class="swatch" style="background-color:{{$item->product_details->Color->codeColor}}"></span> Size : {{$item->product_details->Size->name}}
+                                        </ul>
+                                    </td>
+                                    <td>
+                                        {{$item->Number}}
+                                    </td>
+                                    <td>
+                                        {!!formatMoney($item->price)!!}
+                                    </td>
+                                    <td>
+                                        <span class="review">
+                                        <?php $count = \App\User::getReview($item->product_details->Product->id); ?>
+                                        @if($count > 0)
+                                            @for($i=1;$i<=5;$i++) 
+                                            @if($i <= $count) <i class="fa fa-star"></i>
+                                            @else 
+                                                <i class="fa fa-star-o"></i> @endif @endfor
+                                        @else
+                                        <a class="title" href="/san-pham/{{$item->product_details->Product->id}}/{{$item->product_details->Product->slug}}"><button class="button style-10">Review</button></a>
+                                        @endif
+                                    </span>
+                                    </td>
+                                    <td>
+                                        {{$item->created_at}}
+                                    </td>
+                                </tr>
+                            @empty
+                                <tr>
+                                    <td>
+                                        Bạn chưa có mua sản phẩm nào
+                                    </td>
+                                </tr>
+                            @endforelse
                         </tbody>
                     </table>
                 </div>

@@ -186,7 +186,8 @@ Route::get('checkProduct', function () {
 });
 
 Route::get('reset', function () {
-    dd(Cart::instance('wishlist')->content());
+   $data = User::find(1)->DetailsBill()->get();
+   dd($data);
 });
 
 Route::get('test', 'PayPalController@index');

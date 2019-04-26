@@ -21,7 +21,8 @@ class UsersProfileController extends Controller
         $user = User::find(Auth::user()->id);
         $coupons = coupons::where('Date','>',now())->where('typeEnable','1')->get();
         $couponsVip = coupons::where('Date','>',now())->where('typeEnable','2')->get();
-        return view('account',compact('user','coupons','couponsVip'));
+        $listproduct = User::find(1)->DetailsBill()->orderBy('created_at','Desc')->get();
+        return view('account',compact('user','coupons','couponsVip','listproduct'));
     }
 
     public function update(Request $req){

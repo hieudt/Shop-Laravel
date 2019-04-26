@@ -13,6 +13,11 @@ class Review extends Model
         return $this->belongsTo('App\Product','id_product','id');
     }
 
+    public function User()
+    {
+        return $this->belongsTo('App\User', 'id_users', 'id');
+    }
+
     public static function ratings($productid){
         $star = 0;
         $stars = Review::where('id_product',$productid)->avg('rating');

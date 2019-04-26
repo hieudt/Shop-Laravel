@@ -22,16 +22,7 @@ class CheckOutController extends Controller
 {
     public function __construct()
     {
-        if (Cache::has('categorycache')) {
-            $danhmuc = Cache::get('categorycache');
-            view()->share('danhmuc', $danhmuc);
-        } else {
-            $categorycache = Cache::remember('categorycache', 180, function () {
-                return Category::all();
-            });
-            $danhmuc = Cache::get('categorycache');
-            view()->share('danhmuc', $danhmuc);
-        }
+        parent::__construct();
     }
 
     public function index(){
