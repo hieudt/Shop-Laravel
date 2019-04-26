@@ -19,8 +19,7 @@
           <tr>
             <th class="column-1">Tên Sản Phẩm</th>
             <th class="column-2">Đơn Giá</th>
-            <th class="column-3">Số Lượng</th>
-            <th class="column-4">Tổng tiền</th>
+            <th class="column-3">Tháo Tác</th>
             <th class="column-5"></th>
           </tr>
           <tr id="cartempty"></tr>
@@ -34,7 +33,6 @@
 
 @section('javascript')
 <script>
-
 
 </script>
 @endsection

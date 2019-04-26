@@ -346,9 +346,16 @@
         deleteWish(row_id);
     });
 
-    $('.btnCheck').click(function(){
-       
+    $(document).on('click','.toCart',function(){
+        var $this = $(this); $this.button('loading');
+        var row_id = $(this).attr('data-rowid');
+        var id = $(this).attr('data-id');
+        toCart(row_id,id);
+        setTimeout(function() {
+                $this.button('reset');
+        }, 1200);
     });
+
 
     function deleteCart(row_id){
         $.ajax({
@@ -358,6 +365,28 @@
         method: 'POST',
         url: '{{route('cart.destroy')}}',
         data:{rowid:row_id},
+        dataType: 'json',
+            success: function(data) {
+                setTimeout(function(){
+                    ToastSuccess(data.success);
+                }, 800);
+            },
+            error: function(request, status) {
+                $.each(request.responseJSON.errors,function(key,val){
+                    ToastError(val);
+                });
+            }
+        });
+    }
+
+    function toCart(row_id,id){
+        $.ajax({
+        headers: {
+            'X-CSRF-TOKEN':  $('meta[name="csrf-token"]').attr('content')
+        },
+        method: 'POST',
+        url: '{{route('wishlist.tocart')}}',
+        data:{rowid:row_id,id:id},
         dataType: 'json',
             success: function(data) {
                 setTimeout(function(){

@@ -23,6 +23,14 @@ class CartController extends Controller
 
     public function destroy(Request $req){
         if($req->ajax()){
+            $flag = 0;
+            foreach (Cart::content() as $item) {
+                if($item->rowId == $req->rowid){
+                    $flag = 1; break;
+                }
+            }
+
+            if($flag == 0) return response()->json(['errors' => ['faillogin' => [0 => 'Không hợp lệ vui lòng tải lại trang']]], 422);
             Cart::remove($req->rowid);
             $this->eventLoadCart();
             return response()->json(['success'=>'Xóa sản phẩm thành công']);
@@ -91,6 +99,44 @@ class CartController extends Controller
             return response()->json(['success'=>'Thêm giỏ hàng thành công'],200);
         }
         
+    }
+
+    public function fromWishlist(Request $req){
+        $product = product_details::where('id_product', $req->idProduct)
+            ->where('id_size', $req->idSize)
+            ->where('id_color', $req->idColor)
+            ->first();
+
+        if (empty($product))
+            return response()->json(['errors' => ['faillogin' => [0 => 'Sản phẩm không hợp lệ,kiểm tra lại kích thước và màu sắc [ERROR 101]']]], 422);
+
+        if ($req->Number > $product->soluong)
+            return response()->json(['errors' => ['failnumber' => [0 => 'Số lượng trong kho không đủ [ERROR102]']]], 422);
+
+        $pr = Product::find($req->idProduct);
+
+        $price = priceDiscount($pr->cost, $pr->discount);
+        $checkNumber = Cart::instance('default')->search(function ($cartItem, $rowId) use ($product) {
+            return $cartItem->id === $product->id;
+        });
+
+        if ($checkNumber->isNotEmpty()) {
+            foreach ($checkNumber as $item) {
+                if (($item->qty + $req->Number) > $product->soluong)
+                    return response()->json(['errors' => ['failnumber' => [0 => 'Số lượng trong kho không đủ [ERROR104]']]], 422);
+            }
+        }
+        $typeDiscount = ['discount' => 0, 'coupon' => 0];
+        if ($pr->discount > 0) {
+            $typeDiscount = ['discount' => $pr->discount, 'coupon' => 0];
+        }
+        if (session()->get('coupon') && $pr->discount == 0) {
+            $typeDiscount = ['discount' => session()->get('coupon')['discount'], 'coupon' => 1];
+        }
+        Cart::instance('default')->add($product->id, $pr->title, $req->Number, $pr->cost, $typeDiscount)
+            ->associate('App\product_details');
+        $this->eventLoadCart();
+        return response()->json(['success' => 'Thêm giỏ hàng thành công'], 200);
     }
 
     public function show(Request $request)

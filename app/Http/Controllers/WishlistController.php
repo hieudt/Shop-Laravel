@@ -58,15 +58,12 @@ class WishlistController extends Controller
             $pr = Product::find($req->idProduct);
 
             $price = priceDiscount($pr->cost, $pr->discount);
-            $checkNumber = Cart::search(function ($cartItem, $rowId) use ($product) {
+            $checkNumber = Cart::instance('wishlist')->search(function ($cartItem, $rowId) use ($product) {
                 return $cartItem->id === $product->id;
             });
 
             if ($checkNumber->isNotEmpty()) {
-                foreach ($checkNumber as $item) {
-                    if (($item->qty + $req->Number) > $product->soluong)
-                        return response()->json(['errors' => ['failnumber' => [0 => 'Số lượng trong kho không đủ [ERROR104]']]], 422);
-                }
+                return response()->json(['errors' => ['failnumber' => [0 => 'Sản phẩm đã có trong danh sách yêu thích']]], 422);
             }
             $typeDiscount = ['discount' => 0, 'coupon' => 0];
             if ($pr->discount > 0) {
@@ -75,7 +72,7 @@ class WishlistController extends Controller
             if (session()->get('coupon') && $pr->discount == 0) {
                 $typeDiscount = ['discount' => session()->get('coupon')['discount'], 'coupon' => 1];
             }
-            Cart::instance('wishlist')->add($product->id, $pr->title, $req->Number, $pr->cost, $typeDiscount)
+            Cart::instance('wishlist')->add($product->id, $pr->title, 1, $pr->cost, $typeDiscount)
                 ->associate('App\product_details');
             $this->eventLoadWish();
             return response()->json(['success' => 'Đã thêm'], 200);
@@ -85,6 +82,15 @@ class WishlistController extends Controller
     public function destroy(Request $req)
     {
         if ($req->ajax()) {
+            $flag = 0;
+            foreach (Cart::instance('wishlist')->content() as $item) {
+                if ($item->rowId == $req->rowid) {
+                    $flag = 1;
+                    break;
+                }
+            }
+
+            if ($flag == 0) return response()->json(['errors' => ['faillogin' => [0 => 'Không hợp lệ vui lòng tải lại trang']]], 422);
             Cart::instance('wishlist')->remove($req->rowid);
             $this->eventLoadWish();
             return response()->json(['success' => 'Xóa sản phẩm thành công']);
@@ -94,7 +100,6 @@ class WishlistController extends Controller
     public function show(Request $request)
     {
         if ($request->ajax()) {
-
             $output = '';
             if (Cart::instance('wishlist')->content()->count() > 0) {
                 foreach (Cart::instance('wishlist')->content() as $item) {
@@ -125,20 +130,17 @@ class WishlistController extends Controller
                     $output .= '</div></td>
                     <td>
                         <div class="quantity-selector detail-info-entry">
-                            <div class="entry number-minus" id="minus" data-row="' . $item->rowId . '">&nbsp;</div>
-                            <div class="entry number" id="number">' . $item->qty . '</div>
-                            <div class="entry number-plus" id="plus" data-row="' . $item->rowId . '">&nbsp;</div>
+                            <button class="button style-10 toCart" data-id="' . $item->model->Product->id . '" data-rowid="' . $item->rowId . '" data-loading-text="<i class=\'fa fa-circle-o-notch fa-spin\'></i> Đang xử lý"><i class="fa fa-shopping-cart"></i>Thêm vào giỏ</button>
                         </div>
                     </td>
-                    <td><div class="subtotal" id="subtotal">' . formatMoney(priceDiscount($item->price * $item->qty, $item->options['discount'])) . '</div></td>
-                    <td><a class="remove-wishlist-button" data-rowid="' . $item->rowId . '"><i class="fa fa-times"></i></a></td>
+                    <td><a class="remove-wishlist-button"  data-rowid="' . $item->rowId . '"><i class="fa fa-times"></i></a></td>
                     </tr>
                     ';
                 }
             } else {
                 $output .= '<tr>
                 <td>
-                    <h3>Giỏ hàng đang rỗng.</h3>
+                    <h3>Danh sách  yêu thích đang rỗng.</h3>
                 </td>
                 <td></td>
                 <td></td>
@@ -159,6 +161,26 @@ class WishlistController extends Controller
             );
             echo json_encode($data);
         }
+    }
+
+    public function tocart(Request $req){
+        $res = new Request();
+        $flag = 0;
+        foreach (Cart::instance('wishlist')->content() as $item) {
+            if ($item->rowId == $req->rowid) {
+                $flag = 1;
+                break;
+            }
+        }
+        if ($flag == 0) return response()->json(['errors' => ['faillogin' => [0 => 'Không hợp lệ vui lòng tải lại trang']]], 422);
+        $items = Cart::instance('wishlist')->get($req->rowid);
+        $res->idProduct = $req->id;
+        $res->idSize = $items->model->id_size;
+        $res->idColor = $items->model->id_color;
+        $res->Number = 1;
+        $this->destroy($req);
+        $var = new CartController;
+        return $var->fromWishlist($res);
     }
 
     public function eventLoadWish()

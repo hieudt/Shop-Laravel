@@ -189,7 +189,7 @@
                                             </a>
                                     <ul class="social">
                                         <li><a href="{{url('/san-pham')}}/{{$product->id}}/{{$product->slug}}/" data-tip="Xem Nhanh" ><i class="fa fa-eye fa-fix"></i></a></li>
-                                        <li><a href="#" data-tip="Add to Wishlist"><i class="fa fa-shopping-bag fa-fix"></i></a></li>
+                                        <li><a href="#" data-tip="Add to Wishlist" data-product="{{$CountForm}}" class="add-to-wish"><i class="fa fa-shopping-bag fa-fix"></i></a></li>
                                         <li><a href="#" data-tip="Add to Cart"><i class="fa fa-shopping-cart fa-fix"></i></a></li>
                                     </ul>
 
@@ -241,7 +241,7 @@
                             <div class="col-sm-5 col-md-4 col-lg-5 information-entry">
                                 <div class="product-preview-box">
                                     <div class="product-zoom-image">
-                                    <img class="image-product" src="http://larvuejs.vn/images/product/r7zO_xc-nam.jpg" alt="" data-zoom="" />
+                                    <img class="image-product" src="" alt="" data-zoom="" />
                                     </div>
                                 </div>
                             </div>
@@ -284,6 +284,7 @@
         <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-dismiss="modal" id="CloseModal">Đóng</button>
             <button type="button" class="btn btn-primary" id="btnAddProduct" data-loading-text="<i class='fa fa-circle-o-notch fa-spin'></i> Đang xử lý">Thêm giỏ hàng</button>
+            <button type="button" class="btn btn-danger" id="btnAddWishlist" data-loading-text="<i class='fa fa-circle-o-notch fa-spin'></i> Đang xử lý">Yêu thích</button>
         </div>
         </div>
     </div>
@@ -314,7 +315,7 @@
     }
 
     var id = '';
-    $(document).on('click','.add-to-cart',function(){
+    $(document).on('click','.add-to-cart , .add-to-wish',function(){
         $('#ListSelectColor').html('');
         var count = $(this).attr('data-product');
         var product = $('.product'+count).serializeArray();

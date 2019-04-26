@@ -49,6 +49,7 @@ Route::get('wishlist','WishlistController@wishlist')->name('wishlist.index');
 Route::post('wishlist/store', 'WishlistController@store')->name('wishlist.store');
 Route::get('wishlist/load', 'WishlistController@show')->name('wishlist.show');
 Route::post('wishlist/destroy', 'WishlistController@destroy')->name('wishlist.destroy');
+Route::post('wishlist/tocart','WishlistController@tocart')->name('wishlist.tocart');
 
 
 Route::get('checkout', 'CheckOutController@index')->name('checkout.index');
@@ -221,9 +222,9 @@ Route::get('/cv', function () {
 });
 
 Route::get('/top', function () {
-
-    Cart::destroy();
-    
+    Cart::add(1,'Ao1',3,5000);
+    Cart::add(2,'Ao2',3,5000);
+    dd(Cart::content());    
 });
 Route::get('/check',function(){
    $da = Cart::instance('wishlist')->get("9495baa865c5f5de28e060aeaea8dd4a");

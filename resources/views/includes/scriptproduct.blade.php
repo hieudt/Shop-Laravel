@@ -3,7 +3,7 @@
         $(document).ready(function(){
             
         });
-        $(document).on('click','.add-to-cart',function(){
+        $(document).on('click','.add-to-cart , .add-to-wish',function(){
             $('#ListSelectColor').html('');
             var count = $(this).attr('data-product');
             var product = $('#product'+count).serializeArray();
@@ -20,6 +20,8 @@
             }, 200);
            
         });
+
+        
     
         $('#selSize').change(function(){
             fetch_color_forsize(id,$(this).val());
