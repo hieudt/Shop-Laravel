@@ -45,3 +45,6 @@ composer require "consoletvs/charts:5.*"<br/>
 
 #VisitLog <br/>
 composer require sarfraznawaz2005/visitlog<br/>
+
+#Image resize<br/>
+composer require intervention/image<br/>
