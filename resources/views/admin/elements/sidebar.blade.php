@@ -88,7 +88,7 @@
       <div id="news" class="collapse" style>
         <ul class="nav flex-column sub-menu">
           <li class="nav-item">
-            <a href="{{url('admin/news/home')}}" class="nav-link">Danh sách</a>
+            <a href="{{url('admin/news/tintuc')}}" class="nav-link">Danh sách</a>
           </li>
           <li class="nav-item">
             <a href="{{url('admin/news/add-news')}}" class="nav-link">Tạo tin tức</a>

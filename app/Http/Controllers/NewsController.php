@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use App\News;
 use Intervention\Image\ImageManagerStatic as Image;
 use Yajra\DataTables\DataTables;
+use Mail;
+use App\Subcriber;
 class NewsController extends Controller
 {
     public function index(){
@@ -26,7 +28,7 @@ class NewsController extends Controller
             return formatDate($data->created_at);
         })
         ->addColumn('action', function ($user) {
-            return '<button class="btn btn-outline-primary edited md-trigger md-setperspective" data-modal="modal-18" data-id="' . $user->id . '" data-hoten="' . $user->name . '" data-email="' . $user->email . '" data-phone="' . $user->Phone . '" data-address="' . $user->Address . '">Sửa </button>&nbsp<button class="btn btn-outline-danger delete" data-id="' . $user->id . '">Xóa </button>';
+            return '<a href="edit/'.$user->id.'"><button class="btn btn-outline-primary edited md-trigger md-setperspective">Sửa </button></a>&nbsp<button class="btn btn-outline-danger delete" data-id="' . $user->id . '">Xóa </button>&nbsp &nbsp<br/><button class="btn btn-outline-success sendMail" data-id="' . $user->id . '">Gửi Mail</button>';
         })->rawColumns(['action','thumbnail','created_at','title'])->make(true);
     }
 
@@ -75,11 +77,65 @@ class NewsController extends Controller
         }
     }
 
-    public function edit(){
+    public function update(Request $req,$id){
+        if ($req->ajax()) {
+            $this->validate($req, [
+                'txtName' => 'required',
+                'editordata' => 'required',
+                'txtSlug' => 'unique:news,slug,'.$id,
+ 
+            ], [
+                'txtName.required' => 'Vui lòng nhập tiêu đề',
+                'editordata.required' => 'Vui lòng nhập nội dung',
+                'txtSlug.unique' => 'Đường dẫn tin tức bị trùng',
+   
+            ]);
 
+            $News =  News::find($id);
+
+            $News->title = $req->txtName;
+            $News->content = $req->editordata;
+            if ($req->txtSlug == '') {
+                $slug = changeTitle($req->txtName);
+                $News->slug = $slug;
+            } else {
+                $News->slug = $req->txtSlug;
+            }
+            $News->save();
+
+            return response()->json(['success' => "Cập nhật thành công"]);
+        }
     }
 
-    public function update(Request $req){
-
+    public function edit($id){
+        $data = News::find($id);
+        return view('admin.news.edit',compact('data'));
     }
+
+    public function destroy($id){
+        $News = News::find($id);
+        if ($News) {
+            $News->delete();
+            return response()->json(['success' => 'Xóa thành công']);
+        } else {
+            return response('Thất bại', 422);
+        }
+    }
+
+    public function sendmail($id){
+        $News = News::find($id);
+        $data = Subcriber::all();
+        if ($News) {
+            Mail::send('emails.subcriber', ['title' => $News->title, 'thumbnail' => url('/')."/images/news/".$News->thumbnail,'url'=>url('/')."/tin-tuc/".$News->slug], function ($message) use ($data) {
+                $message->from('hieumai@rog.vn', 'Trung Hieu');
+                foreach ($data as $item) {
+                    $message->to($item->email);
+                }
+            });
+            return response()->json(['success' => 'Đã gửi cho người đăng ký nhận tin']);
+        } else {
+            return response('Thất bại', 422);
+        }
+    }
+
 }

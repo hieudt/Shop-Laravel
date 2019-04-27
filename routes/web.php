@@ -32,6 +32,7 @@ use Illuminate\Support\Facades\Hash;
 */
 
 Route::get('/', 'FrontEndController@index')->name('front.index');
+Route::post('/reg','SubcriberController@store')->name('subcriber.store');
 
 /* MODULE PRODUCT */
 Route::get('san-pham', 'FrontEndController@category2')->name('front.category');
@@ -145,12 +146,14 @@ Route::group(['prefix' => 'admin', 'middleware' => 'adminLogin'], function () {
     Route::post('product/brand/update','BrandController@update')->name('brand.update');
     Route::get('product/brand/fetch','BrandController@fetch')->name('brand.fetch');
 
-    Route::get('news/home','NewsController@index')->name('news.list');
+    Route::get('news/tintuc','NewsController@index')->name('news.list');
     Route::get('news/fetch','NewsController@fetch')->name('news.fetch');
     Route::get('news/add-news','NewsController@create')->name('news.create');
     Route::get('news/edit/{id}','NewsController@edit')->name('news.edit');
     Route::post('news/add-news','NewsController@store')->name('news.store');
     Route::post('news/edit/{id}','NewsController@update')->name('news.update');
+    Route::get('news/delete/{id}', 'NewsController@destroy')->name('news.destroy');
+    Route::get('news/sendmail/{id}','NewsController@sendmail');
 
 
     Route::get('notification/getcount', 'NotificationController@getAllCountNotify')->name('notif.countall');
@@ -237,12 +240,10 @@ Route::get('/cv', function () {
 });
 
 Route::get('/test', function () {
-    $img = Image::make('images/product/7tYk_truc-that.jpg')->resize(300, 200);
-    
-    return $img->response('jpg'); 
+    return view('emails.subcriber');
 });
-Route::get('/reviewadd',function(){
-    Schema::table('categories', function ($table) {
+Route::get('/add',function(){
+    Schema::table('news', function ($table) {
         $table->softDeletes();
     });
 });

@@ -88,6 +88,42 @@ $(document).ready(function(){
         length_sel.removeClass('form-control-sm');
         });
     });
+
+    $(document).on('click','.delete',function(){
+        var id = $(this).attr("data-id");
+        $.ajax({
+            headers: {
+            'X-CSRF-TOKEN':  $('meta[name="csrf-token"]').attr('content')
+        },
+            method: 'GET',
+            url: '{{url('admin/news/delete')}}/'+id,
+            success: function(data) {
+                ToastSuccess(data.success);
+                $('#order-listing').DataTable().ajax.reload();
+            },
+            error: function(request, status) {
+                ToastError(request.responseText);
+            }
+        })
+    });
+
+    $(document).on('click','.sendMail',function(){
+        var id = $(this).attr("data-id");
+        $.ajax({
+            headers: {
+            'X-CSRF-TOKEN':  $('meta[name="csrf-token"]').attr('content')
+        },
+            method: 'GET',
+            url: '{{url('admin/news/sendmail')}}/'+id,
+            success: function(data) {
+                ToastSuccess(data.success);
+                $('#order-listing').DataTable().ajax.reload();
+            },
+            error: function(request, status) {
+                ToastError(request.responseText);
+            }
+        })
+    });
 </script>
 <script src="{{asset('@styleadmin/node_modules/datatables.net/js/jquery.dataTables.js')}}"></script>
 <script src="{{asset('@styleadmin/node_modules/datatables.net-bs4/js/dataTables.bootstrap4.js')}}"></script>

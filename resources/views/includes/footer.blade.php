@@ -44,6 +44,15 @@
             <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
                 <div class="v2_bnc_footer_bottom"><small class="copyright ">Thiết kế bởi <a rel="nofollow" href="https://fb.com/bossgin.vhb" target="_blank">Rog.vn</a></small></div>
             </div>
+            
+        </div>
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 v2_bnc_footer_left">
+                    <h4>Đăng ký nhận tin tức:</h4>
+                    <input type="email" id="reg-email" class="form-control" placeholder="Để lại email" name="email" required>
+                    <br/><button id="confirmEmail" class="button style-6">Xác Nhận</button>
+            </div>
+            
         </div>
     </div>
 </footer>

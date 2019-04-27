@@ -447,9 +447,35 @@
         });
     }
 
-    function btnCheckOut(){
-       
-    }
+    $('#confirmEmail').click(function(){
+        var storage = localStorage.getItem('subcriber');
+        if(storage == "YES"){
+            ToastError("Hệ thống ghi nhận bạn đã đăng ký nhận tin tức trên IP này");
+            console.log(storage);
+        } else {
+            var reg = $('#reg-email').val();
+            $.ajax({
+            headers: {
+                'X-CSRF-TOKEN':  $('meta[name="csrf-token"]').attr('content')
+            },
+            method: 'POST',
+            url: '{{route('subcriber.store')}}',
+            data:{email:reg},
+            dataType: 'json',
+                success: function(data) {
+                    setTimeout(function(){
+                        ToastSuccess(data.success);
+                        localStorage.setItem ('subcriber', 'YES');
+                    }, 800);
+                },
+                error: function(request, status) {
+                    $.each(request.responseJSON.errors,function(key,val){
+                        ToastError(val);
+                    });
+                }
+            });
+        }
+    });
     </script>
 </body>
 

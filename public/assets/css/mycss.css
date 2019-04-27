@@ -826,7 +826,11 @@ a.disabled {
     } 
 
     .titlenews {
-      font-size:16pt;
+      font-size:13pt;
       font-weight: bold;
       text-align: center;
+    }
+
+    .item-details > a {
+      color: #000;
     }
