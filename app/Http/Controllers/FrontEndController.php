@@ -20,6 +20,7 @@ use App\coupons;
 use Carbon\Carbon;
 use App\User;
 use Pusher\Pusher;
+
 use App\News;
 use VisitLog;
 use Cache;
@@ -97,6 +98,7 @@ class FrontEndController extends Controller
             'Address' => 'required',
             'Phone' => 'required|numeric',
             'password' => 'required',
+            'g-recaptcha-response' => 'required|recaptcha',
         ], [
             'email.required' => 'Vui lòng nhập email',
             'email.email' => 'Email không đúng định dạng',
@@ -106,7 +108,8 @@ class FrontEndController extends Controller
             'Address.required' => 'Vui lòng nhập địa chỉ',
             'Phone.required' => 'Vui lòng nhập số điện thoại',
             'Phone.numeric' => 'Số điện thoại phải là số',
-            'password.required' => 'Vui lòng nhập mật khẩu'
+            'password.required' => 'Vui lòng nhập mật khẩu',
+            'g-recaptcha-response.required' => 'Vui lòng xác thực phía dưới'
         ]);
 
         $User = new User;

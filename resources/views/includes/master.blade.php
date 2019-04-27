@@ -70,7 +70,7 @@
     <script src="{{ URL::asset('assets/js/wow.min.js')}}"></script>
     <script src="{{ URL::asset('assets/js/jquery.smooth-scroll.js')}}"></script>
     <!-- Bootstrap Core JavaScript -->
-    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script src="{{URL::asset('assets/js/jquery-ui.js')}}"></script>
     <script src="{{ URL::asset('assets/js/bootstrap.min.js')}}"></script>
     {{--
     <script src="{{ URL::asset('assets/js/lightbox.min.js')}}"></script>
@@ -88,7 +88,9 @@
     <script src="{{ URL::asset('assets/js/autocomplete.min.js')}}"></script>
     <script src="{{asset('@styleadmin/js/pusher.min.js')}}"></script>
     <script src="{{asset('@styleadmin/js/myjs.js')}}"></script>
-    
+    @if(!Auth::check())
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+    @endif
 
     <!-- js Page -->
     @yield('javascript')
@@ -109,8 +111,8 @@
 
 
     $("#LoginButton").click(function(){
-        var mail = $('#email').val();
-        var pw = $('#password').val();
+        var mail = $('#email2').val();
+        var pw = $('#password2').val();
         var dataString = "email="+mail+"&password="+pw;
         $.ajax({
             headers: {
@@ -133,29 +135,27 @@
         });
     });
 
-    $("#SignUpButton").click(function(){
-        var name = $('#nameR').val();
-        var email = $('#emailR').val();
-        var Address = $('#AddressR').val();
-        var Phone = $('#PhoneR').val();
-        var password = $('#passwordR').val();
-        var dataString = "name="+name+"&password="+password+"&email="+email+"&Address="+Address+"&Phone="+Phone;
+    $('#FormReg').on('submit',function(event){
+    event.preventDefault();
+    var data = new FormData(this);
         $.ajax({
             headers: {
                 'X-CSRF-TOKEN':  $('meta[name="csrf-token"]').attr('content')
             },
-            method: "POST",
+            method: 'POST',
             url: '{{route('user.signup')}}',
-            data:dataString,
-            success: function (data) {
-                ToastSuccess(data.success); 
+            data:data,
+            dataType:'JSON',
+            contentType:false,
+            cache:false,
+            processData:false,
+            success: function(data) {
+                ToastSuccess(data.success);
                 location.reload(true);
-
             },
-            error: function (request, status) {
-               
+            error: function(request, status) {
                 $.each(request.responseJSON.errors,function(key,val){
-                    ToastError(val);
+                ToastError(val);
                 });
             }
         });

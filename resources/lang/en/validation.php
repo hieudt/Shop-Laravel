@@ -98,7 +98,7 @@ return [
     | specify a specific custom language line for a given attribute rule.
     |
     */
-
+    'recaptcha' => 'Form đăng ký không dành cho robot',
     'custom' => [
         'attribute-name' => [
             'rule-name' => 'custom-message',

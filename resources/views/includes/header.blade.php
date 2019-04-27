@@ -140,9 +140,9 @@
                         <form class="form-horizontal">
                             <fieldset>
                                 <div class="group">
-                                    <input required="" class="input" type="text" placeholder="Email" id="email"><span class="highlight"></span><span class="bar"></span>
+                                    <input required="" class="input" type="text" placeholder="Email" id="email2"><span class="highlight"></span><span class="bar"></span>
                                 <div class="group">
-                                    <input required="" class="input" type="password" placeholder="Mật Khẩu" id="password"><span class="highlight"></span>
+                                    <input required="" class="input" type="password" placeholder="Mật Khẩu" id="password2"><span class="highlight"></span>
                                     <span class="bar"></span>
                                 </div>
                                 <div class="control-group">
@@ -163,29 +163,29 @@
 
 
                     <div class="tab-pane fade" id="signup">
-                        <form class="form-horizontal">
+                        <form id="FormReg" class="form-horizontal" method="POST">
                             <fieldset>
                                 <div class="group">
-                                    <input required="" class="input" type="text" id="nameR" placeholder="Họ và Tên"><span class="highlight"></span><span class="bar"></span>
+                                    <input required="" class="input" type="text" name="name" placeholder="Họ và Tên"><span class="highlight"></span><span class="bar"></span>
                                  
                                 <div class="group">
-                                    <input required="" class="input" type="email" id="emailR" placeholder="Email"><span class="highlight"></span><span class="bar"></span>
+                                    <input required="" class="input" type="email" name="email" placeholder="Email"><span class="highlight"></span><span class="bar"></span>
                                
                                 <div class="group">
-                                    <input required="" class="input" type="text" id="AddressR" placeholder="Địa chỉ"><span class="highlight"></span><span class="bar"></span>
+                                    <input required="" class="input" type="text" name="Address" placeholder="Địa chỉ"><span class="highlight"></span><span class="bar"></span>
                                 
                                 <div class="group">
-                                    <input required="" class="input" type="text" id="PhoneR" placeholder="Số Điện thoại"><span class="highlight"></span><span class="bar"></span>
+                                    <input required="" class="input" type="text" name="Phone" placeholder="Số Điện thoại"><span class="highlight"></span><span class="bar"></span>
                                   
                                 <div class="group">
-                                <input required="" class="input" type="password" id="passwordR" placeholder="Mật Khẩu"><span class="highlight"></span>
+                                <input required="" class="input" type="password" name="password" placeholder="Mật Khẩu"><span class="highlight"></span>
                                 <span class="bar"></span>
                                 
-
+                                <div class="g-recaptcha" data-sitekey="6LemlaAUAAAAAIeyg-ksAbIRzKROiSboePM6wjtZ"></div>
                                 <div class="control-group">
                                     <label class="control-label" for="confirmsignup"></label>
                                     <div class="controls">
-                                        <button type="button" class="button style-10" id="SignUpButton"><strong>Đăng ký</strong></button>
+                                        <button type="submit" class="button style-10" id="SignUpButton"><strong>Đăng ký</strong></button>
                                     </div>
 
                                 </div>
