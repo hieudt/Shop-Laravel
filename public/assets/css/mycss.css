@@ -824,3 +824,9 @@ a.disabled {
     nav ul li .botred:hover::after,nav ul li .botred:hover::before{
         width: 50%;
     } 
+
+    .titlenews {
+      font-size:16pt;
+      font-weight: bold;
+      text-align: center;
+    }

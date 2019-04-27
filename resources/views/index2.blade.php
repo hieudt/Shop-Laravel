@@ -356,6 +356,43 @@
         </div>
     </div>
 </section>
+
+<section class="wow fadeInUp testimonials hideme">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6 col-md-offset-3">
+                <div class="section-title">
+                    <ul class="nav nav-tabs home-tab" role="tablist">
+                        <li class="active"><a>Tin Tức</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-sm-12">
+                <div id="news" class="owl-carousel">
+                    @forelse ($news as $item)
+                    <div class="item">
+                        <div class="shadow-effect">
+                            <div class="item-details">
+                                <a href="tin-tuc/{{$item->slug}}"><img src="images/news/{{$item->thumbnail}}">
+                                <p class="titlenews">{{$item->title}}</p></a>
+                            </div>
+                        </div>
+                    </div>
+                    @empty
+                    <div class="item">
+                        <div class="shadow-effect">
+                            <i class="fa fa-quote-right"></i>
+                            <div class="item-details">
+                                <p>Không có dữ liệu</p>
+                            </div>
+                        </div>
+                    </div>
+                    @endforelse
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
 <!-- END OF TESTIMONIALS -->
 <!-- MODAL -->
 @include('includes.modalproduct')

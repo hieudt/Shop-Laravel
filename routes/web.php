@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use App\Notification;
 use App\User;
+use Intervention\Image\ImageManagerStatic as Image;
 use App\Pages;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Storage;
@@ -38,6 +39,8 @@ Route::get('fetchdata/colorforsize', 'FrontEndController@fetchColor')->name('fro
 Route::get('fetchdata/size', 'FrontEndController@fetchSize')->name('front.fetchsize');
 Route::get('/san-pham/{id}/{slug}', 'FrontEndController@productDetails');
 
+/* MODULE NEWS */
+Route::get('tin-tuc/{slug}','FrontEndController@news')->name('news.load');
 
 /* MODULE CART  */
 Route::get('cart', 'CartController@cart')->name('cart.index');
@@ -233,10 +236,10 @@ Route::get('/cv', function () {
     dd($output);
 });
 
-Route::get('/top', function () {
-    Cart::add(1,'Ao1',3,5000);
-    Cart::add(2,'Ao2',3,5000);
-    dd(Cart::content());    
+Route::get('/test', function () {
+    $img = Image::make('images/product/7tYk_truc-that.jpg')->resize(300, 200);
+    
+    return $img->response('jpg'); 
 });
 Route::get('/reviewadd',function(){
     Schema::table('categories', function ($table) {

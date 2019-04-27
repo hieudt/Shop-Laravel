@@ -1,6 +1,15 @@
 @extends('admin.master')
 @section('title','Danh sách tin tức')
 @section('css')
+<style>
+    .table td img {
+        width:auto !important;
+        height:auto !important;
+        border-radius:0 !important;
+    }
+
+    button { height: 40px; }
+</style>
 <link rel="stylesheet" href="{{asset('@styleadmin/node_modules/datatables.net-bs4/css/dataTables.bootstrap4.css')}}">
 @endsection
 @section('content')

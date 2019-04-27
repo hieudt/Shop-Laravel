@@ -172,6 +172,9 @@ return [
         ConsoleTVs\Charts\ChartsServiceProvider::class,
         Sarfraznawaz2005\VisitLog\VisitLogServiceProvider::class,
         Nestable\NestableServiceProvider::class,
+        Intervention\Image\ImageServiceProvider::class,
+
+
         /*
          * Package Service Providers...
          */
@@ -241,6 +244,7 @@ return [
         'Charts' => ConsoleTVs\Charts\Facades\Charts::class,
         'VisitLog' => Sarfraznawaz2005\VisitLog\Facades\VisitLog::class,
         'Nestable' => Nestable\Facades\NestableService::class,
+        'Image' => Intervention\Image\Facades\Image::class,
 
     ],
 

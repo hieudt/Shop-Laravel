@@ -20,6 +20,7 @@ use App\coupons;
 use Carbon\Carbon;
 use App\User;
 use Pusher\Pusher;
+use App\News;
 use VisitLog;
 use Cache;
 
@@ -44,7 +45,8 @@ class FrontEndController extends Controller
         $discounts = Product::where('discount', '>', '0')->orderBy('id', 'desc')->take(8)->get();
         $coupons = coupons::where('Date', '>', now())->where('typeEnable', '0')->get();
         $brands = Brand::all();
-        return view('index2', compact('features', 'lastes', 'discounts', 'coupons','brands'));
+        $news = News::orderBy('created_at','desc')->get();
+        return view('index2', compact('features', 'lastes', 'discounts', 'coupons','brands','news'));
     }
 
     public function productDetails($id, $slug)
@@ -54,6 +56,11 @@ class FrontEndController extends Controller
         $reviews = Review::where('id_product', $id)->orderBy('created_at','DESC')->get();
         $relateds = Product::where('id_sub', $productdata->id_sub)->where('id', '!=', $productdata->id)->take(8)->get();
         return view('product', compact('productdata', 'gallery', 'reviews', 'relateds'));
+    }
+
+    public function news($slug){
+        $news = News::where('slug',$slug)->get();
+        return view('tintuc',compact('news'));
     }
 
     public function loginPost(Request $req)
