@@ -5,11 +5,9 @@ namespace App\Http\Controllers;
 use App\Review;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use App\Bill;
-use App\Detailsbill;
-use App\Product;
 use Carbon\Carbon;
 use App\User;
+use Yajra\DataTables\Datatables;
 class ReviewController extends Controller
 {
     /**
@@ -19,7 +17,7 @@ class ReviewController extends Controller
      */
     public function index()
     {
-        //
+        return view('admin.review.list');
     }
 
     /**
@@ -116,9 +114,15 @@ class ReviewController extends Controller
      * @param  \App\Review  $review
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Review $review)
+    public function destroy($id)
     {
-        //
+        $Review = Review::find($id);
+        if ($Review) {
+                $Review->delete();
+                return response()->json(['success' => 'Xóa thành công']);
+        } else {
+            return response('Thất bại', 422);
+        }
     }
 
     public function fetch(Request $request){
@@ -160,6 +164,29 @@ class ReviewController extends Controller
 
             echo json_encode($data);
         }
+    }
+
+    public function fetchBackend(){
+        $data = Review::with('User')->get();
+
+        return Datatables::of($data)
+        ->editColumn('id_product',function($data){
+            return $data->Product->title;
+        })
+        ->editColumn('id_users', function ($data) {
+            $text = '<table class="table table-bordered"><tbody> <tr> <td>Email</td>';
+            $text .= "<td> " . $data->User->email . "</td></tr>";
+            $text .= "<tr><td>Địa chỉ</td><td>" . $data->User->Address . "</td></tr>";
+            $text .= "<tr><td>Số Điện Thoại</td><td>" . $data->User->Phone . "</td></tr>";
+            if ($data->User->provider == "")
+                $text .= "<tr><td>Loại TK </td><td>Người Dùng</td></tr>";
+            else
+                $text .= "<tr><td>Loại TK </td><td>" . $data->User->provider . "</td></tr>";
+            return '<div class="tool">' . $data->User->name . '<span class="tool2">' . $text . '</span></div>';
+        })
+        ->addColumn('action', function ($ship) {
+            return '<button class="btn btn-outline-danger delete" data-id="' . $ship->id . '">Xóa </button>';
+        })->rawColumns(['action','id_users','id_product'])->make(true);
     }
 
     public function hasOwnerProduct($idproduct){

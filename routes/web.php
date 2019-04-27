@@ -175,6 +175,10 @@ Route::group(['prefix' => 'admin', 'middleware' => 'adminLogin'], function () {
     Route::post('shipper/update', 'ShipperController@update')->name('shipper.update');
     Route::post('shipper/store', 'ShipperController@store')->name('shipper.store');
 
+    Route::get('reviews','ReviewController@index')->name('review.list');
+    Route::get('reviews/fetchBackend','ReviewController@fetchBackend')->name('review.fetchbackend');
+    Route::get('reviews/delete/{id}', 'ReviewController@destroy')->name('review.destroy');
+
     Route::get('getapi/minmax/{min}/{max}', 'ApiController@minmax')->name('getapi.minmax');
     Route::get('getapi/service/{msg}', 'ApiController@service')->name('getapi.service');
 
@@ -183,13 +187,7 @@ Route::group(['prefix' => 'admin', 'middleware' => 'adminLogin'], function () {
 
 
 Route::get('checkProduct', function () {
-    $data = User::all();
-    foreach ($data as $usr) {
-        $usr['SoBill'] = $usr->getCountBill($usr->id);
-        $usr['TotalMoney'] = $usr->getTotalMoney($usr->id);
-    }
-
-    return response()->json($data);
+    
 });
 
 Route::get('reset', function () {
@@ -234,11 +232,12 @@ Route::get('/top', function () {
     Cart::add(2,'Ao2',3,5000);
     dd(Cart::content());    
 });
-Route::get('/check',function(){
-   $da = Cart::instance('wishlist')->get("9495baa865c5f5de28e060aeaea8dd4a");
-    dd($da);
+Route::get('/reviewadd',function(){
+    Schema::table('categories', function ($table) {
+        $table->softDeletes();
+    });
 });
 
-Route::get('deletecache',function(){
-    Cache::pull('categorycache');
+Route::get('delete',function(){
+    App\Category::withTrashed()->restore();
 });

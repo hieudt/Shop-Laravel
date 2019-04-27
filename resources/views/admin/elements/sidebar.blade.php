@@ -92,6 +92,12 @@
             </a>
     </li>
     <li class="nav-item">
+      <a class="nav-link" href="{{url('admin/reviews')}}">
+          <i class="mdi mdi-account-star menu-icon"></i>
+          <span class="menu-title">Đánh Giá</span>
+        </a>
+    </li>
+    <li class="nav-item">
       <a class="nav-link collapsed" data-toggle="collapse" href="#social" aria-expanded="false" aria-controls="products">
                 <i class="mdi mdi-file-document menu-icon"></i>
                 <span class="menu-title">Kênh Bán Hàng</span>
