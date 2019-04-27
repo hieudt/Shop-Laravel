@@ -199,6 +199,7 @@
                                             <li><a href="#" data-tip="Add to Wishlist" data-product="{{$CountForm}}" class="add-to-wish"><i class="fa fa-shopping-bag fa-fix"></i></a></li>
                                             <li><a href="#" data-tip="Add to Cart"><i class="fa fa-shopping-cart fa-fix"></i></a></li>
                                         </ul>
+                                        <span class="product-new-label">New</span>
                                         @if($product->discount>0)
                                         <span class="product-discount-label">-{{$product->discount}}%</span>
                                         @endif
@@ -248,7 +249,7 @@
                                             <li><a href="#" data-tip="Add to Wishlist" data-product="{{$CountForm}}" class="add-to-wish"><i class="fa fa-shopping-bag fa-fix"></i></a></li>
                                             <li><a href="#" data-tip="Add to Cart"><i class="fa fa-shopping-cart fa-fix"></i></a></li>
                                         </ul>
-                                        <span class="product-new-label">New</span>
+                                        
                                         @if($product->discount>0)
                                         <span class="product-discount-label">-{{$product->discount}}%</span>
                                         @endif

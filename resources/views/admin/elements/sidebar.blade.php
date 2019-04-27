@@ -80,6 +80,24 @@
       </div>
     </li>
     <li class="nav-item">
+      <a class="nav-link collapsed" data-toggle="collapse" href="#news" aria-expanded="false" aria-controls="products">
+            <i class="mdi mdi-rss menu-icon"></i>
+            <span class="menu-title">Tin Tức</span>
+            <i class="menu-arrow"></i>
+          </a>
+      <div id="news" class="collapse" style>
+        <ul class="nav flex-column sub-menu">
+          <li class="nav-item">
+            <a href="{{url('admin/news/home')}}" class="nav-link">Danh sách</a>
+          </li>
+          <li class="nav-item">
+            <a href="{{url('admin/news/add-news')}}" class="nav-link">Tạo tin tức</a>
+          </li>
+
+        </ul>
+      </div>
+    </li>
+    <li class="nav-item">
       <a class="nav-link" href="{{url('admin/coupons/')}}">
             <i class="mdi mdi-barcode menu-icon"></i>
             <span class="menu-title">Mã Giảm Giá</span>

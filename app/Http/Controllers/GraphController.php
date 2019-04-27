@@ -91,9 +91,7 @@ class GraphController extends Controller
         $page_id = '491152857694713';
         try {
             $post = $this->api->get('/' . $page_id . '/feed/?fields=reactions.type(LIKE).summary(total_count)')->getGraphEdge()->asArray();
-
             dd($post);
-
         } catch (FacebookSDKException $e) {
             dd($e); // handle exception
         }

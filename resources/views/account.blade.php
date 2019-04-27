@@ -3,7 +3,6 @@
 @section('content')
 <section class="go-section">
     <div class="container">
-
         <div class="col-sm-3">
             <nav class="nav-sidebar">
                 <ul class="nav tabs">
@@ -13,8 +12,8 @@
                     <li class=""><a href="#magiamgia" data-toggle="tab">Mã giảm giá</a></li>
                     <li class="">
                         <a href="{{ route('front.logout') }}">
-                                <i class="fa fa-fw fa-power-off"></i> Đăng Xuất
-                            </a>
+                        <i class="fa fa-fw fa-power-off"></i> Đăng Xuất
+                    </a>
                     </li>
                 </ul>
             </nav>

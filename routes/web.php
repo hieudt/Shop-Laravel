@@ -141,7 +141,13 @@ Route::group(['prefix' => 'admin', 'middleware' => 'adminLogin'], function () {
     Route::post('product/brand', 'BrandController@store')->name('brand.store');
     Route::post('product/brand/update','BrandController@update')->name('brand.update');
     Route::get('product/brand/fetch','BrandController@fetch')->name('brand.fetch');
-    
+
+    Route::get('news/home','NewsController@index')->name('news.list');
+    Route::get('news/fetch','NewsController@fetch')->name('news.fetch');
+    Route::get('news/add-news','NewsController@create')->name('news.create');
+    Route::get('news/edit/{id}','NewsController@edit')->name('news.edit');
+    Route::post('news/add-news','NewsController@store')->name('news.store');
+    Route::post('news/edit/{id}','NewsController@update')->name('news.update');
 
 
     Route::get('notification/getcount', 'NotificationController@getAllCountNotify')->name('notif.countall');
