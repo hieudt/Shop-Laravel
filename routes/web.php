@@ -119,6 +119,7 @@ Route::group(['prefix' => 'admin', 'middleware' => 'adminLogin'], function () {
    
     /* SOCIAL MODULE */
     Route::get('/social/zalo', 'ZaloSocial@index')->name('admin.zalo.index');
+    Route::get('/social/facebook','GraphController@index')->name('admin.facebook.index');
     Route::get('/kenhbanhang', 'SocialController@index')->name('admin.zalo.index');
     Route::post('kenhbanhang/updatezalo','SocialController@updateZalo')->name('admin.zalo.update');
     Route::post('kenhbanhang/updatefacebook','SocialController@updateFacebook')->name('admin.facebook.update');

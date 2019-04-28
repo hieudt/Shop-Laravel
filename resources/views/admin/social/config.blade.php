@@ -94,6 +94,7 @@
                                         </div>
                                         <button type="button" class="btn btn-success mr-2" id="FacebookUpdate">Lưu</button>
                                         <button class="btn btn-light">Cancel</button>
+                                        <a href="https://developers.facebook.com/tools/explorer/"><button class="btn btn-danger">Get Access Token</button></a>
                                     </form>
                                 </div>
                             </div>

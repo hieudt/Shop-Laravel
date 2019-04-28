@@ -127,7 +127,7 @@
             <a href="{{url('admin/social/zalo')}}" class="nav-link">Zalo</a>
           </li>
           <li class="nav-item">
-            <a href="{{url('admin/bill/add')}}" class="nav-link">Facebook</a>
+            <a href="{{url('admin/social/facebook')}}" class="nav-link">Facebook</a>
           </li>
     
         </ul>

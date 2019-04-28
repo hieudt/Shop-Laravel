@@ -28,7 +28,29 @@ class GraphController extends Controller
             return $next($request);
         });
     }
- 
+    
+    public function index(){
+        $page_id = $this->pagesid;
+        try {
+            // reactions.type(LIKE)
+            $post = $this->api->get('/' . $page_id . '/feed/?fields=reactions.summary(total_count)', $this->getPageAccessToken($page_id))->getGraphEdge();
+            $ar = $post->asArray();
+            $totalreact = 0;
+            $totalPost = count($ar);
+            foreach ($ar as $node) {
+                $totalreact += count($node['reactions']);
+            }
+            echo $totalreact;
+            $infopages = $this->api->get('/' . $page_id)->getGraphNode()->asArray();
+
+        } catch (FacebookSDKException $e) {
+            
+            dd($e);
+            //return view('admin.social.facebook.dietoken');
+        }
+        return view('admin.social.facebook.timeline',compact('infopages','totalreact','totalPost'));
+    }
+
     public function retrieveUserProfile(){
         try {
  
@@ -103,6 +125,10 @@ class GraphController extends Controller
         }
     }
 
+    public function getDescriptionPage(){
+        
+    }
+
     //Upload Bài Viết Lên FanPages
     public function publishToPage(Request $req){
         if($req->ajax()){
@@ -113,7 +139,6 @@ class GraphController extends Controller
             
 
             $page_id = $this->pagesid;
-            dd($this->getPageAccessToken($this->pagesid));
             $path = public_path()."/images/product/".$data->thumbnail;
             $msg1 = "☀️ HẾ LÔ SUMMER CÙNG  " . $data->title . "\n";
             $msg1 .= "🔺 COTTON MỀM MẠI, siêu lí tưởng cho ngày nắng bớt nóng! \n";
