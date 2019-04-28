@@ -77,7 +77,10 @@ Route::post('reviews','ReviewController@store')->name('review.store');
 Route::post('/users/login', 'FrontEndController@loginPost')->name('user.login');
 Route::get('/users/logout', 'FrontEndController@logoutIndex')->name('front.logout');
 Route::post('/users/signup', 'FrontEndController@signUpPost')->name('user.signup');
-
+Route::get('/forgot','FrontEndController@forgotview');
+Route::post('/forgot','Auth\ForgotPasswordController@sendmailForgot')->name('user.forgot');
+Route::get('/users/forgotpass/tokenauth/{token}','Auth\ForgotPasswordController@forgotconfirm');
+Route::post('/forgot/accept', 'Auth\ForgotPasswordController@forgotaccept')->name('forgot.accept');
 /* MODULE SOCIAL */
 Route::get('/redirect/{social}', 'SocialFacebook@redirectToProvider')->name('facebook.login');;
 Route::get('/callback/{social}', 'SocialFacebook@handleProviderCallback');
@@ -93,6 +96,8 @@ Route::group(['prefix' => 'users', 'middleware' => 'frontLogin'], function () {
     Route::post('/users/update', 'UsersProfileController@update')->name('profile.update');
     Route::post('/users/changepass', 'UsersProfileController@changePass')->name('profile.changepass');
 });
+
+Route::get('/admin/safemode/tokenauth/{token}', 'SafeModeController@rememberauth');
 
 Route::group(['prefix' => 'admin', 'middleware' => 'adminLogin'], function () {
     Route::get('/bpc', function () {
@@ -115,7 +120,7 @@ Route::group(['prefix' => 'admin', 'middleware' => 'adminLogin'], function () {
 
     /* SAFE MODE */
     Route::post('safemode/alertlog','SafeModeController@AlertLogin')->name('admin.safemode.alertlogin');
-    Route::get('safemode/tokenauth/{token}','SafeModeController@rememberauth');
+    
     Route::get('safemode/config','SafeModeController@config')->name('admin.safemode.config');
 
     Route::get('users', 'UserController@index')->name('users.list');

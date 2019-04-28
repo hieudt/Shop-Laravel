@@ -89,7 +89,7 @@
     <script src="{{asset('@styleadmin/js/pusher.min.js')}}"></script>
     <script src="{{asset('@styleadmin/js/myjs.js')}}"></script>
     @if(!Auth::check())
-    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+    {{-- <script src="https://www.google.com/recaptcha/api.js" async defer></script> --}}
     @endif
 
     <!-- js Page -->
@@ -161,25 +161,29 @@
         });
     });
     function loadWish(){
-            $.ajax({
-            headers: {
-                'X-CSRF-TOKEN':  $('meta[name="csrf-token"]').attr('content')
+        $.ajax({
+        headers: {
+            'X-CSRF-TOKEN':  $('meta[name="csrf-token"]').attr('content')
+        },
+        method: 'GET',
+        url: '{{route('wishlist.show')}}',
+        dataType: 'json',
+            success: function(data) {
+            $('#ListWishlist').html(data.list);
+            // $('#grandtotal').html(data.total);
+            $('#wishlistcount').html('('+data.count+')');
             },
-            method: 'GET',
-            url: '{{route('wishlist.show')}}',
-            dataType: 'json',
-                success: function(data) {
-                $('#ListWishlist').html(data.list);
-                // $('#grandtotal').html(data.total);
-                $('#wishlistcount').html('('+data.count+')');
-                },
-                error: function(html, status) {
-                    $.each(request.responseJSON.errors,function(key,val){
-                        ToastError(val);
-                    });
-                }
-            });
-        }
+            error: function(html, status) {
+                $.each(request.responseJSON.errors,function(key,val){
+                    ToastError(val);
+                });
+            }
+        });
+    }
+
+    $('#openLoginSignup').click(function(){
+        $.getScript("https://www.google.com/recaptcha/api.js");
+    });
     function loadCart(){
         $.ajax({
         headers: {

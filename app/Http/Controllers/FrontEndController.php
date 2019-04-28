@@ -344,6 +344,8 @@ class FrontEndController extends Controller
         }
     }
 
-
+    public function forgotview(){
+        return view('forgot');
+    }
  
 }

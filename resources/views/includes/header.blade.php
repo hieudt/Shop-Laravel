@@ -18,7 +18,7 @@
                     </div>
                     @if(!Auth::check())
                     <div class="header-top-entry increase-icon-responsive login">
-                        <a href="#signup" data-toggle="modal" data-target=".log-sign" class="title"><i class="fa fa-user"></i> <span>Tài khoản của tôi</span></a>
+                        <a href="#signup" id="openLoginSignup" data-toggle="modal" data-target=".log-sign" class="title"><i class="fa fa-user"></i> <span>Tài khoản của tôi</span></a>
                     </div>
                     @else
                     <div class="header-top-entry increase-icon-responsive login">
@@ -154,7 +154,13 @@
                                 <div class="control-group">
                                     <label class="control-label" for="confirmsignup"></label>
                                     <div class="controls">
-                                        <a href="{{url('/redirect/facebook')}}" class="button style-10" id="FBLogin"><strong>Đăng nhập với FB</strong></a>
+                                        <a href="{{url('/forgot')}}">Quên mật khẩu</a>
+                                    </div>
+                                </div>
+                                <div class="control-group">
+                                    <label class="control-label" for="confirmsignup"></label>
+                                    <div class="controls">
+                                        <a href="{{url('/redirect/facebook')}}" class="button facebook" id="FBLogin"><strong><i class="fa fa-facebook"></i>Đăng nhập với FB</strong></a>
                                     </div>
                                 </div>
                             </fieldset>
