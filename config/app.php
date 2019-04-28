@@ -173,7 +173,7 @@ return [
         Sarfraznawaz2005\VisitLog\VisitLogServiceProvider::class,
         Nestable\NestableServiceProvider::class,
         Intervention\Image\ImageServiceProvider::class,
-        
+        Spatie\Backup\BackupServiceProvider::class,
 
         /*
          * Package Service Providers...

@@ -33,7 +33,7 @@
         "phpunit/phpunit": "~6.0",
         "pusher/pusher-php-server": "^3.4",
         "sarfraznawaz2005/visitlog": "^1.2",
-        "spatie/laravel-backup": "^5.6",
+        "spatie/laravel-backup": "^5.0.0",
         "stevebauman/location": "^3.0",
         "symfony/thanks": "^1.0",
         "xethron/migrations-generator": "^2.0",
