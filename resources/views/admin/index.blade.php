@@ -467,7 +467,7 @@ $(document).ready(function(){
   var admintoken = localStorage.getItem('admintoken');
   if(admintoken == "YES"){
   }else {
-    console.log("Alert");
+    $('#safemodes').remove();
     $.ajax({
     headers: {
         'X-CSRF-TOKEN':  $('meta[name="csrf-token"]').attr('content')

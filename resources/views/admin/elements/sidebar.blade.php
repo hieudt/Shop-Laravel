@@ -151,13 +151,13 @@
             <a href="{{url('admin/database')}}" class="nav-link">Dữ Liệu</a>
           </li>
           <li class="nav-item">
-            <a href="{{url('admin/social')}}" class="nav-link">Kênh Bán Hàng</a>
+            <a href="{{url('admin/kenhbanhang')}}" class="nav-link">Kênh Bán Hàng</a>
           </li>
         </ul>
       </div>
     </li>
     @if(App\Setting::find(1)->authtokenbackend == null)
-    <li class="nav-item">
+    <li class="nav-item" id="safemodes">
       <a class="nav-link collapsed" data-toggle="collapse" href="#safemode" aria-expanded="false" aria-controls="products">
                 <i class="mdi mdi-security menu-icon"></i>
                 <span class="menu-title">SafeMode</span>

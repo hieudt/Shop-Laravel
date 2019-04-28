@@ -116,7 +116,12 @@ Route::group(['prefix' => 'admin', 'middleware' => 'adminLogin'], function () {
     Route::get('/config','SettingsController@index');
     Route::post('/config/ui','SettingsController@updateui')->name('admin.config.update.ui');
     Route::post('/config/sociallinks','SettingsController@sociallinks')->name('admin.config.update.sociallinks');
+   
+    /* SOCIAL MODULE */
     Route::get('/social/zalo', 'ZaloSocial@index')->name('admin.zalo.index');
+    Route::get('/kenhbanhang', 'SocialController@index')->name('admin.zalo.index');
+    Route::post('kenhbanhang/updatezalo','SocialController@updateZalo')->name('admin.zalo.update');
+    Route::post('kenhbanhang/updatefacebook','SocialController@updateFacebook')->name('admin.facebook.update');
 
     /* SAFE MODE */
     Route::post('safemode/alertlog','SafeModeController@AlertLogin')->name('admin.safemode.alertlogin');
@@ -156,6 +161,7 @@ Route::group(['prefix' => 'admin', 'middleware' => 'adminLogin'], function () {
     Route::post('product/brand', 'BrandController@store')->name('brand.store');
     Route::post('product/brand/update','BrandController@update')->name('brand.update');
     Route::get('product/brand/fetch','BrandController@fetch')->name('brand.fetch');
+    Route::post('product/postfacebook','GraphController@publishToPage')->name('product.upfacebook');
 
     Route::get('news/tintuc','NewsController@index')->name('news.list');
     Route::get('news/fetch','NewsController@fetch')->name('news.fetch');
@@ -205,7 +211,7 @@ Route::group(['prefix' => 'admin', 'middleware' => 'adminLogin'], function () {
     Route::get('getapi/minmax/{min}/{max}', 'ApiController@minmax')->name('getapi.minmax');
     Route::get('getapi/service/{msg}', 'ApiController@service')->name('getapi.service');
 
-    Route::post('facebookservice/postFanpage', 'GraphController@publishToPage')->name('fb.page.post');
+    
 });
 
 

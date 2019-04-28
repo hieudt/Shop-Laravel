@@ -30,7 +30,7 @@ class ZaloSocial extends Controller
         if($zalo == 0){
             return response()->json(['errors'=>['fail'=>['Bạn chưa cấu hình zalo vui lòng cấu hình app id và app serect']]],422);
         }
-        $zalo2 = Zalo::find(1);
+        $zalo2 = Zalo::where('name','Zalo')->first();
         $client = new Client();
         $res = $client->request('GET','https://graph.zalo.me/v2.0/me/invitable_friends?access_token='.$zalo2->app_token.'&fields=id,name,birthday,picture,gender&limit=1000');
         $response_data = "rooxng";

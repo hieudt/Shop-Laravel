@@ -470,7 +470,7 @@
             processData:false,
             success: function(data) {
                 ToastSuccess(data.success);
-                postFanpage();
+                
             },
             error: function(request, status) {
                 if(request.responseText == 1)

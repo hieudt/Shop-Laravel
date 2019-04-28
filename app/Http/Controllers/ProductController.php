@@ -99,6 +99,7 @@ class ProductController extends Controller
                     $output .= '<td><label class="badge badge-danger badge-pill">Không </label></td>';
                      $output .= '<td><a href="edit/'.$row->id.'"><button class="btn btn-outline-primary edited" id="' . $row->id . '" title="' . $row->title . '" slug="' . $row->slug . '">Sửa</button></a>
                      <button type="button" class="btn btn-outline-danger delete" id="' . $row->id . '">Xóa</button>
+                     <button type="button" class="btn btn-outline-success upfb" id="'.$row->id.'">Up FB Pages</button>
                      </td>
                      </tr>
                     ';

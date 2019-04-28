@@ -118,6 +118,7 @@ class FrontEndController extends Controller
         $User->Address = $req->Address;
         $User->Phone = $req->Phone;
         $User->password = bcrypt($req->password);
+        $User->role = 0;
 
         $User->save();
 

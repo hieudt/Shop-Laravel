@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use ConsoleTVs\Charts\Facades\Charts;
 use Carbon\Carbon;
+use App\User;
 use Yajra\Datatables\Datatables;
 class AdminPages extends Controller
 {
@@ -76,6 +77,10 @@ class AdminPages extends Controller
             'email.required' => 'Vui lòng nhập email',
             'password.required' => 'Vui lòng nhập password'
         ]);
+
+        if(User::where('email',$req->email)->first()->role == 0){
+            return response()->json(['errors' => ['faillogin' => [0 => 'Sai tên tài khoản hoặc mật khẩu']]], 422);
+        }
 
         if (Auth::attempt(['email' => $req->email, 'password' => $req->password])) {
             return response()->json(['success' => 'Đăng nhập thành công']);

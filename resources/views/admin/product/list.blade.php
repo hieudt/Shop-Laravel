@@ -106,6 +106,30 @@ $(document).ready(function(){
 
     fetch_product();
     $('[data-toggle="tooltip"]').tooltip(); 
+    function postFanpage(id){
+        $.ajax({
+            headers: {
+                'X-CSRF-TOKEN':  $('meta[name="csrf-token"]').attr('content')
+            },
+            method: 'POST',
+            url: '{{route('product.upfacebook')}}',
+            data:{id:id},
+                success: function(data) {
+                    ToastSuccess(data.success);
+                },
+                error: function(request, status) {
+                    $.each(request.responseJSON.errors,function(key,val){
+                        ToastError(val);
+                    });
+                }
+        });
+    }
+
+    $(document).on('click','.upfb',function(){
+        var id = $(this).attr("id");
+        postFanpage(id);
+    });
+
     function fetch_product(query = '')
     {
             $.ajax({

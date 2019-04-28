@@ -4,7 +4,7 @@ namespace App\Providers;
  
 use Facebook\Facebook;
 use Illuminate\Support\ServiceProvider;
- 
+use App\Zalo; 
 class FacebookServiceProvider extends ServiceProvider
 {
     /**
@@ -25,6 +25,7 @@ class FacebookServiceProvider extends ServiceProvider
     public function register()
     {
         $this->app->singleton(Facebook::class, function ($app) {
+            
             $config = config('services.facebook');
             return new Facebook([
                 'app_id' => $config['client_id'],
