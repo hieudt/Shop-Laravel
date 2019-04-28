@@ -9,6 +9,7 @@ use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Cache;
 use App\Category;
+use App\Setting;
 use App\Pages;
 class Controller extends BaseController
 {
@@ -33,6 +34,15 @@ class Controller extends BaseController
             Cache::put('pagescache', $pages, 3);
             view()->share('pages', $pages);
         }
+
+        if (Cache::has('settingcache')) {
+            $setting = Cache::get('settingcache');
+            view()->share('setting', $setting);
+        } else {
+            $setting = Setting::find(1);
+            Cache::put('settingcache', $setting, 3);
+            view()->share('setting', $setting);
+        } 
     }
 
 

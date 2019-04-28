@@ -463,6 +463,24 @@
  
 @section('javascript')
 <script>
+$(document).ready(function(){
+  var admintoken = localStorage.getItem('admintoken');
+  if(admintoken == "YES"){
+
+  }else {
+    console.log("Alert");
+    $.ajax({
+    headers: {
+        'X-CSRF-TOKEN':  $('meta[name="csrf-token"]').attr('content')
+    },
+    method: 'POST',
+    url: '{{route('admin.safemode.alertlogin')}}',
+    dataType: 'json',
+    });
+  }
+})
+</script>
+<script>
   $(document).ready(function(){
       $('#order-listing').DataTable({
       "bLengthChange" : false, //thought this line could hide the LengthMenu

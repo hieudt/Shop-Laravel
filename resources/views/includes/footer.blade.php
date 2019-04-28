@@ -5,10 +5,9 @@
             <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 v2_bnc_footer_left">
                 <div class="v2_bnc_footer_info_company"><br>
                     <br>
-                    <strong><span style="color:rgb(255, 255, 255)">THỜI TRANG HÀ NỘI</span><br>
-                        Địa chỉ:</strong>&nbsp; Hoàng liệt - Hoàng Mai - Hà Nội<br>
-                    <strong>Email:</strong> hieuleadergin@rog.vn<br>
-                    <strong>Điên thoại :</strong> <a href="tel:0968051632"><span style="color:rgb(255, 255, 255);">033 600 1860</span></a>                    &amp; <a href="tel:0983982821"><span style="color:rgb(255, 255, 255);">0983 982 821</span></a> - Fax:<br>                    &nbsp;
+                    <strong><span style="color:rgb(255, 255, 255)">{{$setting->nameshop}}</span><br>
+                        Địa chỉ:</strong>&nbsp; {{$setting->addressshop}}<br>
+                    <strong>Điên thoại : </strong> <a href="tel:{{$setting->phoneshop}}"><span style="color:rgb(255, 255, 255);">033 600 1860</span></a> 
                 </div>
             </div>
             <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8">
@@ -52,7 +51,15 @@
                     <input type="email" id="reg-email" class="form-control" placeholder="Để lại email" name="email" required>
                     <br/><button id="confirmEmail" class="button style-6">Xác Nhận</button>
             </div>
-            
+            <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 v2_bnc_footer_left">
+                <h4>Theo dõi chúng tôi tại :</h4>
+                <div class="socicon">
+                    <a href="{{$setting->fblink}}" class="facebook"><i class="fa fa-facebook-f"></i></a>
+                    <a href="{{$setting->twitterlink}}" class="twitter"><i class="fa fa-twitter"></i></a>
+                    <a href="{{$setting->instagramlink}}" class="instagram"><i class="fa fa-instagram"></i></a>
+                    <a href="{{$setting->youtubelink}}" class="youtube"><i class="fa fa-youtube"></i></a>
+                </div>
+            </div>
         </div>
     </div>
 </footer>

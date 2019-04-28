@@ -97,5 +97,4 @@
   <!-- End custom js for this page-->
 </body>
   @include('admin.elements.siri')
-
 </html>

@@ -1014,7 +1014,7 @@ footer{
         margin: 0px;
 }
 .socicon{
-    padding: 50px 0px;
+    padding: 0px 0px;
 }
 .socicon a{
     color: #FFF;
@@ -1028,8 +1028,40 @@ footer{
     -webkit-border-radius: 50%;
     -moz-border-radius: 50%;
     border-radius: 50%;
-
     margin: 0 3px 10px
+}
+
+.socicon a i {
+    margin-top:10px;
+}
+
+.facebook {
+    background: #3b5998;
+    border : 1px solid #3b5998;
+}
+
+.twitter {
+    border: 1px solid #0084b4;
+    background: #0084b4;
+}
+
+.instagram {
+    background: linear-gradient(45deg, #405de6,#5851db, #833ab4, #c13584, #e1306c, #fd1d1d);
+    border: 1px solid linear-gradient(45deg, #405de6,#5851db, #833ab4, #c13584, #e1306c, #fd1d1d);
+}
+
+.youtube {
+    border: 1px solid red;
+    background: red;
+}
+
+.instagram:hover {
+    border: 1px solid #833ab4;
+}
+
+.youtube:hover{
+    border: 1px solid red;
+    background: red;
 }
 
 .facebook:hover{

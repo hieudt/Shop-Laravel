@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Setting;
+use Cache;
 class SettingsController extends Controller
 {
     public function index(){
@@ -13,6 +14,7 @@ class SettingsController extends Controller
 
     public function updateui(Request $req){
         if($req->ajax()){
+            
             $data = Setting::find(1);
             $oldColor = $data->theme_color;
             $newColor = $req->colorValue;
@@ -28,8 +30,25 @@ class SettingsController extends Controller
             file_put_contents($fileStyle2, $file2_contents);
             
             $data->theme_color = $newColor;
+            $data->nameshop = $req->nameshop;
+            $data->addressshop = $req->addressshop;
+            $data->phoneshop = $req->phoneshop;
+            Cache::pull('settingcache');
             $data->save();
-            response()->json(['success'=>'Cập nhật thành công']);
+            return response()->json(['success'=>'Cập nhật thành công']);
+        }
+    }
+
+    public function sociallinks(Request $req){
+        if($req->ajax()){
+            $data = Setting::find(1);
+            $data->fblink = $req->fblink;
+            $data->twitterlink = $req->twitterlink;
+            $data->instagramlink = $req->instagramlink;
+            $data->youtubelink = $req->youtubelink;
+            Cache::pull('settingcache');
+            $data->save();
+            return response()->json(['success'=>'Cập nhật thành công']);
         }
     }
 }

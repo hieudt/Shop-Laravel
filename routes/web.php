@@ -110,7 +110,11 @@ Route::group(['prefix' => 'admin', 'middleware' => 'adminLogin'], function () {
     Route::get('/database','DatabaseController@index')->name('admin.db.index');
     Route::get('/config','SettingsController@index');
     Route::post('/config/ui','SettingsController@updateui')->name('admin.config.update.ui');
+    Route::post('/config/sociallinks','SettingsController@sociallinks')->name('admin.config.update.sociallinks');
     Route::get('/social/zalo', 'ZaloSocial@index')->name('admin.zalo.index');
+
+    /* SAFE MODE */
+    Route::post('safemode/alertlog','SafeModeController@AlertLogin')->name('admin.safemode.alertlogin');
 
     Route::get('users', 'UserController@index')->name('users.list');
     Route::get('users/fetch', 'UserController@fetchAll')->name('users.fetch');
