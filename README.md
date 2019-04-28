@@ -51,3 +51,6 @@ composer require intervention/image<br/>
 
 #Location <br/>
 composer require stevebauman/location<br/>
+
+#Backup <br/>
+composer require spatie/laravel-backup<br/>
