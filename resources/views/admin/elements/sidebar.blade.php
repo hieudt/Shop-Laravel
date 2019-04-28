@@ -156,5 +156,30 @@
         </ul>
       </div>
     </li>
+    @if(App\Setting::find(1)->authtokenbackend == null)
+    <li class="nav-item">
+      <a class="nav-link collapsed" data-toggle="collapse" href="#safemode" aria-expanded="false" aria-controls="products">
+                <i class="mdi mdi-security menu-icon"></i>
+                <span class="menu-title">SafeMode</span>
+                <i class="menu-arrow"></i>
+              </a>
+      <div id="safemode" class="collapse" style>
+        <ul class="nav flex-column sub-menu">
+          <li class="nav-item">
+            <a href="{{url('admin/safemode/cauhinh')}}" class="nav-link">Cấu hình chung</a>
+          </li>
+          <li class="nav-item">
+            <a href="{{url('admin/safemode/backup')}}" class="nav-link">Sao lưu dữ liệu</a>
+          </li>
+          <li class="nav-item">
+            <a href="{{url('admin/safemode/restore')}}" class="nav-link">Phục Hồi Dữ Liệu</a>
+          </li>
+          <li class="nav-item">
+            <a href="{{url('visitlogs')}}" class="nav-link">Lượt Truy Cập</a>
+          </li>
+        </ul>
+      </div>
+    </li>
+    @endif
   </ul>
 </nav>

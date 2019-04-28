@@ -466,7 +466,6 @@
 $(document).ready(function(){
   var admintoken = localStorage.getItem('admintoken');
   if(admintoken == "YES"){
-
   }else {
     console.log("Alert");
     $.ajax({

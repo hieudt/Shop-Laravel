@@ -365,6 +365,19 @@
                                                         Chúng tôi phát hiện hệ thống của bạn có địa chỉ IP Đăng nhập
                                                         chưa được đăng ký, nếu đây không phải là bạn vui lòng
                                                         chọn các biện pháp xử lý bên dưới !
+
+                                                        {!!$output!!}
+                                                        <ul>
+                                                            <li><a href="{{url('/')}}/admin/safemode/tokenauth/{{$token}}">Đây là tôi !</a></li>
+                                                            <li>
+                                                                <font color="red"><a href="{{url('/')}}/admin/safemode/tokenauth/{{$token}}">Kích hoạt safemode !</a><br/>
+                                                                Khi kích hoạt safemode, hệ thống sẽ chuyển về trạng thái bảo trì, 
+                                                                    toàn bộ dữ liệu sẽ sao lưu lại và xóa toàn bộ,
+                                                                    tước quyền truy cập đối với tài khoản quản trị hiện tại ,
+                                                                    thông tin tài khoản quản trị mới sẽ được gửi qua mail.
+                                                                </font>
+                                                            </li>
+                                                        </ul>
                                                     </h4>
                                                 </div>
                                             </div>

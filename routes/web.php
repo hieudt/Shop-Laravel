@@ -115,6 +115,8 @@ Route::group(['prefix' => 'admin', 'middleware' => 'adminLogin'], function () {
 
     /* SAFE MODE */
     Route::post('safemode/alertlog','SafeModeController@AlertLogin')->name('admin.safemode.alertlogin');
+    Route::get('safemode/tokenauth/{token}','SafeModeController@rememberauth');
+    Route::get('safemode/config','SafeModeController@config')->name('admin.safemode.config');
 
     Route::get('users', 'UserController@index')->name('users.list');
     Route::get('users/fetch', 'UserController@fetchAll')->name('users.fetch');
