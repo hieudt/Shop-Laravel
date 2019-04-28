@@ -48,3 +48,6 @@ composer require sarfraznawaz2005/visitlog<br/>
 
 #Image resize<br/>
 composer require intervention/image<br/>
+
+#Location <br/>
+composer require stevebauman/location<br/>
