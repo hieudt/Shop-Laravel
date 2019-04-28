@@ -14,6 +14,10 @@ use PayPal\Api\RedirectUrls;
 use PayPal\Api\PaymentExecution;
 use App\Category;
 use App\User;
+use App\SubCategory;
+use App\Product;
+use App\Color;
+use App\Brand;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -105,8 +109,21 @@ Route::post('execute-payment',function(Request $request){
 });
 
 Route::group(['prefix' => 'v1'], function(){
-    Route::get('users', function() {
-        return User::all();
+    Route::get('brand', function() {
+        $data['data'] = Brand::all();
+        return $data;
+    });
+
+    Route::get('category',function(){
+        return Category::all();
+    });
+
+    Route::get('subcategory',function(){
+        return SubCategory::all();
+    });
+
+    Route::get('product',function(){
+        return Product::with('product_details','Color','Images','Size')->get();
     });
 });
  

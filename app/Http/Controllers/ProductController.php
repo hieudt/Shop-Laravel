@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\product_details;
 use App\Images;
 use App\Size;
+use Yajra\Datatables\Datatables;
 use App\Color;
 class ProductController extends Controller
 {
@@ -17,7 +18,7 @@ class ProductController extends Controller
      */
     public function index()
     {
-        return view('admin.product.list');
+        return view('admin.product.list2');
     }
 
     /**
@@ -47,81 +48,53 @@ class ProductController extends Controller
      * @param  \App\Product  $product
      * @return \Illuminate\Http\Response
      */
-    public function search(Request $request)
-    {
-        if ($request->ajax()) {
-            $query = $request->get('query');
-            if ($query != '') {
-                $data = Product::where('title', 'like', '%' . $query . '%')
-                    ->orWhere('slug', 'like', '%' . $query . '%')
-                    ->orWhere('cost','like','%'.$query.'%')
-                    ->orderBy('id', 'asc')
-                    ->get();
-            } else {
-                $data = Product::orderBy('id', 'asc')
-                    ->get();
-            }
-            $total_row = count($data);
-            $select_data = '';
-            $output = '';
-            if ($total_row > 0) {
-                foreach ($data as $row) {
-        
-                    $data = product_details::where('id_product',$row->id)->get();
-                    $text = '<table class="table table-bordered"><tbody>
+
+
+    public function fetch(){
+        $data = Product::with('product_details', 'Color', 'Images', 'Size')->orderBy('id','desc')->get();
+        return Datatables::of($data)
+        ->editColumn('cost',function($data){
+            return formatMoney($data->cost);
+        })
+        ->editColumn('discount',function($data){
+            return formatMoney(priceDiscount($data->cost,$data->discount))." (KM $data->discount %)";
+        })
+        ->editColumn('featured',function($data){
+            if ($data->featured == 1)
+                return '<label class="badge badge-info badge-pill">Nổi Bật </label>';
+            else
+                return '<label class="badge badge-danger badge-pill">Không </label>';
+        })
+        ->editColumn('title',function($row){
+            $text = '<table class="table table-bordered"><tbody>
                     <tr>
                         <td>Tên sản phẩm</td>';
-                    $text .= "<td colspan='2'> ".$row->title."</td></tr>";
-                    $text .= "<tr><td colspan='3'>Trong Kho : </td></tr>";
-                    $text .= "<tr><td>Màu</td><td>Kích cỡ</td><td>Số lượng</td></tr>";
-                    foreach ($data as $key) {
-                        $data2 = product_details::find($key['id']);
-                        $text .= "<tr><td>".$data2->Color->name."</td><td>".$data2->Size->name."</td><td>".$data2->soluong."</td>";
-                    }
-                    $text .= "</tbody></table>";
-                    $text .= "Hình ảnh <br/>";
-                    $text .= " <img class='imgProduct' src='".url('')."/images/product/".$row->thumbnail."'>"; 
-                    if (!empty($row->Images[0])) 
-                    $text .= " <img class='imgProduct' src='".url('')."/images/product/".$row->Images[0]->Link."'>";
-                    if(!empty($row->Images[1]))
-                    $text .= " <img class='imgProduct' src='".url('')."/images/product/".$row->Images[1]->Link."'>";  
-
-
-                    $output .= '
-                     <tr class="trProduct">
-                     <td>' . $row->id . '</td>
-                     <td><div class="tool">' . $row->title . '<span class="tool2">'.$text.'</span></div></td>
-                     <td>' . $this->formatMoney($row->cost) . ' ₫</td>
-                     <td>'.$this->formatMoney($this->priceDiscount($row->cost,$row->discount)).' ₫ (KM '.$row->discount.'%)</td>';
-                    if($row->featured == 1)
-                    $output .= '<td><label class="badge badge-info badge-pill">Nổi Bật </label></td>';
-                    else
-                    $output .= '<td><label class="badge badge-danger badge-pill">Không </label></td>';
-                     $output .= '<td><a href="edit/'.$row->id.'"><button class="btn btn-outline-primary edited" id="' . $row->id . '" title="' . $row->title . '" slug="' . $row->slug . '">Sửa</button></a>
-                     <button type="button" class="btn btn-outline-danger delete" id="' . $row->id . '">Xóa</button>
-                     <button type="button" class="btn btn-outline-success upfb" id="'.$row->id.'">Up FB Pages</button>
-                     </td>
-                     </tr>
-                    ';
-
-                    $select_data .= '<option value="'.$row->id.'">'.$row->title.'</option>';
-                }
-               
-            } else {
-                $output .= '<tr><td colspan="5" align="center">
-                    Không tìm thấy kết quả
-                </td></tr>';
+            $text .= "<td colspan='2'> " . $row->title . "</td></tr>";
+            $text .= "<tr><td colspan='3'>Trong Kho : </td></tr>";
+            $text .= "<tr><td>Màu</td><td>Kích cỡ</td><td>Số lượng</td></tr>";
+            foreach ($row->product_details as $value) {
+                $text .= "<tr><td>" . $value->Color->name . "</td><td>" .$value->Size->name. "</td><td>" . $value->soluong . "</td>";
             }
-
-            $data = array(
-                'table_data' => $output,
-                'select_data' => $select_data
-            );
-
-            echo json_encode($data);
-        }
+            $text .= "</tbody></table>";
+            $text .= "Hình ảnh <br/>";
+            $text .= " <img class='imgProduct' src='" . url('') . "/images/product/" . $row->thumbnail . "'>";
+            if (!empty($row->Images[0]))
+                $text .= " <img class='imgProduct' src='" . url('') . "/images/product/" . $row->Images[0]->Link . "'>";
+            if (!empty($row->Images[1]))
+                $text .= " <img class='imgProduct' src='" . url('') . "/images/product/" . $row->Images[1]->Link . "'>";  
+            
+            return '<div class="tool">'.$row->title.'<span class="tool2">'.$text.'</span></div>';
+        
+        })
+        ->addColumn('action',function($data){
+           $output = '<a href="edit/'.$data->id.'"><button class="btn btn-outline-primary edited" id="' . $data->id . '" title="' . $data->title . '" slug="' . $data->slug . '">Sửa</button></a>
+                     <button type="button" class="btn btn-outline-danger delete" id="' . $data->id . '">Xóa</button>
+                     <button type="button" class="btn btn-outline-success upfb" id="'.$data->id.'">Up FB Pages</button>';
+                     return $output;
+        })
+        ->rawColumns(['cost','discount','featured','action','title'])
+        ->make(true);
     }
-
     /**
      * Show the form for editing the specified resource.
      *

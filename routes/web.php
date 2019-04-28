@@ -154,7 +154,7 @@ Route::group(['prefix' => 'admin', 'middleware' => 'adminLogin'], function () {
 
     Route::get('product/add-product', 'ProductController@create')->name('product.create');
     Route::get('product/home', 'ProductController@index')->name('product.list');
-    Route::get('product/search', 'ProductController@search')->name('product.search');
+    Route::get('product/fetch','ProductController@fetch')->name('product.fetch');
     Route::get('product/edit/{id}', 'ProductController@edit')->name('product.edit');
     Route::get('product/attribute', 'AdminPages@attIndex')->name('product.att.list');
     Route::get('product/brand', 'BrandController@index')->name('brand.home');
@@ -216,46 +216,7 @@ Route::group(['prefix' => 'admin', 'middleware' => 'adminLogin'], function () {
 });
 
 
-Route::get('checkProduct', function () {
-    
-});
 
-Route::get('reset', function () {
-   $data = User::find(1)->DetailsBill()->get();
-   dd($data);
-});
-
-Route::get('test', 'PayPalController@index');
-Route::get('test2', 'PayPalController@paymentList');
-Route::get('/checkout/billss/success', function () {
-    echo "success";
-});
-
-Route::get('check', function () {
-    $arr = getInfoByCategoryId(9, '2019-04-18');
-    echo $arr;
-});
-
-Route::get('/cv', function () {
-    $array = array();
-    $count = 0;
-    $to = Carbon::now('Asia/Ho_Chi_Minh');
-    foreach (getListCategoryTop() as $key) {
-        $output[] = ['DanhMuc' => $key->title, 'id' => $key->id];
-    }
-    foreach ($output as $key) {
-        $to = Carbon::now('Asia/Ho_Chi_Minh');
-        $to->addDay(1);
-        for ($i = 0; $i <= 3; $i++) {
-            $ar = $to->subDay(1)->toDateString();
-            $output[$count]['Ngay' . $ar] = getInfoByCategoryId($output[$count]['id'], $ar);
-        }
-        $count++;
-    }
-
-
-    dd($output);
-});
 
 Route::get('/test', function () {
     return view('emails.subcriber');

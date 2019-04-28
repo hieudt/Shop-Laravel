@@ -440,21 +440,6 @@
         });
     }
 
-    //Func add product
-    function postFanpage(){
-        var title = $('#nameProduct').val();
-        var price = $('#txtMoney').val();
-        var discount = $('#txtDiscount').val();
-        var dataString = "title="+title+"&price="+price+"&discount="+discount;
-        $.ajax({
-            headers: {
-                'X-CSRF-TOKEN':  $('meta[name="csrf-token"]').attr('content')
-            },
-            method: 'POST',
-            url: '{{route('fb.page.post')}}',
-            data:dataString,
-        });
-    }
     $('#addProduct').on('submit',function(event){
     event.preventDefault();
         $.ajax({
