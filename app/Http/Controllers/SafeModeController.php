@@ -7,6 +7,9 @@ use Stevebauman\Location\Facades\Location;
 use Sarfraznawaz2005\VisitLog\Facades\VisitLog;
 use App\VisitLog as vl;
 use Mail;
+use Illuminate\Support\Facades\Artisan;
+use Illuminate\Support\Facades\Storage;
+use Yajra\Datatables\Datatables;
 class SafeModeController extends Controller
 {
     public function AlertLogin(Request $req){
@@ -41,5 +44,33 @@ class SafeModeController extends Controller
 
     public function database(){
         return view('admin.setting.db.index');
+    }
+
+    public function dbBackup(Request $req){
+        if($req->ajax()){
+            Artisan::call("backup:mysql-dump");
+
+            return response()->json(['success'=>'Sao lưu thành công']);
+        }
+    }
+
+    public function dbRestore(Request $req){
+        if($req->ajax()){
+            
+            Artisan::call("backup:mysql-restore",['--filename'=>$req->namefile,'--yes'=>true]);
+
+            return response()->json(['success' => 'Sao lưu thành công']);
+        }
+    }
+
+    public function dbfetch(){
+        $data = Storage::files('backups');
+        return Datatables::of($data)
+        ->addColumn('action',function($data){
+            $getNamefile = explode('backups/',$data);
+            return "<button class='btn btn-danger restore' namefile='".$getNamefile[1]."'>Phục Hồi</button>";
+        })
+        ->rawColumns(['action'])
+        ->make(true);
     }
 }

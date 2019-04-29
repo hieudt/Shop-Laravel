@@ -128,7 +128,9 @@ Route::group(['prefix' => 'admin', 'middleware' => 'adminLogin'], function () {
     
     Route::get('safemode/config','SafeModeController@config')->name('admin.safemode.config');
     Route::get('safemode/database','SafeModeController@database')->name('admin.safemode.dbview');
-
+    Route::get('safemode/fetch','SafeModeController@dbfetch')->name('admin.safemode.db.fetch');
+    Route::post('safemode/database/backup','SafeModeController@dbBackup')->name('admin.safemode.db.backup');
+    Route::post('safemode/database/restore', 'SafeModeController@dbRestore')->name('admin.safemode.db.restore');
     Route::get('users', 'UserController@index')->name('users.list');
     Route::get('users/fetch', 'UserController@fetchAll')->name('users.fetch');
     Route::post('users/update', 'UserController@update')->name('users.update');
@@ -219,7 +221,9 @@ Route::group(['prefix' => 'admin', 'middleware' => 'adminLogin'], function () {
 
 
 Route::get('/test', function () {
-    \App\Notification::all()->delete();
+    $data = Storage::files('backups');
+
+    dd($data);
 });
 Route::get('/add',function(){
     Schema::table('news', function ($table) {

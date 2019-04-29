@@ -8,10 +8,10 @@
     <div class="card-body">
         <div class="row">
             <div class="col-sm-6">
-                <h4 class="card-title">Quản lý khách hàng</h4>
+                <h4 class="card-title">Cơ Sở Dữ Liệu</h4>
             </div>
             <div class="col-sm-6">
-                <button type="button" id="OpenUserModal" class="btn btn-success btn-xs" data-toggle="modal" data-target="#UserModal" data-whatever="@getbootstrap"><i class="mdi mdi-check"></i>Thêm mới</button>
+                <button type="button" id="BackupButton" class="btn btn-primary btn-xs"><i class="mdi mdi-check"></i>Sao Lưu Hệ Thống</button>
 
             </div>
         </div>
@@ -21,9 +21,7 @@
                 <thead>
                     <tr>
                         <th>ID</th>
-                        <th>Tên hiển thị</th>
-                        <th>Avatar</th>
-                        <th>Giới tính</th>
+                        <th>Thao tác</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -57,8 +55,50 @@
     }
 
     $(document).ready(function(){
+       loadDb();
        
-       
+    });
+
+    $('#BackupButton').click(function(){
+        $.ajax({
+            headers: {
+                'X-CSRF-TOKEN':  $('meta[name="csrf-token"]').attr('content')
+            },
+            method: "POST",
+            url: '{{route('admin.safemode.db.backup')}}',
+            success: function (data) {
+               ToastSuccess(data.success);
+               $('#order-listing').DataTable().ajax.reload();
+            },
+            error: function (request, status) {
+                $.each(request.responseJSON.errors,function(key,val){
+                    ToastError(val);
+                });
+            }
+        }); 
+    });
+
+    $(document).on('click','.restore',function(){
+        var namefile = $(this).attr('namefile');
+        var dataString = "namefile="+namefile;
+        $.ajax({
+            headers: {
+                'X-CSRF-TOKEN':  $('meta[name="csrf-token"]').attr('content')
+            },
+            method: "POST",
+            url: '{{route('admin.safemode.db.restore')}}',
+            data:dataString,
+            success: function (data) {
+               ToastSuccess(data.success);
+               console.log("OK");
+               $('#order-listing').DataTable().ajax.reload();
+            },
+            error: function (request, status) {
+                $.each(request.responseJSON.errors,function(key,val){
+                    ToastError(val);
+                });
+            }
+        }); 
     });
 
     function loadDb(){
@@ -83,10 +123,10 @@
             }
         },
         "process" : true,
-        "ajax" : '',
+        "ajax" : '{!!route('admin.safemode.db.fetch')!!}',
         "columns":[
-            {data:'id',name:'id'},
-           
+            {data:0},
+            {data:'action'}
         ],
         
 

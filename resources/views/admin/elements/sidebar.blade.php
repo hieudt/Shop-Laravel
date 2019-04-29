@@ -169,7 +169,7 @@
             <a href="{{url('admin/safemode/database')}}" class="nav-link">Dữ Liệu</a>
           </li>
           <li class="nav-item">
-            <a href="{{url('visitlogs')}}" class="nav-link">Lượt Truy Cập</a>
+            <a href="{{url('visitlog')}}" class="nav-link">Lượt Truy Cập</a>
           </li>
         </ul>
       </div>
