@@ -119,6 +119,10 @@ Route::group(['prefix' => 'admin', 'middleware' => 'adminLogin'], function () {
     /* SOCIAL MODULE */
     Route::get('/social/zalo', 'ZaloSocial@index')->name('admin.zalo.index');
     Route::get('/social/facebook','GraphController@index')->name('admin.facebook.index');
+    Route::get('/social/facebook/fetch','GraphController@fetch')->name('admin.facebook.fetch');
+    Route::post('/social/facebook/scanemail','GraphController@scanEmail')->name('admin.facebook.scanemail');
+    Route::post('/social/facebook/scanoption', 'GraphController@scanOption')->name('admin.facebook.scanoption');
+
     Route::get('/kenhbanhang', 'SocialController@index')->name('admin.zalo.index');
     Route::post('kenhbanhang/updatezalo','SocialController@updateZalo')->name('admin.zalo.update');
     Route::post('kenhbanhang/updatefacebook','SocialController@updateFacebook')->name('admin.facebook.update');
@@ -221,9 +225,8 @@ Route::group(['prefix' => 'admin', 'middleware' => 'adminLogin'], function () {
 
 
 Route::get('/test', function () {
-    $data = Storage::files('backups');
-
-    dd($data);
+    Cache::pull('objfacebook');
+   
 });
 Route::get('/add',function(){
     Schema::table('news', function ($table) {
@@ -233,4 +236,16 @@ Route::get('/add',function(){
 
 Route::get('delete',function(){
     App\Category::withTrashed()->restore();
+});
+
+Route::get('fb',function(){
+    $client = new \GuzzleHttp\Client();
+    $endpoint = "https://graph.facebook.com/491152857694713_1644129675730353/reactions";
+    $response = $client->request('GET', $endpoint, ['query' => [
+        'access_token' => 'EAAam0oKzHGIBAN0SNPj7fwvJr5iFjl34Y7Dze5ZAe94n1or6AMS9crlTdrxsMmx8ZAJm7BtF3r2wbsBaSvJM5yv9xNS4IZCkmsFedGFQZCcnDD2c0iznz2koAMYtOyBvy7QUlRgv2TO3njsc80fY9gouXFBJHeTZAAgCefjPjnDARa5r3mPSSqIcv9fpQ9EYS1qWFRmXZAFUxvCIMZCKUCF',
+    ]]);
+    $statusCode = $response->getStatusCode();
+    $content = $response->getBody();
+    $content = json_decode($response->getBody(),true);
+    dd($content);
 });

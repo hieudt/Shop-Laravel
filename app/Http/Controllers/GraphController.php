@@ -8,6 +8,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use function GuzzleHttp\json_encode;
 use App\Zalo;
+use Cache;
+use Yajra\Datatables\Datatables;
 use App\Product;
 class GraphController extends Controller
 {
@@ -15,6 +17,7 @@ class GraphController extends Controller
     private $api;
     private $token = "";
     private $pagesid = "";
+    private $obj = array();
     public function __construct(Facebook $fb)
     {
         $data = Zalo::where('name', 'Facebook')->first();
@@ -29,26 +32,127 @@ class GraphController extends Controller
         });
     }
     
-    public function index(){
-        $page_id = $this->pagesid;
-        try {
-            // reactions.type(LIKE)
-            $post = $this->api->get('/' . $page_id . '/feed/?fields=reactions.summary(total_count)', $this->getPageAccessToken($page_id))->getGraphEdge();
-            $ar = $post->asArray();
-            $totalreact = 0;
-            $totalPost = count($ar);
-            foreach ($ar as $node) {
-                $totalreact += count($node['reactions']);
-            }
-            echo $totalreact;
-            $infopages = $this->api->get('/' . $page_id)->getGraphNode()->asArray();
+    public function fetch(){
+        $obj = Cache::get('objfacebook');
+       return Datatables::of($obj['datapost'])
+       ->editColumn('id',function($data){
+            $temp = explode('_',$data['id']);
+            return "<a href='https://facebook.com/".$temp[0]."/posts/".$temp[1]."'>".$temp[1]."</a>";
+       })
+       ->rawColumns(['id'])
+       ->make(true);
+    }
 
+    public function index(){
+        try {
+
+            $page_id = $this->pagesid;
+
+            $obj = array();
+            if(Cache::has('objfacebook')){
+                $obj = Cache::get('objfacebook');
+            } else {
+                $accesstoken = $this->getPageAccessToken($page_id);
+                $avatar = $this->api->get('/' . $page_id . '/?fields=picture', $accesstoken)->getGraphNode()->asArray();
+                $infopages = $this->api->get('/' . $page_id)->getGraphNode()->asArray();
+                $ar = $this->api->get('/' . $page_id . '/feed/?fields=reactions.summary(total_count),comments.summary(total_count)', $accesstoken)->getGraphEdge()->asArray();
+                $datapost = $this->api->get('/'.$page_id.'/feed',$accesstoken)->getGraphEdge()->asArray();
+
+                foreach ($datapost as $node) {
+                    $temp = $this->api->get('/' . $node['id'] . '/?fields=reactions.summary(total_count)', $accesstoken)->getGraphNode()->asArray();
+                    $node['countreact'] = count($temp['reactions']);
+                    $obj['datapost'][] = $node;
+                }
+                $obj['totalreact'] = 0;
+                $obj['totalpost'] = count($ar);
+                $obj['totalcomment'] = 0;
+                $obj['pagename'] = $infopages['name'];
+                $obj['pageid'] = $infopages['id'];
+                $obj['pageavatar'] = $avatar['picture']['url'];
+   
+                foreach ($ar as $node) {
+                    $obj['totalreact'] += count($node['reactions']);
+                    $obj['totalcomment'] += count($node['comments']);
+                }
+
+                Cache::put('objfacebook', $obj, 20);
+            }
         } catch (FacebookSDKException $e) {
             
-            dd($e);
-            //return view('admin.social.facebook.dietoken');
+           // dd($e);
+            return view('admin.social.facebook.dietoken');
         }
-        return view('admin.social.facebook.timeline',compact('infopages','totalreact','totalPost'));
+
+        return view('admin.social.facebook.timeline',compact('obj'));
+    }
+
+    public function scanEmail(Request $req){
+        if($req->ajax()){
+            $page_id = $this->pagesid;
+            $accesstoken = $this->getPageAccessToken($page_id);
+            $id = $page_id."_".$req->idbv;
+            $data = $this->api->get('/' . $id.'/comments')->getGraphEdge()->asArray();
+            $text = "";
+            $count = 0;
+            foreach ($data as $value) {
+                if (filter_var($value['message'], FILTER_VALIDATE_EMAIL)) {
+                    $text .= $value['message']."\r\n";
+                    $count++;
+                }
+                if ($count == $req->soluong) break;
+            }
+            return response()->json(['success'=>$text]);
+        }
+    }
+
+    public function scanOption(Request $req){
+        if($req->ajax()){
+            $page_id = $this->pagesid;
+            $accesstoken = $this->getPageAccessToken($page_id);
+            $id = $page_id . "_" . $req->idbv;
+            $data = $this->api->get('/' . $id . '/comments')->getGraphEdge()->asArray();
+            $text = array();
+            $count = 0;
+            $tempText = "";
+            if($req->option == 0){
+                foreach ($data as $value) {
+                    $text[] = $value['from']['id'];
+                }
+                $text = array_unique($text);
+                $temp = "";
+                foreach ($text as $value) {
+                    $temp .= $value."\r\n";
+                    $count++;
+                    if ($count == $req->soluong) break;
+                }
+                return response()->json(['success'=>$temp]);
+            }
+
+            if($req->option == 1){
+                foreach ($data as $value) {
+                    $pos = strpos($value['message'],$req->textExternal);
+                    if($pos !== false){
+                        $tempText .= $value['message']."\r\n";
+                        $count++;
+                        if ($count == $req->soluong) break;
+                    }
+                }
+
+                return response()->json(['success'=>$tempText]);
+                
+            }
+
+            if($req->option == 2){
+                foreach ($data as  $value) {
+                    $tempText .= $value['message']."|".$value['from']['id']."|".$value['from']['name']."\r\n";
+                    $count++;
+                    if ($count == $req->soluong) break;
+                }
+
+                return response()->json(['success'=>$tempText]);
+            }
+            
+        }
     }
 
     public function retrieveUserProfile(){
@@ -62,6 +166,37 @@ class GraphController extends Controller
  
         }
  
+    }
+
+    public function getAvatar()
+    {
+        $endpoint = $this->pagesid;
+        $query = ['fields' => 'picture', 'access_token' => $this->pagetoken];
+        return $this->runcUrl($endpoint, $query);
+    }
+
+    public function getInfopages()
+    {
+        $endpoint = $this->pagesid;
+        $query = ['access_token' => $this->pagetoken];
+        return $this->runcUrl($endpoint, $query);
+    }
+
+    public function calReact()
+    {
+        $endpoint = $this->pagesid . "/feed/";
+        $query = ['fields' => 'reactions.summary(total_count),comments.summary(total_count)', 'access_token' => $this->pagetoken];
+        return $this->runcUrl($endpoint, $query);
+    }
+
+    public function runcUrl($param, $query)
+    {
+        $client = new \GuzzleHttp\Client();
+        $endpoint = "https://graph.facebook.com/" . $param;
+        $response = $client->request('GET', $endpoint, ['query' => $query]);
+        $content = $response->getBody();
+        $content = json_decode($response->getBody(), true);
+        return $content;
     }
 
     public function getPageAccessToken($page_id){
