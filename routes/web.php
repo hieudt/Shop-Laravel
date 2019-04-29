@@ -219,7 +219,7 @@ Route::group(['prefix' => 'admin', 'middleware' => 'adminLogin'], function () {
 
 
 Route::get('/test', function () {
-    return view('emails.subcriber');
+    print phpversion();
 });
 Route::get('/add',function(){
     Schema::table('news', function ($table) {
