@@ -57,7 +57,7 @@
     }
 
     $(document).ready(function(){
-        callZaloService();
+       
        
     });
 
@@ -83,12 +83,10 @@
             }
         },
         "process" : true,
-        "ajax" : '{!!route('zalo.getfriend')!!}',
+        "ajax" : '',
         "columns":[
             {data:'id',name:'id'},
-            {data:'name',name:'name'},
-            {data:'picture.data.url',name:'picture'},
-            {data:'gender',name:'gender'}
+           
         ],
         
 

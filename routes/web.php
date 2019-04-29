@@ -112,7 +112,6 @@ Route::group(['prefix' => 'admin', 'middleware' => 'adminLogin'], function () {
     Route::get('/kanban', 'AdminPages@kanban');
     Route::get('/erd', 'AdminPages@erd');
     Route::get('/fetchProduct', 'AdminPages@fetchTopProduct')->name('admin.fetchproduct');
-    Route::get('/database','DatabaseController@index')->name('admin.db.index');
     Route::get('/config','SettingsController@index');
     Route::post('/config/ui','SettingsController@updateui')->name('admin.config.update.ui');
     Route::post('/config/sociallinks','SettingsController@sociallinks')->name('admin.config.update.sociallinks');
@@ -128,6 +127,7 @@ Route::group(['prefix' => 'admin', 'middleware' => 'adminLogin'], function () {
     Route::post('safemode/alertlog','SafeModeController@AlertLogin')->name('admin.safemode.alertlogin');
     
     Route::get('safemode/config','SafeModeController@config')->name('admin.safemode.config');
+    Route::get('safemode/database','SafeModeController@database')->name('admin.safemode.dbview');
 
     Route::get('users', 'UserController@index')->name('users.list');
     Route::get('users/fetch', 'UserController@fetchAll')->name('users.fetch');
@@ -219,7 +219,7 @@ Route::group(['prefix' => 'admin', 'middleware' => 'adminLogin'], function () {
 
 
 Route::get('/test', function () {
-    print phpversion();
+    \App\Notification::all()->delete();
 });
 Route::get('/add',function(){
     Schema::table('news', function ($table) {

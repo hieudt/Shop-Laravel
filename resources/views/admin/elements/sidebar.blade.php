@@ -148,9 +148,6 @@
             <a href="{{url('admin/menu')}}" class="nav-link">Menu</a>
           </li>
           <li class="nav-item">
-            <a href="{{url('admin/database')}}" class="nav-link">Dữ Liệu</a>
-          </li>
-          <li class="nav-item">
             <a href="{{url('admin/kenhbanhang')}}" class="nav-link">Kênh Bán Hàng</a>
           </li>
         </ul>
@@ -169,10 +166,7 @@
             <a href="{{url('admin/safemode/cauhinh')}}" class="nav-link">Cấu hình chung</a>
           </li>
           <li class="nav-item">
-            <a href="{{url('admin/safemode/backup')}}" class="nav-link">Sao lưu dữ liệu</a>
-          </li>
-          <li class="nav-item">
-            <a href="{{url('admin/safemode/restore')}}" class="nav-link">Phục Hồi Dữ Liệu</a>
+            <a href="{{url('admin/safemode/database')}}" class="nav-link">Dữ Liệu</a>
           </li>
           <li class="nav-item">
             <a href="{{url('visitlogs')}}" class="nav-link">Lượt Truy Cập</a>

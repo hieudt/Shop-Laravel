@@ -38,4 +38,8 @@ class SafeModeController extends Controller
             return redirect('/');
         }
     }
+
+    public function database(){
+        return view('admin.setting.db.index');
+    }
 }
