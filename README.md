@@ -53,4 +53,4 @@ composer require intervention/image<br/>
 composer require stevebauman/location<br/>
 
 #Backup <br/>
-composer require spatie/laravel-backup<br/>
+composer require paulvl/backup 3.*<br/>
