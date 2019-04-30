@@ -32,7 +32,7 @@ use Illuminate\Support\Facades\Hash;
 | contains the "web" middleware group. Now create something great!
 |
 */
-Route::group(['scheme' => 'https'], function () {
+
 Route::get('/', 'FrontEndController@index')->name('front.index');
 Route::post('/reg','SubcriberController@store')->name('subcriber.store');
 
@@ -98,7 +98,6 @@ Route::group(['prefix' => 'users', 'middleware' => 'frontLogin'], function () {
     Route::post('/users/update', 'UsersProfileController@update')->name('profile.update');
     Route::post('/users/changepass', 'UsersProfileController@changePass')->name('profile.changepass');
 });
-
 
 Route::get('/admin/safemode/tokenauth/{token}', 'SafeModeController@rememberauth');
 
@@ -228,7 +227,8 @@ Route::group(['prefix' => 'admin', 'middleware' => 'adminLogin'], function () {
 
     
 });
-});
+
+
 
 
 Route::get('/clearcache', function () {

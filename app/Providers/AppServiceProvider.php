@@ -15,7 +15,7 @@ class AppServiceProvider extends ServiceProvider
 
     public function boot()
     {
-        //URL::forceScheme('https');
+        URL::forceScheme('https');
         Validator::extend('recaptcha', 'App\Validators\ReCaptcha@validate');
     }
 
