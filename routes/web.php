@@ -266,5 +266,7 @@ Route::get('fb3',function(){
     $categoryTop = getListCategoryTop(5);
     foreach ($categoryTop as $value) {
         echo $value->TongTien."<br/>";
+        echo $value->sl."<br/>";
+        echo $value->title."<br/>";
     }
 });

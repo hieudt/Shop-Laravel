@@ -143,13 +143,13 @@
             @forelse ($categoryTop as $catTop)
             <div class="preview-item">
               <div class="preview-item-content">
-                <p class="preview-subject font-weight-medium">{{$catTop['title']}}</p>
+                <p class="preview-subject font-weight-medium">{{$catTop->title}}</p>
                 <p class="text-muted">
-                  <div class="badge badge-pill badge-outline-info">Doanh thu mang lại : {!!formatMoney((int)$catTop['TongTien'])!!}</div>
+                  <div class="badge badge-pill badge-outline-info">Doanh thu mang lại : {!!formatMoney((int)$catTop->TongTien)!!}</div>
                 </p>
               </div>
               <div class="preview-actions ml-auto">
-                <div class="badge badge-success badge-pill">Đã Bán {{$catTop['sl']}} SP</div>
+                <div class="badge badge-success badge-pill">Đã Bán {{$catTop->sl}} SP</div>
               </div>
             </div>
             @empty Không có dữ liệu @endforelse
