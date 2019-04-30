@@ -184,11 +184,11 @@
                         <div class="col-md-4 col-sm-6">
                             <div class="product-grid4">
                                 <div class="product-image4">
-                                    <a href="{{url('/san-pham')}}/{{$product->id}}/{{$product->slug}}/">
+                                    <a href="{{url('/san-pham')}}/{{$product->id}}/{{$product->slug}}">
                                                 <img class="pic-1" src="{{url('/images/product')}}/{{$product->thumbnail}}">
                                             </a>
                                     <ul class="social">
-                                        <li><a href="{{url('/san-pham')}}/{{$product->id}}/{{$product->slug}}/" data-tip="Xem Nhanh" ><i class="fa fa-eye fa-fix"></i></a></li>
+                                        <li><a href="{{url('/san-pham')}}/{{$product->id}}/{{$product->slug}}" data-tip="Xem Nhanh" ><i class="fa fa-eye fa-fix"></i></a></li>
                                         <li><a href="#" data-tip="Add to Wishlist" data-product="{{$CountForm}}" class="add-to-wish"><i class="fa fa-shopping-bag fa-fix"></i></a></li>
                                         <li><a href="#" data-tip="Add to Cart"><i class="fa fa-shopping-cart fa-fix"></i></a></li>
                                     </ul>
@@ -197,7 +197,7 @@
                                     <span class="product-discount-label">-{{$product->discount}}%</span> @endif
                                 </div>
                                 <div class="product-content">
-                                    <h3 class="title"><a href="{{url('/san-pham')}}/{{$product->id}}/{{$product->slug}}/">{{$product->title}}</a></h3>
+                                    <h3 class="title"><a href="{{url('/san-pham')}}/{{$product->id}}/{{$product->slug}}">{{$product->title}}</a></h3>
                                     <div class="price">
                                         @if($product->discount > 0) {{$product->formatMoney($product->priceDiscount($product->cost,$product->discount))}}₫
                                         <span>{{$product->formatMoney($product->cost)}}₫</span> @else {{$product->formatMoney($product->cost)}}₫
