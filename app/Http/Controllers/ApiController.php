@@ -71,7 +71,7 @@ class ApiController extends Controller
                     }
                 }
                 $price .= $text;
-                $image = "http://123.16.227.89/Shop-Laravel/public/images/product/" . $_data['thumbnail'];
+                $image = "https://shop-rog.herokuapp.com/images/product/" . $_data['thumbnail'];
 
                 $ar[] = $A->createElement($_data['title'], $image, $price, [
                     $A->createButtonToURL('Mua Ngay', 'https://facebook.com/bossgin.vhb'),
