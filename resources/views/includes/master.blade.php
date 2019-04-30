@@ -6,7 +6,6 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, shrink-to-fit=no, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <meta property="og:url" content="http://123.16.70.151/Shop-Laravel/public/" />
     <meta property="og:type" content="article" />
     <meta property="og:title" content="Cửa hàng thời trang Híu Mai =))" />
     <meta property="og:description" content="CĐG cũng có ở trong này hiiiii" />
