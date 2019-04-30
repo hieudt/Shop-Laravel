@@ -158,172 +158,7 @@
       </div>
     </div>
   </div>
-  <div class="row">
-    <div class="col-lg-6 grid-margin stretch-card">
-      <!--weather card-->
-      <div class="card card-weather">
-        <div class="card-body bg-warning text-white">
-          <div class="weather-date-location">
-            <h3>Monday</h3>
-            <h4>
-              <span class="weather-date">25 October, 2016</span>
-              <span class="weather-location">London, UK</span>
-            </h4>
-          </div>
-          <div class="weather-data d-flex">
-            <div class="mr-auto">
-              <h4 class="display-3">21<span class="symbol">&deg;</span>C</h4>
-              <p>
-                Mostly Cloudy
-              </p>
-            </div>
-            <div class="ml-auto">
-              <i class="mdi mdi-weather-fog"></i>
-            </div>
-          </div>
-        </div>
-        <div class="card-body p-0">
-          <div class="d-flex weakly-weather">
-            <div class="weakly-weather-item">
-              <p class="mb-0">
-                Sun
-              </p>
-              <i class="mdi mdi-weather-cloudy"></i>
-              <p class="mb-0">
-                21<span class="symbol">&deg;</span>
-              </p>
-            </div>
-            <div class="weakly-weather-item">
-              <p class="mb-1">
-                Mon
-              </p>
-              <i class="mdi mdi-weather-hail"></i>
-              <p class="mb-0">
-                23<span class="symbol">&deg;</span>
-              </p>
-            </div>
-            <div class="weakly-weather-item">
-              <p class="mb-1">
-                Tue
-              </p>
-              <i class="mdi mdi-weather-partlycloudy"></i>
-              <p class="mb-0">
-                19<span class="symbol">&deg;</span>
-              </p>
-            </div>
-            <div class="weakly-weather-item">
-              <p class="mb-1">
-                Wed
-              </p>
-              <i class="mdi mdi-weather-pouring"></i>
-              <p class="mb-0">
-                20<span class="symbol">&deg;</span>
-              </p>
-            </div>
-            <div class="weakly-weather-item">
-              <p class="mb-1">
-                Thu
-              </p>
-              <i class="mdi mdi-weather-pouring"></i>
-              <p class="mb-0">
-                20<span class="symbol">&deg;</span>
-              </p>
-            </div>
-            <div class="weakly-weather-item">
-              <p class="mb-1">
-                Fri
-              </p>
-              <i class="mdi mdi-weather-snowy-rainy"></i>
-              <p class="mb-0">
-                20<span class="symbol">&deg;</span>
-              </p>
-            </div>
-            <div class="weakly-weather-item">
-              <p class="mb-1">
-                Sat
-              </p>
-              <i class="mdi mdi-weather-snowy"></i>
-              <p class="mb-0">
-                20<span class="symbol">&deg;</span>
-              </p>
-            </div>
-          </div>
-        </div>
-      </div>
-      <!--weather card ends-->
-    </div>
-    <div class="col-lg-6 grid-margin stretch-card">
-      <!--todo list starts-->
-      <div class="card">
-        <div class="card-body">
-          <h4 class="card-title">To Do Task List</h4>
-          <div class="list-wrapper">
-            <ul class="d-flex flex-column-reverse todo-list">
-              <li>
-                <div class="form-check">
-                  <label class="form-check-label">
-                      <input class="checkbox" type="checkbox">
-                      Meeting with Alisa
-                    </label>
-                </div>
-                <i class="remove mdi mdi-close-circle-outline"></i>
-              </li>
-              <li class="completed">
-                <div class="form-check">
-                  <label class="form-check-label">
-                      <input class="checkbox" type="checkbox" checked>
-                      Call John
-                    </label>
-                </div>
-                <i class="remove mdi mdi-close-circle-outline"></i>
-              </li>
-              <li>
-                <div class="form-check">
-                  <label class="form-check-label">
-                      <input class="checkbox" type="checkbox">
-                      Create invoice
-                    </label>
-                </div>
-                <i class="remove mdi mdi-close-circle-outline"></i>
-              </li>
-              <li>
-                <div class="form-check">
-                  <label class="form-check-label">
-                      <input class="checkbox" type="checkbox">
-                      Print Statements
-                    </label>
-                </div>
-                <i class="remove mdi mdi-close-circle-outline"></i>
-              </li>
-              <li class="completed">
-                <div class="form-check">
-                  <label class="form-check-label">
-                      <input class="checkbox" type="checkbox" checked>
-                      Prepare for presentation
-                    </label>
-                </div>
-                <i class="remove mdi mdi-close-circle-outline"></i>
-              </li>
-              <li>
-                <div class="form-check">
-                  <label class="form-check-label">
-                      <input class="checkbox" type="checkbox">
-                      Pick up kids from school
-                    </label>
-                </div>
-                <i class="remove mdi mdi-close-circle-outline"></i>
-              </li>
-            </ul>
-          </div>
-          <div class="add-items d-flex mt-2">
-            <input type="text" class="form-control todo-list-input" placeholder="What do you need to do today?">
-            <button class="add btn btn-primary font-weight-bold todo-list-add-btn" id="add-task">Add</button>
-          </div>
-        </div>
-      </div>
-      <!--todo list ends-->
-    </div>
-  </div>
+
 
   <div class="row">
     <div class="col-lg-4 grid-margin stretch-card">
@@ -339,79 +174,10 @@
       <!--browser stats-->
       <div class="card">
         <div class="card-body">
-          <h4 class="card-title">Browser stats</h4>
-          <div class="table-responsive">
-            <table class="table table-borderless">
-              <tbody>
-                <tr>
-                  <td class="py-3">
-                    <img src="" alt="image" />
-                  </td>
-                  <td>
-                    Opera mini
-                  </td>
-                  <td>
-                    23%
-                  </td>
-                </tr>
-                <tr>
-                  <td class="py-3">
-                    <img src="" alt="image" />
-                  </td>
-                  <td>
-                    Safari
-                  </td>
-                  <td>
-                    07%
-                  </td>
-                </tr>
-                <tr>
-                  <td class="py-3">
-                    <img src="" alt="image" />
-                  </td>
-                  <td>
-                    Chrome
-                  </td>
-                  <td>
-                    33%
-                  </td>
-                </tr>
-                <tr>
-                  <td class="py-3">
-                    <img src="" alt="image" />
-                  </td>
-                  <td>
-                    Firefox
-                  </td>
-                  <td>
-                    17%
-                  </td>
-                </tr>
-                <tr>
-                  <td class="py-3">
-                    <img src="" alt="image" />
-                  </td>
-                  <td>
-                    Explorer
-                  </td>
-                  <td>
-                    05%
-                  </td>
-                </tr>
-                <tr>
-                  <td class="py-3">
-                    <img src="" alt="image" />
-                  </td>
-                  <td>
-                    Netscape
-                  </td>
-                  <td>
-                    16%
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
+          <h4 class="card-title">Review</h4>
+          @if(!empty($reviewChart))
+          {!! $reviewChart->html() !!}
+          @endif
         </div>
       </div>
       <!--browser stats ends-->
@@ -541,7 +307,9 @@ $(document).ready(function(){
   google.charts.load('current', {'packages':['corechart', 'gauge', 'geochart', 'bar', 'line']})
 
 </script> --}}
+
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/highcharts/5.0.7/highcharts.js"></script>
+
 {{--
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/highcharts/5.0.7/js/modules/offline-exporting.js"></script> --}} {{--
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/highmaps/5.0.7/js/modules/map.js"></script>
@@ -563,5 +331,9 @@ $(document).ready(function(){
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/amcharts/3.21.2/themes/light.js"></script> --}} 
 @if($chart)
 {!! $chart->script() !!}
+@endif
+
+@if($reviewChart)
+{!! $reviewChart->script() !!}
 @endif
 @endsection

@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use ConsoleTVs\Charts\Facades\Charts;
 use Carbon\Carbon;
 use App\User;
+use DB;
 use Yajra\Datatables\Datatables;
 class AdminPages extends Controller
 {
@@ -36,11 +37,26 @@ class AdminPages extends Controller
         }else {
             $charts = '';
         }
-       
 
+        $review = DB::table('reviews')
+        ->select(DB::raw('rating,count(*) as value'))
+        ->groupBy('rating')
+        ->get();
+        $ratingValue = array();
+        $ratingRate = array();
+        foreach ($review as $value) {
+            $ratingValue[] = $value->rating." ★";
+            $ratingRate[] = $value->value;
+        }
+        $reviewChart = Charts::create('pie', 'highcharts')
+            ->title('Độ Hài Lòng Của Khách Hàng')
+            ->labels($ratingValue)
+            ->values($ratingRate)
+            ->dimensions(400, 300)
+            ->responsive(false);
         $categoryTop = getListCategoryTop(5);
 
-        return view('admin.index', ['chart' => $charts], compact('categoryTop'));
+        return view('admin.index', ['chart' => $charts], compact('categoryTop','reviewChart'));
     }
 
     function kanban()
