@@ -119,9 +119,8 @@
                             <div class="form-group">
                                 <label for="sel1">Tùy chọn:</label>
                                 <select class="form-control" id="selOption">
-                                    <option value="0">Lấy UID</option>
+                                    <option value="2">Lấy Hết Bình Luận</option>
                                     <option value="1">Theo chuỗi</option>
-                                    <option value="2">Theo cấu trúc Bình Luận | UID | Tên Hiển thị</option>
                                 </select>
                             </div>
                             <span class="external" style="display:none;">

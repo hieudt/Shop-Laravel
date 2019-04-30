@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use App\Notification;
 use App\User;
+use GuzzleHttp\Client;
 use Intervention\Image\ImageManagerStatic as Image;
 use App\Pages;
 use Carbon\Carbon;
@@ -84,7 +85,7 @@ Route::post('/forgot/accept', 'Auth\ForgotPasswordController@forgotaccept')->nam
 /* MODULE SOCIAL */
 Route::get('/redirect/{social}', 'SocialFacebook@redirectToProvider')->name('facebook.login');;
 Route::get('/callback/{social}', 'SocialFacebook@handleProviderCallback');
-Route::get('zalo/getfriends','ZaloSocial@getFriends')->name('zalo.getfriend');
+
 
 /* AUTH LOGIN BACKEND */
 Route::get('/admin/login', 'AdminPages@loginIndex');
@@ -118,10 +119,15 @@ Route::group(['prefix' => 'admin', 'middleware' => 'adminLogin'], function () {
    
     /* SOCIAL MODULE */
     Route::get('/social/zalo', 'ZaloSocial@index')->name('admin.zalo.index');
+    Route::get('/social/zalo/getfriends', 'ZaloSocial@getFriends')->name('zalo.getfriend');
+    Route::get('/social/zalo/getinfo', 'ZaloSocial@getInfo')->name('zalo.getinfo');
+    Route::post('/social/zalo/sharelink','ZaloSocial@shareLink')->name('zalo.sharelink');
+
     Route::get('/social/facebook','GraphController@index')->name('admin.facebook.index');
     Route::get('/social/facebook/fetch','GraphController@fetch')->name('admin.facebook.fetch');
     Route::post('/social/facebook/scanemail','GraphController@scanEmail')->name('admin.facebook.scanemail');
     Route::post('/social/facebook/scanoption', 'GraphController@scanOption')->name('admin.facebook.scanoption');
+    
 
     Route::get('/kenhbanhang', 'SocialController@index')->name('admin.zalo.index');
     Route::post('kenhbanhang/updatezalo','SocialController@updateZalo')->name('admin.zalo.update');
@@ -240,12 +246,33 @@ Route::get('delete',function(){
 
 Route::get('fb',function(){
     $client = new \GuzzleHttp\Client();
-    $endpoint = "https://graph.facebook.com/491152857694713_1644129675730353/reactions";
+    
+    $endpoint = "https://graph.facebook.com/491152857694713/";
     $response = $client->request('GET', $endpoint, ['query' => [
-        'access_token' => 'EAAam0oKzHGIBAN0SNPj7fwvJr5iFjl34Y7Dze5ZAe94n1or6AMS9crlTdrxsMmx8ZAJm7BtF3r2wbsBaSvJM5yv9xNS4IZCkmsFedGFQZCcnDD2c0iznz2koAMYtOyBvy7QUlRgv2TO3njsc80fY9gouXFBJHeTZAAgCefjPjnDARa5r3mPSSqIcv9fpQ9EYS1qWFRmXZAFUxvCIMZCKUCF',
+        'fields'=>'picture',
+        'access_token' => 'EAASv7DwM85oBAI1rDGB4kPODCj6nZAiO5MpNvx9St3vNDYdfpjJ3QwvUHTXRQJmtcL34XgY6Dftnj8IUHkD6ZBwdNyk7h4Q8OzPt5RCwTaOnW03BhoFtToupvyxILvRBy4CqG8Y9XDB1uwrkdezW31oAumfUL1xKhl71OaYWMmReb8TvZALTSF9ZBLkpoMptygc20xKe2ycGEwel8ZA1yMerwTZBO3GXsZD',
     ]]);
     $statusCode = $response->getStatusCode();
     $content = $response->getBody();
-    $content = json_decode($response->getBody(),true);
-    dd($content);
+    //dd($statusCode);
+     $content = json_decode($response->getBody(),true);
+     dd($content);
+});
+
+Route::get('fb2', function () {
+    $client = new Client();
+
+    $endpoint = "https://graph.facebook.com/491152857694713/feed/?fields=reactions.summary(total_count),comments.summary(total_count)&access_token=EAASv7DwM85oBAI1rDGB4kPODCj6nZAiO5MpNvx9St3vNDYdfpjJ3QwvUHTXRQJmtcL34XgY6Dftnj8IUHkD6ZBwdNyk7h4Q8OzPt5RCwTaOnW03BhoFtToupvyxILvRBy4CqG8Y9XDB1uwrkdezW31oAumfUL1xKhl71OaYWMmReb8TvZALTSF9ZBLkpoMptygc20xKe2ycGEwel8ZA1yMerwTZBO3GXsZD";
+    // $response = $client->request('GET', $endpoint, ['query' => [
+    //     'fields' => 'picture',
+    //     'access_token' => 'EAASv7DwM85oBAI1rDGB4kPODCj6nZAiO5MpNvx9St3vNDYdfpjJ3QwvUHTXRQJmtcL34XgY6Dftnj8IUHkD6ZBwdNyk7h4Q8OzPt5RCwTaOnW03BhoFtToupvyxILvRBy4CqG8Y9XDB1uwrkdezW31oAumfUL1xKhl71OaYWMmReb8TvZALTSF9ZBLkpoMptygc20xKe2ycGEwel8ZA1yMerwTZBO3GXsZD',
+    // ]]);
+
+    $response = $client->request('GET',$endpoint);
+
+    $statusCode = $response->getStatusCode();
+    $content = $response->getBody()->getContents();
+    //dd($statusCode);
+    $trext = json_decode($content,true);
+    dd($trext);
 });

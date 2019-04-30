@@ -114,19 +114,6 @@ class GraphController extends Controller
             $text = array();
             $count = 0;
             $tempText = "";
-            if($req->option == 0){
-                foreach ($data as $value) {
-                    $text[] = $value['from']['id'];
-                }
-                $text = array_unique($text);
-                $temp = "";
-                foreach ($text as $value) {
-                    $temp .= $value."\r\n";
-                    $count++;
-                    if ($count == $req->soluong) break;
-                }
-                return response()->json(['success'=>$temp]);
-            }
 
             if($req->option == 1){
                 foreach ($data as $value) {
@@ -144,7 +131,7 @@ class GraphController extends Controller
 
             if($req->option == 2){
                 foreach ($data as  $value) {
-                    $tempText .= $value['message']."|".$value['from']['id']."|".$value['from']['name']."\r\n";
+                    $tempText .= $value['message']."\r\n";
                     $count++;
                     if ($count == $req->soluong) break;
                 }

@@ -2,18 +2,92 @@
 @section('title','Kênh bán Zalo') 
 @section('css')
 <link rel="stylesheet" href="{{asset('@styleadmin/node_modules/datatables.net-bs4/css/dataTables.bootstrap4.css')}}">
+<style>
+.avataruser {
+    width:120px !important;
+    height:120px !important;
+}
+</style>
 @endsection
  
 @section('content')
+<div class="row user-profile">
+    <div class="col-lg-4 side-left d-flex align-items-stretch">
+        <div class="row">
+            <div class="col-12 grid-margin stretch-card">
+                <div class="card">
+                    <div class="card-body avatar">
+                        <h4 class="card-title">Thông tin tài khoản</h4>
+                        <img src="" alt="" id="infoavt">
+                        <p class="name" id="infoname"></p>
+                        <p class="designation" id="infoid">- ID  -</p>
+                        <p class="designation" id="infobirthday">Sinh nhật : </p>
+
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 stretch-card">
+                <div class="card">
+                    <div class="card-body overview">
+                        <ul class="achivements">
+                            <li>
+                                <p></p>
+                                <p>Lượt tương tác</p>
+                            </li>
+                            <li>
+                                <p></p>
+                                <p>Bài Viết</p>
+                            </li>
+                            <li>
+                                <p></p>
+                                <p>Bình Luận</p>
+                            </li>
+                        </ul>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-lg-8 side-right stretch-card">
+        <div class="card">
+            <div class="card-body">
+                <div class="wrapper d-block d-sm-flex align-items-center justify-content-between">
+                    <h4 class="card-title mb-0">Chia sẻ Liên kết lên tường cá nhân</h4>
+                    <ul class="nav nav-tabs tab-solid tab-solid-primary mb-0" id="myTab" role="tablist">
+                        <li class="nav-item">
+                            <a class="nav-link active" id="info-tab" data-toggle="tab" href="#info" role="tab" aria-controls="info" aria-expanded="true">Bài Viết</a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="wrapper">
+                    <hr>
+                    <div class="tab-content" id="myTabContent">
+                        <div class="tab-pane fade show active" id="info" role="tabpanel" aria-labelledby="info">
+                                <div class="form-group">
+                                    <label for="recipient-name" class="col-form-label">Liên Kết : </label>
+                                    <input type="text" class="form-control" name="message" id="linkShare">
+                                </div>
+                                <div class="form-group">
+                                    <label for="recipient-name" class="col-form-label">Nội dung : </label>
+                                    <input type="text" class="form-control" name="message" id="msgShare">
+                                </div>
+                                <button type="button" class="btn btn-primary" id="ShareLink">Đăng tải</button>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
 <div class="card">
     <div class="card-body">
         <div class="row">
             <div class="col-sm-6">
-                <h4 class="card-title">List Bạn Bè</h4>
-            </div>
-            <div class="col-sm-6">
-                <button type="button" id="OpenUserModal" class="btn btn-success btn-xs" data-toggle="modal" data-target="#ZaloModal" data-whatever="@getbootstrap"><i class="mdi mdi-check"></i>Thêm mới</button>
-
+                <h4 class="card-title">Danh Sách Bạn Bè</h4>
             </div>
         </div>
 
@@ -76,14 +150,18 @@
 @section('javascript')
 <script src="https://zjs.zdn.vn/zalo/Zalo.Extensions.min.js"></script>
 <script>
-    $('#SendBTN').click(function(){
-        var list = $('#FormSend').serialize();
+    $('#ShareLink').click(function(){
+        var msg = $('#msgShare').val();
+        var link = $('#linkShare').val();
         $.ajax({
+            headers: {
+                'X-CSRF-TOKEN':  $('meta[name="csrf-token"]').attr('content')
+            },
             method: "POST",
-            url: 'https://graph.zalo.me/v2.0/me/feed',
-            data:list,
+            url: '{{route('zalo.sharelink')}}',
+            data:{msg:msg,link:link},
             success: function (data) {
-               ToastSuccess("ok");
+               ToastSuccess(data.success);
             },
             error: function (request, status) {
                 $.each(request.responseJSON.errors,function(key,val){
@@ -111,9 +189,32 @@
         });  
     }
 
+    function ZaloGetInfo(){
+        $.ajax({
+            headers: {
+                'X-CSRF-TOKEN':  $('meta[name="csrf-token"]').attr('content')
+            },
+            method: "GET",
+            url: '{{route('zalo.getinfo')}}',
+            success: function (data) {
+               $('#infoid').append(data.id);
+               $('#infoname').append(data.name);
+               $('#infoavt').attr("src",data.picture.data.url);
+               $('#infobirthday').append(data.birthday);
+               console.log(data.id);
+               console.log(data);
+            },
+            error: function (request, status) {
+                $.each(request.responseJSON.errors,function(key,val){
+                    ToastError(val);
+                });
+            }
+        });  
+    }
+
     $(document).ready(function(){
         callZaloService();
-       
+        ZaloGetInfo();
     });
 
     function loadDb(){
