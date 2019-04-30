@@ -354,6 +354,11 @@ function ChartCategory()
 	}
 	
 }
+// FIX Normal
+//		->select(DB::raw( 'Product.title,Product.id, sum(DetailsBill.Number) as SL, sum(Product.cost * DetailsBill.Number - ((Product.cost * DetailsBill.Number) / 100 * Product.discount)) as TongTien'))
+// FIX HEROKU
+//		->select(DB::raw('Product.title,Product.id, sum("DetailsBill"."Number") as SL, sum("Product"."cost" * "DetailsBill"."Number" - (("Product"."cost" * "DetailsBill"."Number") / 100 * "Product"."discount")) as "TongTien"'))
+
 
 function getProductTop()
 {
@@ -361,7 +366,7 @@ function getProductTop()
 		->join('product_details', 'Product.id', '=', 'product_details.id_product')
 		->join('DetailsBill', 'product_details.id', '=', 'DetailsBill.id_products_details')
 		->join('Bill', 'DetailsBill.id_bill', '=', 'Bill.id')
-		->select(DB::raw( 'Product.title,Product.id, sum(DetailsBill.Number) as SL, sum(Product.cost * DetailsBill.Number - ((Product.cost * DetailsBill.Number) / 100 * Product.discount)) as TongTien'))
+		->select(DB::raw('Product.title,Product.id, sum("DetailsBill"."Number") as SL, sum("Product"."cost" * "DetailsBill"."Number" - (("Product"."cost" * "DetailsBill"."Number") / 100 * "Product"."discount")) as "TongTien"'))
 		->where('Bill.status', 2)
 		->where('Bill.statusPay', 1)
 		->groupBy('Product.title')

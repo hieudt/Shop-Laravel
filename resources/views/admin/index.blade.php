@@ -152,7 +152,9 @@
                 <div class="badge badge-success badge-pill">Đã Bán {{$catTop->sl}} SP</div>
               </div>
             </div>
-            @empty Không có dữ liệu @endforelse
+            @empty 
+            Không có dữ liệu
+            @endforelse
           </div>
         </div>
       </div>
