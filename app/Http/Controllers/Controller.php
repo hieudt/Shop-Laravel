@@ -22,7 +22,7 @@ class Controller extends BaseController
             view()->share('danhmuc', $danhmuc);
         } else {
             $danhmuc = Category::with('SubCategory')->get();
-            Cache::put('categorycache', $danhmuc, 3);
+            Cache::put('categorycache', $danhmuc, 30);
             view()->share('danhmuc', $danhmuc);
         }
 
@@ -31,7 +31,7 @@ class Controller extends BaseController
             view()->share('pages', $pages);
         } else {
             $pages = Pages::nested()->get();;
-            Cache::put('pagescache', $pages, 3);
+            Cache::put('pagescache', $pages, 30);
             view()->share('pages', $pages);
         }
 
@@ -40,7 +40,7 @@ class Controller extends BaseController
             view()->share('setting', $setting);
         } else {
             $setting = Setting::find(1);
-            Cache::put('settingcache', $setting, 3);
+            Cache::put('settingcache', $setting, 30);
             view()->share('setting', $setting);
         } 
     }
