@@ -174,6 +174,7 @@ return [
         Nestable\NestableServiceProvider::class,
         Intervention\Image\ImageServiceProvider::class,
         Backup\BackupServiceProvider::class,
+
         /*
          * Package Service Providers...
          */
@@ -244,7 +245,7 @@ return [
         'VisitLog' => Sarfraznawaz2005\VisitLog\Facades\VisitLog::class,
         'Nestable' => Nestable\Facades\NestableService::class,
         'Image' => Intervention\Image\Facades\Image::class,
-
+  
     ],
 
 ];

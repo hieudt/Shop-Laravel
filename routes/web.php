@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
+use \Firebase\JWT\JWT;
 use App\Notification;
 use App\User;
 use GuzzleHttp\Client;
@@ -260,19 +261,5 @@ Route::get('fb',function(){
 });
 
 Route::get('fb2', function () {
-    $client = new Client();
-
-    $endpoint = "https://graph.facebook.com/491152857694713/feed/?fields=reactions.summary(total_count),comments.summary(total_count)&access_token=EAASv7DwM85oBAI1rDGB4kPODCj6nZAiO5MpNvx9St3vNDYdfpjJ3QwvUHTXRQJmtcL34XgY6Dftnj8IUHkD6ZBwdNyk7h4Q8OzPt5RCwTaOnW03BhoFtToupvyxILvRBy4CqG8Y9XDB1uwrkdezW31oAumfUL1xKhl71OaYWMmReb8TvZALTSF9ZBLkpoMptygc20xKe2ycGEwel8ZA1yMerwTZBO3GXsZD";
-    // $response = $client->request('GET', $endpoint, ['query' => [
-    //     'fields' => 'picture',
-    //     'access_token' => 'EAASv7DwM85oBAI1rDGB4kPODCj6nZAiO5MpNvx9St3vNDYdfpjJ3QwvUHTXRQJmtcL34XgY6Dftnj8IUHkD6ZBwdNyk7h4Q8OzPt5RCwTaOnW03BhoFtToupvyxILvRBy4CqG8Y9XDB1uwrkdezW31oAumfUL1xKhl71OaYWMmReb8TvZALTSF9ZBLkpoMptygc20xKe2ycGEwel8ZA1yMerwTZBO3GXsZD',
-    // ]]);
-
-    $response = $client->request('GET',$endpoint);
-
-    $statusCode = $response->getStatusCode();
-    $content = $response->getBody()->getContents();
-    //dd($statusCode);
-    $trext = json_decode($content,true);
-    dd($trext);
+    
 });
