@@ -243,12 +243,12 @@ Route::get('/add',function(){
 
 Route::get('delete',function(){
     $data = DB::table('categories')
-        ->select(DB::raw('categories.id,categories.title,sum(DetailsBill.Number) as SL,sum(DetailsBill.price * DetailsBill.Number - ((DetailsBill.price*DetailsBill.Number) / 100 * DetailsBill.discount)) as TongTien'))
         ->join('SubCategory', 'categories.id', '=', 'SubCategory.id_category')
         ->join('Product', 'SubCategory.id', '=', 'Product.id_sub')
         ->join('product_details', 'Product.id', '=', 'product_details.id_product')
         ->join('DetailsBill', 'product_details.id', '=', 'DetailsBill.id_products_details')
         ->join('Bill', 'Bill.id', '=', 'DetailsBill.id_bill')
+        ->select(DB::raw('categories.id,categories.title,sum(DetailsBill.Number) as SL,sum(DetailsBill.price * DetailsBill.Number - ((DetailsBill.price*DetailsBill.Number) / 100 * DetailsBill.discount)) as TongTien'))
         ->where('Bill.statusPay', 1)
         ->where('Bill.status', 2)
         ->groupBy('categories.id')
