@@ -271,5 +271,9 @@ Route::get('fb2', function () {
         ->groupBy('categories.title')
         ->orderBy('TongTien', 'desc')->take(!empty($params) ? $params : 4)->toSql();
 
-    return $data;
+    if(!empty($data)){
+        echo $data;
+    } else {
+        echo "Rỗng";
+    }
 });
