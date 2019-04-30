@@ -1,7 +1,7 @@
 @extends('admin.master') 
 @section('title','Tổng Quan Hệ Thống') 
 @section('css')
-<link rel="stylesheet" href="{{asset('@styleadmin/node_modules/datatables.net-bs4/css/dataTables.bootstrap4.css')}}">
+<link rel="stylesheet" href="{!!asset('@styleadmin/node_modules/datatables.net-bs4/css/dataTables.bootstrap4.css')!!}">
 @endsection
  
 @section('content')
@@ -16,7 +16,7 @@
             <div class="card-body">
               <div class="d-flex align-items-center">
                 <div class="mr-auto">
-                  <h1 class="mb-0">{{count(VisitLog::all())}}</h1>
+                  <h1 class="mb-0">{!!count(VisitLog::all())!!}</h1>
                   <p>
                     Lượt Truy Cập
                   </p>
@@ -35,7 +35,7 @@
             <div class="card-body">
               <div class="d-flex align-items-center">
                 <div class="mr-auto">
-                  <h1 class="mb-0">{{count(App\User::all())}}</h1>
+                  <h1 class="mb-0">{!!count(App\User::all())!!}</h1>
                   <p>
                     Khách Hàng
                   </p>
@@ -54,7 +54,7 @@
             <div class="card-body">
               <div class="d-flex align-items-center">
                 <div class="mr-auto">
-                  <h1 class="mb-0">{{count(App\Bill::where('status',2)->where('statusPay',1)->get())}}</h1>
+                  <h1 class="mb-0">{!!count(App\Bill::where('status',2)->where('statusPay',1)->get())!!}</h1>
                   <p>
                     Hóa Đơn
                   </p>
@@ -73,7 +73,7 @@
             <div class="card-body">
               <div class="d-flex align-items-center">
                 <div class="mr-auto">
-                  <h1 class="mb-0">{{formatMoney(App\Bill::where('status',2)->where('statusPay',1)->sum('TotalMoney'),true)}}</h1>
+                  <h1 class="mb-0">{!!formatMoney(App\Bill::where('status',2)->where('statusPay',1)->sum('TotalMoney'),true)!!}</h1>
                   <p>
                     Doanh Thu (0 Bao gồm phí ship)
                   </p>
@@ -143,13 +143,13 @@
             @forelse ($categoryTop as $catTop)
             <div class="preview-item">
               <div class="preview-item-content">
-                <p class="preview-subject font-weight-medium">{{$catTop->title}}</p>
+                <p class="preview-subject font-weight-medium">{!!$catTop->title!!}</p>
                 <p class="text-muted">
                   <div class="badge badge-pill badge-outline-info">Doanh thu mang lại : {!!formatMoney((int)$catTop->TongTien)!!}</div>
                 </p>
               </div>
               <div class="preview-actions ml-auto">
-                <div class="badge badge-success badge-pill">Đã Bán {{$catTop->SL}} SP</div>
+                <div class="badge badge-success badge-pill">Đã Bán {!!$catTop->SL!!} SP</div>
               </div>
             </div>
             @empty Không có dữ liệu @endforelse
@@ -239,7 +239,7 @@ $(document).ready(function(){
         'X-CSRF-TOKEN':  $('meta[name="csrf-token"]').attr('content')
     },
     method: 'POST',
-    url: '{{route('admin.safemode.alertlogin')}}',
+    url: '{!!route('admin.safemode.alertlogin')!!}',
     dataType: 'json',
     });
   }
@@ -291,11 +291,11 @@ $(document).ready(function(){
   });
 
 </script>
-<script src="{{asset('@styleadmin/node_modules/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js')}}"></script>
-<script src="{{asset('@styleadmin/js/dashboard.js')}}"></script>
-<script src="{{asset('@styleadmin/node_modules/datatables.net/js/jquery.dataTables.js')}}"></script>
-<script src="{{asset('@styleadmin/node_modules/datatables.net-bs4/js/dataTables.bootstrap4.js')}}"></script>
-{{--
+<script src="{!!asset('@styleadmin/node_modules/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js')!!}"></script>
+<script src="{!!asset('@styleadmin/js/dashboard.js')!!}"></script>
+<script src="{!!asset('@styleadmin/node_modules/datatables.net/js/jquery.dataTables.js')!!}"></script>
+<script src="{!!asset('@styleadmin/node_modules/datatables.net-bs4/js/dataTables.bootstrap4.js')!!}"></script>
+{!!--
 <script type="text/javascript" src="https://cdn.rawgit.com/Mikhus/canvas-gauges/gh-pages/download/2.1.2/all/gauge.min.js"></script>
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/chartist/0.10.1/chartist.min.js"></script>
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.min.js"></script>
@@ -306,15 +306,15 @@ $(document).ready(function(){
 <script type="text/javascript">
   google.charts.load('current', {'packages':['corechart', 'gauge', 'geochart', 'bar', 'line']})
 
-</script> --}}
+</script> --!!}
 
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/highcharts/5.0.7/highcharts.js"></script>
 
-{{--
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/highcharts/5.0.7/js/modules/offline-exporting.js"></script> --}} {{--
+{!!--
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/highcharts/5.0.7/js/modules/offline-exporting.js"></script> --!!} {!!--
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/highmaps/5.0.7/js/modules/map.js"></script>
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/highmaps/5.0.7/js/modules/data.js"></script>
-<script type="text/javascript" src="https://code.highcharts.com/mapdata/custom/world.js"></script> --}} {{--
+<script type="text/javascript" src="https://code.highcharts.com/mapdata/custom/world.js"></script> --!!} {!!--
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/raphael/2.2.6/raphael.min.js"></script>
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/justgage/1.2.2/justgage.min.js"></script>
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/raphael/2.2.6/raphael.min.js"></script>
@@ -328,7 +328,7 @@ $(document).ready(function(){
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/amcharts/3.21.2/amcharts.js"></script>
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/amcharts/3.21.2/serial.js"></script>
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/amcharts/3.21.2/plugins/export/export.min.js"></script>
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/amcharts/3.21.2/themes/light.js"></script> --}} 
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/amcharts/3.21.2/themes/light.js"></script> --!!} 
 @if($chart)
 {!! $chart->script() !!}
 @endif
