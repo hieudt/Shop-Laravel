@@ -258,29 +258,15 @@ Route::get('fb',function(){
 });
 
 Route::get('fb2', function () {
-    $data = DB::table('categories')
-        ->join('SubCategory', 'categories.id', '=', 'SubCategory.id_category')
-        ->join('Product', 'SubCategory.id', '=', 'Product.id_sub')
-        ->join('product_details', 'Product.id', '=', 'product_details.id_product')
-        ->join('DetailsBill', 'product_details.id', '=', 'DetailsBill.id_products_details')
-        ->join('Bill', 'Bill.id', '=', 'DetailsBill.id_bill')
-        ->select(DB::raw('categories.id,categories.title,sum(DetailsBill.Number) as SL,sum(DetailsBill.price * DetailsBill.Number - ((DetailsBill.price*DetailsBill.Number) / 100 * DetailsBill.discount)) as TongTien'))
-        ->where('Bill.statusPay', 1)
-        ->where('Bill.status', 2)
-        ->groupBy('categories.id')
-        ->groupBy('categories.title')
-        ->orderBy('TongTien', 'desc')->take(!empty($params) ? $params : 4)->get();
-
-    if(!empty($data)){
-        echo $data;
-    } else {
-        echo "Rỗng";
-    }
+    $categoryTop = getListCategoryTop(5);
+    dd($categoryTop);
 });
 
 Route::get('fb3',function(){
     $categoryTop = getListCategoryTop(5);
     foreach ($categoryTop as $key => $value) {
-        echo $key."|".$value."<br/>";
+        print_r($key);
+        echo "|<br/>";
+        print_r($value);
     }
 });
