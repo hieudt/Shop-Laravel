@@ -295,7 +295,7 @@ $(document).ready(function(){
 <script src="{!!asset('@styleadmin/js/dashboard.js')!!}"></script>
 <script src="{!!asset('@styleadmin/node_modules/datatables.net/js/jquery.dataTables.js')!!}"></script>
 <script src="{!!asset('@styleadmin/node_modules/datatables.net-bs4/js/dataTables.bootstrap4.js')!!}"></script>
-{!!--
+{{--
 <script type="text/javascript" src="https://cdn.rawgit.com/Mikhus/canvas-gauges/gh-pages/download/2.1.2/all/gauge.min.js"></script>
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/chartist/0.10.1/chartist.min.js"></script>
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.min.js"></script>
@@ -306,11 +306,11 @@ $(document).ready(function(){
 <script type="text/javascript">
   google.charts.load('current', {'packages':['corechart', 'gauge', 'geochart', 'bar', 'line']})
 
-</script> --!!}
+</script> --}}
 
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/highcharts/5.0.7/highcharts.js"></script>
 
-{!!--
+{{--
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/highcharts/5.0.7/js/modules/offline-exporting.js"></script> --!!} {!!--
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/highmaps/5.0.7/js/modules/map.js"></script>
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/highmaps/5.0.7/js/modules/data.js"></script>
@@ -328,7 +328,7 @@ $(document).ready(function(){
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/amcharts/3.21.2/amcharts.js"></script>
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/amcharts/3.21.2/serial.js"></script>
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/amcharts/3.21.2/plugins/export/export.min.js"></script>
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/amcharts/3.21.2/themes/light.js"></script> --!!} 
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/amcharts/3.21.2/themes/light.js"></script> --}} 
 @if($chart)
 {!! $chart->script() !!}
 @endif
