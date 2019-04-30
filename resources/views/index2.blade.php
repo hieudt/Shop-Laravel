@@ -141,11 +141,11 @@
                             <div class="col-md-3 col-sm-6">
                                 <div class="product-grid4">
                                     <div class="product-image4">
-                                        <a href="{{url('/san-pham')}}/{{$product->id}}/{{$product->slug}}/">
+                                        <a href="{{url('/san-pham')}}/{{$product->id}}/{{$product->slug}}">
                                             <img src="{{url('/images/product')}}/{{$product->thumbnail}}">
                                         </a>
                                         <ul class="social">
-                                            <li><a href="/san-pham/{{$product->id}}/{{$product->slug}}/" data-tip="Chi Tiết SP"><i class="fa fa-eye fa-fix"></i></a></li>
+                                            <li><a href="/san-pham/{{$product->id}}/{{$product->slug}}" data-tip="Chi Tiết SP"><i class="fa fa-eye fa-fix"></i></a></li>
                                             <li><a href="#" data-tip="Add to Wishlist" data-product="{{$CountForm}}" class="add-to-wish"><i class="fa fa-shopping-bag fa-fix"></i></a></li>
                                             <li><a href="#" data-tip="Add to Cart"><i class="fa fa-shopping-cart fa-fix"></i></a></li>
                                         </ul>
