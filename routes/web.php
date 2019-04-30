@@ -231,8 +231,8 @@ Route::group(['prefix' => 'admin', 'middleware' => 'adminLogin'], function () {
 
 
 
-Route::get('/test', function () {
-    Cache::pull('objfacebook');
+Route::get('/clearcache', function () {
+    Cache::flush();
    
 });
 Route::get('/add',function(){

@@ -71,7 +71,7 @@ class CheckOutController extends Controller
                 return response()->json(['errors'=>['errorcoupons'=>[0=>'Vui lòng chọn phương thức vận chuyển']]],422);
             }
 
-            $idUser = 12;
+            $idUser = User::where('role',2)->first()->id;
             if(Auth::check()){
                 $idUser = Auth::user()->id;
             }

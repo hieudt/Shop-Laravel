@@ -26,7 +26,12 @@ class GraphController extends Controller
 
         $this->middleware(function ($request, $next) use ($fb) {
             $data = Zalo::where('name', 'Facebook')->first();
-            $fb->setDefaultAccessToken($data->app_token);
+            if($data->app_token != null){
+                $fb->setDefaultAccessToken($data->app_token);
+            } else {
+                $fb->setDefaultAccessToken("3424");
+            }
+            
             $this->api = $fb;
             return $next($request);
         });

@@ -38,7 +38,7 @@ class ZaloSocial extends Controller
 
     function getAccesstoken()
     {
-        $zalo = Zalo::find(1);
+        $zalo = Zalo::where('name','Zalo')->first();
         $client = new Client();
         $res = $client->request('GET', 'https://oauth.zaloapp.com/v3/access_token?app_id=' . $zalo->app_id . '&app_secret=' . $zalo->app_secrect . '&code=' . $zalo->app_code);
         if ($res->getStatusCode() == 200) { // 200 OK
@@ -79,8 +79,8 @@ class ZaloSocial extends Controller
 
     public function getFriends(){
         
-        $zalo = Zalo::where('name','Zalo')->count();
-        if($zalo == 0){
+        $zalo = Zalo::where('name','Zalo');
+        if($zalo->count() == 0 || $zalo->first()->app_id == ""){
             return response()->json(['errors'=>['fail'=>['Bạn chưa cấu hình zalo vui lòng cấu hình app id và app serect']]],422);
         }
         $zalo2 = Zalo::where('name','Zalo')->first();
