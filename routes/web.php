@@ -264,9 +264,7 @@ Route::get('fb2', function () {
 
 Route::get('fb3',function(){
     $categoryTop = getListCategoryTop(5);
-    foreach ($categoryTop as $key => $value) {
-        print_r($key);
-        echo "|<br/>";
-        print_r($value);
+    foreach ($categoryTop as $value) {
+        echo $value->TongTien."<br/>";
     }
 });
