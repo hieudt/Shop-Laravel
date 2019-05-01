@@ -276,7 +276,7 @@ $(document).ready(function(){
           {data:'title',name:'title'},
           {data:'progress',name:'progress'},
           {data:'TongTien',name:'TongTien'},
-          {data:'sl',name:'sl'}
+          {data:'SL',name:'SL'}
       ]
 
       });

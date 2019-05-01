@@ -121,8 +121,10 @@ channel5.bind('loadWish', function (data) {
       x.play(); 
   });
   
-
-
+// local algoli key : CI2EIBUHHH
+// local : acf91bc5e3367faf4c70e87dfc2ef866
+//heroku :9NVYPPXRA8
+// heroku : ef9748de01bebfbd06033af0346796fb
 (function() {
     var client = algoliasearch('CI2EIBUHHH', 'acf91bc5e3367faf4c70e87dfc2ef866');
     var index = client.initIndex('Product');    
