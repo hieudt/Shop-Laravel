@@ -40,10 +40,9 @@ class ApiController extends Controller
             $A->sendText($text);
         } elseif ($msg == "product") {
 
-            $data = Product::all();
+            $data = Product::orderBy('id','desc')->take(10)->get();
+            $ars = array();
             $A = new Chatfuel;
-            $ar = array();
-
             foreach ($data as $_data) {
                 $price = "Giá tiền :" . $_data['cost'] . "đ \n";
                 $data = Product::with('Color', 'Size', 'product_details')->where('id', $_data['id'])->get()->toArray();
@@ -73,7 +72,7 @@ class ApiController extends Controller
                 $price .= $text;
                 $image = "https://shop-rog.herokuapp.com/images/product/" . $_data['thumbnail'];
 
-                $ar[] = $A->createElement($_data['title'], $image, $price, [
+                $ars[] = $A->createElement($_data['title'], $image, $price, [
                     $A->createButtonToURL('Mua Ngay', 'https://facebook.com/bossgin.vhb'),
                     $A->createShareButton()
                 ]);
