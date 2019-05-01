@@ -280,7 +280,8 @@ function setEnv($name, $value)
 //Fix DB HEROKU
 //		->select(DB::raw('categories.title,sum("DetailsBill"."Number") as SL,sum("DetailsBill"."price" * "DetailsBill"."Number" - (("DetailsBill"."price"*"DetailsBill"."Number") / 100 * "DetailsBill"."discount")) as "TongTien"'))
 //FIX DB normal
-// bỏ nháy kép
+// 		->select(DB::raw('categories.title,sum(DetailsBill.Number) as SL,sum(DetailsBill.price * DetailsBill.Number - ((DetailsBill.price*DetailsBill.Number) / 100 * DetailsBill.discount)) as TongTien'))
+
 function getInfoByCategoryId($id, $day)
 {
 	$data = DB::table('categories')
@@ -289,8 +290,7 @@ function getInfoByCategoryId($id, $day)
 		->join('product_details', 'Product.id', '=', 'product_details.id_product')
 		->join('DetailsBill', 'product_details.id', '=', 'DetailsBill.id_products_details')
 		->join('Bill', 'Bill.id', '=', 'DetailsBill.id_bill')
-		->select(DB::raw('categories.title,sum("DetailsBill"."Number") as SL,sum("DetailsBill"."price" * "DetailsBill"."Number" - (("DetailsBill"."price"*"DetailsBill"."Number") / 100 * "DetailsBill"."discount")) as "TongTien"'))
-		->where('categories.id', $id)
+		->select(DB::raw('categories.title,sum("DetailsBill"."Number") as SL,sum("DetailsBill"."price" * "DetailsBill"."Number" - (("DetailsBill"."price"*"DetailsBill"."Number") / 100 * "DetailsBill"."discount")) as "TongTien"'))		->where('categories.id', $id)
 		->where('Bill.statusPay', 1)
 		->where('Bill.status', 2)
 		->whereDate('Bill.created_at', $day)
@@ -304,7 +304,7 @@ function getInfoByCategoryId($id, $day)
 
 
 // FIX DB HEROKU
-//		->select(DB::raw('categories.id,categories.title,sum(DetailsBill.Number) as SL,sum(DetailsBill.price * DetailsBill.Number - ((DetailsBill.price*DetailsBill.Number) / 100 * DetailsBill.discount)) as TongTien'))
+//		->select(DB::raw('categories.id,categories.title,sum("DetailsBill"."Number") as SL,sum("DetailsBill"."price" * "DetailsBill"."Number" - (("DetailsBill"."price"*"DetailsBill"."Number") / 100 * "DetailsBill"."discount")) as "TongTien"'))
 // FIX DB NORMAL
 // 		->select(DB::raw('categories.id,categories.title,sum(DetailsBill.Number) as SL,sum(DetailsBill.price * DetailsBill.Number - ((DetailsBill.price*DetailsBill.Number) / 100 * DetailsBill.discount)) as TongTien'))
 
@@ -316,9 +316,7 @@ function getListCategoryTop($params = null)
 		->join('product_details', 'Product.id', '=', 'product_details.id_product')
 		->join('DetailsBill', 'product_details.id', '=', 'DetailsBill.id_products_details')
 		->join('Bill', 'Bill.id', '=', 'DetailsBill.id_bill')
-		->select(DB::raw('categories.id,categories.title,sum("DetailsBill"."Number") as SL,sum("DetailsBill"."price" * "DetailsBill"."Number" - (("DetailsBill"."price"*"DetailsBill"."Number") / 100 * "DetailsBill"."discount")) as "TongTien"'))
-		->where('Bill.statusPay', 1)
-		->where('Bill.status', 2)
+		->select(DB::raw('categories.id,categories.title,sum("DetailsBill"."Number") as SL,sum("DetailsBill"."price" * "DetailsBill"."Number" - (("DetailsBill"."price"*"DetailsBill"."Number") / 100 * "DetailsBill"."discount")) as "TongTien"'))		->where('Bill.status', 2)
 		->groupBy('categories.id')
 		->groupBy('categories.title')
 		->orderBy('TongTien', 'desc')->take(!empty($params) ? $params : 4)->get();
@@ -366,8 +364,7 @@ function getProductTop()
 		->join('product_details', 'Product.id', '=', 'product_details.id_product')
 		->join('DetailsBill', 'product_details.id', '=', 'DetailsBill.id_products_details')
 		->join('Bill', 'DetailsBill.id_bill', '=', 'Bill.id')
-		->select(DB::raw('"Product"."title","Product"."id", sum("DetailsBill"."Number") as SL, sum("Product"."cost" * "DetailsBill"."Number" - (("Product"."cost" * "DetailsBill"."Number") / 100 * "Product"."discount")) as "TongTien"'))
-		->where('Bill.status', 2)
+		->select(DB::raw('Product.title,Product.id, sum("DetailsBill"."Number") as SL, sum("Product"."cost" * "DetailsBill"."Number" - (("Product"."cost" * "DetailsBill"."Number") / 100 * "Product"."discount")) as "TongTien"'))		->where('Bill.status', 2)
 		->where('Bill.statusPay', 1)
 		->groupBy('Product.title')
 		->groupBy('Product.id')

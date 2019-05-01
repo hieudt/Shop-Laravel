@@ -35,7 +35,9 @@ use Illuminate\Support\Facades\Hash;
 
 Route::get('/', 'FrontEndController@index')->name('front.index');
 Route::post('/reg','SubcriberController@store')->name('subcriber.store');
-
+/* MODULE FB SERVICE */
+Route::get('getapi/minmax/{min}/{max}', 'ApiController@minmax')->name('getapi.minmax');
+Route::get('getapi/service/{msg}', 'ApiController@service')->name('getapi.service');
 /* MODULE PRODUCT */
 Route::get('san-pham', 'FrontEndController@category2')->name('front.category');
 Route::get('fetchdata/colorforsize', 'FrontEndController@fetchColor')->name('front.fetchcolor');
@@ -222,8 +224,7 @@ Route::group(['prefix' => 'admin', 'middleware' => 'adminLogin'], function () {
     Route::get('reviews/fetchBackend','ReviewController@fetchBackend')->name('review.fetchbackend');
     Route::get('reviews/delete/{id}', 'ReviewController@destroy')->name('review.destroy');
 
-    Route::get('getapi/minmax/{min}/{max}', 'ApiController@minmax')->name('getapi.minmax');
-    Route::get('getapi/service/{msg}', 'ApiController@service')->name('getapi.service');
+    
 
     
 });
