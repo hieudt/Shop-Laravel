@@ -264,7 +264,7 @@ Route::get('fb2', function () {
 });
 
 Route::get('fb3',function(){
-    $msg = "HDSHOPROGTEAM50";
+    $msg = "category";
     $pos = strpos($msg,"HDSHOPROGTEAM");
     if(strpos($msg, "HDSHOPROGTEAM") !== false){
         $id = explode("HDSHOPROGTEAM", $msg);
@@ -282,7 +282,9 @@ Route::get('fb3',function(){
             $text .= "Không tồn tại hóa đơn " . $id[1];
         }
         echo $text;
-    } else {
-        echo "Error";
+    }elseif($msg == "category"){
+        echo "OK";
+    }else{
+        echo "NONE";
     }
 });

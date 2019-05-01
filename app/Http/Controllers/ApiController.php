@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use juno_okyo\Chatfuel;
 use App\Category;
 use App\Product;
-
+use App\Bill;
 class ApiController extends Controller
 {
     public function index($msg)
@@ -80,7 +80,7 @@ class ApiController extends Controller
             }
            $A->sendGallery($ars);
         } 
-        elseif (strpos($msg, "HDSHOPROGTEAM") !== false){
+        elseif (strpos($msg,"HDSHOPROGTEAM") !== false){
             $id = explode("HDSHOPROGTEAM", $msg);
             $data = Bill::find($id[1]);
             $text = "";
