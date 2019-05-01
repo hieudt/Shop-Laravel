@@ -95,6 +95,7 @@ class ApiController extends Controller
             }else{
                 $text .= "Không tồn tại hóa đơn ".$id[1];
             }
+            $A>sendText($text);
         }
         else {
             $A = new Chatfuel;
