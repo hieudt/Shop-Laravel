@@ -84,10 +84,10 @@ class ApiController extends Controller
             $id = explode("HDSHOPROGTEAM", $msg);
             $data = Bill::find($id[1]);
             $text = "";
-            $A = new Chatfuel;
+            
             if(!empty($data)){
                 $text .= "Hóa đơn : ".$data->id ."\n";
-                $text .= "Người mua : ".$data->User->name."\n";
+                $text .= "Người mua : ".$data->Users->name."\n";
                 $text .= "Đ/C Ship : ".$data->InfoShip->Address ."\n";
                 $text .= "Trạng thái : ".getState($data->status) ."\n";
                 $text .= "Thanh toán : ".getStatePay($data->statusPay) ."\n";
@@ -95,7 +95,8 @@ class ApiController extends Controller
             }else{
                 $text .= "Không tồn tại hóa đơn ".$id[1];
             }
-            $A>sendText($text);
+            $A = new Chatfuel;
+            $A->sendText($text);
         }
         else {
             $A = new Chatfuel;
