@@ -77,7 +77,7 @@ class ApiController extends Controller
                     $A->createShareButton()
                 ]);
             }
-           // $A->sendGallery($ar);
+           $A->sendGallery($ars);
         } else {
             $A = new Chatfuel;
             $A->sendText("Lệnh không hợp lệ vui lòng gõ category để xem danh mục hoặc product để xem sản phẩm");
