@@ -278,7 +278,7 @@ function setEnv($name, $value)
 }
 
 //Fix DB HEROKU
-//		->select(DB::raw('categories.title,sum("DetailsBill"."Number") as SL,sum("DetailsBill"."price" * "DetailsBill"."Number" - (("DetailsBill"."price"*"DetailsBill"."Number") / 100 * "DetailsBill"."discount")) as "TongTien"'))
+//		->select(DB::raw('categories.title,sum("DetailsBill"."Number") as "sl",sum("DetailsBill"."price" * "DetailsBill"."Number" - (("DetailsBill"."price"*"DetailsBill"."Number") / 100 * "DetailsBill"."discount")) as "TongTien"'))
 //FIX DB normal
 // 		->select(DB::raw('categories.title,sum(DetailsBill.Number) as SL,sum(DetailsBill.price * DetailsBill.Number - ((DetailsBill.price*DetailsBill.Number) / 100 * DetailsBill.discount)) as TongTien'))
 
@@ -307,7 +307,8 @@ function getInfoByCategoryId($id, $day)
 // FIX DB HEROKU
 //		->select(DB::raw('categories.id,categories.title,sum("DetailsBill"."Number") as SL,sum("DetailsBill"."price" * "DetailsBill"."Number" - (("DetailsBill"."price"*"DetailsBill"."Number") / 100 * "DetailsBill"."discount")) as "TongTien"'))
 // FIX DB NORMAL
-// 		->select(DB::raw('categories.id,categories.title,sum(DetailsBill.Number) as SL,sum(DetailsBill.price * DetailsBill.Number - ((DetailsBill.price*DetailsBill.Number) / 100 * DetailsBill.discount)) as TongTien'))
+// 				->select(DB::raw('categories.id,categories.title,sum("DetailsBill"."Number") as "sl",sum("DetailsBill"."price" * "DetailsBill"."Number" - (("DetailsBill"."price"*"DetailsBill"."Number") / 100 * "DetailsBill"."discount")) as "TongTien"'))
+
 
 function getListCategoryTop($params = null)
 {
@@ -357,7 +358,8 @@ function ChartCategory()
 // FIX Normal
 //		->select(DB::raw( 'Product.title,Product.id, sum(DetailsBill.Number) as SL, sum(Product.cost * DetailsBill.Number - ((Product.cost * DetailsBill.Number) / 100 * Product.discount)) as TongTien'))
 // FIX HEROKU
-//		->select(DB::raw('Product.title,Product.id, sum("DetailsBill"."Number") as SL, sum("Product"."cost" * "DetailsBill"."Number" - (("Product"."cost" * "DetailsBill"."Number") / 100 * "Product"."discount")) as "TongTien"'))
+//				->select(DB::raw('"Product"."title","Product"."id", sum("DetailsBill"."Number") as "sl", sum("Product"."cost" * "DetailsBill"."Number" - (("Product"."cost" * "DetailsBill"."Number") / 100 * "Product"."discount")) as "TongTien"'))
+
 
 
 function getProductTop()
