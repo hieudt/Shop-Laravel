@@ -38,7 +38,8 @@ class ApiController extends Controller
             }
             $A = new Chatfuel;
             $A->sendText($text);
-        } elseif ($msg == "product") {
+        } elseif ($msg == "product") 
+        {
 
             $data = Product::orderBy('id','desc')->take(10)->get();
             $ars = array();
@@ -78,7 +79,24 @@ class ApiController extends Controller
                 ]);
             }
            $A->sendGallery($ars);
-        } else {
+        } 
+        elseif (strpos($msg, "HDSHOPROGTEAM") !== false){
+            $id = explode("HDSHOPROGTEAM", $msg);
+            $data = Bill::find($id[1]);
+            $text = "";
+            $A = new Chatfuel;
+            if(!empty($data)){
+                $text .= "Hóa đơn : ".$data->id ."\n";
+                $text .= "Người mua : ".$data->User->name."\n";
+                $text .= "Đ/C Ship : ".$data->InfoShip->Address ."\n";
+                $text .= "Trạng thái : ".getState($data->status) ."\n";
+                $text .= "Thanh toán : ".getStatePay($data->statusPay) ."\n";
+                $text .= "Tổng tiền :".$data->TotalMoney."\n";
+            }else{
+                $text .= "Không tồn tại hóa đơn ".$id[1];
+            }
+        }
+        else {
             $A = new Chatfuel;
             $A->sendText("Lệnh không hợp lệ vui lòng gõ category để xem danh mục hoặc product để xem sản phẩm");
         }

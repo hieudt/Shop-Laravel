@@ -264,40 +264,12 @@ Route::get('fb2', function () {
 });
 
 Route::get('fb3',function(){
-    $data = Product::orderBy('id','desc')->take(10)->get();
-    //$A = new Chatfuel;
-    $ars = array();
-    echo "Vailon";
-    foreach ($data as $_data) {
-        $price = "Giá tiền :" . $_data['cost'] . "đ \n";
-        $data = Product::with('Color', 'Size', 'product_details')->where('id', $_data['id'])->get()->toArray();
-        $text = '';
-        foreach ($data as $key) {
-            $array = array();
-            $i = 0;
-            foreach ($key['color'] as $keys) {
-                $array[$i] =  $keys['name'] . "|";
-                $i++;
-            }
-            $i = 0;
-            foreach ($key['size'] as $keys) {
-                $array[$i] .=  $keys['name'] . "|";
-                $i++;
-            }
-            $i = 0;
-            foreach ($key['product_details'] as $keys) {
-
-                $array[$i] .=   $keys['soluong'] . "|";
-                $i++;
-            }
-            foreach ($array as $ar) {
-                $text .= $ar . "\n";
-            }
-        }
-        $price .= $text;
-        $image = "https://shop-rog.herokuapp.com/images/product/" . $_data['thumbnail'];
-
-        $ars[] = $_data['title'];
+    $msg = "HDSHOPdwdwROGTEAM1243";
+    $pos = strpos($msg,"HDSHOPROGTEAM");
+    if(strpos($msg, "HDSHOPROGTEAM") !== false){
+        $id = explode("HDSHOPROGTEAM", $msg);
+        echo $id[1];
+    } else {
+        echo "Error";
     }
-    dd($ars);
 });

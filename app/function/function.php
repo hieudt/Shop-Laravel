@@ -384,4 +384,23 @@ function enable($id,$state = null){
 	}
 }
 
+function getState($num){
+	if($num == 0){
+		return "Chờ xử lý";
+	} elseif($num == 1){
+		return "Đang giao hàng";
+	}elseif($num == 2){
+		return "Đã giao hàng";
+	}else{
+		return "Hủy Đơn";
+	}
+}
+
+function getStatePay($num){
+	if($num == 0){
+		return "Chưa thanh toán";
+	}else{
+		return "Đã thanh toán";
+	}
+}
 
