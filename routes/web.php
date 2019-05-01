@@ -264,27 +264,9 @@ Route::get('fb2', function () {
 });
 
 Route::get('fb3',function(){
-    $msg = "category";
-    $pos = strpos($msg,"HDSHOPROGTEAM");
-    if(strpos($msg, "HDSHOPROGTEAM") !== false){
-        $id = explode("HDSHOPROGTEAM", $msg);
-        $data = Bill::find($id[1]);
-        $text = "";
-
-        if (!empty($data)) {
-            $text .= "Hóa đơn : " . $data->id . "\n";
-            $text .= "Người mua : " . $data->Users->name . "\n";
-            $text .= "Đ/C Ship : " . $data->InfoShip->Address . "\n";
-            $text .= "Trạng thái : " . getState($data->status) . "\n";
-            $text .= "Thanh toán : " . getStatePay($data->statusPay) . "\n";
-            $text .= "Tổng tiền :" . $data->TotalMoney . "\n";
-        } else {
-            $text .= "Không tồn tại hóa đơn " . $id[1];
-        }
-        echo $text;
-    }elseif($msg == "category"){
-        echo "OK";
-    }else{
-        echo "NONE";
+    $us = User::all();
+    $data = Product::all();
+    foreach ($us as $item) {
+        $item->DetailsBill()->get();
     }
 });

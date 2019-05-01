@@ -109,7 +109,7 @@
                 "sLast":     "Cuối"
             }
         },
-        "process" : true,
+       
         "stateSave": true,
         "serverSide" : false,
         "ajax" : '{!!route('product.fetch')!!}',

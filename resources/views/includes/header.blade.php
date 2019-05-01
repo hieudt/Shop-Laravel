@@ -28,13 +28,16 @@
                         <div class="title"><i class="fa fa-sign-out"></i> <a href="users/logout">Đăng xuất</a></div>
                     </div>
                     @endif
-                    
-                    <a href="{{url('/cart')}}" class="header-top-entry" id="notify">
-                        <div class="title"><i class="fa fa-shopping-cart open-cart-popup"></i><span>Giỏ Hàng</span> <b id="carttotal">(0)</b></div>
+                    <div class="header-top-entry increase-icon-responsive login">
+                    <a href="{{url('/cart')}}" class="header-top-entry title" id="notify">
+                        <i class="fa fa-shopping-cart open-cart-popup"></i><span>Giỏ Hàng</span> <b id="carttotal">(0)</b>
                     </a>
-                    <a href="{{url('/wishlist')}}" class="header-top-entry" id="notify">
-                        <div class="title"><i class="fa fa-heart"></i><span>Yêu Thích</span> <b id="wishlistcount">(0)</b></div>
+                    </div>
+                    <div class="header-top-entry increase-icon-responsive login">
+                    <a href="{{url('/wishlist')}}" class="header-top-entry title" id="notify">
+                        <i class="fa fa-heart"></i><span>Yêu Thích</span> <b id="wishlistcount">(0)</b>
                     </a>
+                    </div>
                 </div>
             </div>
         </div>
@@ -48,6 +51,8 @@
                 <nav>
                     <ul>
                         <li class="simple-list"><a href="{{url('/')}}" class="botred">TRANG CHỦ</a></li>
+                        <li class="simple-list"><a href="{{url('/cart')}}" class="botred">GIỎ HÀNG</a></li>
+                        <li class="simple-list"><a href="{{url('/wishlist')}}" class="botred">YÊU THÍCH</a></li>
                         <li class="full-width-columns">
                             <a href="{{url('/san-pham?')}}">DANH MỤC</a>
                             <i class="fa fa-chevron-down"></i>
