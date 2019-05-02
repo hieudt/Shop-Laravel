@@ -250,18 +250,8 @@ Route::get('/add',function(){
 
 
 Route::get('fb',function(){
-    $client = new \GuzzleHttp\Client();
-    
-    $endpoint = "https://graph.facebook.com/491152857694713/";
-    $response = $client->request('GET', $endpoint, ['query' => [
-        'fields'=>'picture',
-        'access_token' => 'EAASv7DwM85oBAI1rDGB4kPODCj6nZAiO5MpNvx9St3vNDYdfpjJ3QwvUHTXRQJmtcL34XgY6Dftnj8IUHkD6ZBwdNyk7h4Q8OzPt5RCwTaOnW03BhoFtToupvyxILvRBy4CqG8Y9XDB1uwrkdezW31oAumfUL1xKhl71OaYWMmReb8TvZALTSF9ZBLkpoMptygc20xKe2ycGEwel8ZA1yMerwTZBO3GXsZD',
-    ]]);
-    $statusCode = $response->getStatusCode();
-    $content = $response->getBody();
-    //dd($statusCode);
-     $content = json_decode($response->getBody(),true);
-     dd($content);
+    $data = Reviews::all();
+    return "hi";
 });
 
 Route::get('fb2', function () {

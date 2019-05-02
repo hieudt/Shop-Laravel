@@ -5,7 +5,7 @@
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>Không tồn tại đường dẫn</title>
+    <title>Máy chủ đang gặp trục trặc</title>
     <!-- plugins:css -->
     <link rel="stylesheet" href="{{asset('@styleadmin/node_modules/mdi/css/materialdesignicons.min.css')}}">
     <link rel="stylesheet" href="{{asset('@styleadmin/node_modules/flag-icon-css/css/flag-icon.min.css')}}">
@@ -25,11 +25,11 @@
                     <div class="col-lg-7 mx-auto text-white">
                         <div class="row align-items-center d-flex flex-row">
                             <div class="col-lg-6 text-lg-right pr-lg-4">
-                                <h1 class="display-1 mb-0">404</h1>
+                                <h1 class="display-1 mb-0">500</h1>
                             </div>
                             <div class="col-lg-6 error-page-divider text-lg-left pl-lg-4">
                                 <h2>Xin lỗi!</h2>
-                                <h3 class="font-weight-light">Đường dẫn không tồn tại</h3>
+                                <h3 class="font-weight-light">Lỗi từ phía máy chủ</h3>
                             </div>
                         </div>
                         <div class="row mt-5">
@@ -50,7 +50,6 @@
         </div>
         <!-- page-body-wrapper ends -->
     </div>
-    <!-- container-scroller -->
 
     <!-- endinject -->
 </body>
