@@ -4,7 +4,8 @@ namespace App\Http\Controllers;
 
 use App\ChatLieu;
 use Illuminate\Http\Request;
-
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Auth;
 class ChatLieuController extends Controller
 {
     /**
@@ -62,6 +63,7 @@ class ChatLieuController extends Controller
                 $ChatLieu->slug = $request->slug;
             }
             $ChatLieu->save();
+            Log::info('Quản trị ' . Auth::user()->name . ' Đã thêm mới chất liệu '.$ChatLieu->id);
             return response()->json(['success' => 'Thêm mới thành công']);
         }
     }

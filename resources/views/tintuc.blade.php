@@ -1,5 +1,5 @@
 @extends('includes.master') 
-@section('title',$news[0]->title) 
+@section('title',$news->title) 
 @section('css')
 @endsection
 @section('content')
@@ -8,12 +8,12 @@
         <div class="container">
                 <div class="breadcrumb-box">
                     <a href="{{url('/')}}">Trang Chủ</a>
-                    <a href="tin-tuc/{{$news[0]->slug}}">{{$news[0]->title}}</a>
+                    <a href="tin-tuc/{{$news->slug}}">{{$news->title}}</a>
                 </div>
             <div class="text-center services">
-                <h1 style="font-weight:bold;">{{$news[0]->title}}</h1>
+                <h1 style="font-weight:bold;">{{$news->title}}</h1>
             </div>
-            <p>{!!$news[0]->content!!}</p>
+            <p>{!!$news->content!!}</p>
         </div>
     </div>
 </section>

@@ -6,10 +6,13 @@ use Illuminate\Http\Request;
 use App\Pages;
 use Yajra\Datatables\Datatables;
 use Cache;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Auth;
 class PagesController extends Controller
 {
     public function index(){
         $pages = Pages::nested()->get();
+        Log::info('Quản trị ' . Auth::user()->name . ' Đã xem menu');
         return view('admin.pages.index',compact('pages'));
     }
 
@@ -68,7 +71,6 @@ class PagesController extends Controller
 
         }
         Cache::pull('pagescache');
-
         return response()->json(['success' => 'Cập nhật thành công'], 200);
     }
 
@@ -156,6 +158,7 @@ class PagesController extends Controller
             $pages->enableMenu = $req->selMenu;
             $pages->save();
             Cache::pull('pagescache');
+            Log::info('Quản trị ' . Auth::user()->name . ' Đã thêm mới menu');
             return response()->json(['success'=>'Thêm mới thành công']);
         }
     }

@@ -8,6 +8,7 @@ use ConsoleTVs\Charts\Facades\Charts;
 use Carbon\Carbon;
 use App\User;
 use DB;
+use Illuminate\Support\Facades\Log;
 use Yajra\Datatables\Datatables;
 class AdminPages extends Controller
 {
@@ -107,8 +108,9 @@ class AdminPages extends Controller
             $data->nameUser = Auth::user()->name;
             $data->seen = 1;
             $data->save();
-
+            Log::info(Auth::user()->name.' Đã đăng nhập vào quản trị');
             return response()->json(['success' => 'Đăng nhập thành công']);
+            
             
         } else {
             return response()->json(['errors' => ['faillogin' => [0 => 'Sai tên tài khoản hoặc mật khẩu']]], 422);

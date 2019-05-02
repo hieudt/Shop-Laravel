@@ -9,6 +9,8 @@ use App\Images;
 use App\Size;
 use Yajra\Datatables\Datatables;
 use App\Color;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Auth;
 class ProductController extends Controller
 {
     /**
@@ -18,6 +20,7 @@ class ProductController extends Controller
      */
     public function index()
     {
+        Log::info('Quản trị ' . Auth::user()->name . ' Đã xem danh sách sản phẩm');
         return view('admin.product.list2');
     }
 

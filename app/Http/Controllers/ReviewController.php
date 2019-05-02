@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Auth;
 use Carbon\Carbon;
 use App\User;
 use Yajra\DataTables\Datatables;
+use Illuminate\Support\Facades\Log;
 class ReviewController extends Controller
 {
     /**
@@ -70,6 +71,7 @@ class ReviewController extends Controller
             $data->content = $request->content;
             $data->rating = $request->rating;
             $data->save();
+            Log::info('Người dùng ' . Auth::user()->name . ' Đã đánh giá sản phẩm');
             return response()->json(['success'=>'Đánh giá sản phẩm thành công !']);
         }
     }

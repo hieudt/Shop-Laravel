@@ -21,7 +21,6 @@ use App\Bill;
 use App\Detailsbill;
 use Gloudemans\Shoppingcart\Facades\Cart;
 use Illuminate\Support\Facades\Input;
-use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Hash;
 /*
 |--------------------------------------------------------------------------
@@ -231,6 +230,7 @@ Route::group(['prefix' => 'admin', 'middleware' => 'adminLogin'], function () {
     Route::get('reviews/fetchBackend','ReviewController@fetchBackend')->name('review.fetchbackend');
     Route::get('reviews/delete/{id}', 'ReviewController@destroy')->name('review.destroy');
 
+    Route::get('logs', '\Rap2hpoutre\LaravelLogViewer\LogViewerController@index');
     
 
     
@@ -261,6 +261,5 @@ Route::get('fb2', function () {
 });
 
 Route::get('fb3',function(){
-    //Log::warning('Thử nghiệm');
-    echo info('hello');
+    Log::info('Thử nghiệm 2');
 });

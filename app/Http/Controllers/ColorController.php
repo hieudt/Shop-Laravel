@@ -4,7 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Color;
-
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Auth;
 class ColorController extends Controller
 {
     public function Search(Request $request)
@@ -85,6 +86,7 @@ class ColorController extends Controller
                 $Color->slug = $request->slug;
             }
             $Color->save();
+            Log::info('Quản trị ' . Auth::user()->name . ' Đã thêm mới thuộc tính màu sắc : ' . $Color->name);
             return response()->json(['success' => 'Thêm mới thành công']);
         }
     }

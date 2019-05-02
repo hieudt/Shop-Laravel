@@ -4,7 +4,8 @@ namespace App\Http\Controllers;
 
 use App\coupons;
 use Illuminate\Http\Request;
-
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Auth;
 class CouponsController extends Controller
 {
     /**
@@ -14,6 +15,7 @@ class CouponsController extends Controller
      */
     public function index()
     {
+        Log::info('Quản trị ' . Auth::user()->name . ' Đã xem danh sách mã giảm giá');
         return view('admin.coupons.list');
     }
 
@@ -80,6 +82,7 @@ class CouponsController extends Controller
             $coupons->typeEnable = $request->typeEnable;
             $coupons->content = $request->content;
             $coupons->save();
+            Log::info('Quản trị ' . Auth::user()->name . ' Đã thêm mới mã giảm giá : '.$coupons->code);
             return response()->json(['success' => 'Thêm mới thành công']);
         }
     }

@@ -7,12 +7,14 @@ use Illuminate\Support\Str;
 use DB;
 use App\Category;
 use App\SubCategory;
-
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Auth;
 class CategoryController extends Controller
 {
     public function index()
     {
         $Category = Category::all();
+        Log::info('Quản trị ' . Auth::user()->name . ' Đã xem danh sách danh mục');
         return view('admin.category.list', compact('Category'));
     }
 
@@ -43,6 +45,7 @@ class CategoryController extends Controller
                         $Category->slug = $request->slug;
                     }
                     $Category->save();
+                    Log::info('Quản trị ' . Auth::user()->name . ' Đã cập nhật danh mục '.$request->id);
                     return response()->json(['success'=>'Cập nhật thành công']);
                 } else {
                     return response('ID không tồn tại', 422);
@@ -60,6 +63,7 @@ class CategoryController extends Controller
             } else {
                 $Category->delete();
                 Cache::pull('categorycache');
+                Log::info('Quản trị ' . Auth::user()->name . ' Đã xóa danh mục '.$id);
                 return response()->json(['success'=>'Xóa thành công']);
                 
             }
@@ -100,6 +104,7 @@ class CategoryController extends Controller
             }
             $Category->save();
             Cache::pull('categorycache');
+            Log::info('Quản trị ' . Auth::user()->name . ' Đã thêm mới danh mục ' . $Category->id);
             return response()->json(['success' => 'Thêm mới thành công']);
         }
 

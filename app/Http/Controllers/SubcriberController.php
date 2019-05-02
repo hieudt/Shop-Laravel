@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Subcriber;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Auth;
 class SubcriberController extends Controller
 {
     public function store(Request $req){
@@ -19,7 +21,7 @@ class SubcriberController extends Controller
             $data = new Subcriber;
             $data->email = $req->email;
             $data->save();
-
+            Log::info($data->email.' Đã đăng ký nhận tin tức');
             return response()->json(['success'=>'Đã đăng ký nhận tin tức từ cửa hàng']);
         }
     }

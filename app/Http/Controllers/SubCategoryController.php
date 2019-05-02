@@ -8,7 +8,8 @@ use App\SubCategory;
 use App\Category;
 use Illuminate\Http\Request;
 use App\Product;
-
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Auth;
 class SubCategoryController extends Controller
 {
     /**
@@ -67,6 +68,7 @@ class SubCategoryController extends Controller
                 }
                 $SubCategory->id_category = $request->id_cat;
                 $SubCategory->save();
+                Log::info('Quản trị ' . Auth::user()->name . ' Đã thêm mới danh mục con : '.$SubCategory->name_sub);
                 return response()->json(['success' => 'Thêm mới thành công']);
             } else 
             {
@@ -137,6 +139,7 @@ class SubCategoryController extends Controller
                     }
                     $SubCategory->id_category = $request->id_cat;
                     $SubCategory->save();
+                    Log::info('Quản trị ' . Auth::user()->name . ' Đã cập nhật danh mục con : ' . $SubCategory->name_sub);
                     return response()->json(['success'=>'Cập nhật thành công']);
                 } else {
                     return response('Danh mục con không tồn tại',422);
@@ -163,6 +166,7 @@ class SubCategoryController extends Controller
                 return response('Tồn tại sản phẩm trong danh mục này', 422);
             } else {
                 $SubCategory->delete();
+                Log::info('Quản trị ' . Auth::user()->name . ' Đã xóa danh mục con : ' . $SubCategory->name_sub);
                 return response()->json(['success' => 'Xóa thành công']);
             }
         } else {

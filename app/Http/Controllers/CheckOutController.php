@@ -124,6 +124,7 @@ class CheckOutController extends Controller
             eventLoadBill();
             eventLoadNotification();
             RemoveSession();
+            Log::info($NewNotif->nameUser.' Đã đặt hàng');
             return response()->json(['success'=>'Đặt hàng thành công','token'=>$token]);
          }
     }

@@ -4,7 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\product_details;
-
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Auth;
 use App\Product;
 use App\Images;
 
@@ -141,7 +142,7 @@ class ProductDetailsController extends Controller
                 $Object->Link = $Image;
                 $Object->save();
             }
-
+            Log::info('Quản trị ' . Auth::user()->name . ' Đã thêm mới sản phẩm : '.$Product->title);
             return response()->json(['success' => 'Thêm mới thành công']);
         }
     }
@@ -314,6 +315,7 @@ class ProductDetailsController extends Controller
             
 
             $Product->save();
+            Log::info('Quản trị ' . Auth::user()->name . ' Đã cập nhật sản phẩm : ' . $Product->title);
             return response()->json(['success' => 'Cập nhật thành công']);
         }
     }

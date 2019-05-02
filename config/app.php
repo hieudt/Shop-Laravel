@@ -174,6 +174,7 @@ return [
         Nestable\NestableServiceProvider::class,
         Intervention\Image\ImageServiceProvider::class,
         Backup\BackupServiceProvider::class,
+        Rap2hpoutre\LaravelLogViewer\LaravelLogViewerServiceProvider::class,
 
         /*
          * Package Service Providers...

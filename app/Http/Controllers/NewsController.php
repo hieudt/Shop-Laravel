@@ -8,9 +8,12 @@ use Intervention\Image\ImageManagerStatic as Image;
 use Yajra\DataTables\DataTables;
 use Mail;
 use App\Subcriber;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Auth;
 class NewsController extends Controller
 {
     public function index(){
+        Log::info('Quản trị ' . Auth::user()->name . ' Đã xem danh sách tin tức');
         return view('admin.news.list');
     }
 
@@ -72,7 +75,7 @@ class NewsController extends Controller
             Image::make($File)->resize(270, 150)->save("images/news/".$Image);
             $News->thumbnail = $Image;
             $News->save();
-
+            Log::info('Quản trị ' . Auth::user()->name . ' Đã thêm mới tin tức '.$News->id);
             return response()->json(['success'=>"Thêm mới tin tức thành công"]);
         }
     }
@@ -102,7 +105,7 @@ class NewsController extends Controller
                 $News->slug = $req->txtSlug;
             }
             $News->save();
-
+            Log::info('Quản trị ' . Auth::user()->name . ' Đã cập nhật tin tức ' . $News->id);
             return response()->json(['success' => "Cập nhật thành công"]);
         }
     }
@@ -116,6 +119,7 @@ class NewsController extends Controller
         $News = News::find($id);
         if ($News) {
             $News->delete();
+            Log::info('Quản trị ' . Auth::user()->name . ' Đã xóa tin tức ' . $News->id);
             return response()->json(['success' => 'Xóa thành công']);
         } else {
             return response('Thất bại', 422);
@@ -132,6 +136,7 @@ class NewsController extends Controller
                     $message->to($item->email);
                 }
             });
+            Log::info('Quản trị ' . Auth::user()->name . ' Đã gửi mail tin tức cho người dùng id tin : ' . $News->id);
             return response()->json(['success' => 'Đã gửi cho người đăng ký nhận tin']);
         } else {
             return response('Thất bại', 422);

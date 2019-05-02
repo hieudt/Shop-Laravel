@@ -5,10 +5,13 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Setting;
 use Cache;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Auth;
 class SettingsController extends Controller
 {
     public function index(){
         $data = Setting::find(1);
+        Log::info('Quản trị ' . Auth::user()->name . ' Đã xem cấu hình hệ thống');
         return view('admin.setting.config.index',compact('data'));
     }
 
@@ -35,6 +38,7 @@ class SettingsController extends Controller
             $data->phoneshop = $req->phoneshop;
             Cache::pull('settingcache');
             $data->save();
+            Log::info('Quản trị ' . Auth::user()->name . ' Đã cập nhật màu giao diện');
             return response()->json(['success'=>'Cập nhật thành công']);
         }
     }
@@ -48,6 +52,7 @@ class SettingsController extends Controller
             $data->youtubelink = $req->youtubelink;
             Cache::pull('settingcache');
             $data->save();
+            Log::info('Quản trị ' . Auth::user()->name . ' Đã cập nhật đường dẫn mxh');
             return response()->json(['success'=>'Cập nhật thành công']);
         }
     }

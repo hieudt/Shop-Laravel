@@ -4,9 +4,12 @@ namespace App\Http\Controllers;
 use Yajra\Datatables\Datatables;
 use Illuminate\Http\Request;
 use App\Brand;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Auth;
 class BrandController extends Controller
 {
     public function index(){
+        Log::info('Quản trị ' . Auth::user()->name . ' Đã xem danh sách thương hiệu');
         return view('admin.brand.home');
     }
 
@@ -56,7 +59,7 @@ class BrandController extends Controller
                 $brand->slug = $req->slug;
             }
             $brand->save();
-
+            Log::info('Quản trị ' . Auth::user()->name . ' Đã thêm mới thương hiệu');
             return response()->json(['success' => 'Thêm mới thương hiệu thành công'], 200);
         }
     }
@@ -95,6 +98,7 @@ class BrandController extends Controller
                     $brand->slug = $req->slug;
                 }
                 $brand->save();
+                Log::info('Quản trị ' . Auth::user()->name . ' Đã cập nhật thương hiệu '.$req->id);
                 return response()->json(['success' => 'Cập Nhật thương hiệu thành công'], 200);
             }
             

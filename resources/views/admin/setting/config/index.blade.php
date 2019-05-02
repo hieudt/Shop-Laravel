@@ -10,8 +10,6 @@
     <label for="tab-nav-1">Cấu hình chung</label>
     <input type="radio" name="tabs" id="tab-nav-2">
     <label for="tab-nav-2">Liên Kết MXH</label>
-    <input type="radio" name="tabs" id="tab-nav-3">
-    <label for="tab-nav-3">Chất Liệu</label>
     <div class="tabs">
         <div>
             <div class="row">

@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 use App\Category;
 use Yajra\Datatables\Datatables;
 use Cache;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Auth;
 class BillController extends Controller
 {
     /**
@@ -36,6 +38,7 @@ class BillController extends Controller
 
     public function fetchAll(){
         $data = Bill::all();
+       
         return Datatables::of($data)
         ->editColumn('PayMethod',function($data){
             if($data->PayMethod == 0)
@@ -126,6 +129,7 @@ class BillController extends Controller
             $data->statusPay = $req->value;
 
             $data->save();
+            Log::info('Quản trị ' . Auth::user()->name . ' Đã cập nhật trạng thái hóa đơn '.$req->idBill);
             return response()->json(['success'=>"Cập nhật thành công"]);
         }
     }
@@ -138,6 +142,7 @@ class BillController extends Controller
     public function showbillbyId($id){
         $Bill = Bill::find($id);
         if($Bill){
+            Log::info('Quản trị ' . Auth::user()->name . ' Đã xem hóa đơn ' . $id);
             return view('admin.bill.details',compact('Bill'));
         }
         
@@ -153,6 +158,7 @@ class BillController extends Controller
      */
     public function show()
     {
+        Log::info('Quản trị ' . Auth::user()->name . ' Đã xem danh sách hóa đơn');
         return view('admin.bill.list');
     }
 

@@ -20,7 +20,7 @@ use App\coupons;
 use Carbon\Carbon;
 use App\User;
 use Pusher\Pusher;
-
+use Illuminate\Support\Facades\Log;
 use App\News;
 use VisitLog;
 use Cache;
@@ -56,11 +56,13 @@ class FrontEndController extends Controller
         $gallery = Images::where('id_product', $id)->get();
         $reviews = Review::where('id_product', $id)->orderBy('created_at','DESC')->get();
         $relateds = Product::where('id_sub', $productdata->id_sub)->where('id', '!=', $productdata->id)->take(8)->get();
+        Auth::check() ? Log::info(Auth::user()->name . ' Đã xem sản phẩm : '.$productdata->title) : Log::info('Người dùng Đã xem sản phẩm : ' . $productdata->title);
         return view('product', compact('productdata', 'gallery', 'reviews', 'relateds'));
     }
 
     public function news($slug){
-        $news = News::where('slug',$slug)->get();
+        $news = News::where('slug',$slug)->first();
+        Auth::check() ? Log::info(Auth::user()->name . ' Đã xem tin tức : ' . $news->title) : Log::info('Người dùng Đã xem tin tức : ' . $news->title);
         return view('tintuc',compact('news'));
     }
 
@@ -75,6 +77,7 @@ class FrontEndController extends Controller
         ]);
 
         if (Auth::attempt(['email' => $req->email, 'password' => $req->password])) {
+            Log::info(Auth::user()->name . ' Đã đăng nhập vào trang chủ ');
             return response()->json(['success' => 'Đăng nhập thành công']);
         } else {
             return response()->json(['errors' => ['faillogin' => [0 => 'Sai tên tài khoản hoặc mật khẩu']]], 422);
@@ -123,20 +126,8 @@ class FrontEndController extends Controller
         $User->save();
 
         if (Auth::attempt(['email' => $req->email, 'password' => $req->password])) {
-            $NewNotif = new Notification;
-            if (Auth::check()) {
-                $NewNotif->nameUser = Auth::user()->name;
-            } else {
-                $NewNotif->nameUser = "Khách Vãng Lai";
-            }
-
-            $NewNotif->action = "Tạo tài khoản";
-            $NewNotif->task = "Khách Hàng";
-            $NewNotif->save();
-
-
-            eventLoadNotification();
-
+            Log::info($req->email . ' Đã đăng ký');
+            Log::info(Auth::user()->name . ' Đã đăng nhập vào trang chủ ');
             return response()->json(['success' => 'Đăng ký thành công']);
         }
     }
