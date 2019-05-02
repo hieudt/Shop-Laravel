@@ -4,11 +4,13 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Zalo;
+use App\Setting;
 class SocialController extends Controller
 {
     public function index(){
         $data = Zalo::all();
-        return view('admin.social.config',compact('data'));
+        $setting = Setting::find(1);
+        return view('admin.social.config',compact('data','setting'));
     }
 
     public function updateZalo(Request $req){

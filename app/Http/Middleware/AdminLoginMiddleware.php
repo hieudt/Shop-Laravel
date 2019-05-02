@@ -21,7 +21,7 @@ class AdminLoginMiddleware
             if($user->role == 1){
                 return $next($request);
             } else {
-                return redirect('/admin/login');
+                return response()->view('404');
             }
 
         }else {

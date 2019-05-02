@@ -132,18 +132,24 @@ Route::group(['prefix' => 'admin', 'middleware' => 'adminLogin'], function () {
     Route::post('/social/facebook/scanoption', 'GraphController@scanOption')->name('admin.facebook.scanoption');
     
 
-    Route::get('/kenhbanhang', 'SocialController@index')->name('admin.zalo.index');
-    Route::post('kenhbanhang/updatezalo','SocialController@updateZalo')->name('admin.zalo.update');
-    Route::post('kenhbanhang/updatefacebook','SocialController@updateFacebook')->name('admin.facebook.update');
+    
 
     /* SAFE MODE */
     Route::post('safemode/alertlog','SafeModeController@AlertLogin')->name('admin.safemode.alertlogin');
     
-    Route::get('safemode/config','SafeModeController@config')->name('admin.safemode.config');
-    Route::get('safemode/database','SafeModeController@database')->name('admin.safemode.dbview');
-    Route::get('safemode/fetch','SafeModeController@dbfetch')->name('admin.safemode.db.fetch');
-    Route::post('safemode/database/backup','SafeModeController@dbBackup')->name('admin.safemode.db.backup');
-    Route::post('safemode/database/restore', 'SafeModeController@dbRestore')->name('admin.safemode.db.restore');
+    Route::group(['prefix' => 'safemode', 'middleware' => 'safeMode'], function () {
+        Route::get('config', 'SafeModeController@config')->name('admin.safemode.config');
+        Route::get('database', 'SafeModeController@database')->name('admin.safemode.dbview');
+        Route::get('fetch', 'SafeModeController@dbfetch')->name('admin.safemode.db.fetch');
+        Route::post('database/backup', 'SafeModeController@dbBackup')->name('admin.safemode.db.backup');
+        Route::post('database/restore', 'SafeModeController@dbRestore')->name('admin.safemode.db.restore');
+        Route::get('secrect', 'SocialController@index')->name('admin.zalo.index');
+        Route::post('kenhbanhang/updatezalo', 'SocialController@updateZalo')->name('admin.zalo.update');
+        Route::post('kenhbanhang/updatefacebook', 'SocialController@updateFacebook')->name('admin.facebook.update');
+        Route::post('updatesystem','SafeModeController@updateSystem')->name('admin.safemode.system.update');
+    });
+   
+    
     Route::get('users', 'UserController@index')->name('users.list');
     Route::get('users/fetch', 'UserController@fetchAll')->name('users.fetch');
     Route::post('users/update', 'UserController@update')->name('users.update');

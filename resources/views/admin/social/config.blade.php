@@ -1,5 +1,5 @@
 @extends('admin.master') 
-@section('title','Cấu hình kênh bán hàng') 
+@section('title','Cấu hình khóa bí mật') 
 @section('css')
 <link rel="stylesheet" href="{{asset('@styleadmin/node_modules/jquery-asColorPicker/dist/css/asColorPicker.min.css')}}">
 <link rel="stylesheet" href="{{asset('@styleadmin/css/attribute.css')}}">
@@ -11,6 +11,8 @@
     <label for="tab-nav-1">Zalo</label>
     <input type="radio" name="tabs" id="tab-nav-2">
     <label for="tab-nav-2">Facebook</label>
+    <input type="radio" name="tabs" id="tab-nav-3">
+    <label for="tab-nav-3">Hệ thống</label>
     <div class="tabs">
         <div>
             <div class="row">
@@ -103,6 +105,31 @@
                 </div>
             </div>
         </div>
+        <div>
+            <div class="row">
+                <div class="col-12">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="card">
+                                <div class="card-body">
+                                    <form id="SystemForm">
+                                        <div class="form-group row">
+                                            <label for="exampleInputEmail2" class="col-sm-3 col-form-label">Email quản trị : </label>
+                                            <div class="col-md-5">
+                                                <input type="text" name="emailadmin" class="form-control"
+                                                    value="{{$setting->emailadmin}}" style="height:30px">
+                                            </div>
+                                        </div>
+                                        <button type="button" class="btn btn-success mr-2" id="SystemUpdate">Lưu</button>
+                                        <button class="btn btn-light">Cancel</button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 
 </div>
@@ -116,6 +143,9 @@
 
 $('#FacebookUpdate').click(function(){
     updateFacebook();
+});
+$('#SystemUpdate').click(function(){
+    updateSystem();
 });
 
  function updateZalo()
@@ -147,6 +177,27 @@ function updateFacebook()
         },
         method: 'POST',
         url: '{{route('admin.facebook.update')}}',
+        data:datas,
+        success: function(data) {
+            ToastSuccess(data.success);
+        },
+        error: function(request, status) {
+            $.each(request.responseJSON.errors,function(key,val){
+                ToastError(val);
+            });
+        }
+    });
+}
+
+function updateSystem()
+{
+    var datas = $('#SystemForm').serialize();
+    $.ajax({
+        headers: {
+            'X-CSRF-TOKEN':  $('meta[name="csrf-token"]').attr('content')
+        },
+        method: 'POST',
+        url: '{{route('admin.safemode.system.update')}}',
         data:datas,
         success: function(data) {
             ToastSuccess(data.success);

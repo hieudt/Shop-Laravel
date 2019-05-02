@@ -147,9 +147,6 @@
           <li class="nav-item">
             <a href="{{url('admin/menu')}}" class="nav-link">Menu</a>
           </li>
-          <li class="nav-item">
-            <a href="{{url('admin/kenhbanhang')}}" class="nav-link">Kênh Bán Hàng</a>
-          </li>
         </ul>
       </div>
     </li>
@@ -163,7 +160,7 @@
       <div id="safemode" class="collapse" style>
         <ul class="nav flex-column sub-menu">
           <li class="nav-item">
-            <a href="{{url('admin/safemode/cauhinh')}}" class="nav-link">Cấu hình chung</a>
+            <a href="{{url('admin/safemode/secrect')}}" class="nav-link">Khóa Bí Mật</a>
           </li>
           <li class="nav-item">
             <a href="{{url('admin/safemode/database')}}" class="nav-link">Dữ Liệu</a>

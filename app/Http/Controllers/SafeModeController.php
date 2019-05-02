@@ -20,14 +20,24 @@ class SafeModeController extends Controller
         $output .= "Tài khoản hiện hành :".$data->user_name."<br/>";
         $output .= "Vị trí :".$data->city."<br/>";
         $setting =\App\Setting::find(1);
-        $mailadmin = $setting->emailadmin;
-        $setting->authtokenbackend = str_random(50);
-        $setting->save();
-        Mail::send('emails.alertlogin', ['output' => $output,'token'=>$setting->authtokenbackend], function ($message) use ($mailadmin) {
-            $message->from('hieumai@rog.vn', 'Trung Hieu');
-            $message->to($mailadmin);
-        });
+        if($setting->authtokenbackend == null){
+            $mailadmin = $setting->emailadmin;
+            $setting->authtokenbackend = str_random(50);
+            $setting->save();
+            Mail::send('emails.alertlogin', ['output' => $output, 'token' => $setting->authtokenbackend], function ($message) use ($mailadmin) {
+                $message->from('hieumai@rog.vn', 'Trung Hieu');
+                $message->to($mailadmin);
+            });
+        }
 
+    }
+
+    public function updateSystem(Request $req){
+        $data = \App\Setting::find(1);
+        $data->emailadmin = $req->emailadmin;
+        $data->save();
+
+        return response()->json(['success'=>'Cập nhật thành công']);
     }
     
     public function rememberauth($token){
