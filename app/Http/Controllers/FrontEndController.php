@@ -4,9 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
-use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Input;
-use App\Events\DemoPusherEvent;
 use App\Product;
 use App\SubCategory;
 use App\Category;
@@ -14,17 +12,15 @@ use App\Color;
 use App\Brand;
 use App\Images;
 use App\Review;
-use App\Notification;
 use App\product_details;
 use App\coupons;
-use Carbon\Carbon;
 use App\User;
-use Pusher\Pusher;
 use Illuminate\Support\Facades\Log;
 use App\News;
-use VisitLog;
 use Cache;
-
+use SEO;
+use Artesaos\SEOTools\Facades\SEOMeta;
+use Artesaos\SEOTools\Facades\OpenGraph;
 class FrontEndController extends Controller
 {
 
@@ -35,12 +31,19 @@ class FrontEndController extends Controller
 
     public function cart()
     {
+        SEO::setTitle('Giỏ hàng');
+        SEO::setDescription('Giỏ hàng');
+        SEOMeta::addKeyword(['Giỏ hàng']);
+
         $carts = array();
         return view('cart', compact('carts'));
     }
 
     public function index()
     {
+        SEO::setTitle('Trang chủ');
+        SEO::setDescription('Shop thời trang hot nhất năm 2019');
+        
         $features = Product::where('featured', '1')->orderBy('id', 'desc')->take(8)->get();
         $lastes = Product::orderBy('id', 'desc')->take(8)->get();
         $discounts = Product::where('discount', '>', '0')->orderBy('id', 'desc')->take(8)->get();
@@ -53,6 +56,15 @@ class FrontEndController extends Controller
     public function productDetails($id, $slug)
     {
         $productdata = Product::findOrFail($id);
+        $key = explode(' ',$productdata->title);
+        SEO::setTitle($productdata->title);
+        SEO::setDescription($productdata->title);
+        SEOMeta::addMeta('article:published_time', $productdata->created_at->toW3CString(), 'property');
+        SEOMeta::addKeyword($key);
+        
+        OpenGraph::addImage(url('/').'/images/product/'.$productdata->thumbnail);
+        OpenGraph::addProperty('type', 'article');
+
         $gallery = Images::where('id_product', $id)->get();
         $reviews = Review::where('id_product', $id)->orderBy('created_at','DESC')->get();
         $relateds = Product::where('id_sub', $productdata->id_sub)->where('id', '!=', $productdata->id)->take(8)->get();
@@ -62,6 +74,16 @@ class FrontEndController extends Controller
 
     public function news($slug){
         $news = News::where('slug',$slug)->first();
+
+        $key = explode(' ', $news->title);
+        SEO::setTitle($news->title);
+        SEO::setDescription($news->title);
+        SEOMeta::addMeta('article:published_time', $news->created_at->toW3CString(), 'property');
+        SEOMeta::addKeyword($key);
+
+        OpenGraph::addImage(url('/') . '/images/news/' . $news->thumbnail);
+        OpenGraph::addProperty('type', 'article');
+
         Auth::check() ? Log::info(Auth::user()->name . ' Đã xem tin tức : ' . $news->title) : Log::info('Người dùng Đã xem tin tức : ' . $news->title);
         return view('tintuc',compact('news'));
     }
@@ -176,6 +198,10 @@ class FrontEndController extends Controller
 
     public function category2()
     {
+        SEO::setTitle('Danh mục sản phẩm');
+        SEO::setDescription('Danh mục sản phẩm');
+        SEOMeta::addKeyword(['Danh mục sản phẩm']);
+
         $Category = Category::all();
         $Color = Color::all();
         $Brand = Brand::all();
@@ -337,6 +363,10 @@ class FrontEndController extends Controller
     }
 
     public function forgotview(){
+        SEO::setTitle('Quên mật khẩu');
+        SEO::setDescription('Quên mật khẩu');
+        SEOMeta::addKeyword(['Quên mật khẩu']);
+
         return view('forgot');
     }
  

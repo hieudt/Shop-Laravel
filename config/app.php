@@ -175,6 +175,7 @@ return [
         Intervention\Image\ImageServiceProvider::class,
         Backup\BackupServiceProvider::class,
         Rap2hpoutre\LaravelLogViewer\LaravelLogViewerServiceProvider::class,
+        Artesaos\SEOTools\Providers\SEOToolsServiceProvider::class,
 
         /*
          * Package Service Providers...
@@ -246,6 +247,9 @@ return [
         'VisitLog' => Sarfraznawaz2005\VisitLog\Facades\VisitLog::class,
         'Nestable' => Nestable\Facades\NestableService::class,
         'Image' => Intervention\Image\Facades\Image::class,
+        'SEOMeta'   => Artesaos\SEOTools\Facades\SEOMeta::class,
+        'OpenGraph' => Artesaos\SEOTools\Facades\OpenGraph::class,
+        'Twitter'   => Artesaos\SEOTools\Facades\TwitterCard::class,
   
     ],
 

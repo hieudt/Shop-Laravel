@@ -9,6 +9,9 @@ use Yajra\Datatables\Datatables;
 use Cache;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Auth;
+use SEO;
+use Artesaos\SEOTools\Facades\SEOMeta;
+use Artesaos\SEOTools\Facades\OpenGraph;
 class BillController extends Controller
 {
     /**
@@ -197,6 +200,10 @@ class BillController extends Controller
     }
 
     public function getDetailsbyId($token){
+
+        SEO::setTitle('Tình trạng đơn hàng');
+        SEO::setDescription('Tình trạng đơn hàng');
+        SEOMeta::addKeyword(['Tình trạng đơn hàng']);
 
         $getData = explode('-',$token);
         $id = base64_decode($getData[0]);

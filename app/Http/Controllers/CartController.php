@@ -13,6 +13,9 @@ use Illuminate\Support\Facades\Auth;
 use App\coupons;
 use Cache;
 use Gloudemans\Shoppingcart\Facades\Cart;
+use SEO;
+use Artesaos\SEOTools\Facades\SEOMeta;
+use Artesaos\SEOTools\Facades\OpenGraph;
 
 class CartController extends Controller
 {
@@ -39,6 +42,10 @@ class CartController extends Controller
     }
 
     public function cart(){
+        SEO::setTitle('Giỏ hàng');
+        SEO::setDescription('Giỏ hàng');
+        SEOMeta::addKeyword(['Giỏ hàng']);
+
         $carts = array();
         return view('cart',compact('carts'));
     }

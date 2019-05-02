@@ -17,7 +17,9 @@ use App\Bill;
 use App\Notification;
 use Illuminate\Support\Facades\Cache;
 use App\Detailsbill;
-
+use SEO;
+use Artesaos\SEOTools\Facades\SEOMeta;
+use Artesaos\SEOTools\Facades\OpenGraph;
 class CheckOutController extends Controller
 {
     public function __construct()
@@ -26,6 +28,10 @@ class CheckOutController extends Controller
     }
 
     public function index(){
+        SEO::setTitle('Thanh toán đơn hàng');
+        SEO::setDescription('Thanh toán đơn hàng');
+        SEOMeta::addKeyword(['Thanh toán đơn hàng']);
+
         $shipper = Shipper::where('Display',1)->get();
         return view('checkout',compact('shipper'));
     }
