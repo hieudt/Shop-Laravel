@@ -57,3 +57,6 @@ composer require paulvl/backup 3.*<br/>
 
 #Log View<br/>
 composer require rap2hpoutre/laravel-log-viewer<br/>
+
+#SEO Config<br/>
+composer require artesaos/seotools<br/>
