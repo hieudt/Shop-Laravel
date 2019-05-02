@@ -54,3 +54,6 @@ composer require stevebauman/location<br/>
 
 #Backup <br/>
 composer require paulvl/backup 3.*<br/>
+
+#Log View<br/>
+composer require rap2hpoutre/laravel-log-viewer<br/>
