@@ -33,7 +33,7 @@ use Illuminate\Support\Facades\Hash;
 |
 */
 
-Route::group(['middleware' => 'fw-block-attacks'], function () {
+Route::group(['middleware' => ['fw-block-attacks']], function () {
 
 
 Route::get('/', 'FrontEndController@index')->name('front.index');

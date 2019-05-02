@@ -53,7 +53,7 @@ return [
 
             'message' => null,
 
-            'view' => 'antiddos2',
+            'view' => null,
 
             'redirect_to' => null,
 
