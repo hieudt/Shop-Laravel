@@ -4,7 +4,7 @@
     <title></title>
     <link href='https://fonts.googleapis.com/css?family=Black+Ops+One' rel='stylesheet' type='text/css'>
 
-<body bgcolor="black" background="http://im42.gulfup.com/hiPE1.gif" oncontextmenu="return true;"
+<body bgcolor="black"  oncontextmenu="return true;"
     onkeydown="return true;" onmousedown="return true;" onselectstart="return true" ondragstart="return true">
     <h3 align="center" class="style2">
 
@@ -666,13 +666,12 @@
                     <div class="unknown1">&nbsp;</div>
                     <h2 class="frame-1">ERROR</h2>
                     <h2 class="frame-2">Firewall</h2>
-                    <h2 class="frame-3"> # Hacked.</h2>
-                    <h2 class="frame-5"><span>Your System</span> <span>Has been</span>
-                        <span>Hacked</span><br /><span>By</span></h2>
-                    <h2 class="frame-6"><br /><br /><span lang="en-us"> <br>Ismael Chriki</br> </span><br /><span> #
+                    <h2 class="frame-3"> Enable.</h2>
+                    <h2 class="frame-5"><span>Firewall</span> <span> AntiDDoS</span>
+                        <span>Hacked</span><br /><span>Enable</span></h2>
+                    <h2 class="frame-6"><br /><br /><span lang="en-us"> <br>YOUR ARE BLOCK !!!</br> </span><br /><span> #
                         </span></h2>
-                    <li><a href="https://www.facebook.com/ismael.chriki" target="_blank"><img
-                                src="http://hellox.persiangig.com/DefacePage/facebook.png" alt=""></a></li>
+                    
 
                 </div>
 
