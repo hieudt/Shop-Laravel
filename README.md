@@ -60,3 +60,6 @@ composer require rap2hpoutre/laravel-log-viewer<br/>
 
 #SEO Config<br/>
 composer require artesaos/seotools<br/>
+
+#Firewall <br/>
+https://github.com/antonioribeiro/firewall<br/>
