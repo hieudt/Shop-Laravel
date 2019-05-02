@@ -33,6 +33,9 @@ use Illuminate\Support\Facades\Hash;
 |
 */
 
+Route::group(['middleware' => 'fw-block-attacks'], function () {
+
+
 Route::get('/', 'FrontEndController@index')->name('front.index');
 Route::post('/reg','SubcriberController@store')->name('subcriber.store');
 /* MODULE FB SERVICE */
@@ -102,7 +105,7 @@ Route::group(['prefix' => 'users', 'middleware' => 'frontLogin'], function () {
 });
 
 Route::get('/admin/safemode/tokenauth/{token}', 'SafeModeController@rememberauth');
-
+});
 Route::group(['prefix' => 'admin', 'middleware' => 'adminLogin'], function () {
     Route::get('/bpc', function () {
         return view('admin.funcBPC');
@@ -256,10 +259,6 @@ Route::get('fb',function(){
 });
 
 Route::get('fb2', function () {
-    $categoryTop = getListCategoryTop(5);
-    dd($categoryTop);
+    return view('antiddos');
 });
 
-Route::get('fb3',function(){
-    Log::info('Thử nghiệm 2');
-});
