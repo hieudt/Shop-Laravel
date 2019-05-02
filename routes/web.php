@@ -21,6 +21,7 @@ use App\Bill;
 use App\Detailsbill;
 use Gloudemans\Shoppingcart\Facades\Cart;
 use Illuminate\Support\Facades\Input;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Hash;
 /*
 |--------------------------------------------------------------------------
@@ -260,9 +261,6 @@ Route::get('fb2', function () {
 });
 
 Route::get('fb3',function(){
-    $us = User::all();
-    $data = Product::all();
-    foreach ($us as $item) {
-        $item->DetailsBill()->get();
-    }
+    //Log::warning('Thử nghiệm');
+    echo info('hello');
 });

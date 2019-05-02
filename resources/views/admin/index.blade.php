@@ -190,36 +190,14 @@
         <div class="card-body">
           <h4 class="card-title">Activity</h4>
           <ul class="bullet-line-list">
-            <li>
-              <p class="mb-0">Lorem Ipsum has been the printing </p>
-              <p class="text-muted">
-                7 months ago.
-              </p>
-            </li>
-            <li>
-              <p class="mb-0">Checkout! How cool is that!</p>
-              <p class="text-muted">
-                7 months ago.
-              </p>
-            </li>
-            <li>
-              <p class="mb-0">It's awesome when we find a solution</p>
-              <p class="text-muted">
-                7 months ago.
-              </p>
-            </li>
-            <li>
-              <p class="mb-0">Checkout! How cool is that!</p>
-              <p class="text-muted">
-                7 months ago.
-              </p>
-            </li>
-            <li>
-              <p class="mb-0">It's awesome when we find a solution</p>
-              <p class="text-muted">
-                7 months ago.
-              </p>
-            </li>
+            @foreach ($activity as $ac)
+                <li>
+                  <p class="mb-0">Tài khoản {{$ac->nameUser}} đã {{$ac->action}} vào {{$ac->to}} vị trí : {{$ac->task}} </p>
+                  <p class="text-muted">
+                   {{toDate($ac->created_at)}}
+                  </p>
+                </li>
+            @endforeach
           </ul>
         </div>
       </div>

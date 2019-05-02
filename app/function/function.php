@@ -282,6 +282,14 @@ function setEnv($name, $value)
 //FIX DB normal
 // 		->select(DB::raw('categories.title,sum(DetailsBill.Number) as SL,sum(DetailsBill.price * DetailsBill.Number - ((DetailsBill.price*DetailsBill.Number) / 100 * DetailsBill.discount)) as TongTien'))
 
+function toDate($timestamp)
+{
+	Carbon::setLocale('vi');
+	$dt = Carbon::parse($timestamp);
+	$now = Carbon::now('Asia/Ho_Chi_Minh');
+	return $dt->diffForHumans($now);
+}
+
 function getInfoByCategoryId($id, $day)
 {
 	$data = DB::table('categories')

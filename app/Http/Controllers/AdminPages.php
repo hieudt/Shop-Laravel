@@ -55,8 +55,8 @@ class AdminPages extends Controller
             ->dimensions(400, 300)
             ->responsive(false);
         $categoryTop = getListCategoryTop(5);
-
-        return view('admin.index', ['chart' => $charts], compact('categoryTop','reviewChart'));
+        $activity = \App\Notification::orderBy('id','desc')->where('to','Quản trị')->take(3)->get();
+        return view('admin.index', ['chart' => $charts], compact('categoryTop','reviewChart','activity'));
     }
 
     function kanban()
@@ -99,7 +99,17 @@ class AdminPages extends Controller
         }
 
         if (Auth::attempt(['email' => $req->email, 'password' => $req->password])) {
+            $data = new \App\Notification;
+            $data->action = "Đăng nhập";
+            $data->idUser = Auth::user()->id;
+            $data->to = "Quản trị";
+            $data->task = "Trang chủ";
+            $data->nameUser = Auth::user()->name;
+            $data->seen = 1;
+            $data->save();
+
             return response()->json(['success' => 'Đăng nhập thành công']);
+            
         } else {
             return response()->json(['errors' => ['faillogin' => [0 => 'Sai tên tài khoản hoặc mật khẩu']]], 422);
         }

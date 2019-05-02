@@ -9,7 +9,7 @@ class NotificationController extends Controller
 {
     public function getAllCountNotify(Request $request){
         if ($request->ajax()) {
-            $DuLieu = Notification::orderBy('id','desc')->take(3)->get();
+            $DuLieu = Notification::orderBy('id','desc')->where('task','Hóa Đơn')->take(3)->get();
             $total_row = count($DuLieu);
             $count = 0;
             $output = '';

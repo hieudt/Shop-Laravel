@@ -33,6 +33,7 @@
         "php-http/message": "^1.7",
         "phpunit/phpunit": "~6.0",
         "pusher/pusher-php-server": "^3.4",
+        "rap2hpoutre/laravel-log-viewer": "^1.1",
         "sarfraznawaz2005/visitlog": "^1.2",
         "stevebauman/location": "^3.0",
         "symfony/thanks": "^1.0",
