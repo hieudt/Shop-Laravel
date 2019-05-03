@@ -17,7 +17,7 @@ class BrandController extends Controller
         $data = Brand::all();
         return Datatables::of($data)
         ->editColumn('thumbnail',function($data){
-            return "<img src='".$data->thumbnail."'>";
+            return "<img src='".url('images/branch')."/".$data->thumbnail."'>";
         })
         ->addColumn('action',function($data){
             return '<button class="btn btn-outline-primary edited md-trigger md-setperspective" data-modal="modal-18" data-id="' . $data->id . '" data-title="' . $data->title . '" data-slug="' . $data->slug . '" data-thumbnail="'.$data->thumbnail.'">Sửa </button>&nbsp<button class="btn btn-outline-danger delete" data-id="' . $data->id . '">Xóa </button>';

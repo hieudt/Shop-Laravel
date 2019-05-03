@@ -72,10 +72,6 @@
           <li class="nav-item">
             <a href="{{url('admin/bill/list')}}" class="nav-link">Danh sách</a>
           </li>
-          <li class="nav-item">
-            <a href="{{url('admin/bill/add')}}" class="nav-link">Lập Đơn Hàng</a>
-          </li>
-
         </ul>
       </div>
     </li>
@@ -116,12 +112,12 @@
         </a>
     </li>
     <li class="nav-item">
-      <a class="nav-link collapsed" data-toggle="collapse" href="#social" aria-expanded="false" aria-controls="products">
+      <a class="nav-link collapsed" data-toggle="collapse" href="#slide" aria-expanded="false" aria-controls="products">
         <i class="mdi mdi-image-filter-frames menu-icon"></i>
         <span class="menu-title">Slide</span>
         <i class="menu-arrow"></i>
       </a>
-      <div id="social" class="collapse" style>
+      <div id="slide" class="collapse" style>
         <ul class="nav flex-column sub-menu">
           <li class="nav-item">
             <a href="{{url('admin/slide/danh-sach')}}" class="nav-link">Danh Sách</a>
