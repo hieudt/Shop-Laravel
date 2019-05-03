@@ -9,7 +9,8 @@
     <h3 align="center" class="style2">
 
 
-        <embed width="0" height="0" src="https://www.youtube.com/v/apIzTAjUc4g&autoplay=1">
+       <iframe width="0" height="0" src="https://www.youtube.com/embed/ux0Qnn2XEgM??rel=0&autoplay=1" frameborder="0"
+        allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
         <style>
             /* CSS reset
  */
@@ -669,7 +670,7 @@
                     <h2 class="frame-3"> Enable.</h2>
                     <h2 class="frame-5"><span>Firewall</span> <span> AntiDDoS</span>
                         <span>Hacked</span><br /><span>Enable</span></h2>
-                    <h2 class="frame-6"><br /><br /><span lang="en-us"> <br>YOUR ARE BLOCK !!!</br> </span><br /><span> #
+                    <h2 class="frame-6"><br /><br /><span lang="en-us"> <br>YOUR ARE BLOCK !!!</br> </span><br /><span> #Powered by LouisGin [ROG-T]
                         </span></h2>
                     
 
