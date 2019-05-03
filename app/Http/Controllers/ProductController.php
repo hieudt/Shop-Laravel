@@ -54,7 +54,7 @@ class ProductController extends Controller
 
 
     public function fetch(){
-        $data = Product::with('product_details', 'Color', 'Images', 'Size')->orderBy('id','desc')->get();
+        $data = Product::orderBy('id','desc')->get();
         return Datatables::of($data)
         ->editColumn('cost',function($data){
             return formatMoney($data->cost);
@@ -69,30 +69,14 @@ class ProductController extends Controller
                 return '<label class="badge badge-danger badge-pill">Không </label>';
         })
         ->editColumn('title',function($row){
-            $text = '<table class="table table-bordered"><tbody>
-                    <tr>
-                        <td>Tên sản phẩm</td>';
-            $text .= "<td colspan='2'> " . $row->title . "</td></tr>";
-            $text .= "<tr><td colspan='3'>Trong Kho : </td></tr>";
-            $text .= "<tr><td>Màu</td><td>Kích cỡ</td><td>Số lượng</td></tr>";
-            foreach ($row->product_details as $value) {
-                $text .= "<tr><td>" . $value->Color->name . "</td><td>" .$value->Size->name. "</td><td>" . $value->soluong . "</td>";
-            }
-            $text .= "</tbody></table>";
-            $text .= "Hình ảnh <br/>";
-            $text .= " <img class='imgProduct' src='" . url('') . "/images/product/" . $row->thumbnail . "'>";
-            if (!empty($row->Images[0]))
-                $text .= " <img class='imgProduct' src='" . url('') . "/images/product/" . $row->Images[0]->Link . "'>";
-            if (!empty($row->Images[1]))
-                $text .= " <img class='imgProduct' src='" . url('') . "/images/product/" . $row->Images[1]->Link . "'>";  
-            
-            return '<div class="tool">'.$row->title.'<span class="tool2">'.$text.'</span></div>';
+            return $row->title;
         
         })
         ->addColumn('action',function($data){
-           $output = '<a href="edit/'.$data->id.'"><button class="btn btn-outline-primary edited" id="' . $data->id . '" title="' . $data->title . '" slug="' . $data->slug . '">Sửa</button></a>
-                     <button type="button" class="btn btn-outline-danger delete" id="' . $data->id . '">Xóa</button>
-                     <button type="button" class="btn btn-outline-success upfb" id="'.$data->id.'">Up FB Pages</button>';
+           $output = '<a href="edit/'.$data->id.'"><button class="btn btn-outline-primary edited" id="' . $data->id . '" title="' . $data->title . '" slug="' . $data->slug . '"><span class="mdi mdi-square-edit-outline"></span></button></a>
+                     <button type="button" class="btn btn-outline-danger delete" id="' . $data->id . '"><span class="mdi mdi-delete"></span></button>
+                     <button type="button" class="btn btn-outline-success upfb" id="'.$data->id. '"><span class="mdi mdi-facebook"></span></button>
+                     <button type="button" class="btn btn-outline-primary xemProduct" thumbnail="'.$data->thumbnail.'" title="'.$data->title.'" slug="'.$data->slug.'" id="' . $data->id . '">Xem</button>';
                      return $output;
         })
         ->rawColumns(['cost','discount','featured','action','title'])

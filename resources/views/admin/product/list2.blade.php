@@ -4,6 +4,7 @@
 <link rel="stylesheet" href="{{asset('@styleadmin/node_modules/owl-carousel-2/assets/owl.carousel.min.css')}}">
 <link rel="stylesheet" href="{{asset('@styleadmin/node_modules/owl-carousel-2/assets/owl.theme.default.min.css')}}">
 <link rel="stylesheet" href="{{asset('@styleadmin/css/style.css')}}">
+<link rel="stylesheet" href="{{asset('@styleadmin/css/attribute.css')}}">
 <link rel="stylesheet" href="{{asset('@styleadmin/node_modules/datatables.net-bs4/css/dataTables.bootstrap4.css')}}">
 <style>
     .tool {
@@ -15,8 +16,8 @@
     }
 
     .imgProduct {
-        border-radius: 0% !important;
-        width: 200px !important;
+        border-radius: 5% !important;
+        width: 300px !important;
         height: auto !important;
     }
 
@@ -81,6 +82,47 @@
 
                 </tbody>
             </table>
+        </div>
+    </div>
+</div>
+<div class="modal fade" tabindex="-1" id="viewProduct" role="dialog">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Chi Tiết Sản Phẩm</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <label for="">Tên sản phẩm : </label>
+                <a href="" class="modalTensp"></a>
+                <div class="row">
+                    <div class="col-md-3">
+                        <img src="" alt="" style="float:left;" class="modalThumbnail imgProduct">  
+                    </div>
+                    <div class="col-md 8">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th scope="col">Size</th>
+                                    <th scope="col">Color</th>
+                                    <th scope="col">Số lượng</th>
+                                </tr>
+                            </thead>
+                            <tbody class="tableProduct">
+                                
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                
+                
+                
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
+            </div>
         </div>
     </div>
 </div>
@@ -159,7 +201,36 @@
         postFanpage(id);
     });
 
-
+    $(document).on('click','.xemProduct',function(){
+        $('.tableProduct').html('');
+        $('#viewProduct').modal('show');
+        var id = $(this).attr("id");
+        var title = $(this).attr("title");
+        var slug = $(this).attr("slug");
+        var thumbnail = $(this).attr("thumbnail");
+        $('.modalTensp').html(title);
+        $('.modalTensp').attr("href","{{url('/san-pham')}}/"+id+"/"+slug);
+        $('.modalThumbnail').attr("src","{{url('/images/product')}}/"+thumbnail);
+        $.ajax({
+            method:'GET',
+            url:'{{url('/api/v1/product')}}/'+id,
+            success: function(data){
+                var output = "";
+                data.forEach(element => {
+                   output += "<tr>"
+                    output += "<td>"+element.size.name+"</td>";
+                    output += "<td>"+element.color.name+"<span class='colors' style='background-color:"+element.color.codeColor+";'></span></td>";
+                    output += "<td>"+element.soluong+"</td>";
+                   output += "</tr>";
+                    
+                });
+                $('.tableProduct').html(output);
+            },
+            error: function(request,status){
+                console.log(request.responseJSON);
+            }
+        });
+    });
 
     $('#OpenAdd').click(function(){
         window.location.href = "{{route('product.create')}}";
