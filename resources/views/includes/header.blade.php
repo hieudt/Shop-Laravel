@@ -25,7 +25,7 @@
                         <div class="title"><i class="fa fa-user"></i> <a href="{{url('/')}}/users">Hồ sơ : {{Auth::user()->name}}</a></div>
                     </div>
                     <div class="header-top-entry increase-icon-responsive login">
-                        <div class="title"><i class="fa fa-sign-out"></i> <a href="/users/logout">Đăng xuất</a></div>
+                        <div class="title"><i class="fa fa-sign-out"></i> <a href="{{url('/')}}/users/logout">Đăng xuất</a></div>
                     </div>
                     @endif
                     <div class="header-top-entry increase-icon-responsive login">
