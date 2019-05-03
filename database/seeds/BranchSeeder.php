@@ -15,21 +15,21 @@ class BranchSeeder extends Seeder
             [
                 'title' => 'Chanel',
                 'slug' => 'chanel',
-                'thumbnail' => 'http://assets.stickpng.com/thumbs/58429476a6515b1e0ad75acd.png',
+                'thumbnail' => 'channel.png',
                 "created_at" =>  date('Y-m-d H:i:s'),
                 "updated_at" => date('Y-m-d H:i:s'),
 
             ],[
                 'title' => 'Louis Vuitton',
                 'slug' => 'louis-vuitton',
-                'thumbnail' => 'https://png.pngtree.com/svg/20161124/63f410c59c.svg',
+                'thumbnail' => 'lvv.png',
                 "created_at" =>  date('Y-m-d H:i:s'),
                 "updated_at" => date('Y-m-d H:i:s'),
 
             ],[
                 'title' => 'Dolce Gabanna',
                 'slug' => 'dolce-gabanna',
-                'thumbnail' => 'https://fontmeme.com/images/DG-Logo.jpg',
+                'thumbnail' => 'DG-Logo.jpg',
                 "created_at" =>  date('Y-m-d H:i:s'),
                 "updated_at" => date('Y-m-d H:i:s'),
 
