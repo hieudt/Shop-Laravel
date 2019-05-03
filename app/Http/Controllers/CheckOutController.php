@@ -15,6 +15,7 @@ use App\coupons;
 use Gloudemans\Shoppingcart\Facades\Cart;
 use App\Bill;
 use App\Notification;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Cache;
 use App\Detailsbill;
 use SEO;

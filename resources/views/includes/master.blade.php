@@ -7,36 +7,13 @@
     <meta name="viewport" content="width=device-width, shrink-to-fit=no, initial-scale=1">
     {!! SEO::generate() !!}
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    {{-- <meta property="og:type" content="article" />
-    <meta property="og:title" content="Cửa hàng thời trang Híu Mai =))" />
-    <meta property="og:description" content="CĐG cũng có ở trong này hiiiii" />
-    <meta property="og:image" content="https://scontent.fhan3-3.fna.fbcdn.net/v/t1.0-9/54800107_1321249651346428_4367508799708200960_n.jpg?_nc_cat=100&_nc_oc=AQnVLBBVPGrro6aS-3bhngAJG3lzOvP5fQaMW3tcw3gnSkY9h3y2Vq9YzsbOvHR7BVY&_nc_ht=scontent.fhan3-3.fna&oh=38254249396eb5c6d64c3fd76b24daae&oe=5D2E56AC"
-    /> --}}
-    <link rel="icon" href="{{url('/')}}/assets/images/logo/avatar_null_nonecircle.png" />
-    
-    <!-- Bootstrap Core CSS -->
-    <link href="{{ URL::asset('assets/css/bootstrap.min.css')}}" rel="stylesheet">
-    <link href="{{ URL::asset('assets/css/font-awesome.css')}}" rel="stylesheet">
-    
-    <link href="{{ URL::asset('assets/css/owl.carousel.min.css')}}" rel="stylesheet">
-    <link href="{{ URL::asset('assets/css/idangerous.swiper.css')}}" rel="stylesheet" type="text/css" />
-
-    <link href="{{ URL::asset('assets/css/style.css')}}" rel="stylesheet" type="text/css" />
-    <!-- Custom CSS -->
-    <link href="{{URL::asset('assets/css/mycss.css')}}" rel="stylesheet">
-    <link href="{{ URL::asset('assets/css/genius1.css')}}" rel="stylesheet">
-    <link href="{{ URL::asset('assets/css/genius-slider.css')}}" rel="stylesheet">
-    <link href="{{ URL::asset('assets/css/genius-gallery.css')}}" rel="stylesheet">
-    <link rel="stylesheet" href="{{asset('@styleadmin/node_modules/jquery-toast-plugin/dist/jquery.toast.min.css')}}">
-    <link href="{{ URL::asset('assets/css/lightbox.css')}}" rel="stylesheet">
-    <link href="{{ URL::asset('@styleadmin/css/algolia.css')}}" rel="stylesheet">
-    <link href="{{ URL::asset('assets/css/animate.min.css')}}" rel="stylesheet">
-
+    {{-- <link rel="icon" href="{{url('/')}}/assets/images/logo/avatar_null_nonecircle.png" /> --}}
+    <link rel="stylesheet" href="{{ mix('css/app.css') }}">
     <!-- Inject CSS -->
     @yield('css')
 </head>
 
-<body>
+<body oncontextmenu="return false">
     <div id="cover"></div>
     <div class="theme2">
         <div id="content-block">
@@ -64,33 +41,7 @@
         var mainurl = '{{url('/')}}';
     </script>
     <!-- jQuery -->
-
-    <script src="{{ URL::asset('assets/js/jquery.js')}}"></script>
-    <script src="{{ URL::asset('assets/js/owl.carousel.min.js')}}"></script>
-    <script src="{{ URL::asset('assets/js/wow.min.js')}}"></script>
-    <script src="{{ URL::asset('assets/js/jquery.smooth-scroll.js')}}"></script>
-    <!-- Bootstrap Core JavaScript -->
-    <script src="{{URL::asset('assets/js/jquery-ui.js')}}"></script>
-    <script src="{{ URL::asset('assets/js/bootstrap.min.js')}}"></script>
-    {{--
-    <script src="{{ URL::asset('assets/js/lightbox.min.js')}}"></script>
-    <script src="{{ URL::asset('assets/js/plugins.js')}}"></script>--}}
-    <script src="{{ URL::asset('assets/js/genius.js')}}"></script>
-    <script src="{{ URL::asset('assets/js/genius-slider.js')}}"></script>
-
-
-    <script src="{{ URL::asset('assets/js/idangerous.swiper.min.js')}}"></script>
-    <script src="{{ URL::asset('assets/js/global.js')}}"></script>
-    <!-- custom scrollbar -->
-    <script src="{{asset('@styleadmin/node_modules/jquery-toast-plugin/dist/jquery.toast.min.js')}}"></script>
-    <script src="{{asset('@styleadmin/js/toastDemo.js')}}"></script>
-    <script src="{{ URL::asset('assets/js/algoliasearch.min.js')}}"></script>
-    <script src="{{ URL::asset('assets/js/autocomplete.min.js')}}"></script>
-    <script src="{{asset('@styleadmin/js/pusher.min.js')}}"></script>
-    <script src="{{asset('@styleadmin/js/myjs.js')}}"></script>
-    @if(!Auth::check())
-    {{-- <script src="https://www.google.com/recaptcha/api.js" async defer></script> --}}
-    @endif
+    <script src="{{mix('/js/app.js')}}"></script>
 
     <!-- js Page -->
     @yield('javascript')
@@ -481,6 +432,7 @@
         }
     });
     </script>
+    
 </body>
 
 

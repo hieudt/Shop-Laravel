@@ -301,7 +301,7 @@
                 <div id="coupons" class="owl-carousel">
                     @foreach($coupons as $cp)
                     <div class="coupon">
-                        <img src="{{$cp->thumbnail}}" alt="Avatar">
+                        <img src="{{url('/')}}/images/product/sale.png" alt="Avatar">
                         <div class="MaGiamGia" style="background-color:white">
                           <b>{{$cp->title}}</b>
                           <p>{{$cp->content}}</p>
@@ -337,7 +337,7 @@
                         <div class="item">
                             <div class="shadow-effect">
                                 <div class="item-details">
-                                   <a href="san-pham?brands={{$item->slug}}"><img src="{{$item->thumbnail}}"></a>
+                                   <a href="san-pham?brands={{$item->slug}}"><img src="{{url('/images/branch/')}}/{{$item->thumbnail}}"></a>
                                 </div>
                             </div>
                         </div>
