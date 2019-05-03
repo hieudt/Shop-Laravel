@@ -8,7 +8,7 @@
     {!! SEO::generate() !!}
     <meta name="csrf-token" content="{{ csrf_token() }}">
     {{-- <link rel="icon" href="{{url('/')}}/assets/images/logo/avatar_null_nonecircle.png" /> --}}
-    <link rel="stylesheet" href="{{ mix('css/app.css') }}">
+    <link rel="stylesheet" href="{{url('/')}}/css/app.css">
     <!-- Inject CSS -->
     @yield('css')
 </head>
@@ -41,7 +41,7 @@
         var mainurl = '{{url('/')}}';
     </script>
     <!-- jQuery -->
-    <script src="{{mix('/js/app.js')}}"></script>
+    <script src="{{url('/')}}/js/app.js"></script>
 
     <!-- js Page -->
     @yield('javascript')
