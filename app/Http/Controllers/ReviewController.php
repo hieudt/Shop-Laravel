@@ -18,6 +18,7 @@ class ReviewController extends Controller
      */
     public function index()
     {
+        Log::info('Quản trị ' . Auth::user()->name . ' Đã xem danh sách đánh giá');
         return view('admin.review.list');
     }
 

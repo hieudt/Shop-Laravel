@@ -117,6 +117,24 @@
     </li>
     <li class="nav-item">
       <a class="nav-link collapsed" data-toggle="collapse" href="#social" aria-expanded="false" aria-controls="products">
+        <i class="mdi mdi-image-filter-frames menu-icon"></i>
+        <span class="menu-title">Slide</span>
+        <i class="menu-arrow"></i>
+      </a>
+      <div id="social" class="collapse" style>
+        <ul class="nav flex-column sub-menu">
+          <li class="nav-item">
+            <a href="{{url('admin/slide/danh-sach')}}" class="nav-link">Danh Sách</a>
+          </li>
+          <li class="nav-item">
+            <a href="{{url('admin/slide/addslide')}}" class="nav-link">Thêm Mới</a>
+          </li>
+    
+        </ul>
+      </div>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link collapsed" data-toggle="collapse" href="#social" aria-expanded="false" aria-controls="products">
                 <i class="mdi mdi-file-document menu-icon"></i>
                 <span class="menu-title">Kênh Bán Hàng</span>
                 <i class="menu-arrow"></i>

@@ -51,15 +51,30 @@
                     <input type="email" id="reg-email" class="form-control" placeholder="Để lại email" name="email" required>
                     <br/><button id="confirmEmail" class="button style-6">Xác Nhận</button>
             </div>
-            <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 v2_bnc_footer_left">
-                <h4>Theo dõi chúng tôi tại :</h4>
-                <div class="socicon">
-                    <a href="{{$setting->fblink}}" class="facebook"><i class="fa fa-facebook-f"></i></a>
-                    <a href="{{$setting->twitterlink}}" class="twitter"><i class="fa fa-twitter"></i></a>
-                    <a href="{{$setting->instagramlink}}" class="instagram"><i class="fa fa-instagram"></i></a>
-                    <a href="{{$setting->youtubelink}}" class="youtube"><i class="fa fa-youtube"></i></a>
+            <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8">
+                <div class="v2_bnc_footer_right">
+                    <div class="v2_bnc_footer_right_top">
+                        <div class="col-md-4 col-sm-6 col-xs-6 full-xs">
+                            <h4>Theo dõi chúng tôi tại :</h4>
+                            <div class="socicon">
+                                <a href="{{$setting->fblink}}" class="facebook"><i class="fa fa-facebook-f"></i></a>
+                                <a href="{{$setting->twitterlink}}" class="twitter"><i class="fa fa-twitter"></i></a>
+                                <a href="{{$setting->instagramlink}}" class="instagram"><i class="fa fa-instagram"></i></a>
+                                <a href="{{$setting->youtubelink}}" class="youtube"><i class="fa fa-youtube"></i></a>
+                            </div>
+                        </div>
+                        <div class="col-md-4 col-sm-6 col-xs-6 full-xs">
+                            <h4>Hãng vận chuyển :</h4>
+                            @forelse (\App\Shipper::all() as $item)
+                            <img src="{{$item->image}}" style="border-radius:5%;width:50px;height:auto;">
+                            @empty
+                            Không có dữ liệu
+                            @endforelse
+                        </div>
+                    </div>
                 </div>
             </div>
+           
         </div>
     </div>
 </footer>

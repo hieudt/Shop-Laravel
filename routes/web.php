@@ -233,6 +233,14 @@ Route::group(['prefix' => 'admin', 'middleware' => 'adminLogin'], function () {
     Route::get('reviews/fetchBackend','ReviewController@fetchBackend')->name('review.fetchbackend');
     Route::get('reviews/delete/{id}', 'ReviewController@destroy')->name('review.destroy');
 
+    Route::get('slide/danh-sach','SlideController@index')->name('slide.index');
+    Route::get('slide/fetch','SlideController@fetch')->name('slide.fetch');
+    Route::get('slide/addslide','SlideController@create');
+    Route::post('slide/store','SlideController@store')->name('slide.store');
+    Route::get('slide/edit/{id}','SlideController@edit')->name('slide.edit');
+    Route::post('slide/edit/{id}','SlideController@update')->name('slide.update');
+    Route::get('slide/delete/{id}','SlideController@destroy')->name('slide.destroy');
+
     Route::get('logs', '\Rap2hpoutre\LaravelLogViewer\LogViewerController@index');
     
 
@@ -247,7 +255,7 @@ Route::get('/clearcache', function () {
    
 });
 Route::get('/add',function(){
-    Schema::table('news', function ($table) {
+    Schema::table('slides', function ($table) {
         $table->softDeletes();
     });
 });

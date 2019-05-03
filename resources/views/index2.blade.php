@@ -20,56 +20,6 @@
         data-interval="5000">
         <!-- Wrapper For Slides -->
         <div class="carousel-inner" role="listbox">
-
-            <!-- Third Slide -->
-            <div class="item active">
-
-                <!-- Slide Background -->
-                <img src="{{url('/images//sliders/01.jpeg')}}" alt="Bootstrap Touch Slider" class="slide-image" />
-                <div class="bs-slider-overlay"></div>
-
-                <div class="container">
-                    <div class="row">
-                        <!-- Slide Text Layer -->
-                        <div class="slide-text slide_style_left">
-                            <h1 data-animation="animated wobble">Sale 50%</h1>
-                            <p data-animation="animated zoomInUp">Giảm giá 50% mặt hàng</p>
-                            <button data-animation="animated zoomInUp" type="button" class="button style-10">XEM NGAY</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!-- End of Slide -->
-            <!-- Second Slide -->
-            <div class="item">
-
-                <!-- Slide Background -->
-                <img src="{{url('/images/sliders/02.jpg')}}" alt="Bootstrap Touch Slider" class="slide-image" />
-                <div class="bs-slider-overlay"></div>
-                <!-- Slide Text Layer -->
-                <div class="slide-text slide_style_center">
-                   <h1 data-animation="animated wobble">Sale 50%</h1>
-                    <p data-animation="animated zoomInUp">Giảm giá 50% mặt hàng</p>
-                    <button data-animation="animated zoomInUp" type="button" class="button style-10">XEM NGAY</button>
-                </div>
-            </div>
-            <!-- End of Slide -->
-            <!-- Second Slide -->
-            <div class="item">
-
-                <!-- Slide Background -->
-                <img src="{{url('/images/sliders/03.png')}}" alt="Bootstrap Touch Slider" class="slide-image" />
-                <div class="bs-slider-overlay"></div>
-                <!-- Slide Text Layer -->
-                <div class="slide-text slide_style_right">
-                    <h1 data-animation="animated wobble">Sale 50%</h1>
-                    <p data-animation="animated zoomInUp">Giảm giá 50% mặt hàng</p>
-                    <button data-animation="animated zoomInUp" type="button" class="button style-10">XEM NGAY</button>
-                </div>
-            </div>
-            <!-- End of Slide -->
-
-
         </div>
         <!-- End of Wrapper For Slides -->
 

@@ -17,6 +17,7 @@ use App\User;
 use App\SubCategory;
 use App\Product;
 use App\product_details;
+use App\Slide;
 use App\Color;
 use App\Brand;
 /*
@@ -129,6 +130,10 @@ Route::group(['prefix' => 'v1'], function(){
 
     Route::get('product/{id}',function($id){
         return product_details::where('id_product', $id)->with('Color', 'Size')->get();
+    });
+
+    Route::get('slide', function(){
+        return Slide::all();
     });
 });
  
