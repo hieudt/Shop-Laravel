@@ -17,7 +17,7 @@ use SEO;
 use Artesaos\SEOTools\Facades\SEOMeta;
 use Artesaos\SEOTools\Facades\OpenGraph;
 
-class CartController extends Controller
+class CartController extends CacheController
 {
     public function __construct()
     {

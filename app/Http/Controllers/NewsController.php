@@ -7,6 +7,7 @@ use App\News;
 use Intervention\Image\ImageManagerStatic as Image;
 use Yajra\DataTables\DataTables;
 use Mail;
+use Cache;
 use App\Subcriber;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Auth;
@@ -75,6 +76,7 @@ class NewsController extends Controller
             Image::make($File)->resize(270, 150)->save("images/news/".$Image);
             $News->thumbnail = $Image;
             $News->save();
+            Cache::pull('newscache');
             Log::info('Quản trị ' . Auth::user()->name . ' Đã thêm mới tin tức '.$News->id);
             return response()->json(['success'=>"Thêm mới tin tức thành công"]);
         }
@@ -105,6 +107,7 @@ class NewsController extends Controller
                 $News->slug = $req->txtSlug;
             }
             $News->save();
+            Cache::pull('newscache');
             Log::info('Quản trị ' . Auth::user()->name . ' Đã cập nhật tin tức ' . $News->id);
             return response()->json(['success' => "Cập nhật thành công"]);
         }
@@ -119,6 +122,7 @@ class NewsController extends Controller
         $News = News::find($id);
         if ($News) {
             $News->delete();
+            Cache::pull('newscache');
             Log::info('Quản trị ' . Auth::user()->name . ' Đã xóa tin tức ' . $News->id);
             return response()->json(['success' => 'Xóa thành công']);
         } else {

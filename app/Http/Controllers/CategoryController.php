@@ -46,6 +46,7 @@ class CategoryController extends Controller
                     }
                     $Category->save();
                     Log::info('Quản trị ' . Auth::user()->name . ' Đã cập nhật danh mục '.$request->id);
+                    Cache::pull('categorycache');
                     return response()->json(['success'=>'Cập nhật thành công']);
                 } else {
                     return response('ID không tồn tại', 422);

@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Auth;
 use App\Product;
 use App\Images;
+use Cache;
 
 class ProductDetailsController extends Controller
 {
@@ -143,6 +144,9 @@ class ProductDetailsController extends Controller
                 $Object->save();
             }
             Log::info('Quản trị ' . Auth::user()->name . ' Đã thêm mới sản phẩm : '.$Product->title);
+            Cache::pull('featurescache');
+            Cache::pull('lastescache');
+            Cache::pull('discountscache');
             return response()->json(['success' => 'Thêm mới thành công']);
         }
     }
@@ -315,6 +319,9 @@ class ProductDetailsController extends Controller
             
 
             $Product->save();
+            Cache::pull('featurescache');
+            Cache::pull('lastescache');
+            Cache::pull('discountscache');
             Log::info('Quản trị ' . Auth::user()->name . ' Đã cập nhật sản phẩm : ' . $Product->title);
             return response()->json(['success' => 'Cập nhật thành công']);
         }

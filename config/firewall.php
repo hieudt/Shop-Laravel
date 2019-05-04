@@ -178,7 +178,7 @@ return [
         'allowed_frequency' => [
 
             'ip' => [
-                'requests' => 10,
+                'requests' => 20,
 
                 'seconds' => 1 * 10, // 1 minute
             ],

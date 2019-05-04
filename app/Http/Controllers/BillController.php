@@ -12,7 +12,7 @@ use Illuminate\Support\Facades\Auth;
 use SEO;
 use Artesaos\SEOTools\Facades\SEOMeta;
 use Artesaos\SEOTools\Facades\OpenGraph;
-class BillController extends Controller
+class BillController extends CacheController
 {
     /**
      * Display a listing of the resource.

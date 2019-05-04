@@ -262,8 +262,8 @@ Route::get('/add',function(){
 
 
 Route::get('fb',function(){
-    $data = Reviews::all();
-    return "hi";
+    $data = Pages::all();
+    dd($data->find(1));
 });
 
 Route::get('fb2', function () {

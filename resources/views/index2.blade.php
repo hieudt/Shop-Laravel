@@ -94,12 +94,7 @@
                                         <a href="{{url('/san-pham')}}/{{$product->id}}/{{$product->slug}}">
                                             <img src="{{url('/images/product')}}/{{$product->thumbnail}}">
                                         </a>
-                                        <ul class="social">
-                                            <li><a href="/san-pham/{{$product->id}}/{{$product->slug}}" data-tip="Chi Tiết SP"><i class="fa fa-eye fa-fix"></i></a></li>
-                                            <li><a href="#" data-tip="Add to Wishlist" data-product="{{$CountForm}}" class="add-to-wish"><i class="fa fa-shopping-bag fa-fix"></i></a></li>
-                                            <li><a href="#" data-tip="Add to Cart"><i class="fa fa-shopping-cart fa-fix"></i></a></li>
-                                        </ul>
-                                        
+
                                         @if($product->discount>0)
                                         <span class="product-discount-label">-{{$product->discount}}%</span>
                                         @endif
@@ -144,11 +139,7 @@
                                         <a href="{{url('/san-pham')}}/{{$product->id}}/{{$product->slug}}">
                                             <img src="{{url('/images/product')}}/{{$product->thumbnail}}">
                                         </a>
-                                        <ul class="social">
-                                            <li><a href="{{url('/san-pham')}}/{{$product->id}}/{{$product->slug}}" data-tip="Xem Nhanh"><i class="fa fa-eye fa-fix"></i></a></li>
-                                            <li><a href="#" data-tip="Add to Wishlist" data-product="{{$CountForm}}" class="add-to-wish"><i class="fa fa-shopping-bag fa-fix"></i></a></li>
-                                            <li><a href="#" data-tip="Add to Cart"><i class="fa fa-shopping-cart fa-fix"></i></a></li>
-                                        </ul>
+     
                                         <span class="product-new-label">New</span>
                                         @if($product->discount>0)
                                         <span class="product-discount-label">-{{$product->discount}}%</span>
@@ -194,11 +185,7 @@
                                         <a href="{{url('/san-pham')}}/{{$product->id}}/{{$product->slug}}">
                                             <img src="{{url('/images/product')}}/{{$product->thumbnail}}">
                                         </a>
-                                        <ul class="social">
-                                            <li><a href="{{url('/san-pham')}}/{{$product->id}}/{{$product->slug}}" data-tip="Chi Tiết SP" ><i class="fa fa-eye fa-fix"></i></a></li>
-                                            <li><a href="#" data-tip="Add to Wishlist" data-product="{{$CountForm}}" class="add-to-wish"><i class="fa fa-shopping-bag fa-fix"></i></a></li>
-                                            <li><a href="#" data-tip="Add to Cart"><i class="fa fa-shopping-cart fa-fix"></i></a></li>
-                                        </ul>
+
                                         
                                         @if($product->discount>0)
                                         <span class="product-discount-label">-{{$product->discount}}%</span>

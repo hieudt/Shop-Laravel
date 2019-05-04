@@ -13,7 +13,7 @@
     @yield('css')
 </head>
 
-<body oncontextmenu="return false">
+<body>
     <div id="cover"></div>
     <div class="theme2">
         <div id="content-block">

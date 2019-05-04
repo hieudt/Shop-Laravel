@@ -21,7 +21,7 @@ use App\Detailsbill;
 use SEO;
 use Artesaos\SEOTools\Facades\SEOMeta;
 use Artesaos\SEOTools\Facades\OpenGraph;
-class CheckOutController extends Controller
+class CheckOutController extends CacheController
 {
     public function __construct()
     {

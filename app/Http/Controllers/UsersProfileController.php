@@ -10,7 +10,7 @@ use App\coupons;
 use Illuminate\Support\Facades\Session;
 use App\User;
 use Cache;
-class UsersProfileController extends Controller
+class UsersProfileController extends CacheController
 {
     public function __construct()
     {

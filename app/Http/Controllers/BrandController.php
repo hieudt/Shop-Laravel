@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Brand;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Auth;
+use Cache;
 class BrandController extends Controller
 {
     public function index(){
@@ -60,6 +61,7 @@ class BrandController extends Controller
             }
             $brand->save();
             Log::info('Quản trị ' . Auth::user()->name . ' Đã thêm mới thương hiệu');
+            Cache::pull( 'brandscache');
             return response()->json(['success' => 'Thêm mới thương hiệu thành công'], 200);
         }
     }
@@ -98,6 +100,7 @@ class BrandController extends Controller
                     $brand->slug = $req->slug;
                 }
                 $brand->save();
+                Cache::pull('brandscache');
                 Log::info('Quản trị ' . Auth::user()->name . ' Đã cập nhật thương hiệu '.$req->id);
                 return response()->json(['success' => 'Cập Nhật thương hiệu thành công'], 200);
             }

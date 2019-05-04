@@ -34,6 +34,7 @@
         "php-http/message": "^1.7",
         "phpunit/phpunit": "~6.0",
         "pragmarx/firewall": "^2.2",
+        "predis/predis": "^1.1",
         "pusher/pusher-php-server": "^3.4",
         "rap2hpoutre/laravel-log-viewer": "^1.1",
         "sarfraznawaz2005/visitlog": "^1.2",

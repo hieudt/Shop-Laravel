@@ -71,6 +71,7 @@ class PagesController extends Controller
 
         }
         Cache::pull('pagescache');
+        Cache::pull('pagesallcache');
         return response()->json(['success' => 'Cập nhật thành công'], 200);
     }
 
@@ -98,6 +99,7 @@ class PagesController extends Controller
             $pages->enableMenu = $req->selMenu;
             $pages->save();
             Cache::pull('pagescache');
+            Cache::pull('pagesallcache');
             return response()->json(['success' => 'Cập nhật thành công']);
         }
     }
@@ -158,6 +160,7 @@ class PagesController extends Controller
             $pages->enableMenu = $req->selMenu;
             $pages->save();
             Cache::pull('pagescache');
+            Cache::pull('pagesallcache');
             Log::info('Quản trị ' . Auth::user()->name . ' Đã thêm mới menu');
             return response()->json(['success'=>'Thêm mới thành công']);
         }

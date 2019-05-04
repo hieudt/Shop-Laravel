@@ -62,8 +62,8 @@ class ShipperController extends Controller
             $data->fee = $req->get('txtFee');
             $data->Time  = $req->get('txtTime');
             $data->image = $req->get('txtImg');
-            
 
+            Cache::pull('shippercache');
             $data->save();
 
             return response()->json(['success'=>'Thêm mới thành công'],200);
@@ -127,9 +127,9 @@ class ShipperController extends Controller
             $data->fee = $req->get('txtFee');
             $data->Time  = $req->get('txtTime');
             $data->image = $req->get('txtImg');
-
+            
             $data->save();
-
+            Cache::pull('shippercache');
             return response()->json(['success'=>'Cập nhật thành công'],200);
         }
     }

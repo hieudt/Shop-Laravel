@@ -6,6 +6,7 @@ use App\coupons;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Auth;
+use Cache;
 class CouponsController extends Controller
 {
     /**
@@ -82,6 +83,7 @@ class CouponsController extends Controller
             $coupons->typeEnable = $request->typeEnable;
             $coupons->content = $request->content;
             $coupons->save();
+            Cache::pull('couponscache');
             Log::info('Quản trị ' . Auth::user()->name . ' Đã thêm mới mã giảm giá : '.$coupons->code);
             return response()->json(['success' => 'Thêm mới thành công']);
         }

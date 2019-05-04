@@ -36,6 +36,7 @@ class Kernel extends HttpKernel
             \Illuminate\View\Middleware\ShareErrorsFromSession::class,
             \App\Http\Middleware\VerifyCsrfToken::class,
             \Illuminate\Routing\Middleware\SubstituteBindings::class,
+            
         ],
 
         'api' => [
@@ -64,5 +65,6 @@ class Kernel extends HttpKernel
         'fw-only-whitelisted' => \PragmaRX\Firewall\Middleware\FirewallWhitelist::class,
         'fw-block-blacklisted' => \PragmaRX\Firewall\Middleware\FirewallBlacklist::class,
         'fw-block-attacks' => \PragmaRX\Firewall\Middleware\BlockAttacks::class,
+        
     ];
 }

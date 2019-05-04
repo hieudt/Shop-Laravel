@@ -21,12 +21,13 @@ use Cache;
 use SEO;
 use Artesaos\SEOTools\Facades\SEOMeta;
 use Artesaos\SEOTools\Facades\OpenGraph;
-class FrontEndController extends Controller
+class FrontEndController extends CacheController
 {
 
     public function __construct()
     {
         parent::__construct();
+        
     }
 
     public function cart()
@@ -44,12 +45,35 @@ class FrontEndController extends Controller
         SEO::setTitle('Trang chủ');
         SEO::setDescription('Shop thời trang hot nhất năm 2019');
         
-        $features = Product::where('featured', '1')->orderBy('id', 'desc')->take(8)->get();
-        $lastes = Product::orderBy('id', 'desc')->take(8)->get();
-        $discounts = Product::where('discount', '>', '0')->orderBy('id', 'desc')->take(8)->get();
-        $coupons = coupons::where('Date', '>', now())->where('typeEnable', '0')->get();
-        $brands = Brand::all();
-        $news = News::orderBy('created_at','desc')->get();
+       
+        $features = Cache::remember('featurescache', 60, function () {
+            $data = Product::where('featured', '1')->orderBy('id', 'desc')->take(8)->get();
+            return $data;
+        });
+        $lastes = Cache::remember('lastescache', 60, function () {
+            $data = Product::orderBy('id', 'desc')->take(8)->get();
+            return $data;
+        });
+        $discounts = Cache::remember('discountscache', 60, function () {
+            $data = Product::where('discount', '>', '0')->orderBy('id', 'desc')->take(8)->get();
+            return $data;
+        });
+
+        $coupons = Cache::remember('couponscache', 60, function () {
+            $data = coupons::where('Date', '>', now())->where('typeEnable', '0')->get();
+            return $data;
+        });
+
+        $brands = Cache::remember('brandscache', 60, function () {
+            $data = Brand::all();
+            return $data;
+        });
+
+        $news = Cache::remember('newscache',60,function(){
+            $data = News::orderBy('created_at', 'desc')->get();
+            return $data;
+        });
+
         return view('index2', compact('features', 'lastes', 'discounts', 'coupons','brands','news'));
     }
 
@@ -202,9 +226,16 @@ class FrontEndController extends Controller
         SEO::setDescription('Danh mục sản phẩm');
         SEOMeta::addKeyword(['Danh mục sản phẩm']);
 
-        $Category = Category::all();
+        $Category = Cache::remember('categorycache', 60, function () {
+            $data = Category::with('SubCategory')->get();
+            return $data;
+        });
+
         $Color = Color::all();
-        $Brand = Brand::all();
+        $Brand = Cache::remember('brandscache', 60, function () {
+            $data = Brand::all();
+            return $data;
+        });
         $CategoryName = "";
         $CategorySlug = "";
         $SubCategoryName = "";

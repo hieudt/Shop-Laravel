@@ -3,6 +3,7 @@ use Carbon\Carbon;
 use App\Notification;
 use App\Category;
 use App\Bill;
+use Cache;
 use App\DetailsBill;
 use Gloudemans\Shoppingcart\Facades\Cart;
 use App\Pages;
@@ -388,10 +389,11 @@ function getProductTop()
 
 function enable($id,$state = null){
 	// Sate : check menu, state null check footer
+	$data = Cache::get('pagesallcache');
 	if($state){
-		return Pages::find($id)->enableMenu == 1 ? true : false;
+		return $data->find($id)->enableMenu == 1 ? true : false;
 	}else {
-		return Pages::find($id)->enableFooter == 1 ? true : false;
+		return $data->find($id)->enableFooter == 1 ? true : false;
 	}
 }
 

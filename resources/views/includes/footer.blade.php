@@ -65,7 +65,7 @@
                         </div>
                         <div class="col-md-4 col-sm-6 col-xs-6 full-xs">
                             <h4>Hãng vận chuyển :</h4>
-                            @forelse (\App\Shipper::all() as $item)
+                            @forelse ($shipper as $item)
                             <img src="{{$item->image}}" style="border-radius:5%;width:50px;height:auto;">
                             @empty
                             Không có dữ liệu
