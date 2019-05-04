@@ -14,7 +14,7 @@ use App\coupons;
 use Cache;
 use Gloudemans\Shoppingcart\Facades\Cart;
 
-class WishlistController extends Controller
+class WishlistController extends CacheController
 {
     public function __construct()
     {
