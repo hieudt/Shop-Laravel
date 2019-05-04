@@ -135,5 +135,9 @@ Route::group(['prefix' => 'v1'], function(){
     Route::get('slide', function(){
         return Slide::all();
     });
+
+    Route::get('customer',function(){
+        return User::where('id','!=',1)->get();
+    });
 });
  

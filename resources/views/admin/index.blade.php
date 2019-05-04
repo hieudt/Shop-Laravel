@@ -203,6 +203,18 @@
       </div>
       <!--activity ends-->
     </div>
+    <div class="col-lg-4 grid-margin stretch-card">
+      <!--activity-->
+      <div class="card">
+        <div class="card-body">
+          <h4 class="card-title">Trích Xuất DL</h4>
+          <ul class="bullet-line-list">
+            <button class="btn btn-primary" id="exportCustomer">Xuất dữ liệu Khách hàng</button>
+          </ul>
+        </div>
+      </div>
+      <!--activity ends-->
+    </div>
   </div>
 </div>
 @endsection
@@ -210,6 +222,19 @@
 @section('javascript')
 <script>
 $(document).ready(function(){
+  $('#exportCustomer').click(function(){
+    $.ajax({
+      method:'GET',
+      url:'{{url('/api/v1/customer')}}',
+        success: function(data){
+          KhachHang(data);
+        },
+        error: function(request,status){
+        console.log(request.responseJSON);
+        }
+    });
+  });
+
   var admintoken = localStorage.getItem('admintoken');
   if(admintoken == "YES"){
   }else {
@@ -273,6 +298,7 @@ $(document).ready(function(){
 </script>
 <script src="{{asset('@styleadmin/node_modules/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js')}}"></script>
 <script src="{{asset('@styleadmin/js/dashboard.js')}}"></script>
+<script src="{{asset('@styleadmin/js/export.js')}}"></script>
 <script src="{{asset('@styleadmin/node_modules/datatables.net/js/jquery.dataTables.js')}}"></script>
 <script src="{{asset('@styleadmin/node_modules/datatables.net-bs4/js/dataTables.bootstrap4.js')}}"></script>
 {{--

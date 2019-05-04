@@ -23,6 +23,8 @@ function ToastError(string = '') {
 }
 
 
+
+
 function Pagination(tableID,trClass) {
     var table = tableID;
     $('#maxRows').on('change', function () {
@@ -159,6 +161,8 @@ channel5.bind('loadWish', function (data) {
             enterPressed = true;
         });
 })();
+
+
 
 
 

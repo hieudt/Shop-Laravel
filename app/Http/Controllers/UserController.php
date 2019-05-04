@@ -18,7 +18,7 @@ class UserController extends Controller
 
     public function fetchAll()
     {
-        $data = User::all();
+        $data = User::where('role','!=',1)->get();
         foreach ($data as $usr) {
             $usr['SoBill'] = $usr->getCountBill($usr->id);
             $usr['TotalMoney'] = $usr->getTotalMoney($usr->id);
