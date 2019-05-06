@@ -63,3 +63,6 @@ composer require artesaos/seotools<br/>
 
 #Firewall <br/>
 https://github.com/antonioribeiro/firewall<br/>
+
+#Consine <br/>
+composer require algenza/cosine-similarity <br/>
