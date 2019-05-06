@@ -105,7 +105,7 @@
                                                 <select name="selMethod" class="form-control" id="selMethod">
                                                         <option value="0" selected>Nhận hàng thanh toán (COD)</option>
                                                         <option value="1">PayPal</option>
-                                                        <option value="Three">Nepal</option>
+                                                        <option value="2">Khác</option>
                                                     </select>
                                                 <div id="show0" class="divMethod">
                                                     
@@ -113,8 +113,46 @@
                                                 <div id="show1" class="divMethod">
                                                         
                                                 </div>
-                                                <div id="showThree" class="divMethod">
-                                                   
+                                                <div id="show2" class="divMethod">
+                                                   <table align="center">
+                                                    <tr>
+                                                        <td colspan="3">
+                                                            <table>
+                                                                <tr>
+                                                                    <td align="center" style="padding-bottom:0px;">
+                                                                        VMS<input type="radio" name="rad_NganLuong" checked="true" value="VMS" id="92" />
+                                                                    </td>
+                                                                    <td align="center" style="padding-bottom:0px;padding-left:5px">
+                                                                        VNP<input type="radio" name="rad_NganLuong" value="VNP" id="93" />
+                                                                    </td>
+                                                                    <td align="center" style="padding-bottom:0px;padding-right:0px">
+                                                                        VIETTEL<input type="radio" name="rad_NganLuong" value="VIETTEL" id="107" />
+                                                                    </td>
+                                                
+                                                                    <td align="center" style="padding-bottom:0px;padding-right:0px">
+                                                                        GATE<input type="radio" id="120" value="GATE" name="rad_NganLuong">
+                                                                    </td>
+                                                                </tr>
+                                                            </table>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td align="right" style="padding-bottom:10px">Số Seri :</td>
+                                                        <td colspan="2"><input type="text" id="serial" name="serial" style="height:25px;width:200px" /></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td align="right">Mã số thẻ : </td>
+                                                        <td colspan="2">
+                                                            <input type="text" id="pin" name="pin" style="height:25px;width:200px" />
+                                                
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td colspan="3" align="center" style="padding-bottom:10px;padding-right:10px">
+                                                            <input type="submit" id="ttNganluong" name="NLNapThe" value="Nạp Thẻ" />
+                                                        </td>
+                                                    </tr>
+                                                </table>
                                                 </div>
                                             </div>
                                         </div>
@@ -193,7 +231,6 @@
 
     $('#BillOrder').click(function(){
         var data = $('#OrderForm').serialize();
-
         postOrder(data);
     });
 
@@ -229,7 +266,7 @@
             data:data,
             success: function (data) {
                 ToastSuccess(data.success); 
-                window.location.href = "{{url('checkout/bill')}}/"+data.token;
+                //window.location.href = "{{url('checkout/bill')}}/"+data.token;
             },
             error: function (request, status) {
                 $.each(request.responseJSON.errors,function(key,val){

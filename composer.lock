@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "27a3aa7130cafb3eb6486166ceb4cd97",
+    "content-hash": "1ffb840433c39f233cc3e90a4d2c4a44",
     "packages": [
         {
             "name": "algenza/cosine-similarity",
@@ -7940,7 +7940,9 @@
     "packages-dev": [],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": [],
+    "stability-flags": {
+        "santran/mobicard": 20
+    },
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {

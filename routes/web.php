@@ -20,6 +20,7 @@ use Phpml\Classification\KNearestNeighbors;
 use Phpml\FeatureExtraction\TfIdfTransformer;
 use App\Review;
 use Swap\Laravel\Facades\Swap;
+use App\CustomClass\NganLuong;
 use Illuminate\Support\Facades\Cache;
 use App\Bill;
 use App\Detailsbill;
@@ -348,3 +349,23 @@ Route::get('item',function(){
     getRecommendation($matrix, "Quần 33");
 });
 
+Route::get('return/nganluong/{token}',function($token){
+    $nlcheckout = new NganLuong( '59467', 'f72e9e8ec0a38b84700335e951b39cab', 'hieuleadergin@gmail.com', 'https://www.nganluong.vn/checkout.api.nganluong.post.php');
+    $nl_result = $nlcheckout->GetTransactionDetail($token);
+
+    if ($nl_result) {
+        $nl_errorcode           = (string)$nl_result->error_code;
+        $nl_transaction_status  = (string)$nl_result->transaction_status;
+        if ($nl_errorcode == '00') {
+            if ($nl_transaction_status == '00') {
+                //trạng thái thanh toán thành công
+                echo "<pre>";
+                print_r($nl_result);
+                echo "</pre>";
+                echo "Cập nhật trạng thái thành công";
+            }
+        } else {
+            echo $nlcheckout->GetErrorMessage($nl_errorcode);
+        }
+    }
+});

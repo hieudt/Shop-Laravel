@@ -178,6 +178,7 @@ return [
         Artesaos\SEOTools\Providers\SEOToolsServiceProvider::class,
         PragmaRX\Firewall\Vendor\Laravel\ServiceProvider::class,
 
+
         /*
          * Package Service Providers...
          */

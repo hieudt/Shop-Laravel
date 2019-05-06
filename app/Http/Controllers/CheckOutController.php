@@ -16,6 +16,7 @@ use Gloudemans\Shoppingcart\Facades\Cart;
 use App\Bill;
 use App\Notification;
 use Illuminate\Support\Facades\Log;
+use App\CustomClass\NganLuong;
 use Illuminate\Support\Facades\Cache;
 use App\Detailsbill;
 use SEO;
@@ -67,72 +68,97 @@ class CheckOutController extends CacheController
                 'selMethod.max'=>'Phương thức thanh toán không hợp lệ hãy làm mới lại trang (F5)'
             ]);
 
-            $shiper = '';
-            $feeship = 0;
-            if(session()->get('idShip')){
-                $shiper = Shipper::find(session()->get('idShip'));
-                if(!empty($shiper)){
-                    $feeship = $shiper->fee;
-                }
+            $nlcheckout = new NganLuong('59467','f72e9e8ec0a38b84700335e951b39cab','hieuleadergin@gmail.com', 'https://www.nganluong.vn/checkout.api.nganluong.post.php');
+            $total_amount = '500000';
+            $payment_method = 'NL';
+            $returnurl = "https://larvuejs.vn/return/nganluong/";
+            $cancelurl = "https://larvuejs.vn/callbacknl";
+            $array_items = array();
+            $array_items[0] = array(
+                'item_name1' => 'Product name',
+                'item_quantity1' => 1,
+                'item_amount1' => $total_amount,
+                'item_url1' => 'http://nganluong.vn/'
+            );
+            $nl_result = $nlcheckout->NLCheckout(
+                'HD01',$total_amount,1,'Đây là hóa đơn',
+                0,30000,20,$returnurl,$cancelurl,'Tên người mua',
+                'Mail người mua','033333333','Địa chỉ người mua',$array_items
+            );
+            if ($nl_result->error_code == '00') {
+                echo $nl_result->token;   
             }else {
-                return response()->json(['errors'=>['errorcoupons'=>[0=>'Vui lòng chọn phương thức vận chuyển']]],422);
+                echo $nl_result->error_message;
             }
 
-            $idUser = User::where('role',2)->first()->id;
-            if(Auth::check()){
-                $idUser = Auth::user()->id;
-            }
-            $InfoShip = new InfoShip;
-            $InfoShip->FullName = $req->firstname;
-            $InfoShip->Address = $req->address;
-            $InfoShip->Phone = $req->phone;
-            $InfoShip->Email = $req->email;
-            $InfoShip->Note = $req->note;
-            $InfoShip->save();
 
-            $Bill = new Bill;
-            $Bill->status = 0;
-            $Bill->statusPay = 0;
-            $Bill->PayMethod = $req->selMethod;
-            $Bill->id_user = $idUser;
-            $Bill->id_coupon = $idcoupon;
-            $Bill->id_infoship = $InfoShip->id;
-            $Bill->id_shipper = $shiper->id;
-            $Bill->TotalMoney = $total;
-            $Bill->feeship = $feeship;
-            $Bill->save();
+            // $shiper = '';
+            // $feeship = 0;
+            // if(session()->get('idShip')){
+            //     $shiper = Shipper::find(session()->get('idShip'));
+            //     if(!empty($shiper)){
+            //         $feeship = $shiper->fee;
+            //     }
+            // }else {
+            //     return response()->json(['errors'=>['errorcoupons'=>[0=>'Vui lòng chọn phương thức vận chuyển']]],422);
+            // }
 
-            foreach (Cart::content() as $Item) {
-                $Details = new Detailsbill;
-                $Details->id_bill = $Bill->id;
-                $Details->id_products_details = $Item->id;
-                $Details->Number = $Item->qty;
-                $Details->price = $Item->price;
-                $Details->discount = $Item->options['discount'];
-                $Details->save();
-            }
+            // $idUser = User::where('role',2)->first()->id;
+            // if(Auth::check()){
+            //     $idUser = Auth::user()->id;
+            // }
+            // $InfoShip = new InfoShip;
+            // $InfoShip->FullName = $req->firstname;
+            // $InfoShip->Address = $req->address;
+            // $InfoShip->Phone = $req->phone;
+            // $InfoShip->Email = $req->email;
+            // $InfoShip->Note = $req->note;
+            // $InfoShip->save();
 
-            $random = str_random(10);
-            $value = $Bill->id;
-            $token = base64_encode($value).'-'.$random;
+            // $Bill = new Bill;
+            // $Bill->status = 0;
+            // $Bill->statusPay = 0;
+            // $Bill->PayMethod = $req->selMethod;
+            // $Bill->id_user = $idUser;
+            // $Bill->id_coupon = $idcoupon;
+            // $Bill->id_infoship = $InfoShip->id;
+            // $Bill->id_shipper = $shiper->id;
+            // $Bill->TotalMoney = $total;
+            // $Bill->feeship = $feeship;
+            // $Bill->save();
+
+            // foreach (Cart::content() as $Item) {
+            //     $Details = new Detailsbill;
+            //     $Details->id_bill = $Bill->id;
+            //     $Details->id_products_details = $Item->id;
+            //     $Details->Number = $Item->qty;
+            //     $Details->price = $Item->price;
+            //     $Details->discount = $Item->options['discount'];
+            //     $Details->save();
+            // }
+
+            // $random = str_random(10);
+            // $value = $Bill->id;
+            $token = "";
+            // $token = base64_encode($value).'-'.$random;
             
 
-            $NewNotif = new Notification;
-            if(Auth::check()){
-                $NewNotif->nameUser = Auth::user()->name;
-            }else {
-                $NewNotif->nameUser = "Khách Vãng Lai";
-            }
+            // $NewNotif = new Notification;
+            // if(Auth::check()){
+            //     $NewNotif->nameUser = Auth::user()->name;
+            // }else {
+            //     $NewNotif->nameUser = "Khách Vãng Lai";
+            // }
 
-            $NewNotif->action = "Đặt";
-            $NewNotif->task = "Hóa Đơn";
-            $NewNotif->save();
+            // $NewNotif->action = "Đặt";
+            // $NewNotif->task = "Hóa Đơn";
+            // $NewNotif->save();
 
-            eventLoadBill();
-            eventLoadNotification();
-            RemoveSession();
-            Log::info($NewNotif->nameUser.' Đã đặt hàng');
-            return response()->json(['success'=>'Đặt hàng thành công','token'=>$token]);
+            // eventLoadBill();
+            // eventLoadNotification();
+            // RemoveSession();
+            // Log::info($NewNotif->nameUser.' Đã đặt hàng');
+            //return response()->json(['success'=>'Đặt hàng thành công','token'=>$token]);
          }
     }
 
