@@ -15,6 +15,10 @@ use Intervention\Image\ImageManagerStatic as Image;
 use App\Pages;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Storage;
+use Algenza\Cosinesimilarity\Cosine;
+use Phpml\Classification\KNearestNeighbors;
+use Phpml\FeatureExtraction\TfIdfTransformer;
+use App\Review;
 use Swap\Laravel\Facades\Swap;
 use Illuminate\Support\Facades\Cache;
 use App\Bill;
@@ -22,6 +26,8 @@ use App\Detailsbill;
 use Gloudemans\Shoppingcart\Facades\Cart;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Hash;
+use function GuzzleHttp\json_decode;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -266,7 +272,79 @@ Route::get('fb',function(){
     dd($data->find(1));
 });
 
-Route::get('fb2', function () {
-    return view('antiddos');
+Route::get('cos', function () {
+    $a = [0];
+    $b = [0];
+    $c = [5,4,7,4,7];
+    $d = [7,1,7,3,8];
+    echo Cosine::similarity($a,$b);
+    echo "<br/>".Cosine::similarity($a,$b);
+    
+// return 'b'
+});
+
+Route::get('knn',function(){
+    $samples = [[1, 3], [1, 4], [2, 4], [3, 1], [4, 1], [4, 2]];
+    $labels = [1,2,3,4,5,6];
+
+    $classifier = new KNearestNeighbors();
+    $classifier->train($samples, $labels);
+
+    echo $classifier->predict([8, 2]);
+});
+
+Route::get('recommended',function(){
+    $data = Review::with('Product','User')->get();
+
+    $matrix = array();
+    $count = 0;
+    foreach ($data as $value) {
+        $count++;
+        $matrix[$value->Product->title][$value->User->name] = $value->rating;
+    }
+
+    foreach ($matrix as $key => $value) {
+        $count = 0;
+        $tong = 0;
+        foreach ($value as $index => $value2) {
+           $count++;
+           $tong += $value2;
+        }
+        $tong = $tong / $count;
+        foreach ($value as $index => $value2) {
+            $matrix[$key][$index] = $value2 - $tong;
+        }
+    }
+    echo "<pre>";
+    print_r($matrix);
+    echo "</pre>";
+    
+});
+
+Route::get('item',function(){
+    $data = Review::with('Product', 'User')->get();
+    $matrix = array();
+
+    foreach ($data as $value) {
+        $matrix[$value->Product->title][$value->User->name] = $value->rating;
+    }
+
+    foreach ($matrix as $key => $value) {
+        $count = 0;
+        $tong = 0;
+        foreach ($value as $index => $value2) {
+            $count++;
+            $tong += $value2;
+        }
+        $tong = $tong / $count;
+        foreach ($value as $index => $value2) {
+            $matrix[$key][$index] = $value2 - $tong;
+        }
+    }
+    $item = "Quần 27";
+    $otherProduct = "Áo Phông 28";
+    
+    //echo getSimilarity($matrix,$item,$otherProduct);
+    getRecommendation($matrix, "Quần 33");
 });
 

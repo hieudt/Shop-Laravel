@@ -1,9 +1,10 @@
 <?php
 use Carbon\Carbon;
 use App\Notification;
+use Algenza\Cosinesimilarity\Cosine;
 use App\Category;
 use App\Bill;
-use Cache;
+use Cache as c;
 use App\DetailsBill;
 use Gloudemans\Shoppingcart\Facades\Cart;
 use App\Pages;
@@ -389,7 +390,7 @@ function getProductTop()
 
 function enable($id,$state = null){
 	// Sate : check menu, state null check footer
-	$data = Cache::get('pagesallcache');
+	$data = c::get('pagesallcache');
 	if($state){
 		return $data->find($id)->enableMenu == 1 ? true : false;
 	}else {
@@ -415,5 +416,43 @@ function getStatePay($num){
 	}else{
 		return "Đã thanh toán";
 	}
+}
+
+function getRecommendation($matrix,$item){
+	foreach ($matrix as $otherProduct => $value) {
+		if($otherProduct != $item){
+			$sim = getSimilarity($matrix,$item,$otherProduct);
+			echo "Độ gần giống : ".$otherProduct." với ".$item." là : ".$sim."<br/>";
+		}
+	}
+}
+
+function getSimilarity($matrix,$item,$otherProduct){
+	$vectorItem = array();
+	$vectorOtherItem = array();
+	$similarity = array();
+	$temp = array_merge($matrix[$item], $matrix[$otherProduct]);
+	foreach ($temp as $key => $value) {
+		if (array_key_exists($key, $matrix[$otherProduct]) && array_key_exists($key, $matrix[$item])) {
+			$vectorItem[] = $matrix[$item][$key];
+			$vectorOtherItem[] = $matrix[$otherProduct][$key];
+			continue;
+		}
+
+		if (array_key_exists($key, $matrix[$otherProduct])) {
+			$vectorOtherItem[] = $matrix[$otherProduct][$key];
+			$vectorItem[] = 0;
+			continue;
+		}
+
+		if (array_key_exists($key, $matrix[$item])) {
+			$vectorItem[] = $matrix[$item][$key];
+			$vectorOtherItem[] = 0;
+			continue;
+		}
+	}
+
+	return Cosine::similarity($vectorItem,$vectorOtherItem);
+
 }
 

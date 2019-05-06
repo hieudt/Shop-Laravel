@@ -4,8 +4,44 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "c6e0aa4d882b103e7537a4088abba074",
+    "content-hash": "27a3aa7130cafb3eb6486166ceb4cd97",
     "packages": [
+        {
+            "name": "algenza/cosine-similarity",
+            "version": "v0.1.3",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/algenza/cosine-similarity.git",
+                "reference": "9ea9d8f90d3a4c0cfef739f9f17ef1c6880473db"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/algenza/cosine-similarity/zipball/9ea9d8f90d3a4c0cfef739f9f17ef1c6880473db",
+                "reference": "9ea9d8f90d3a4c0cfef739f9f17ef1c6880473db",
+                "shasum": ""
+            },
+            "require-dev": {
+                "phpunit/phpunit": "^4.8"
+            },
+            "type": "package",
+            "autoload": {
+                "psr-4": {
+                    "Algenza\\Cosinesimilarity\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Billy Renyut",
+                    "email": "milhanol068@gmail.com"
+                }
+            ],
+            "description": "Cosine similarity",
+            "time": "2016-09-22T09:15:35+00:00"
+        },
         {
             "name": "algolia/algoliasearch-client-php",
             "version": "2.2.3",
@@ -206,6 +242,69 @@
                 "nestedset"
             ],
             "time": "2019-03-20T19:24:04+00:00"
+        },
+        {
+            "name": "atomescrochus/laravel-string-similarities",
+            "version": "1.3.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/atomescrochus/laravel-string-similarities.git",
+                "reference": "d77a612a0a45d787fd90c1504a7b5fe239dace7d"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/atomescrochus/laravel-string-similarities/zipball/d77a612a0a45d787fd90c1504a7b5fe239dace7d",
+                "reference": "d77a612a0a45d787fd90c1504a7b5fe239dace7d",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/support": "~5.1",
+                "php": "~7.0"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "~4.0||~5.0",
+                "squizlabs/php_codesniffer": "^2.3"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Atomescrochus\\StringSimilarities\\StringSimilaritiesServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Atomescrochus\\StringSimilarities\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Jean-Philippe Murray",
+                    "email": "jp@atomescroch.us",
+                    "homepage": "http://atomescroch.us",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Compare two string and get a similarity percentage",
+            "homepage": "https://github.com/atomescrochus/laravel-string-similarities",
+            "keywords": [
+                "Gotoh",
+                "Jaro",
+                "Smith",
+                "Waterman",
+                "Winkler",
+                "atomescrochus",
+                "comparison",
+                "laravel-string-similarities",
+                "levenshtein",
+                "string"
+            ],
+            "time": "2017-10-09T19:46:55+00:00"
         },
         {
             "name": "aws/aws-sdk-php",
@@ -3912,6 +4011,55 @@
             ],
             "description": "Library for handling version information and constraints",
             "time": "2017-03-05T17:38:23+00:00"
+        },
+        {
+            "name": "php-ai/php-ml",
+            "version": "0.4.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/php-ai/php-ml.git",
+                "reference": "39747efdc1ff781939c45f321475f00f71ef3172"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/php-ai/php-ml/zipball/39747efdc1ff781939c45f321475f00f71ef3172",
+                "reference": "39747efdc1ff781939c45f321475f00f71ef3172",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=7.0.0"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "^6.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "Phpml": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Arkadiusz Kondas",
+                    "email": "arkadiusz.kondas@gmail.com"
+                }
+            ],
+            "description": "PHP-ML - Machine Learning library for PHP",
+            "homepage": "https://github.com/php-ai/php-ml",
+            "keywords": [
+                "Neural network",
+                "artificial intelligence",
+                "computational learning theory",
+                "data science",
+                "feature extraction",
+                "machine learning",
+                "pattern recognition"
+            ],
+            "time": "2017-03-05T15:45:48+00:00"
         },
         {
             "name": "php-http/curl-client",
