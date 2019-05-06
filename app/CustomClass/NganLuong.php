@@ -14,13 +14,13 @@ class NganLuong
     
 
 
-    function __construct($merchant_id, $merchant_password, $receiver_email,$url_api)
+    function __construct()
     {				
         $this->version ='3.1';
-        $this->url_api =$url_api;
-        $this->merchant_id = $merchant_id;
-        $this->merchant_password = $merchant_password;
-        $this->receiver_email = $receiver_email;				
+        $this->url_api = 'https://sandbox.nganluong.vn:8088/nl35/checkout.api.nganluong.post.php';
+        $this->merchant_id = '47530';
+        $this->merchant_password = '1189766f5f8e896baeb34eefa4403e7f';
+        $this->receiver_email = 'hieuleadergin@gmail.com';				
     }	
     
     function GetTransactionDetail($token){	

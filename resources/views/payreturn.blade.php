@@ -52,7 +52,11 @@
                                 </tbody>
                             </table>
                             <br/>
+                            @if($url != null && $Bill->statusPay == 0)
+                            <a href="{{$url}}" class="button style-10">Thanh Toán</a>
+                            @endif
                             <div class="links">
+                                
                                 <div id="paypal-button"></div>
                             </div>
                         </p>

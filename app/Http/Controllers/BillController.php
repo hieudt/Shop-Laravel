@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Category;
 use Yajra\Datatables\Datatables;
 use Cache;
+use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Auth;
 use SEO;
@@ -49,7 +50,7 @@ class BillController extends CacheController
             if($data->PayMethod == 1)
             return "Paypal";
             if($data->PayMethod == 2)
-            return "RogCoin";
+            return "Khác";
         })
         ->editColumn('statusPay',function($data){
             if($data->statusPay == 0)
@@ -205,12 +206,16 @@ class BillController extends CacheController
         SEO::setDescription('Tình trạng đơn hàng');
         SEOMeta::addKeyword(['Tình trạng đơn hàng']);
 
-        $getData = explode('-',$token);
+       // dd($tokenNl);
+        $getData = explode('@',$token);
         $id = base64_decode($getData[0]);
         $Bill = Bill::find($id);
-
+        $url = null;
         if(!empty($Bill)){
-            return view('payreturn',compact('Bill'));
+            if ($Bill->PayMethod == 2) {
+                $url = "https://sandbox.nganluong.vn:8088/nl35/checkout/version31/index/token_code/" . $getData[2];
+            }
+            return view('payreturn',compact('Bill','url'));
         } else {
             return redirect()->back();
         }

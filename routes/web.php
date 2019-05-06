@@ -17,6 +17,7 @@ use Carbon\Carbon;
 use Illuminate\Support\Facades\Storage;
 use Algenza\Cosinesimilarity\Cosine;
 use Phpml\Classification\KNearestNeighbors;
+use Session;
 use Phpml\FeatureExtraction\TfIdfTransformer;
 use App\Review;
 use Swap\Laravel\Facades\Swap;
@@ -78,8 +79,16 @@ Route::post('wishlist/tocart','WishlistController@tocart')->name('wishlist.tocar
 Route::get('checkout', 'CheckOutController@index')->name('checkout.index');
 Route::post('checkout/order', 'CheckOutController@postOrder')->name('checkout.order');
 Route::get('checkout/bill/{token}', 'BillController@getDetailsbyId')->name('bill.detais');
+Route::get('checkout/paymentWall','CheckOutController@paymentWall')->name('bill.paymentwall');
 Route::post('checkout/verifyPaypal', 'BillController@verifyPaypal')->name('bill.verifypaypal');
-
+Route::get('checkout/redirectback', function(){
+    if(Session::has('url')){
+    return redirect(Session::get('url'));
+    }else {
+        return redirect()->back();
+    }
+    
+});
 /* CHECK SESSION */
 Route::get('session/idship/{id}', 'CartController@infoShiper');
 
@@ -350,7 +359,7 @@ Route::get('item',function(){
 });
 
 Route::get('return/nganluong/{token}',function($token){
-    $nlcheckout = new NganLuong( '59467', 'f72e9e8ec0a38b84700335e951b39cab', 'hieuleadergin@gmail.com', 'https://www.nganluong.vn/checkout.api.nganluong.post.php');
+    $nlcheckout = new NganLuong;
     $nl_result = $nlcheckout->GetTransactionDetail($token);
 
     if ($nl_result) {
@@ -368,4 +377,8 @@ Route::get('return/nganluong/{token}',function($token){
             echo $nlcheckout->GetErrorMessage($nl_errorcode);
         }
     }
+});
+
+Route::get('/thunghiem/{a}',function($a){
+    echo Input::get('nl');
 });
