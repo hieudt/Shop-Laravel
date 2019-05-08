@@ -378,6 +378,8 @@ Route::get('return/nganluong/{token}',function($token){
     }
 });
 
-Route::get('/thunghiem/{a}',function($a){
-    echo Input::get('nl');
+Route::get('/createdthumbnail/{a}',function($a){
+    $data = explode('.',$a);
+    $img = Image::make('images/product/'.$data[0].'.'.$data[1])->resize(245, 325);
+    return $img->response();
 });

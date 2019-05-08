@@ -92,7 +92,7 @@
                                 <div class="product-grid4">
                                     <div class="product-image4">
                                         <a href="{{url('/san-pham')}}/{{$product->id}}/{{$product->slug}}">
-                                            <img src="{{url('/images/product')}}/{{$product->thumbnail}}">
+                                            <img src="{{url('/images/thumbnail')}}/{{$product->thumbnail}}">
                                         </a>
 
                                         @if($product->discount>0)
@@ -137,7 +137,7 @@
                                 <div class="product-grid4">
                                     <div class="product-image4">
                                         <a href="{{url('/san-pham')}}/{{$product->id}}/{{$product->slug}}">
-                                            <img src="{{url('/images/product')}}/{{$product->thumbnail}}">
+                                            <img src="{{url('/images/thumbnail')}}/{{$product->thumbnail}}">
                                         </a>
      
                                         <span class="product-new-label">New</span>
@@ -183,7 +183,7 @@
                                 <div class="product-grid4">
                                     <div class="product-image4">
                                         <a href="{{url('/san-pham')}}/{{$product->id}}/{{$product->slug}}">
-                                            <img src="{{url('/images/product')}}/{{$product->thumbnail}}">
+                                            <img src="{{url('/images/thumbnail')}}/{{$product->thumbnail}}">
                                         </a>
 
                                         

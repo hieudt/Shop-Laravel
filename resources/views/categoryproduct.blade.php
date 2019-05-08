@@ -185,7 +185,7 @@
                             <div class="product-grid4">
                                 <div class="product-image4">
                                     <a href="{{url('/san-pham')}}/{{$product->id}}/{{$product->slug}}">
-                                                <img class="pic-1" src="{{url('/images/product')}}/{{$product->thumbnail}}">
+                                                <img class="pic-1" src="{{url('/images/thumbnail')}}/{{$product->thumbnail}}">
                                             </a>
                                     <ul class="social">
                                         <li><a href="{{url('/san-pham')}}/{{$product->id}}/{{$product->slug}}" data-tip="Xem Nhanh" ><i class="fa fa-eye fa-fix"></i></a></li>

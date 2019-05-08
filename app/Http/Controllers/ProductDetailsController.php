@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\product_details;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Auth;
+use Intervention\Image\ImageManagerStatic as Image;
 use App\Product;
 use App\Images;
 use Cache;
@@ -101,7 +102,12 @@ class ProductDetailsController extends Controller
             while (file_exists("images/product/" . $Image)) {
                 $Image = str_random(4) . "_" . $nameImage;
             }
+            $thumbnailPath = public_path('images/thumbnail/');
+            Image::make($File)->resize(245, 325)->save($thumbnailPath . $Image);
             $File->move("images/product", $Image);
+
+            
+
             $Product->thumbnail = $Image;
             $Product->save();
 
