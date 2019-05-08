@@ -17,7 +17,6 @@ use Carbon\Carbon;
 use Illuminate\Support\Facades\Storage;
 use Algenza\Cosinesimilarity\Cosine;
 use Phpml\Classification\KNearestNeighbors;
-use Session;
 use Phpml\FeatureExtraction\TfIdfTransformer;
 use App\Review;
 use Swap\Laravel\Facades\Swap;
