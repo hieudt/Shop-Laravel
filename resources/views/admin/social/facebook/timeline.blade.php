@@ -36,24 +36,7 @@
                                 <p>Bình Luận</p>
                             </li>
                         </ul>
-                        <div class="wrapper about-user">
-                            <h4 class="card-title mt-4 mb-3">About</h4>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Veniam consectetur ex quod.</p>
-                        </div>
-                        <div class="info-links">
-                            <a class="website" href="http://bootstrapdash.com/">
-                        <i class="mdi mdi-earth text-gray"></i>
-                        <span>http://bootstrapdash.com/</span>
-                    </a>
-                            <a class="social-link" href="#">
-                        <i class="mdi mdi-facebook text-gray"></i>
-                        <span>https://www.facebook.com/johndoe</span>
-                    </a>
-                            <a class="social-link" href="#">
-                        <i class="mdi mdi-linkedin text-gray"></i>
-                        <span>https://www.linkedin.com/johndoe</span>
-                    </a>
-                        </div>
+                      
                     </div>
                 </div>
             </div>

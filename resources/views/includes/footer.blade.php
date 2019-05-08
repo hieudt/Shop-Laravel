@@ -71,6 +71,13 @@
                             Không có dữ liệu
                             @endforelse
                         </div>
+                        <div class="col-md-4 col-sm-6 col-xs-6 full-xs">
+                            <h4>Thanh toán :</h4>
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/1/16/Former_Visa_%28company%29_logo.svg" alt="" width="100" class="src">
+                            <img src="https://www.paypalobjects.com/webstatic/mktg/logo-center/PP_Acceptance_Marks_for_LogoCenter_266x142.png" alt="" width="100" class="src">
+                            <img src="https://www.vietcredit.vn/resources/files/20181018_17acac2d001c49049709b71e26cb315c.png" style="width:200px;height:auto;">
+ 
+                        </div>
                     </div>
                 </div>
             </div>
