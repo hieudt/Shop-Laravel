@@ -43,6 +43,7 @@
         "sarfraznawaz2005/visitlog": "^1.2",
         "stevebauman/location": "^3.0",
         "symfony/thanks": "^1.0",
+        "unisharp/laravel-filemanager": "~1.8",
         "xethron/migrations-generator": "^2.0",
         "yajra/laravel-datatables-oracle": "^8.0"
     },

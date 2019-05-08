@@ -1,33 +1,13 @@
 <?php
-use juno_okyo\Chatfuel;
-use App\Product;
-use App\Category;
-use App\product_details;
-use Illuminate\Http\Request;
-use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Schema;
-use Illuminate\Database\Schema\Blueprint;
-use \Firebase\JWT\JWT;
 use App\Notification;
-use App\User;
-use GuzzleHttp\Client;
 use Intervention\Image\ImageManagerStatic as Image;
 use App\Pages;
-use Carbon\Carbon;
-use Illuminate\Support\Facades\Storage;
 use Algenza\Cosinesimilarity\Cosine;
 use Phpml\Classification\KNearestNeighbors;
-use Phpml\FeatureExtraction\TfIdfTransformer;
 use App\Review;
-use Swap\Laravel\Facades\Swap;
 use App\CustomClass\NganLuong;
 use Illuminate\Support\Facades\Cache;
-use App\Bill;
-use App\Detailsbill;
-use Gloudemans\Shoppingcart\Facades\Cart;
-use Illuminate\Support\Facades\Input;
-use Illuminate\Support\Facades\Hash;
-use function GuzzleHttp\json_decode;
 
 /*
 |--------------------------------------------------------------------------
@@ -39,6 +19,7 @@ use function GuzzleHttp\json_decode;
 | contains the "web" middleware group. Now create something great!
 |
 */
+
 
 Route::group(['middleware' => ['fw-block-attacks']], function () {
 
@@ -378,8 +359,8 @@ Route::get('return/nganluong/{token}',function($token){
     }
 });
 
-Route::get('/createdthumbnail/{a}',function($a){
-    $data = explode('.',$a);
-    $img = Image::make('images/product/'.$data[0].'.'.$data[1])->resize(245, 325);
+Route::get('/createdthumbnail',function(){
+
+    $img = Image::make('bank.png')->resize(200, 121);
     return $img->response();
 });
