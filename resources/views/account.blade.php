@@ -22,9 +22,9 @@
         <div class="col-sm-9">
             <div class="tab-content">
                 <div class="tab-pane active text-style" id="info">
-                    <h4 class="pull-right">Bạn đã đăng nhập với tài khoản: {{Auth::user()->name}}</h4>
                     <h2>Lịch sử hóa đơn</h2>
-                    <table class="table table-striped">
+                    <div style="overflow-x:auto;">
+                    <table class="table">
                         <thead>
                             <tr class="info">
                                 <th>#HD</th>
@@ -89,6 +89,7 @@
                             @endforelse
                         </tbody>
                     </table>
+                    </div>
                 </div>
                 <div class="tab-pane text-style" id="update">
 

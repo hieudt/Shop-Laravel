@@ -13,7 +13,7 @@
             </div>
             <div class="text-center services">
 
-                <div class="col-md-7 order-div">
+                <div class="col-md-7 order-right">
                     <h4>Thông tin hóa đơn</h4>
                     <form class="" action="" method="post" id="OrderForm">
                         {{csrf_field()}}
@@ -23,34 +23,15 @@
                                 <label for="fname"><i class="fa fa-user"></i> Họ Tên</label>
                                 <input type="text" name="firstname" placeholder="" value="{{Auth::check() ? Auth::user()->name : ''}}">
                                 <label for="adr"><i class="fa fa-address-card-o"></i> Địa Chỉ</label>
-                                <input type="text" name="address" placeholder="" value="{{Auth::check() ? Auth::user()->Address : ''}}">                                {{--
-                                <div class="row">
-                                    <div class="col-50">
-                                        <label for="state">State</label>
-                                        <input type="text" id="state" name="state" placeholder="NY">
-                                    </div>
-                                    <div class="col-50">
-                                        <label for="zip">Zip</label>
-                                        <input type="text" id="zip" name="zip" placeholder="10001">
-                                    </div>
-                                </div> --}}
+                                <input type="text" name="address" placeholder="" value="{{Auth::check() ? Auth::user()->Address : ''}}">
                             </div>
 
                             <div class="col-50">
                                 <label for="email"><i class="fa fa-envelope"></i> Email</label>
                                 <input type="text" name="email" placeholder="" value="{{Auth::check() ? Auth::user()->email : ''}}">
                                 <label for="phone"><i class="fa fa-address-card-o"></i> Số điện thoại</label>
-                                <input type="text" name="phone" placeholder="" value="{{Auth::check() ? Auth::user()->Phone : ''}}">                                {{--
-                                <div class="row">
-                                    <div class="col-50">
-                                        <label for="expyear">Exp Year</label>
-                                        <input type="text" id="expyear" name="expyear" placeholder="2018">
-                                    </div>
-                                    <div class="col-50">
-                                        <label for="cvv">CVV</label>
-                                        <input type="text" id="cvv" name="cvv" placeholder="352">
-                                    </div>
-                                </div> --}}
+                                <input type="text" name="phone" placeholder="" value="{{Auth::check() ? Auth::user()->Phone : ''}}">
+                                
                             </div>
 
                         </div>
@@ -121,14 +102,17 @@
                                                 <form name="NLpayBank" action="#">
                                                     <ul class="list-content">
                                                         <li class="active">
-                                                            <label><input type="radio" value="NL" name="option_payment" selected="true">Thanh toán bằng Ví điện tử
-                                                                NgânLượng</label>
+                                                            <label>
+                                                                <input type="radio" value="NL" name="option_payment" selected="true">Thanh toán bằng Ví điện tử
+                                                                NgânLượng
+                                                            </label>
                                                             <div class="boxContent">
                                                                 <p>
                                                                     Thanh toán trực tuyến AN TOÀN và ĐƯỢC BẢO VỆ, sử dụng thẻ ngân hàng trong và ngoài nước hoặc nhiều
                                                                     hình thức tiện lợi khác.
                                                                     <img src="https://www.nganluong.vn/css/newlanding/img//nganluong_english_color-01.svg" width="50%" alt="" class="src">
-                                                                    <br /></p>
+                                                                    <br />
+                                                                </p>
                                                             </div>
                                                         </li>
                                                         <li>
@@ -169,20 +153,6 @@
                                                                         </label></li>
                                                 
                                                                     <li class="bank-online-methods ">
-                                                                        <label for="sml_atm_mb_ck_on">
-                                                                            <i class="MB" title="Ngân hàng Quân Đội"></i>
-                                                                            <input type="radio" value="MB" name="bankcode">
-                                                
-                                                                        </label></li>
-                                                
-                                                                    <li class="bank-online-methods ">
-                                                                        <label for="sml_atm_vib_ck_on">
-                                                                            <i class="VIB" title="Ngân hàng Quốc tế"></i>
-                                                                            <input type="radio" value="VIB" name="bankcode">
-                                                
-                                                                        </label></li>
-                                                
-                                                                    <li class="bank-online-methods ">
                                                                         <label for="sml_atm_vtb_ck_on">
                                                                             <i class="ICB" title="Ngân hàng Công Thương Việt Nam"></i>
                                                                             <input type="radio" value="ICB" name="bankcode">
@@ -209,29 +179,9 @@
                                                                             <input type="radio" value="HDB" name="bankcode">
                                                 
                                                                         </label></li>
-                                                
-                                                                    <li class="bank-online-methods ">
-                                                                        <label for="sml_atm_msb_ck_on">
-                                                                            <i class="MSB" title="Ngân hàng Hàng Hải"></i>
-                                                                            <input type="radio" value="MSB" name="bankcode">
-                                                
-                                                                        </label></li>
-                                                
-                                                                    <li class="bank-online-methods ">
-                                                                        <label for="sml_atm_nvb_ck_on">
-                                                                            <i class="NVB" title="Ngân hàng Nam Việt"></i>
-                                                                            <input type="radio" value="NVB" name="bankcode">
-                                                
-                                                                        </label></li>
-                                                
-                                                                    <li class="bank-online-methods ">
-                                                                        <label for="sml_atm_vab_ck_on">
-                                                                            <i class="VAB" title="Ngân hàng Việt Á"></i>
-                                                                            <input type="radio" value="VAB" name="bankcode">
-                                                
-                                                                        </label></li>
-                                                
-                                                                    <li class="bank-online-methods ">
+                              
+                                          
+                                                                <li class="bank-online-methods ">
                                                                         <label for="sml_atm_vpb_ck_on">
                                                                             <i class="VPB" title="Ngân Hàng Việt Nam Thịnh Vượng"></i>
                                                                             <input type="radio" value="VPB" name="bankcode">
@@ -242,22 +192,6 @@
                                                                         <label for="sml_atm_scb_ck_on">
                                                                             <i class="SCB" title="Ngân hàng Sài Gòn Thương tín"></i>
                                                                             <input type="radio" value="SCB" name="bankcode">
-                                                
-                                                                        </label></li>
-                                                
-                                                
-                                                
-                                                                    <li class="bank-online-methods ">
-                                                                        <label for="bnt_atm_pgb_ck_on">
-                                                                            <i class="PGB" title="Ngân hàng Xăng dầu Petrolimex"></i>
-                                                                            <input type="radio" value="PGB" name="bankcode">
-                                                
-                                                                        </label></li>
-                                                
-                                                                    <li class="bank-online-methods ">
-                                                                        <label for="bnt_atm_gpb_ck_on">
-                                                                            <i class="GPB" title="Ngân hàng TMCP Dầu khí Toàn Cầu"></i>
-                                                                            <input type="radio" value="GPB" name="bankcode">
                                                 
                                                                         </label></li>
                                                 
@@ -272,12 +206,6 @@
                                                                         <label for="bnt_atm_sgb_ck_on">
                                                                             <i class="SGB" title="Ngân hàng Sài Gòn Công Thương"></i>
                                                                             <input type="radio" value="SGB" name="bankcode">
-                                                
-                                                                        </label></li>
-                                                                    <li class="bank-online-methods ">
-                                                                        <label for="sml_atm_bab_ck_on">
-                                                                            <i class="BAB" title="Ngân hàng Bắc Á"></i>
-                                                                            <input type="radio" value="BAB" name="bankcode">
                                                 
                                                                         </label></li>
                                                                     <li class="bank-online-methods ">
