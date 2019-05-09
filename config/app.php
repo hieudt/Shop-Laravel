@@ -177,6 +177,7 @@ return [
         Rap2hpoutre\LaravelLogViewer\LaravelLogViewerServiceProvider::class,
         Artesaos\SEOTools\Providers\SEOToolsServiceProvider::class,
         PragmaRX\Firewall\Vendor\Laravel\ServiceProvider::class,
+        RenatoMarinho\LaravelPageSpeed\ServiceProvider::class,
 
 
         /*
