@@ -63,7 +63,7 @@ class Kernel extends HttpKernel
         'frontLogin' => \App\Http\Middleware\FrontLogin::class,
         'safeMode' => \App\Http\Middleware\AuthSafeMode::class,
         'fw-only-whitelisted' => \PragmaRX\Firewall\Middleware\FirewallWhitelist::class,
-        'fw-block-blacklisted' => \PragmaRX\Firewall\Middleware\FirewallBlacklist::class,
+        'fw-block-blacklisted' => \PragmaRX\Firewall\Middleware\FirewallBlackliszt::class,
         'fw-block-attacks' => \PragmaRX\Firewall\Middleware\BlockAttacks::class,
         
     ];
