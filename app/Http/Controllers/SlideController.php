@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Slide;
 use Illuminate\Support\Facades\Auth;
 use Yajra\DataTables\Datatables;
+use Intervention\Image\ImageManagerStatic as Image;
 use Illuminate\Support\Facades\Log;
 class SlideController extends Controller
 {
@@ -70,10 +71,10 @@ class SlideController extends Controller
             $File = $req->file('Image1');
             $nameImage = $File->getClientOriginalName(); // lấy tên hình 
             $Image = str_random(4) . "_" . $nameImage;
-            while (file_exists("images/news/" . $Image)) {
+            while (file_exists("images/sliders/" . $Image)) {
                 $Image = str_random(4) . "_" . $nameImage;
             }
-            $File->move("images/sliders", $Image);
+            Image::make($File)->resize(null, 500)->save("images/sliders/" . $Image);
             $Slide->thumbnail = $Image;
             $Slide->save();
            
@@ -88,7 +89,8 @@ class SlideController extends Controller
                 'txtTitle' => 'required',
                 'txtContent' => 'required',
                 'txtUrl' => 'required',
-
+                'Image1.mimes' => 'Định dạng ảnh không hợp lệ',
+                'Image1.required' => 'Thiếu hình ảnh hiển thị'
             ], [
                 'txtTitle.required' => 'Vui lòng nhập tiêu đề',
                 'txtContent.required' => 'Vui lòng nhập nội dung',
@@ -101,6 +103,14 @@ class SlideController extends Controller
             $Slide->content = $req->txtContent;
             $Slide->url = $req->txtUrl;
 
+            $File = $req->file('Image1');
+            $nameImage = $File->getClientOriginalName(); // lấy tên hình 
+            $Image = str_random(4) . "_" . $nameImage;
+            while (file_exists("images/sliders/" . $Image)) {
+                $Image = str_random(4) . "_" . $nameImage;
+            }
+            Image::make($File)->resize(null, 500)->save("images/sliders/" . $Image);
+            $Slide->thumbnail = $Image;
 
             $Slide->save();
 

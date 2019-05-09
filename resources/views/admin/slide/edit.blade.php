@@ -42,7 +42,7 @@
                                 Chọn hình ảnh cho slide
                             </p>
                             <div class="form-group">
-                                <input type="file" disabled id="Image1" name="Image1" class="dropify" data-default-file="/images/sliders/{{$data->thumbnail}}">
+                                <input type="file" id="Image1" name="Image1" class="dropify" data-default-file="/images/sliders/{{$data->thumbnail}}">
                             </div>
                             <div class="form-group">
                                 <button type="submit" name="submit" id="addSlide"

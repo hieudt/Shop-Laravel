@@ -361,6 +361,8 @@ Route::get('return/nganluong/{token}',function($token){
 
 Route::get('/createdthumbnail',function(){
 
-    $img = Image::make('https://lh3.googleusercontent.com/VuehqCNIv4HdUrhmmHoTDvxt7h7soowos4Fa1LTCsIHQY00Kr6Qcs4KIG7P36iopxA')->resize(200, 62);
-    return $img->response();
+    $mime = Image::make('images/sliders/jDAr_01.jpeg')->encode('jpg', 75);
+
+
+    return $mime->response();
 });
