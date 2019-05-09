@@ -53,8 +53,8 @@
     <script>
         $(window).load(function(){
             setTimeout(function(){
-                $('#cover').fadeOut(100);
-            },100)
+                $('#cover').fadeOut(0);
+            },0)
             loadCart();
             loadWish();
         });
