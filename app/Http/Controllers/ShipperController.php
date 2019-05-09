@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Shipper;
 use Illuminate\Http\Request;
+use Cache;
+use Intervention\Image\ImageManagerStatic as Image;
 use Yajra\Datatables\Datatables;
 class ShipperController extends Controller
 {
@@ -61,7 +63,14 @@ class ShipperController extends Controller
             $data->name = $req->get('txtTen');
             $data->fee = $req->get('txtFee');
             $data->Time  = $req->get('txtTime');
-            $data->image = $req->get('txtImg');
+
+            $Image = str_random(4);
+            while (file_exists("images/shipper/" . $Image)) {
+                $Image = str_random(4);
+            }
+            Image::make($req->get('txtImg'))->resize(50, 50)->save("images/shipper/" . $Image);
+            
+            $data->image = $Image;
 
             Cache::pull('shippercache');
             $data->save();
@@ -126,7 +135,14 @@ class ShipperController extends Controller
             $data->name = $req->get('txtTen');
             $data->fee = $req->get('txtFee');
             $data->Time  = $req->get('txtTime');
-            $data->image = $req->get('txtImg');
+
+            $Image = str_random(4);
+            while (file_exists("images/shipper/" . $Image)) {
+                $Image = str_random(4);
+            }
+            Image::make($req->get('txtImg'))->resize(50, 50)->save("images/shipper/" . $Image);
+
+            $data->image = $Image;
             
             $data->save();
             Cache::pull('shippercache');
@@ -153,7 +169,7 @@ class ShipperController extends Controller
                     return formatMoney($ship->fee);
                 })
                 ->editColumn('image',function($ship){
-                    return "<img src='".$ship->image."'>";
+                    return "<img src='".url('images/shipper/'.$ship->image)."'>";
                 })
                 ->addColumn('action',function($ship){
                     return '<button class="btn btn-outline-primary edited md-trigger md-setperspective" data-modal="modal-18" data-id="'.$ship->id.'" data-name="'.$ship->name.'" data-fee="'.$ship->fee.'" data-time="'.$ship->Time.'" data-images="'.$ship->image.'">Sửa </button>&nbsp<button class="btn btn-outline-danger delete" data-id="'.$ship->id.'">Xóa </button>';
