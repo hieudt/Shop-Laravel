@@ -41,7 +41,7 @@
         var mainurl = '{{url('/')}}';
     </script>
     <!-- jQuery -->
-    <script src="{{url('/')}}/js/app.js" async></script>
+    <script src="{{url('/')}}/js/app.js"></script>
 
     <!-- js Page -->
     @yield('javascript')
