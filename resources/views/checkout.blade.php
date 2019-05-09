@@ -63,7 +63,7 @@
                                                         @if(session()->get('idShip') && session()->get('idShip') == $ship->id) 
                                                         class='selected'
                                                         @endif >
-                                                        <img src="{{$ship->image}}" alt="Stack Overflow" width="50" height="50" />
+                                                        <img src="{{url('images/shipper/'.$ship->image)}}" alt="Stack Overflow" width="50" height="50" />
                                                         <p>{{$ship->name}}</p>
                                                         </label>
                                                         @empty Hiện không có dịch vụ ship nào @endforelse
