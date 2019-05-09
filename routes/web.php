@@ -361,6 +361,6 @@ Route::get('return/nganluong/{token}',function($token){
 
 Route::get('/createdthumbnail',function(){
 
-    $img = Image::make('bank.png')->resize(200, 121);
+    $img = Image::make('bank.png')->resize(200, 62);
     return $img->response();
 });
