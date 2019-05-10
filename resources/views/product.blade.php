@@ -266,6 +266,57 @@
                     </div>
                     @endforeach
             </div>
+
+            <h3>Có thể bạn thích</h3>
+            <hr>
+            <div class="row">
+                @forelse ($Likes as $product)
+                    <?php $CountForm++; ?>
+                    <div class="col-md-3 col-sm-6">
+                        <div class="product-grid4">
+                            <div class="product-image4">
+                                <a href="{{url('/san-pham')}}/{{$product->id}}/{{$product->slug}}">
+                                    <img class="pic-1" src="{{url('/images/product')}}/{{$product->thumbnail}}">
+                                </a>
+                                <ul class="social">
+                                    <li><a href="{{url('/san-pham')}}/{{$product->id}}/{{$product->slug}}" data-tip="Chi Tiết SP"><i
+                                                class="fa fa-eye fa-fix"></i></a></li>
+                                    <li><a href="#" data-tip="Add to Wishlist"><i class="fa fa-shopping-bag fa-fix"></i></a></li>
+                                    <li><a href="#" data-tip="Add to Cart"><i class="fa fa-shopping-cart fa-fix"></i></a></li>
+                                </ul>
+                    
+                                @if($product->discount>0)
+                                <span class="product-discount-label">-{{$product->discount}}%</span>
+                                @endif
+                            </div>
+                            <div class="product-content">
+                                <h3 class="title"><a href="{{url('/san-pham')}}/{{$product->id}}/{{$product->slug}}">{{$product->title}}</a>
+                                </h3>
+                                <div class="price">
+                                    @if($product->discount > 0)
+                                    {{$product->formatMoney($product->priceDiscount($product->cost,$product->discount))}}₫
+                                    <span>{{$product->formatMoney($product->cost)}}₫</span>
+                                    @else
+                                    {{$product->formatMoney($product->cost)}}₫
+                                    @endif
+                                </div>
+                                <form id="product{{$CountForm}}">
+                                    <input type="hidden" name="title" value="{{$product->title}}">
+                                    <input type="hidden" name="img" value="{{$product->thumbnail}}">
+                                    <input type="hidden" name="description" value="{{$product->description}}">
+                                    <input type="hidden" name="discount" value={{$product->discount}}>
+                                    <input type="hidden" name="price"
+                                        value="{{$product->formatMoney($product->priceDiscount($product->cost,$product->discount))}}">
+                                    <input type="hidden" name="idproduct" value="{{$product->id}}">
+                                    <button class="add-to-cart" type="button" data-product="{{$CountForm}}">Thêm vào giỏ</span>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                @empty
+                    <h4>Không có dữ liệu</h4>
+                @endforelse
+            </div>
         </div>
     </section>
 

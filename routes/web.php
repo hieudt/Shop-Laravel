@@ -313,29 +313,29 @@ Route::get('recommended',function(){
 
 Route::get('item',function(){
     $data = Review::with('Product', 'User')->get();
+
     $matrix = array();
-
+    $count = 0;
     foreach ($data as $value) {
-        $matrix[$value->Product->title][$value->User->name] = $value->rating;
+        $count++;
+        $matrix[$value->User->id]['I'.$value->Product->id] = $value->rating;
     }
-
-    foreach ($matrix as $key => $value) {
-        $count = 0;
-        $tong = 0;
-        foreach ($value as $index => $value2) {
-            $count++;
-            $tong += $value2;
-        }
-        $tong = $tong / $count;
-        foreach ($value as $index => $value2) {
-            $matrix[$key][$index] = $value2 - $tong;
+    echo "<pre>";
+    print_r($matrix);
+    echo "</pre>";
+    var_dump(getRecommendation($matrix,Auth::user()->id));
+    $Temp = array();
+    if (Auth::check()) {
+        if (CountRate(Auth::user()->id)) {
+            $List = getRecommendation($matrix, Auth::user()->id);
+            foreach ($List as $key => $value) {
+                if ($value > 3) {
+                    $Temp[] = $key;
+                }
+            }
         }
     }
-    $item = "Quần 27";
-    $otherProduct = "Áo Phông 28";
-    
-    //echo getSimilarity($matrix,$item,$otherProduct);
-    getRecommendation($matrix, "Quần 33");
+        
 });
 
 Route::get('return/nganluong/{token}',function($token){

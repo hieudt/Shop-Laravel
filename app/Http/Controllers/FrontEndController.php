@@ -79,6 +79,30 @@ class FrontEndController extends CacheController
 
     public function productDetails($id, $slug)
     {
+        $data = Review::with('Product', 'User')->get();
+
+        $matrix = array();
+        $count = 0;
+        foreach ($data as $value) {
+            $count++;
+            $matrix[$value->User->id]['I'.$value->Product->id] = $value->rating;
+        }
+        $Temp = array();
+        if(Auth::check()){
+            if (CountRate(Auth::user()->id)) {
+                $List = getRecommendation($matrix, Auth::user()->id);
+                foreach ($List as $key => $value) {
+                    if ($value > 3) {
+                        $keys = explode('I',$key);
+                        $Temp[] = $keys[1];
+                    }
+                }
+            }
+        }
+        
+
+        $Likes = Product::whereIn('id',$Temp)->take(8)->get();
+
         $productdata = Product::findOrFail($id);
         $key = explode(' ',$productdata->title);
         SEO::setTitle($productdata->title);
@@ -92,8 +116,9 @@ class FrontEndController extends CacheController
         $gallery = Images::where('id_product', $id)->get();
         $reviews = Review::where('id_product', $id)->orderBy('created_at','DESC')->get();
         $relateds = Product::where('id_sub', $productdata->id_sub)->where('id', '!=', $productdata->id)->take(8)->get();
+        
         Auth::check() ? Log::info(Auth::user()->name . ' Đã xem sản phẩm : '.$productdata->title) : Log::info('Người dùng Đã xem sản phẩm : ' . $productdata->title);
-        return view('product', compact('productdata', 'gallery', 'reviews', 'relateds'));
+        return view('product', compact('productdata', 'gallery', 'reviews', 'relateds','Likes'));
     }
 
     public function news($slug){

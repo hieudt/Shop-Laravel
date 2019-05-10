@@ -3,6 +3,7 @@ use Carbon\Carbon;
 use App\Notification;
 use Algenza\Cosinesimilarity\Cosine;
 use App\Category;
+use App\Review;
 use App\Bill;
 use Cache as c;
 use App\DetailsBill;
@@ -418,41 +419,83 @@ function getStatePay($num){
 	}
 }
 
-function getRecommendation($matrix,$item){
-	foreach ($matrix as $otherProduct => $value) {
-		if($otherProduct != $item){
-			$sim = getSimilarity($matrix,$item,$otherProduct);
-			echo "Độ gần giống : ".$otherProduct." với ".$item." là : ".$sim."<br/>";
+function getRecommendation($matrix, $user)
+{
+	$total = array();
+	$simsums = array();
+	$ranks = array();
+	foreach ($matrix as $otherUser => $value) {
+		if ($otherUser != $user) {
+			$sim = getSimilarity($matrix, $user, $otherUser);
+			// echo "Độ gần giống : " . $otherUser . " với " . $user . " là : " . $sim . "<br/>";
+			if ($sim == -1) continue;
+			foreach ($matrix[$otherUser] as $key => $value) {
+				if (!array_key_exists($key, $matrix[$user])) {
+						if (!array_key_exists($key, $total)) {
+							$total[$key] = 0;
+						}
+						$total[$key] += $matrix[$otherUser][$key] * $sim;
+
+						if (!array_key_exists($key, $simsums)) {
+							$simsums[$key] = 0;
+						}
+						$simsums[$key] += $sim;
+					}
+			}
 		}
 	}
+
+	foreach ($total as $key => $value) {
+		$ranks[$key] = $value / $simsums[$key];
+	}
+	array_multisort($ranks, SORT_DESC);
+	return $ranks;
 }
 
-function getSimilarity($matrix,$item,$otherProduct){
-	$vectorItem = array();
-	$vectorOtherItem = array();
-	$similarity = array();
-	$temp = array_merge($matrix[$item], $matrix[$otherProduct]);
-	foreach ($temp as $key => $value) {
-		if (array_key_exists($key, $matrix[$otherProduct]) && array_key_exists($key, $matrix[$item])) {
-			$vectorItem[] = $matrix[$item][$key];
-			$vectorOtherItem[] = $matrix[$otherProduct][$key];
-			continue;
-		}
+function getSimilarity($matrix, $item, $otherProduct)
+{
+	$vectorUser = array();
+	$vectorOtherUser = array();
 
+	// foreach ($matrix[$item] as $key => $value) {
+	//     if (array_key_exists($key, $matrix[$otherProduct])) {
+	//         $similarity[$key] = 1;
+	//     }
+	// }
+	// if($similarity == 0){
+	//     return 0;
+	// }
+
+	$match = 0;
+	foreach ($matrix[$item] as $key => $value) {
 		if (array_key_exists($key, $matrix[$otherProduct])) {
-			$vectorOtherItem[] = $matrix[$otherProduct][$key];
-			$vectorItem[] = 0;
-			continue;
-		}
-
-		if (array_key_exists($key, $matrix[$item])) {
-			$vectorItem[] = $matrix[$item][$key];
-			$vectorOtherItem[] = 0;
-			continue;
+			$vectorUser[] = $value;
+			$vectorOtherUser[] = $matrix[$otherProduct][$key];
+			$match++;
+		} else {
+			$vectorUser[] = $value;
+			$vectorOtherUser[] = 0;
 		}
 	}
 
-	return Cosine::similarity($vectorItem,$vectorOtherItem);
+	foreach ($matrix[$otherProduct] as $key => $value) {
+		if (array_key_exists($key, $matrix[$item])) { } else {
+			$vectorOtherUser[] = $value;
+			$vectorUser[] = 0;
+		}
+	}
+	$temp =  Cosine::similarity($vectorUser, $vectorOtherUser);
+	if ($match == 0 || $temp < 0.5) {
+		return -1;
+	}
 
+	return $temp;
+}
+
+
+function CountRate($idUser){
+	$check = Review::where('id_users',$idUser)->count();
+	if($check > 0) return true;
+	else return false;
 }
 
