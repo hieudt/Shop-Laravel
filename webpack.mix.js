@@ -1,5 +1,6 @@
 let mix = require('laravel-mix');
 let front = require('laravel-mix');
+require('laravel-mix-purgecss')
 /*
  |--------------------------------------------------------------------------
  | Mix Asset Management
@@ -45,4 +46,6 @@ front.scripts([
    'public/@styleadmin/js/pusher.min.js',
    'public/@styleadmin/js/myjs.js'
 ], 'public/js/app.js');
+
+
 
