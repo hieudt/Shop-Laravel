@@ -43,9 +43,9 @@
             @endif
           </a>
           <div class="dropdown-menu navbar-dropdown w-100" aria-labelledby="profileDropdown">
-            <a class="dropdown-item" href="{{url('/admin/profile')}}">
-              <i class="mdi mdi-account mr-2 text-success"></i>
-              Hồ Sơ
+            <a class="dropdown-item changePw" href="#changepass">
+              <i class="mdi mdi-account-key mr-2 text-success"></i>
+              Đổi MK
             </a>
             <a class="dropdown-item" href="{{url('/admin/logs')}}">
               <i class="mdi mdi-cached mr-2 text-success"></i>

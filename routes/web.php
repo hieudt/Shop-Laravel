@@ -147,6 +147,7 @@ Route::group(['prefix' => 'admin', 'middleware' => 'adminLogin'], function () {
         Route::post('kenhbanhang/updatezalo', 'SocialController@updateZalo')->name('admin.zalo.update');
         Route::post('kenhbanhang/updatefacebook', 'SocialController@updateFacebook')->name('admin.facebook.update');
         Route::post('updatesystem','SafeModeController@updateSystem')->name('admin.safemode.system.update');
+        Route::post('admin/changepass','SafeModeController@changePass')->name('admin.safemode.changepass');
     });
    
     

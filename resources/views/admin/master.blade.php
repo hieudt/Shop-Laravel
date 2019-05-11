@@ -70,6 +70,39 @@
       </div>
     </div>
   </div>
+  <div class="modal fade" id="changepassModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Đổi mật khẩu quản trị</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form>
+            <div class="form-group">
+              <label for="recipient-name" class="col-form-label">Mật Khẩu Cũ : </label>
+              <input type="text" class="form-control" id="pwOld">
+            </div>
+            <div class="form-group">
+              <label for="recipient-name" class="col-form-label">Mật Khẩu Mới : </label>
+              <input type="text" class="form-control" id="pwNew">
+            </div>
+            <div class="form-group">
+              <label for="recipient-name" class="col-form-label">Nhập lại MK Mới : </label>
+              <input type="text" class="form-control" id="pwNewRe">
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer" id="modalFooter">
+          <button type="button" class="btn btn-success" id="btnChangePass">Đổi</button>
+          <button type="button" class="btn btn-default" data-dismiss="modal">Đóng</button>
+        </div>
+      </div>
+    </div>
+  </div>
   <!-- container-scroller -->
   <!-- plugins:js -->
   <script src="{{asset('@styleadmin/node_modules/jquery/dist/jquery.min.js')}}"></script>

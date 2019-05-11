@@ -191,6 +191,36 @@
 <script>
 
     loadNotify();
+    $('.changePw').click(function(){
+      $('#changepassModal').modal('show');
+    });
+
+    $('#btnChangePass').click(function(){
+      var oldp = $('#pwOld').val();
+      var newp = $('#pwNew').val();
+      var newpRe = $('#pwNewRe').val();
+      var dataString = "oldPass="+oldp+"&newPass="+newp+"&newPassRe="+newpRe+"&id={{Auth::user()->id}}";
+      ChangePass(dataString);
+    });
+
+    function ChangePass(dataString){
+        $.ajax({
+            headers: {
+                'X-CSRF-TOKEN':  $('meta[name="csrf-token"]').attr('content')
+            },
+            method: 'POST',
+            url: '{{route('admin.safemode.changepass')}}',
+            data:dataString,
+            success: function(data,status) {
+                ToastSuccess(data.success);
+            },
+            error: function(request, status) {
+                $.each(request.responseJSON.errors,function(key,val){
+                ToastError(val);
+            });
+            }
+        });
+    }
 
     function loadNotify(){
         $.ajax({

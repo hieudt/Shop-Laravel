@@ -8,6 +8,8 @@ use Sarfraznawaz2005\VisitLog\Facades\VisitLog;
 use App\VisitLog as vl;
 use Mail;
 use Illuminate\Support\Facades\Artisan;
+use App\User;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
 use Yajra\Datatables\Datatables;
 use Illuminate\Support\Facades\Log;
@@ -87,5 +89,30 @@ class SafeModeController extends Controller
         })
         ->rawColumns(['action'])
         ->make(true);
+    }
+
+    public function changePass(Request $req){
+        $user = User::find($req->id);
+        $input = "";
+        $this->validate($req, [
+            'oldPass' => 'required',
+            'newPass' => 'required',
+            'newPassRe' => 'required|same:newPass',
+        ], [
+            'oldPass.required' => 'Vui lòng nhập mật khẩu cũ',
+            'newPass.required' => 'Vui lòng nhập mật khẩu mới',
+            'newPassRe.required' => 'Vui lòng xác thực mật khẩu mới',
+            'newPassRe.same' => 'Xác thực mật khẩu không khớp'
+        ]);
+
+        if ($req->oldPass) {
+            if (Hash::check($req->oldPass, $user->password)) {
+                $user->password = bcrypt($req->newPass);
+                $user->save();
+                return response()->json(['success' => 'Thay đổi mật khẩu thành công']);
+            } else {
+                return response()->json(['errors' => ['faillogin' => [0 => 'Mật khẩu cũ không hợp lệ']]], 422);
+            }
+        }
     }
 }
