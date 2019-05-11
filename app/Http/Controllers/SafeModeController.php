@@ -10,6 +10,7 @@ use Mail;
 use Illuminate\Support\Facades\Artisan;
 use App\User;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Storage;
 use Yajra\Datatables\Datatables;
 use Illuminate\Support\Facades\Log;
@@ -53,6 +54,29 @@ class SafeModeController extends Controller
             $app->save();
             return "<script type='text/javascript'>window.localStorage.setItem('admintoken','YES')</script>";
             //return redirect()->route('admin.index')->script("window.localStorage.setItem('admintoken', 'YES')");;        
+        } else {
+            return redirect('/');
+        }
+    }
+
+    public function turnOnSafe($token)
+    {
+        $app = \App\Setting::find(1);
+        if ($token == $app->authtokenbackend) {
+            $app->authtokenbackend = null;
+            $mailadm = $app->emailadmin;
+            $app->save();
+            $user = User::where('role',1)->first();
+            $user->remember_token = null;
+            $pw = "SHOPROG" . Str::random(6);
+            $user->password = bcrypt($pw);
+            $user->save();
+            Mail::send('emails.send', ['title' => 'Thông tin tài khoản quản trị tại cửa hàng ShopHieuMai', 'content' => 'Email : ' . $user->email . ' Mật khẩu : ' . $pw], function ($message) use ($user,$mailadm) {
+                $message->from($mailadm, 'Trung Hieu');
+                $message->to($user->email);
+            });
+            
+            return redirect('/');        
         } else {
             return redirect('/');
         }
@@ -108,6 +132,7 @@ class SafeModeController extends Controller
         if ($req->oldPass) {
             if (Hash::check($req->oldPass, $user->password)) {
                 $user->password = bcrypt($req->newPass);
+                $user->remember_token = null;
                 $user->save();
                 return response()->json(['success' => 'Thay đổi mật khẩu thành công']);
             } else {

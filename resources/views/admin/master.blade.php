@@ -84,15 +84,15 @@
           <form>
             <div class="form-group">
               <label for="recipient-name" class="col-form-label">Mật Khẩu Cũ : </label>
-              <input type="text" class="form-control" id="pwOld">
+              <input type="password" class="form-control" id="pwOld">
             </div>
             <div class="form-group">
               <label for="recipient-name" class="col-form-label">Mật Khẩu Mới : </label>
-              <input type="text" class="form-control" id="pwNew">
+              <input type="password" class="form-control" id="pwNew">
             </div>
             <div class="form-group">
               <label for="recipient-name" class="col-form-label">Nhập lại MK Mới : </label>
-              <input type="text" class="form-control" id="pwNewRe">
+              <input type="password" class="form-control" id="pwNewRe">
             </div>
           </form>
         </div>

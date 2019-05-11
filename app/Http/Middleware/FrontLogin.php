@@ -17,7 +17,7 @@ class FrontLogin
     public function handle($request, Closure $next)
     {
         if(Auth::check()){
-            return $next($request);
+                return $next($request);
         } else {
             return redirect()->route('front.index');
         }

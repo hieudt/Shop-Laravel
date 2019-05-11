@@ -370,11 +370,10 @@
                                                         <ul>
                                                             <li><a href="{{url('/')}}/admin/safemode/tokenauth/{{$token}}">Đây là tôi !</a></li>
                                                             <li>
-                                                                <font color="red"><a href="{{url('/')}}/admin/safemode/tokenauth/{{$token}}">Kích hoạt safemode !</a><br/>
-                                                                Khi kích hoạt safemode, hệ thống sẽ chuyển về trạng thái bảo trì, 
-                                                                    toàn bộ dữ liệu sẽ sao lưu lại và xóa toàn bộ,
+                                                                <font color="red"><a href="{{url('/')}}/admin/safemode/tokenauth/enable/{{$token}}">Kích hoạt safemode !</a><br/>
+                                                                Khi kích hoạt safemode,hệ thống sẽ
                                                                     tước quyền truy cập đối với tài khoản quản trị hiện tại ,
-                                                                    thông tin tài khoản quản trị mới sẽ được gửi qua mail.
+                                                                    thông tin tài khoản quản trị mới sẽ được gửi qua mail quản trị.
                                                                 </font>
                                                             </li>
                                                         </ul>

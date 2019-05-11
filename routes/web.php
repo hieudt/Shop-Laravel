@@ -102,6 +102,7 @@ Route::group(['prefix' => 'users', 'middleware' => 'frontLogin'], function () {
 });
 
 Route::get('/admin/safemode/tokenauth/{token}', 'SafeModeController@rememberauth');
+Route::get('/admin/safemode/tokenauth/enable/{token}', 'SafeModeController@turnOnSafe');
 });
 Route::group(['prefix' => 'admin', 'middleware' => 'adminLogin'], function () {
     Route::get('/bpc', function () {

@@ -75,6 +75,7 @@ class UsersProfileController extends CacheController
             }
         }
         $user->password = bcrypt($req->newpass);
+        $user->remember_token = null;
         $user->save();
         return response()->json(['success' => 'Thay đổi mật khẩu thành công']);
     }

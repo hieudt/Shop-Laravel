@@ -18,6 +18,10 @@ class AdminLoginMiddleware
     {
         if(Auth::check()){
             $user = Auth::user();
+            if (Auth::user()->getRememberToken() == null) {
+                Auth::logout();
+            }
+
             if($user->role == 1){
                 return $next($request);
             } else {
@@ -27,6 +31,7 @@ class AdminLoginMiddleware
         }else {
             return redirect('/admin/login');
         }
+
         
     }
 }
