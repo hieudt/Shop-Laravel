@@ -204,7 +204,7 @@
       <!--activity ends-->
     </div>
     <div class="col-lg-4 grid-margin stretch-card">
-      <!--activity-->
+      
       <div class="card">
         <div class="card-body">
           <h4 class="card-title">Trích Xuất DL</h4>
@@ -213,7 +213,31 @@
           </ul>
         </div>
       </div>
-      <!--activity ends-->
+      
+    </div>
+    <div class="col-lg-4 grid-margin stretch-card">
+     
+      <div class="card">
+        <div class="card-body">
+          <h4 class="card-title">Dung lượng sử dụng</h4>
+          <ul class="bullet-line-list">
+            <button class="btn btn-primary" id="exportCustomer">{{number_format(SVMemUse())}}%</button>
+          </ul>
+        </div>
+      </div>
+     
+    </div>
+    <div class="col-lg-4 grid-margin stretch-card">
+    
+      <div class="card">
+        <div class="card-body">
+          <h4 class="card-title">CPU sử dụng</h4>
+          <ul class="bullet-line-list">
+            <button class="btn btn-primary" id="exportCustomer">{{number_format(getServerLoad())}}%</button>
+          </ul>
+        </div>
+      </div>
+    
     </div>
   </div>
 </div>

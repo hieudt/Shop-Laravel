@@ -6,6 +6,7 @@ use App\Pages;
 use Algenza\Cosinesimilarity\Cosine;
 use Phpml\Classification\KNearestNeighbors;
 use App\Review;
+use Mail;
 use App\CustomClass\NganLuong;
 use Illuminate\Support\Facades\Cache;
 
@@ -273,69 +274,13 @@ Route::get('cos', function () {
 // return 'b'
 });
 
-Route::get('knn',function(){
-    $samples = [[1, 3], [1, 4], [2, 4], [3, 1], [4, 1], [4, 2]];
-    $labels = [1,2,3,4,5,6];
-
-    $classifier = new KNearestNeighbors();
-    $classifier->train($samples, $labels);
-
-    echo $classifier->predict([8, 2]);
-});
-
-Route::get('recommended',function(){
-    $data = Review::with('Product','User')->get();
-
-    $matrix = array();
-    $count = 0;
-    foreach ($data as $value) {
-        $count++;
-        $matrix[$value->Product->title][$value->User->name] = $value->rating;
-    }
-
-    foreach ($matrix as $key => $value) {
-        $count = 0;
-        $tong = 0;
-        foreach ($value as $index => $value2) {
-           $count++;
-           $tong += $value2;
-        }
-        $tong = $tong / $count;
-        foreach ($value as $index => $value2) {
-            $matrix[$key][$index] = $value2 - $tong;
-        }
-    }
-    echo "<pre>";
-    print_r($matrix);
-    echo "</pre>";
-    
-});
-
-Route::get('item',function(){
-    $data = Review::with('Product', 'User')->get();
-
-    $matrix = array();
-    $count = 0;
-    foreach ($data as $value) {
-        $count++;
-        $matrix[$value->User->id]['I'.$value->Product->id] = $value->rating;
-    }
-    echo "<pre>";
-    print_r($matrix);
-    echo "</pre>";
-    var_dump(getRecommendation($matrix,Auth::user()->id));
-    $Temp = array();
-    if (Auth::check()) {
-        if (CountRate(Auth::user()->id)) {
-            $List = getRecommendation($matrix, Auth::user()->id);
-            foreach ($List as $key => $value) {
-                if ($value > 3) {
-                    $Temp[] = $key;
-                }
-            }
-        }
-    }
-        
+Route::get('testmail',function(){
+    Mail::send('emails.attachdb', ['title' => 'Thông tin tài khoản tại cửa hàng ShopHieuMai'], function ($message) {
+        $message->from('hieumai@rog.vn', 'Trung Hieu');
+        $message->to('adminsys@gmail.com');
+        $path = storage_path('/app/backups/newlarvuejs_20190502181013.sql');
+        $message->attach($path);
+    });
 });
 
 Route::get('return/nganluong/{token}',function($token){
