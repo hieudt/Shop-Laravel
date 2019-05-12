@@ -85,7 +85,15 @@ Route::get('/forgot','FrontEndController@forgotview');
 Route::post('/forgot','Auth\ForgotPasswordController@sendmailForgot')->name('user.forgot');
 Route::get('/users/forgotpass/tokenauth/{token}','Auth\ForgotPasswordController@forgotconfirm');
 Route::post('/forgot/accept', 'Auth\ForgotPasswordController@forgotaccept')->name('forgot.accept');
-/* MODULE SOCIAL */
+
+Route::group(['prefix' => 'users', 'middleware' => 'frontLogin'], function () {
+    Route::get('/', 'UsersProfileController@index')->name('profile.index');
+    Route::post('/users/update', 'UsersProfileController@update')->name('profile.update');
+    Route::post('/users/changepass', 'UsersProfileController@changePass')->name('profile.changepass');
+});
+
+
+/* MODULE SOCIAL LOGIN */
 Route::get('/redirect/{social}', 'SocialFacebook@redirectToProvider')->name('facebook.login');;
 Route::get('/callback/{social}', 'SocialFacebook@handleProviderCallback');
 
@@ -95,12 +103,8 @@ Route::get('/admin/login', 'AdminPages@loginIndex');
 Route::post('/admin/login', 'AdminPages@loginPost')->name('admin.login');
 Route::get('/admin/logout', 'AdminPages@logoutIndex');
 
-Route::group(['prefix' => 'users', 'middleware' => 'frontLogin'], function () {
-    Route::get('/', 'UsersProfileController@index')->name('profile.index');
-    Route::post('/users/update', 'UsersProfileController@update')->name('profile.update');
-    Route::post('/users/changepass', 'UsersProfileController@changePass')->name('profile.changepass');
-});
 
+/* AUTH SAFEMODE */
 Route::get('/admin/safemode/tokenauth/{token}', 'SafeModeController@rememberauth');
 Route::get('/admin/safemode/tokenauth/enable/{token}', 'SafeModeController@turnOnSafe');
 });
@@ -117,6 +121,8 @@ Route::group(['prefix' => 'admin', 'middleware' => 'adminLogin'], function () {
     Route::get('/kanban', 'AdminPages@kanban');
     Route::get('/erd', 'AdminPages@erd');
     Route::get('/fetchProduct', 'AdminPages@fetchTopProduct')->name('admin.fetchproduct');
+
+    /* CONFIG */
     Route::get('/config','SettingsController@index');
     Route::post('/config/ui','SettingsController@updateui')->name('admin.config.update.ui');
     Route::post('/config/sociallinks','SettingsController@sociallinks')->name('admin.config.update.sociallinks');
@@ -151,30 +157,40 @@ Route::group(['prefix' => 'admin', 'middleware' => 'adminLogin'], function () {
         Route::post('admin/changepass','SafeModeController@changePass')->name('admin.safemode.changepass');
     });
    
-    
+    /* USER BACKEND */
     Route::get('users', 'UserController@index')->name('users.list');
     Route::get('users/fetch', 'UserController@fetchAll')->name('users.fetch');
     Route::post('users/update', 'UserController@update')->name('users.update');
     Route::post('users/store', 'UserController@store')->name('users.store');
 
+    /** Category Backend */
     Route::get('category', 'CategoryController@index')->name('category.list');
     Route::get('category/Search', 'CategoryController@Search')->name('category.search');
     Route::post('category', 'CategoryController@Store')->name('category.store');
     Route::get('category/delete/{id}', 'CategoryController@destroy')->name('category.destroy');
     Route::post('category/update', 'CategoryController@update')->name('category.update');
 
+    /**SubCategory Backend */
     Route::get('subcategory/Search', 'SubCategoryController@Search')->name('subcategory.search');
     Route::post('subcategory', 'SubCategoryController@store')->name('subcategory.store');
     Route::post('subcategory/update', 'SubCategoryController@update')->name('subcategory.update');
     Route::get('subcategory/delete/{id}', 'SubCategoryController@destroy')->name('subcategory.destroy');
-
+    /** Attribute Product */
     Route::get('chatlieu/Search', 'ChatLieuController@search')->name('chatlieu.search');
     Route::post('chatlieu', 'ChatLieuController@Store')->name('chatlieu.store');
 
+    Route::get('color/Search', 'ColorController@search')->name('color.search');
+    Route::post('color/Store', 'ColorController@store')->name('color.store');
+
+    Route::get('size/Search', 'SizeController@search')->name('size.search');
+
+    /** Coupons Backend */
     Route::get('coupons/', 'CouponsController@index')->name('coupons.list');
     Route::post('coupons/index', 'CouponsController@store')->name('coupons.store');
     Route::get('coupons/Search', 'CouponsController@search')->name('coupons.search');
 
+
+    /** Product Backend */
     Route::get('product/add-product', 'ProductController@create')->name('product.create');
     Route::get('product/home', 'ProductController@index')->name('product.list');
     Route::get('product/fetch','ProductController@fetch')->name('product.fetch');
@@ -187,6 +203,7 @@ Route::group(['prefix' => 'admin', 'middleware' => 'adminLogin'], function () {
     Route::get('product/brand/fetch','BrandController@fetch')->name('brand.fetch');
     Route::post('product/postfacebook','GraphController@publishToPage')->name('product.upfacebook');
 
+    /** News BackEnd */
     Route::get('news/tintuc','NewsController@index')->name('news.list');
     Route::get('news/fetch','NewsController@fetch')->name('news.fetch');
     Route::get('news/add-news','NewsController@create')->name('news.create');
@@ -202,20 +219,19 @@ Route::group(['prefix' => 'admin', 'middleware' => 'adminLogin'], function () {
         Notification::query()->update(['seen' => 1]);
     })->name('notif.del');
 
-    Route::get('color/Search', 'ColorController@search')->name('color.search');
-    Route::post('color/Store', 'ColorController@store')->name('color.store');
-
-    Route::get('size/Search', 'SizeController@search')->name('size.search');
-
     
+
+    /** Product Details Backend */
     Route::post('productdetails', 'ProductDetailsController@store')->name('productdetails.store');
     Route::post('productdetails/update/{id}', 'ProductDetailsController@update')->name('productdetails.update');
-
+    
+    /** Bill Backend */
     Route::get('bill/list', 'BillController@show')->name('bill.show');
     Route::get('bill/fetch', 'BillController@fetchAll')->name('bill.fetch');
     Route::post('bill/updateStatus', 'BillController@updateStatus')->name('bill.updateStatus');
     Route::get('bill/details/{id}', 'BillController@showbillbyId');
 
+    /** Menu Backend */
     Route::get('menu','PagesController@index')->name('pages.index');
     Route::get('menu/fetch','PagesController@fetch')->name('pages.fetch');
     Route::get('menu/fetchdb','PagesController@fetchDb')->name('pages.fetchdb');
@@ -223,15 +239,19 @@ Route::group(['prefix' => 'admin', 'middleware' => 'adminLogin'], function () {
     Route::post('menu/store','PagesController@store')->name('pages.store');
     Route::post('menu/updaterecord','PagesController@updaterecord')->name('pages.updaterecord');
 
+    /** Shiper Backend */
     Route::get('shipper', 'ShipperController@index')->name('shipper.list');
     Route::get('shipper/fetch', 'ShipperController@fetchAll')->name('shipper.fetch');
     Route::post('shipper/update', 'ShipperController@update')->name('shipper.update');
     Route::post('shipper/store', 'ShipperController@store')->name('shipper.store');
 
+    /** Review Backend */
     Route::get('reviews','ReviewController@index')->name('review.list');
     Route::get('reviews/fetchBackend','ReviewController@fetchBackend')->name('review.fetchbackend');
     Route::get('reviews/delete/{id}', 'ReviewController@destroy')->name('review.destroy');
 
+
+    /** Slide Backend */
     Route::get('slide/danh-sach','SlideController@index')->name('slide.index');
     Route::get('slide/fetch','SlideController@fetch')->name('slide.fetch');
     Route::get('slide/addslide','SlideController@create');
@@ -312,4 +332,8 @@ Route::get('/createdthumbnail',function(){
 
 
     return $mime->response();
+});
+
+Route::get('viewlist', function () {
+    return view('forgotform');
 });

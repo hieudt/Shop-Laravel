@@ -437,6 +437,6 @@
 
 
 
-{{VisitLog::save()}}
+<?php VisitLog::save(); ?>
 
 </html>
