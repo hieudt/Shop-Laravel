@@ -6,7 +6,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title>Breeze Admin</title>
+    <title>ROG System</title>
     <!-- plugins:css -->
     <link rel="stylesheet" href="{{asset('@styleadmin/node_modules/mdi/css/materialdesignicons.min.css')}}">
     <link rel="stylesheet" href="{{asset('@styleadmin/node_modules/flag-icon-css/css/flag-icon.min.css')}}">
@@ -166,6 +166,7 @@
             width: 1em;
             height: 1em;
             border-radius: 50%;
+            background-image: url('{{url('/@styleadmin/images/roglogoprimary.png')}}');
             margin: 72px auto;
             position: relative;
             -webkit-transform: translateZ(0);
@@ -251,6 +252,15 @@
             height: 100%;
         }
 
+        .logoRog {
+            position: absolute;
+            top: 120px;
+            left: 100px;
+            opacity: 0.1;
+            -webkit-transition: opacity 2s; /* For Safari 3.1 to 6.0 */
+            transition: opacity 2s;
+        }
+
         .box {
             height: 699px;
             width: 536px;
@@ -279,6 +289,7 @@
                 <div class="content-wrapper d-flex align-items-center auth">
                     <div class="row w-100">
                         <div class="col-lg-4 mx-auto">
+                            <img class="logoRog" src="{{asset('@styleadmin/images/Webp.net-resizeimage.png')}}">
                             <div style="" id="loadingDiv">
                                 <div class="loader">Loading...</div>
                             </div>
@@ -309,7 +320,6 @@
                                     </div>
                                 </div>
                             </div>
-
                         </div>
                     </div>
                 </div>
@@ -347,7 +357,10 @@
     var boxTwo = $('.box');
     $('#loadingDiv').hide();
     $('#loginBtn').click(function(){
-        postLogin();
+       // postLogin();
+       boxTwo.addClass('horizTranslate');
+        showLoader();
+        $('.logoRog').css('opacity',1);
     });
     function showLoader(){
         $('#loadingDiv').show();

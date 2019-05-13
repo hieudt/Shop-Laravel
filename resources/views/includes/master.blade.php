@@ -185,6 +185,7 @@
                 success: function (data) {
                     setTimeout(function(){
                         ToastSuccess(data.success);
+                        $('#quickViewProduct').modal('hide');
                     }, 800);
                 },
                 error: function (request, status) {
@@ -222,6 +223,7 @@
                 success: function (data) {
                     setTimeout(function(){
                         ToastSuccess(data.success);
+                        $('#quickViewProduct').modal('hide');
                     }, 800);
                 },
                 error: function (request, status) {

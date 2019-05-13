@@ -35,6 +35,7 @@ class FrontEndController extends CacheController
         SEO::setTitle('Giỏ hàng');
         SEO::setDescription('Giỏ hàng');
         SEOMeta::addKeyword(['Giỏ hàng']);
+        
 
         $carts = array();
         return view('cart', compact('carts'));
@@ -44,7 +45,7 @@ class FrontEndController extends CacheController
     {
         SEO::setTitle('Trang chủ');
         SEO::setDescription('Shop thời trang hot nhất năm 2019');
-        
+        OpenGraph::addImage(url('/@styleadmin/') . '/images/roglogoblackbig.png');
        
         $features = Cache::remember('featurescache', 60, function () {
             $data = Product::where('featured', '1')->orderBy('id', 'desc')->take(8)->get();

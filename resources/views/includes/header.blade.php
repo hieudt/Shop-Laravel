@@ -3,7 +3,7 @@
         <div class="header-product">
             <div class="logo-wrapper">
                 <a href="{{url('/')}}" id="logo">
-                    <!--<img class="logoImg" alt="" src="/"> -->
+                    <img alt="" src="{{asset('@styleadmin/images/roglogoblack.png')}}">
                 </a>
             </div>
             <div class="product-header-content">
