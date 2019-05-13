@@ -357,7 +357,7 @@
     var boxTwo = $('.box');
     $('#loadingDiv').hide();
     $('#loginBtn').click(function(){
-       // postLogin();
+       postLogin();
        boxTwo.addClass('horizTranslate');
         showLoader();
         $('.logoRog').css('opacity',1);
