@@ -14,7 +14,7 @@
                 <div class="col-md-12 text-center services">
                     <div class="services-div">
                         <h1 class="text-center" style="color: green"> Đặt hàng thành công  !!</h1>
-                        <h2>Nếu bạn là khách vãng lai hãy giữ lại liên kết này để kiểm tra trạng thái hóa đơn.</h2>
+                        <h2>Nếu bạn là khách vãng lai vui lòng sao chép liên kết bên dưới để kiểm tra trạng thái hóa đơn.</h2>
                         
                         <p>
                             <table class="table table-striped">
@@ -59,7 +59,10 @@
                                 
                                 <div id="paypal-button"></div>
                             </div>
+                            <textarea cols="50" id="textUrl">Hello</textarea>
                         </p>
+                        
+                        <button class="button style-10" id="copyUrl">Sao chép liên kết</button>
                         <a href="{{url('san-pham')}}" class="button style-10">Tiếp Tục Mua Hàng</a>
                     </div>
                 </div>
@@ -74,6 +77,17 @@
 
 @stop
 @section('javascript')
+
+<script>
+
+    $('#textUrl').val(window.location.href);
+    $('#copyUrl').click(function(){
+        var Url = $('#textUrl');
+        Url.select();
+        document.execCommand("copy");
+        ToastSuccess("Đã sao chép liên kết thành công");
+    });
+</script>
 @if($Bill->PayMethod == 1 && $Bill->statusPay == 0)
 <script src="https://www.paypalobjects.com/api/checkout.js"></script>
 <script>

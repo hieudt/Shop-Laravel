@@ -55,7 +55,7 @@
                 <div class="v2_bnc_footer_right">
                     <div class="v2_bnc_footer_right_top">
                         <div class="col-md-4 col-sm-6 col-xs-6 full-xs">
-                            <h4>Theo dõi chúng tôi tại :</h4>
+                            <h4>Theo dõi chúng tôi tại </h4>
                             <div class="socicon">
                                 <a href="{{$setting->fblink}}" class="facebook"><i class="fa fa-facebook-f"></i></a>
                                 <a href="{{$setting->twitterlink}}" class="twitter"><i class="fa fa-twitter"></i></a>
@@ -64,7 +64,7 @@
                             </div>
                         </div>
                         <div class="col-md-4 col-sm-6 col-xs-6 full-xs">
-                            <h4>Hãng vận chuyển :</h4>
+                            <h4>Hãng vận chuyển </h4>
                             @forelse ($shipper as $item)
                             <img src="{{url('images/shipper/'.$item->image)}}" style="border-radius:5%;width:50px;height:auto;">
                             @empty
@@ -72,7 +72,7 @@
                             @endforelse
                         </div>
                         <div class="col-md-4 col-sm-6 col-xs-6 full-xs">
-                            <h4>Thanh toán :</h4>
+                            <h4>Thanh toán </h4>
                             <img src="{{url('/images/thumbnail/')}}/v.png" width="100">
                             <img src="https://www.paypalobjects.com/webstatic/mktg/logo-center/PP_Acceptance_Marks_for_LogoCenter_266x142.png" alt="" width="100" class="src">
                             <img src="{{url('/images/thumbnail/')}}/b.png">
